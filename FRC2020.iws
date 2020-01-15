@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4a69891a-c657-47d2-ad5d-942bfd3dfc3b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.wpilib/wpilib_preferences.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FRC2019.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FRC2020.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FRC2020.ipr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FRC2020.iws" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FRC2020.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FRC2020.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/files/keepme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Robot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/TestCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/TestSubsystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendordeps/Phoenix.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendordeps/WPILibNewCommands.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vendordeps/navx_frc.json" afterDir="false" />
-    </list>
+    <list default="true" id="4a69891a-c657-47d2-ad5d-942bfd3dfc3b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +235,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579054935192</updated>
-      <workItem from="1579054935715" duration="393000" />
+      <workItem from="1579054935715" duration="470000" />
     </task>
     <servers />
   </component>
