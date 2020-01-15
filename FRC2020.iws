@@ -2,18 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a69891a-c657-47d2-ad5d-942bfd3dfc3b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Aimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Balancer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Climber.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/CtrlPanelTurner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Drive.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/PCIndexer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/PCIntake.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Shooter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Vision.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/aimer/AimAuto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/aimer/AimManual.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/aimer/IsOnTarget.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/balancer/BalanceAuto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/balancer/ManualShift.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/climber/DeployBuddyClimb.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/climber/EjectBuddy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/climber/LiftBuddy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/climber/LiftRobot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/climber/PrepareForClimb.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/ctrlpanelturner/RotatePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/ctrlpanelturner/RotateToColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/ctrlpanelturner/WaitForColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveManual.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DrivePath.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveStraight.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveToClimbPosition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveToTargetArea.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveTurn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/pcindexer/LoadBall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/pcindexer/WaitForEmpty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/pcindexer/WaitForFull.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/pcintake/IntakeForward.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/pcintake/IntakeReverse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/EndFiring.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/FireAuto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/FireManual.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/LowerShooter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/PrepareToFire.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/RaiseShooter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/shooter/WaitForBallExit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/vision/IlluminationOff.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/vision/IlluminationOn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/vision/WaitForValidTarget.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FRC2020.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/FRC2020.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FRC2020.iws" beforeDir="false" afterPath="$PROJECT_DIR$/FRC2020.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Robot.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
