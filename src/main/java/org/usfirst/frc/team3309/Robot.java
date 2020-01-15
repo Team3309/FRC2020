@@ -1,9 +1,11 @@
 package org.usfirst.frc.team3309;
 
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import org.usfirst.frc.team3309.subsystems.*;
 
 
 /*
@@ -12,12 +14,26 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 
 public class Robot extends TimedRobot {
+
     /*
      * This function is called when the Robot program starts. use it to initialize your subsystems,
      * and to set up anything that needs to be initialized with the robot.
      */
+
+    Aimer aimer = new Aimer();
+    Balancer balancer = new Balancer();
+    Climber climber = new Climber();
+    CtrlPanelTurner ctrlPanelTurner = new CtrlPanelTurner();
+    Drive drive = new Drive();
+    PCIndexer indexer = new PCIndexer();
+    PCIntake intake = new PCIntake();
+    Vision vision = new Vision();
+    PowerDistributionPanel pdp = new PowerDistributionPanel();
+
     @Override
     public void robotInit() {
+        super.robotInit();
+
     }
 
     /*
