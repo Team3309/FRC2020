@@ -8,5 +8,5 @@ package org.usfirst.frc.team3309.subsystems;
  *
  */
 public class PCIntake {
-    public PCIntake() {};
+    public PCIntake() {}
 }
