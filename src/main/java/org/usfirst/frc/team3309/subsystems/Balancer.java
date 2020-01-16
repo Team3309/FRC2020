@@ -8,6 +8,7 @@ package org.usfirst.frc.team3309.subsystems;
  * to determine how far off from horizontal the robot is based on tilt.
  *
  */
+
 public class Balancer {
     public Balancer() {}
 }

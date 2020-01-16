@@ -20,20 +20,20 @@ public class Robot extends TimedRobot {
      * and to set up anything that needs to be initialized with the robot.
      */
 
-    Aimer aimer = new Aimer();
-    Balancer balancer = new Balancer();
-    Climber climber = new Climber();
-    CtrlPanelTurner ctrlPanelTurner = new CtrlPanelTurner();
-    Drive drive = new Drive();
-    PCIndexer indexer = new PCIndexer();
-    PCIntake intake = new PCIntake();
-    Vision vision = new Vision();
-    PowerDistributionPanel pdp = new PowerDistributionPanel();
-
     @Override
     public void robotInit() {
-        super.robotInit();
 
+        Aimer aimer = new Aimer();
+        Balancer balancer = new Balancer();
+        Climber climber = new Climber();
+        CtrlPanelTurner ctrlPanelTurner = new CtrlPanelTurner();
+        Drive drive = new Drive();
+        PCIndexer indexer = new PCIndexer();
+        PCIntake intake = new PCIntake();
+        Vision vision = new Vision();
+        PowerDistributionPanel pdp = new PowerDistributionPanel();
+
+        super.robotInit();
     }
 
     /*

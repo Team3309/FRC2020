@@ -15,6 +15,10 @@ public class WaitForColor extends CommandBase {
 
     }
 
+    public void end() {
+
+    }
+
     @Override
     public boolean isFinished() {
         return true;

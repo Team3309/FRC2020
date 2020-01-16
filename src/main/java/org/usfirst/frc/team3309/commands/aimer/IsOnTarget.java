@@ -15,6 +15,10 @@ public class IsOnTarget extends CommandBase {
 
     }
 
+    public void end() {
+
+    }
+    
     @Override
     public boolean isFinished() {
         return true;

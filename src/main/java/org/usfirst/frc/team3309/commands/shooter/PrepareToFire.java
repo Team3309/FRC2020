@@ -15,6 +15,10 @@ public class PrepareToFire extends CommandBase {
 
     }
 
+    public void end() {
+
+    }
+
     @Override
     public boolean isFinished() {
         return true;

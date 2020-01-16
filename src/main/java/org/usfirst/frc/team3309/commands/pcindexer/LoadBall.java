@@ -16,6 +16,10 @@ public class LoadBall extends CommandBase {
 
     }
 
+    public void end() {
+
+    }
+
     @Override
     public boolean isFinished() {
         return true;
