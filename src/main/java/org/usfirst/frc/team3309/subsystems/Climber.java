@@ -12,4 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
     public Climber() {}
+    //will lift up the climber mechanism to grab on to the rung.
+    public void liftClimber() {}
+    //will change the extension of the climber mechanism; negative is contraction, positive is extension.
+    public void changeHeight(double height) {}
 }

@@ -1,6 +1,9 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.usfirst.frc.team3309.Constants;
 
 /**
  * @author Joshua Badzey
@@ -12,5 +15,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 
 public class Shooter extends SubsystemBase {
-    public Shooter() {}
+    private WPI_TalonFX topMotor;
+    private WPI_TalonFX bottomMotor;
+    public Shooter() {
+        topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
+        bottomMotor = new WPI_TalonFX(Constants.SHOOTER_BOTTOM_MOTOR_ID);
+    }
+
+    //spins up the flywheel to a set speed, with a certain timeout value.
+    public void spinFlywheel(double speed, double timeOut) {}
+    //stops the flywheel cold.
+    public void stopFlywheel() {}
+    //differentiates the rate of spin for motors so that the power cell itself can spin predictably.
+    public void spinPowerCell(double topSpin, double bottomSpin) {
+        topMotor.set(ControlMode.Velocity, topSpin);
+        bottomMotor.set(ControlMode.Velocity, bottomSpin);
+    }
 }
