@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 /**
  * @author Joshua Badzey
  *
@@ -7,6 +9,6 @@ package org.usfirst.frc.team3309.subsystems;
  * indexer to move power cells around within the robot.
  *
  */
-public class PCIntake {
+public class PCIntake extends SubsystemBase {
     public PCIntake() {}
 }
