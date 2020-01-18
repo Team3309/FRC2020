@@ -54,15 +54,10 @@ public class Constants {
     public static final int DRIVE_LEFT_SLAVE_ID = 2;
     public static final int DRIVE_RIGHT_MASTER_ID = 3;
     public static final int DRIVE_RIGHT_SLAVE_ID = 4;
-
     public static final int TURNER_MOTOR_ID = 5;
-
     public static final int INDEXER_MOTOR_ID = 6;
-
     public static final int INTAKE_MOTOR_ID = 7;
-
     public static final int BALANCER_MOTOR_ID = 8;
-
     public static final int SHOOTER_TOP_MOTOR_ID = 10;
     public static final int SHOOTER_BOTTOM_MOTOR_ID = 11;
 
@@ -75,14 +70,21 @@ public class Constants {
 
     public static final int DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
     public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
+    public static final int INTAKE_MOTOR_STANDARD_VELOCITY = 0;
+
     public static final int kDriveVelocityP = 0;
     public static final int kDriveVelocityD = 0;
     public static final int kDriveVelocityF = 0;
     public static final double DRIVE_WHEEL_DIAMETER_INCHES = 0;
     public static final double DRIVE_WHEEL_RADIUS_INCHES = DRIVE_WHEEL_DIAMETER_INCHES/2;
-    public static final double INCHES_PER_REV = (DRIVE_WHEEL_DIAMETER_INCHES*Math.PI);
+    public static final double DRIVE_INCHES_PER_REV = (DRIVE_WHEEL_DIAMETER_INCHES*Math.PI);
     public static final double DRIVE_ENCODER_COUNTS_PER_REV = 0;
+
+    public static final double TURNER_WHEEL_DIAMETER_INCHES = 0;
+    public static final double TURNER_INCHES_PER_REV = TURNER_WHEEL_DIAMETER_INCHES*Math.PI;
+
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
+
 
     public static final int kLeftDriveMasterPdpChannel = 1;
     public static final int kLeftDriveSlavePdpChannel = 2;
@@ -93,6 +95,7 @@ public class Constants {
     public static final int kIndexerMotorPdpChannel = 7;
     public static final int kTopShooterMotorPdpChannel = 8;
     public static final int kBottomShooterMotorPdpChannel = 9;
+    public static final int kBalancerMotorPdpChannel = 10;
     public static final int kDriveVelocitySlot = 0;
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;

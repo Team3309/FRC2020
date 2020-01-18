@@ -13,11 +13,15 @@ import org.usfirst.frc.team3309.Constants;
  *
  */
 public class PCIntake extends SubsystemBase {
-    private WPI_TalonFX intakeMotor;
+    public WPI_TalonFX intakeMotor;
+
 
     public PCIntake() {
         intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
     }
+
     public void actuate(double speed) {
+        intakeMotor.set(ControlMode.Velocity, speed);
     }
+
 }

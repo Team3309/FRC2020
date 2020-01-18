@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3309.util;
 
-import edu.wpi.first.networktables.NetworkTable;
+import  edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 
