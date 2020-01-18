@@ -84,13 +84,13 @@ public class Constants {
 
     public static final int kLeftDriveMasterPdpChannel = 1;
     public static final int kLeftDriveSlavePdpChannel = 2;
-    public static final int kRightDriveMasterPdpChannel = 12;
-    public static final int kRightDriveSlavePdpChannel = 13;
-    public static final int kTurnerMotorPdpChannel = 14;
-    public static final int kIntakeMotorPdpChannel = 15;
-    public static final int kIndexerMotorPdpChannel = 16;
-    public static final int kTopShooterMotorPdpChannel = 17;
-    public static final int kBottomShooterMotorPdpChannel = 18;
+    public static final int kRightDriveMasterPdpChannel = 3;
+    public static final int kRightDriveSlavePdpChannel = 4;
+    public static final int kTurnerMotorPdpChannel = 5;
+    public static final int kIntakeMotorPdpChannel = 6;
+    public static final int kIndexerMotorPdpChannel = 7;
+    public static final int kTopShooterMotorPdpChannel = 8;
+    public static final int kBottomShooterMotorPdpChannel = 9;
     public static final int kDriveVelocitySlot = 0;
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;
