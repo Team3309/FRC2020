@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team3309.Constants;
@@ -25,6 +26,7 @@ public class PCIndexer extends SubsystemBase {
     public boolean isEmpty() {return !isFull();}
     //will load power cell into shooter or eject it into the intake; if (inOrOut), load; else if(!inOrOut), eject; else
     //stand still.
-    public void loadOrEject(boolean inOrOut) {}
+    public void loadOrEject(boolean in) {
+    }
     public void stopIndexer() {}
 }

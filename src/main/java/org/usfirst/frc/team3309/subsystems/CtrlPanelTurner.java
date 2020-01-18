@@ -20,7 +20,9 @@ public class CtrlPanelTurner extends SubsystemBase {
         ctrlPanelMotor = new WPI_TalonFX(Constants.TURNER_MOTOR_ID);
     }
     //turns the control panel by amount; if inRevs == true, will turn in revolutions, else, will turn in degrees.
-    public void turn(double amount,  boolean inRevs) {}
+    public void turn(double amount,  boolean inRevs) {
+
+    }
     public void getFMSColor() {}
 
 }

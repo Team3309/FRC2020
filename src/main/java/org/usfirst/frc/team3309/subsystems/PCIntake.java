@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team3309.Constants;
@@ -17,6 +18,6 @@ public class PCIntake extends SubsystemBase {
     public PCIntake() {
         intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
     }
-    public void intake() {}
-    public void outtake() {}
+    public void actuate(double speed) {
+    }
 }

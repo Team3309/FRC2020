@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.usfirst.frc.team3309.Constants;
 
 /**
  * @author Joshua Badzey
@@ -13,7 +15,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Balancer extends SubsystemBase {
 
-    public Balancer() {}
+    private WPI_TalonSRX balancerMotor;
+    public Balancer() {
+        balancerMotor = new WPI_TalonSRX(Constants.BALANCER_MOTOR_ID);
+    }
     //move the robot on the rung; its left is negative, and its right is positive.
-    public void changePosition(double distance) {}
+    public void changePosition(double distance) {
+
+    }
 }

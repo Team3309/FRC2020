@@ -61,11 +61,13 @@ public class Constants {
 
     public static final int INTAKE_MOTOR_ID = 7;
 
+    public static final int BALANCER_MOTOR_ID = 8;
+
     public static final int SHOOTER_TOP_MOTOR_ID = 10;
     public static final int SHOOTER_BOTTOM_MOTOR_ID = 11;
 
     /**
-     * Drive Constants (motors will use them to behave the way we want them to).
+     * Motor and physical constants.
      *
      *
      */
