@@ -49,19 +49,7 @@ public class Constants {
         }
     }
 
-    /**
-     * Motor IDs (CAN software will address them).
-     *
-     * Drive:
-     * Climber:
-     * Aimer:
-     * Shooter:
-     * Control Panel Turner:
-     * Balancer:
-     * Power Cell Indexer:
-     * Power Cell Intake:
-     *
-     */
+    /* DRIVETRAIN */
     public static final int DRIVE_LEFT_MASTER_ID = 1;
     public static final int DRIVE_LEFT_SLAVE_ID = 2;
     public static final int DRIVE_RIGHT_MASTER_ID = 3;
@@ -81,6 +69,7 @@ public class Constants {
      *
      *
      */
+
 
     public static final int DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
     public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
@@ -106,5 +95,10 @@ public class Constants {
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;
     public static final double kDrivePositionD = 0;
+
+    /* AIMING CONSTANTS */
+    public static final double kAimingP = 0;
+    public static final double kAimingI = 0;
+    public static final double kAimingD = 0;
 
 }
