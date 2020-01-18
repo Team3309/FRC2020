@@ -6,33 +6,26 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team3309.util.DriveSignal;
 import org.usfirst.frc.team3309.Constants;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc.team3309.util.DriveSignal;
 
 
 public class Drive {
 
-    /*
--     * Declare class members
--     */
-    private WPI_TalonFX leftFalconMaster;
-    private WPI_TalonFX leftFalconSlave;
-    private WPI_TalonFX rightFalconMaster;
-    private WPI_TalonFX rightFalconSlave;
-
+    //Memory allocation in preparation for Drive object initialization.
     private WPI_TalonFX driveMasterLeft;
-    private WPI_TalonFX driveSlaveLeft1, driveSlaveLeft2, driveSlaveLeft3;
+    private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
-    private WPI_TalonFX driveSlaveRight1, driveSlaveRight2, driveSlaveRight3;
+    private WPI_TalonFX driveSlaveRight;
 
     private Solenoid shifter;
 
+    //Configuration methods ready-to-go when Drive gets initialized.
     private void configDriveMaster(WPI_TalonFX talon) {
 
         talon.configFactoryDefault();
@@ -59,25 +52,19 @@ public class Drive {
 
     }
 
+    //Initializes a Drive object by filling aforementioned memory slots and configuring
+    //associated motors.
     public Drive() {
 
         driveMasterLeft = new WPI_TalonFX(Constants.F500_D_M_L);
-        driveSlaveLeft1 = new WPI_TalonFX(Constants.F500_D_S_L1);
-        driveSlaveLeft2 = new WPI_TalonFX(Constants.F500_D_S_L2);
-        driveSlaveLeft3 = new WPI_TalonFX(Constants.F500_D_S_L3);
+        driveSlaveLeft = new WPI_TalonFX(Constants.F500_D_S_L);
         driveMasterRight = new WPI_TalonFX(Constants.F500_D_M_R);
-        driveSlaveRight1 = new WPI_TalonFX(Constants.F500_D_S_R1);
-        driveSlaveRight2 = new WPI_TalonFX(Constants.F500_D_S_R2);
-        driveSlaveRight3 = new WPI_TalonFX(Constants.F500_D_S_R3);
+        driveSlaveRight = new WPI_TalonFX(Constants.F500_D_S_R);
 
         configDriveMaster(driveMasterLeft);
-        configDriveSlave(driveSlaveLeft1, driveMasterLeft);
-        configDriveSlave(driveSlaveLeft2, driveMasterLeft);
-        configDriveSlave(driveSlaveLeft3, driveMasterLeft);
+        configDriveSlave(driveSlaveLeft, driveMasterLeft);
         configDriveMaster(driveMasterRight);
-        configDriveSlave(driveSlaveRight1, driveMasterRight);
-        configDriveSlave(driveSlaveRight2, driveMasterRight);
-        configDriveSlave(driveSlaveRight3, driveMasterRight);
+        configDriveSlave(driveSlaveRight, driveMasterRight);
 
     }
 
@@ -89,10 +76,12 @@ public class Drive {
         return -driveMasterRight.getSelectedSensorPosition(0);
     }
 
+    //Converts encoder ticks to physical distance(inches).
     public double encoderCountsToInches(double counts) {
         return counts/Constants.DRIVE_ENCODER_COUNTS_PER_REV * (Math.PI*Constants.DRIVE_WHEEL_DIAMETER_INCHES);
     }
 
+    //Converts physical distance(inches) to encoder ticks.
     public double inchesToEncoderCounts(double inches) {
         return inches*(Constants.DRIVE_ENCODER_COUNTS_PER_REV/(Math.PI*Constants.DRIVE_WHEEL_DIAMETER_INCHES));
     }
@@ -105,37 +94,46 @@ public class Drive {
         return -driveMasterRight.getSelectedSensorVelocity(0);
     }
 
+    //Converts degrees/sec to encoder velocity (ticks/sec).
     public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Constants.ENCODER_COUNTS_PER_DEGREE;
     }
 
+    //Sets gearing...
     public void setHighGear() { shifter.set(true); }
     public void setLowGear() { shifter.set(false); }
+
+    //...and gets gearing.
     public boolean inHighGear() {
         if(shifter.get() == true) {
             return true;
         } else return false;
     }
     public boolean inLowGear() {
-        if(!inHighGear() == true) {
+        if(!inHighGear()) {
             return true;
         } else return false;
     }
 
+    //Sets left motor.
     private void setLeft(ControlMode mode, double left,
                          DemandType demandType, double leftFeedForward) {
         driveMasterLeft.set(mode, left, demandType, leftFeedForward);
     }
+
+    //Sets right motor.
     private void setRight(ControlMode mode, double right,
                           DemandType demandType, double rightFeedforward) {
         driveMasterRight.set(mode, -right, demandType, -rightFeedforward);
     }
 
+    //Sets each of the motors simultaneously.
     public void setLeftRight(ControlMode mode, double left, double right) {
         driveMasterLeft.set(mode, left);
         driveMasterRight.set(mode, -right);
     }
 
+    //Sets each of the motors simultaneously with assigned constants.
     public void setLeftRight(ControlMode mode, DemandType demandType,
                              double left, double right,
                              double leftFeedforward, double rightFeedforward) {
@@ -143,15 +141,18 @@ public class Drive {
         setRight(mode, right, demandType, rightFeedforward);
     }
 
+    //Sets the motors according to a DriveSignal object.
     public void setLeftRight (ControlMode mode, DriveSignal signal) {
         setLeftRight(mode, signal.getLeft(), signal.getRight());
     }
 
+    //Sets the neutral mode for Drive.
     public void setNeutralMode(NeutralMode mode) {
         driveMasterLeft.setNeutralMode(mode);
         driveMasterRight.setNeutralMode(mode);
     }
 
+    //Completely resets the Drive subsystem.
     public void reset() {
         driveMasterRight.clearMotionProfileTrajectories();
         driveMasterLeft.clearMotionProfileTrajectories();
@@ -159,6 +160,7 @@ public class Drive {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
 
+    //Sends motor data to SmartDashboard.
     public void outputToDashboard() {
         SmartDashboard.putNumber("Drive <- power", driveMasterLeft.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive -> power", driveMasterRight.getMotorOutputPercent());
@@ -166,6 +168,14 @@ public class Drive {
         SmartDashboard.putNumber("-> encoder distance", getRightEncoderDistance());
         SmartDashboard.putNumber("<- encoder velocity", getLeftEncoderVelocity());
         SmartDashboard.putNumber("-> encoder velocity", getRightEncoderVelocity());
+        SmartDashboard.putNumber("Left Drive Master current",
+                Robot.pdp.getCurrent(Constants.kLeftDriveMasterPdpChannel));
+        SmartDashboard.putNumber("Left Drive Slave current",
+                Robot.pdp.getCurrent(Constants.kLeftDriveSlavePdpChannel));
+        SmartDashboard.putNumber("Right Drive Master current",
+                Robot.pdp.getCurrent(Constants.kRightDriveMasterPdpChannel));
+        SmartDashboard.putNumber("Right Drive Slave current",
+                Robot.pdp.getCurrent(Constants.kRightDriveSlavePdpChannel));
     }
 
 

@@ -63,19 +63,15 @@ public class Constants {
      *
      */
     public static final int F500_D_M_L = 1;
-    public static final int F500_D_S_L1 = 2;
-    public static final int F500_D_S_L2 = 3;
-    public static final int F500_D_S_L3 = 4;
-    public static final int F500_D_M_R = 5;
-    public static final int F500_D_S_R1 = 6;
-    public static final int F500_D_S_R2 = 7;
-    public static final int F500_D_S_R3 = 8;
+    public static final int F500_D_S_L = 2;
+    public static final int F500_D_M_R = 3;
+    public static final int F500_D_S_R = 4;
 
     /**
      * Drive Constants (motors will use them to behave the way we want them to).
      *
      *
-     * */
+     */
 
     public static final int DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
     public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
@@ -88,6 +84,10 @@ public class Constants {
     public static final double DRIVE_ENCODER_COUNTS_PER_REV = 0;
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
 
+    public static final int kLeftDriveMasterPdpChannel = 1;
+    public static final int kLeftDriveSlavePdpChannel = 2;
+    public static final int kRightDriveMasterPdpChannel = 12;
+    public static final int kRightDriveSlavePdpChannel = 13;
     public static final int kDriveVelocitySlot = 0;
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;
