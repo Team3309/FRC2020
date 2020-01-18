@@ -25,9 +25,9 @@ public class OI {
     public static final int RIGHT_BUTTON_ID = 1;
     public static final int TRIGGER_ID = 1;
 
-    Joystick leftStick = new Joystick(0);
-    Joystick rightStick = new Joystick(1);
-    XboxController operatorController = new XboxController(2);
+    public Joystick leftStick = new Joystick(0);
+    public Joystick rightStick = new Joystick(1);
+    public XboxController operatorController = new XboxController(2);
 
     JoystickButton shootingButton = new JoystickButton(leftStick, TRIGGER_ID);
 

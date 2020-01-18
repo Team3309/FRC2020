@@ -16,9 +16,9 @@ public class DriveManual extends CommandBase {
 
     @Override
     public void execute() {
-        double throttle = 0;
-        double turn = 0;
-        boolean quickturn = false;
+        double throttle = Robot.oi.leftStick.getX();
+        double turn = Robot.oi.rightStick.getY();
+        boolean quickturn = Robot.oi.rightStick.getTrigger();
 
         Robot.drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickturn, false));
     }
