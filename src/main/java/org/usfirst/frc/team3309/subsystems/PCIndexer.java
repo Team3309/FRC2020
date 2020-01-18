@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 /**
  * @author Joshua Badzey
  *
@@ -9,6 +11,6 @@ package org.usfirst.frc.team3309.subsystems;
  *
  */
 
-public class PCIndexer {
+public class PCIndexer extends SubsystemBase {
     public PCIndexer() {}
 }

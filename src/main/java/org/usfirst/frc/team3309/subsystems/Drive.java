@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team3309.util.DriveSignal;
 import org.usfirst.frc.team3309.Constants;
@@ -15,7 +16,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc.team3309.util.DriveSignal;
 
 
-public class Drive {
+public class Drive extends SubsystemBase {
 
     //Memory allocation in preparation for Drive object initialization.
     private WPI_TalonFX driveMasterLeft;
