@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import org.usfirst.frc.team3309.util.Limelight;
+
 /**
  * @author Joshua Badzey
  *
@@ -10,5 +12,8 @@ package org.usfirst.frc.team3309.subsystems;
  */
 
 public class Vision {
+
+    public Limelight limelight = new Limelight("Shooter Limelight", 0, 0 ,0);
+
     public Vision() {}
 }
