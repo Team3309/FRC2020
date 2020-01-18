@@ -56,7 +56,7 @@ public class Constants {
     public static final int DRIVE_RIGHT_MASTER_FALCON_ID = 0;
     public static final int DRIVE_RIGHT_SLAVE_FALCON_ID = 0;
 
-    /* DRIVEBASE TUNING CONSTANTS */
+    /* DRIVEBASE TUNING CONSTANTS  TODO: tune these*/
     public static final int kDriveVelocitySlot = 0;
     public static final double kDriveVelocityP = 0;
     public static final double kDriveVelocityD = 0;

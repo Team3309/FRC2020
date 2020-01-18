@@ -25,6 +25,8 @@ public class Robot extends TimedRobot {
     public static Vision vision;
     public static PowerDistributionPanel pdp;
 
+    public static OI oi;
+
 
     /*
      * This function is called when the Robot program starts. use it to initialize your subsystems,
@@ -43,6 +45,8 @@ public class Robot extends TimedRobot {
         intake = new PCIntake();
         vision = new Vision();
         pdp = new PowerDistributionPanel();
+
+        oi = new OI();
 
         super.robotInit();
     }

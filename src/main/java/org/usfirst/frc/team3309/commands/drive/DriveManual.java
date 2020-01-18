@@ -23,10 +23,6 @@ public class DriveManual extends CommandBase {
         Robot.drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickturn, false));
     }
 
-    public void end() {
-
-    }
-
     @Override
     public boolean isFinished() {
         return false;
