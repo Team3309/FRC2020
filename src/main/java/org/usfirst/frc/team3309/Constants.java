@@ -55,6 +55,22 @@ public class Constants {
     public static final int DRIVE_RIGHT_MASTER_ID = 3;
     public static final int DRIVE_RIGHT_SLAVE_ID = 4;
 
+    public static final int TURNER_MOTOR_ID = 5;
+
+    public static final int INDEXER_MOTOR_ID = 6;
+
+    public static final int INTAKE_MOTOR_ID = 7;
+
+    public static final int SHOOTER_TOP_MOTOR_ID = 10;
+    public static final int SHOOTER_BOTTOM_MOTOR_ID = 11;
+
+    /**
+     * Drive Constants (motors will use them to behave the way we want them to).
+     *
+     *
+     */
+
+
     public static final int DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
     public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
     public static final int kDriveVelocityP = 0;
@@ -70,6 +86,11 @@ public class Constants {
     public static final int kLeftDriveSlavePdpChannel = 2;
     public static final int kRightDriveMasterPdpChannel = 12;
     public static final int kRightDriveSlavePdpChannel = 13;
+    public static final int kTurnerMotorPdpChannel = 14;
+    public static final int kIntakeMotorPdpChannel = 15;
+    public static final int kIndexerMotorPdpChannel = 16;
+    public static final int kTopShooterMotorPdpChannel = 17;
+    public static final int kBottomShooterMotorPdpChannel = 18;
     public static final int kDriveVelocitySlot = 0;
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;

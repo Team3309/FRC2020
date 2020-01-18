@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3309.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.can.*;
+import org.usfirst.frc.team3309.Constants;
 
 /**
  * @author Joshua Badzey
@@ -12,5 +14,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 
 public class CtrlPanelTurner extends SubsystemBase {
-    public CtrlPanelTurner() {}
+
+    private WPI_TalonFX ctrlPanelMotor;
+    public CtrlPanelTurner() {
+        ctrlPanelMotor = new WPI_TalonFX(Constants.TURNER_MOTOR_ID);
+    }
+    //turns the control panel by amount; if inRevs == true, will turn in revolutions, else, will turn in degrees.
+    public void turn(double amount,  boolean inRevs) {}
+    public void getFMSColor() {}
+
 }

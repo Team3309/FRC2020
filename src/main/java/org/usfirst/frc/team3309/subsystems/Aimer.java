@@ -12,4 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Aimer extends SubsystemBase {
     public Aimer() {}
+    //changes where the robot is aiming.
+    public void changeAim(double degrees) {}
+    //changes the robot's aim at a set speed
+    public void changeAim(double degrees, double speed) {}
 }

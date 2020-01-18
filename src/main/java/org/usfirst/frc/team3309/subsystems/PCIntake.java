@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.usfirst.frc.team3309.Constants;
 
 /**
  * @author Joshua Badzey
@@ -10,5 +12,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  *
  */
 public class PCIntake extends SubsystemBase {
-    public PCIntake() {}
+    private WPI_TalonFX intakeMotor;
+
+    public PCIntake() {
+        intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
+    }
+    public void intake() {}
+    public void outtake() {}
 }

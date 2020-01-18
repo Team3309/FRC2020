@@ -15,7 +15,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc.team3309.util.DriveSignal;
 
-
 public class Drive extends SubsystemBase {
 
     //Memory allocation in preparation for Drive object initialization.

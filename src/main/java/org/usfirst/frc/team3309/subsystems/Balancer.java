@@ -14,4 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Balancer extends SubsystemBase {
 
     public Balancer() {}
+    //move the robot on the rung; its left is negative, and its right is positive.
+    public void changePosition(double distance) {}
 }
