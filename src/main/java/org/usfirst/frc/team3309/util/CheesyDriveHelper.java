@@ -1,4 +1,7 @@
-package org.usfirst.frc.team3309.lib.util;
+package org.usfirst.frc.team3309.util;
+
+import org.usfirst.frc.team3309.util.Util3309;
+import org.usfirst.frc.team3309.lib.util.DriveSignal;
 
 /**
  * Helper class to implement "Cheesy Drive". "Cheesy Drive" simply means that the "turning" stick controls the curvature

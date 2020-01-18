@@ -12,7 +12,7 @@ public class OI {
 
     JoystickButton shootingButton = new JoystickButton(leftStick, 1);
 
-    public OI () {
+    OI() {
         shootingButton.whenPressed(new FireAuto());
     }
 }
