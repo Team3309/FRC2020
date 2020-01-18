@@ -50,4 +50,20 @@ public class Constants {
             ex.printStackTrace();
         }
     }
+
+    public static final int DRIVE_LEFT_MASTER_FALCON_ID = 0;
+    public static final int DRIVE_LEFT_SLAVE_FALCON_ID = 0;
+    public static final int DRIVE_RIGHT_MASTER_FALCON_ID = 0;
+    public static final int DRIVE_RIGHT_SLAVE_FALCON_ID = 0;
+
+    /* DRIVEBASE TUNING CONSTANTS */
+    public static final int kDriveVelocitySlot = 0;
+    public static final double kDriveVelocityP = 0;
+    public static final double kDriveVelocityD = 0;
+    public static final double kDriveVelocityF = 0;
+    public static final int kDrivePositionSlot = 0;
+    public static final double kDrivePositionP = 0;
+    public static final double kDrivePositionD = 0;
+    public static final double DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
+    public static final double DRIVE_OPEN_LOOP_RAMP_RATE = 0;
 }

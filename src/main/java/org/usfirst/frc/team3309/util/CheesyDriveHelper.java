@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3309.lib.util;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * Helper class to implement "Cheesy Drive". "Cheesy Drive" simply means that the "turning" stick controls the curvature
  * of the robot's path rather than its rate of heading change. This helps make the robot more controllable at high
@@ -35,8 +33,8 @@ public class CheesyDriveHelper {
     private double mQuickStopAccumlator = 0.0;
     private double mNegInertiaAccumlator = 0.0;
 
-    public DriveSignal update(double throttle, double wheel, boolean isQuickTurn,
-                              boolean isHighGear) {
+    public org.usfirst.frc.team3309.lib.util.DriveSignal update(double throttle, double wheel, boolean isQuickTurn,
+                                                                boolean isHighGear) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);

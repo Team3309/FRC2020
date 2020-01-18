@@ -15,6 +15,17 @@ import org.usfirst.frc.team3309.subsystems.*;
 
 public class Robot extends TimedRobot {
 
+    public static Aimer aimer;
+    public static Balancer balancer;
+    public static Climber climber;
+    public static CtrlPanelTurner ctrlPanelTurner;
+    public static Drive drive;
+    public static PCIndexer indexer;
+    public static PCIntake intake;
+    public static Vision vision;
+    public static PowerDistributionPanel pdp;
+
+
     /*
      * This function is called when the Robot program starts. use it to initialize your subsystems,
      * and to set up anything that needs to be initialized with the robot.
@@ -23,15 +34,15 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
-        Aimer aimer = new Aimer();
-        Balancer balancer = new Balancer();
-        Climber climber = new Climber();
-        CtrlPanelTurner ctrlPanelTurner = new CtrlPanelTurner();
-        Drive drive = new Drive();
-        PCIndexer indexer = new PCIndexer();
-        PCIntake intake = new PCIntake();
-        Vision vision = new Vision();
-        PowerDistributionPanel pdp = new PowerDistributionPanel();
+        aimer = new Aimer();
+        balancer = new Balancer();
+        climber = new Climber();
+        ctrlPanelTurner = new CtrlPanelTurner();
+        drive = new Drive();
+        indexer = new PCIndexer();
+        intake = new PCIntake();
+        vision = new Vision();
+        pdp = new PowerDistributionPanel();
 
         super.robotInit();
     }

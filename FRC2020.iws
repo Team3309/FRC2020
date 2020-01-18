@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a69891a-c657-47d2-ad5d-942bfd3dfc3b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/FRC2020.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frc2020.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FRC2020.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/FRC2020.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FRC2020.iws" beforeDir="false" afterPath="$PROJECT_DIR$/FRC2020.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRC2020.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frc2020.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRC2020.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frc2020.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frc2020.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frc2020.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frc2020.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/frc2020.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/Robot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveManual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/commands/drive/DriveManual.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Drive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/subsystems/Drive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/util/CheesyDriveHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/usfirst/frc/team3309/util/CheesyDriveHelper.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,29 +71,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FRC2020" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FRC2020" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FRC2020" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FRC2020" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="gradlerio" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
