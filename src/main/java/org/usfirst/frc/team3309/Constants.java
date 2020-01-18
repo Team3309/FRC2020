@@ -62,10 +62,10 @@ public class Constants {
      * Power Cell Intake:
      *
      */
-    public static final int F500_D_M_L = 1;
-    public static final int F500_D_S_L = 2;
-    public static final int F500_D_M_R = 3;
-    public static final int F500_D_S_R = 4;
+    public static final int DRIVE_LEFT_MASTER_ID = 1;
+    public static final int DRIVE_LEFT_SLAVE_ID = 2;
+    public static final int DRIVE_RIGHT_MASTER_ID = 3;
+    public static final int DRIVE_RIGHT_SLAVE_ID = 4;
 
     /**
      * Drive Constants (motors will use them to behave the way we want them to).

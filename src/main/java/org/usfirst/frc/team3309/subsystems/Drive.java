@@ -57,10 +57,10 @@ public class Drive extends SubsystemBase {
     //associated motors.
     public Drive() {
 
-        driveMasterLeft = new WPI_TalonFX(Constants.F500_D_M_L);
-        driveSlaveLeft = new WPI_TalonFX(Constants.F500_D_S_L);
-        driveMasterRight = new WPI_TalonFX(Constants.F500_D_M_R);
-        driveSlaveRight = new WPI_TalonFX(Constants.F500_D_S_R);
+        driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
+        driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);
+        driveMasterRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_MASTER_ID);
+        driveSlaveRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_SLAVE_ID);
 
         configDriveMaster(driveMasterLeft);
         configDriveSlave(driveSlaveLeft, driveMasterLeft);
