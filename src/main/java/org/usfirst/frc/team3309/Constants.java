@@ -1,10 +1,8 @@
 package org.usfirst.frc.team3309;
 
-
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Arrays;
-
 
 /*
  * This class holds all the key values that control how the robot functions.
@@ -51,19 +49,48 @@ public class Constants {
         }
     }
 
-    public static final int DRIVE_LEFT_MASTER_FALCON_ID = 0;
-    public static final int DRIVE_LEFT_SLAVE_FALCON_ID = 0;
-    public static final int DRIVE_RIGHT_MASTER_FALCON_ID = 0;
-    public static final int DRIVE_RIGHT_SLAVE_FALCON_ID = 0;
+    /**
+     * Motor IDs (CAN software will address them).
+     *
+     * Drive:
+     * Climber:
+     * Aimer:
+     * Shooter:
+     * Control Panel Turner:
+     * Balancer:
+     * Power Cell Indexer:
+     * Power Cell Intake:
+     *
+     */
+    public static final int F500_D_M_L = 1;
+    public static final int F500_D_S_L1 = 2;
+    public static final int F500_D_S_L2 = 3;
+    public static final int F500_D_S_L3 = 4;
+    public static final int F500_D_M_R = 5;
+    public static final int F500_D_S_R1 = 6;
+    public static final int F500_D_S_R2 = 7;
+    public static final int F500_D_S_R3 = 8;
 
-    /* DRIVEBASE TUNING CONSTANTS  TODO: tune these*/
+    /**
+     * Drive Constants (motors will use them to behave the way we want them to).
+     *
+     *
+     * */
+
+    public static final int DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
+    public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
+    public static final int kDriveVelocityP = 0;
+    public static final int kDriveVelocityD = 0;
+    public static final int kDriveVelocityF = 0;
+    public static final double DRIVE_WHEEL_DIAMETER_INCHES = 0;
+    public static final double DRIVE_WHEEL_RADIUS_INCHES = DRIVE_WHEEL_DIAMETER_INCHES/2;
+    public static final double INCHES_PER_REV = (DRIVE_WHEEL_DIAMETER_INCHES*Math.PI);
+    public static final double DRIVE_ENCODER_COUNTS_PER_REV = 0;
+    public static final double ENCODER_COUNTS_PER_DEGREE = 0;
+
     public static final int kDriveVelocitySlot = 0;
-    public static final double kDriveVelocityP = 0;
-    public static final double kDriveVelocityD = 0;
-    public static final double kDriveVelocityF = 0;
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;
     public static final double kDrivePositionD = 0;
-    public static final double DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
-    public static final double DRIVE_OPEN_LOOP_RAMP_RATE = 0;
+
 }

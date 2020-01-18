@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3309.util;
 
-import org.usfirst.frc.team3309.util.Util3309;
-import org.usfirst.frc.team3309.lib.util.DriveSignal;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Helper class to implement "Cheesy Drive". "Cheesy Drive" simply means that the "turning" stick controls the curvature
@@ -36,8 +35,8 @@ public class CheesyDriveHelper {
     private double mQuickStopAccumlator = 0.0;
     private double mNegInertiaAccumlator = 0.0;
 
-    public org.usfirst.frc.team3309.lib.util.DriveSignal update(double throttle, double wheel, boolean isQuickTurn,
-                                                                boolean isHighGear) {
+    public DriveSignal update(double throttle, double wheel, boolean isQuickTurn,
+                              boolean isHighGear) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
@@ -51,13 +50,10 @@ public class CheesyDriveHelper {
             final double denominator = Math.sin(Math.PI / 2.0 * wheelNonLinearity);
             // Apply a sin function that's scaled to make it feel better.
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
-            wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
         } else {
             wheelNonLinearity = kLowWheelNonLinearity;
             final double denominator = Math.sin(Math.PI / 2.0 * wheelNonLinearity);
             // Apply a sin function that's scaled to make it feel better.
-            wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
-            wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
         }
 
@@ -104,7 +100,7 @@ public class CheesyDriveHelper {
             if (Math.abs(linearPower) < kQuickStopDeadband) {
                 double alpha = kQuickStopWeight;
                 mQuickStopAccumlator = (1 - alpha) * mQuickStopAccumlator
-                        + alpha * Util3309.limit(wheel, 1.0) * kQuickStopScalar;
+                        + alpha * MiscUtil.limit(wheel, 1.0) * kQuickStopScalar;
             }
             overPower = 1.0;
             angularPower = wheel;

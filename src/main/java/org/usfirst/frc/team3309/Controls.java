@@ -1,9 +1,9 @@
-package org.usfirst.frc.team3309.commands.aimer;
+package org.usfirst.frc.team3309;
 
+import org.usfirst.frc.team3309.commands.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import org.usfirst.frc.team3309.subsystems.Aimer;
 
-public class IsOnTarget extends CommandBase {
+public class Controls extends CommandBase {
 
     @Override
     public void initialize() {
