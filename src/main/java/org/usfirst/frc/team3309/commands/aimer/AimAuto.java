@@ -3,10 +3,7 @@ package org.usfirst.frc.team3309.commands.aimer;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-<<<<<<< HEAD
 import org.usfirst.frc.team3309.Constants;
-=======
->>>>>>> 66fabc297ab8ee6e2af8c8aa432702c24c03985c
 import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team3309.subsystems.Aimer;
 
