@@ -19,6 +19,7 @@ public class PCIndexer extends SubsystemBase {
     private WPI_TalonFX indexerMotor;
     public PCIndexer() {
         indexerMotor = new WPI_TalonFX(Constants.INDEXER_MOTOR_ID);
+        indexerMotor.configFactoryDefault();
     }
     //will detect whether indexer is full or not.
     public boolean isFull() {return false;}

@@ -52,8 +52,7 @@ public class Drive extends SubsystemBase {
 
     }
 
-    //Initializes a Drive object by filling aforementioned memory slots and configuring
-    //associated motors.
+    //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
     public Drive() {
 
         driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
