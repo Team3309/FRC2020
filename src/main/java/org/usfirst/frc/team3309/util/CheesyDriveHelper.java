@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3309.util;
 
-import org.usfirst.frc.team3309.util.Util3309;
-import org.usfirst.frc.team3309.lib.util.DriveSignal;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Helper class to implement "Cheesy Drive". "Cheesy Drive" simply means that the "turning" stick controls the curvature
@@ -36,8 +35,8 @@ public class CheesyDriveHelper {
     private double mQuickStopAccumlator = 0.0;
     private double mNegInertiaAccumlator = 0.0;
 
-    public org.usfirst.frc.team3309.lib.util.DriveSignal update(double throttle, double wheel, boolean isQuickTurn,
-                                                                boolean isHighGear) {
+    public DriveSignal update(double throttle, double wheel, boolean isQuickTurn,
+                              boolean isHighGear) {
 
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);

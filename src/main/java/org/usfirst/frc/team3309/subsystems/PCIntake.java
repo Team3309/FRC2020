@@ -1,5 +1,10 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.usfirst.frc.team3309.Constants;
+
 /**
  * @author Joshua Badzey
  *
@@ -7,6 +12,16 @@ package org.usfirst.frc.team3309.subsystems;
  * indexer to move power cells around within the robot.
  *
  */
-public class PCIntake {
-    public PCIntake() {}
+public class PCIntake extends SubsystemBase {
+    public WPI_TalonFX intakeMotor;
+
+    public PCIntake() {
+        intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
+        intakeMotor.configFactoryDefault();
+    }
+
+    public void actuate(double speed) {
+        intakeMotor.set(ControlMode.Velocity, speed);
+    }
+
 }

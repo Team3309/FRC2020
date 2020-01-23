@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3309.lib.util;
+package org.usfirst.frc.team3309.util;
 
 /**
  * A drivetrain command consisting of the left, right motor settings and whether the brake mode is sendIsEnabled.

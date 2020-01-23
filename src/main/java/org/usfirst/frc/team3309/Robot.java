@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
     public static Drive drive;
     public static PCIndexer indexer;
     public static PCIntake intake;
+    public static Shooter shooter;
     public static Vision vision;
     public static PowerDistributionPanel pdp;
 
