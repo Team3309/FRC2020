@@ -1,0 +1,10 @@
+There will be three pistons:
+    One will retract the manipulator
+    One will engage it
+    And one will lift it an inch or so above the control panel such that the color sensor can still see the color
+
+Requested behavior:
+    Karson will press a button that will extend the manipulator into the raised, disengaged position
+    He will drive up to the control panel
+    When it has been reached, the drivetrain will stop and the manipulator will be engaged and lowered
+    The required action will then be performed based on whether we have received a message from the FMS or not
