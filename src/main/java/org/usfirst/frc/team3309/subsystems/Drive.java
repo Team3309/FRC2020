@@ -25,6 +25,21 @@ public class Drive extends SubsystemBase {
 
     private Solenoid shifter;
 
+    //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
+    public Drive() {
+
+        driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
+        driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);
+        driveMasterRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_MASTER_ID);
+        driveSlaveRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_SLAVE_ID);
+
+        configDriveMaster(driveMasterLeft);
+        configDriveSlave(driveSlaveLeft, driveMasterLeft);
+        configDriveMaster(driveMasterRight);
+        configDriveSlave(driveSlaveRight, driveMasterRight);
+
+    }
+
     //Configuration methods ready-to-go when Drive gets initialized.
     private void configDriveMaster(WPI_TalonFX talon) {
 
@@ -49,21 +64,6 @@ public class Drive extends SubsystemBase {
         slave.follow(master);
         slave.setNeutralMode(NeutralMode.Brake);
         slave.setInverted(InvertType.FollowMaster);
-
-    }
-
-    //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
-    public Drive() {
-
-        driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
-        driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);
-        driveMasterRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_MASTER_ID);
-        driveSlaveRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_SLAVE_ID);
-
-        configDriveMaster(driveMasterLeft);
-        configDriveSlave(driveSlaveLeft, driveMasterLeft);
-        configDriveMaster(driveMasterRight);
-        configDriveSlave(driveSlaveRight, driveMasterRight);
 
     }
 
@@ -158,7 +158,6 @@ public class Drive extends SubsystemBase {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
-
     //Sends motor data to SmartDashboard.
     public void outputToDashboard() {
         SmartDashboard.putNumber("Drive <- power", driveMasterLeft.getMotorOutputPercent());

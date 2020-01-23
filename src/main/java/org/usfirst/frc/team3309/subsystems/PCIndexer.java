@@ -17,6 +17,7 @@ import org.usfirst.frc.team3309.Constants;
 public class PCIndexer extends SubsystemBase {
 
     private WPI_TalonFX indexerMotor;
+
     public PCIndexer() {
         indexerMotor = new WPI_TalonFX(Constants.INDEXER_MOTOR_ID);
         indexerMotor.configFactoryDefault();
@@ -27,7 +28,7 @@ public class PCIndexer extends SubsystemBase {
     public boolean isEmpty() {return !isFull();}
     //will load power cell into shooter or eject it into the intake; if (inOrOut), load; else if(!inOrOut), eject; else
     //stand still.
-    public void loadOrEject(boolean in) {
-    }
+    public void load() {}
+    public void eject() {}
     public void stopIndexer() {}
 }

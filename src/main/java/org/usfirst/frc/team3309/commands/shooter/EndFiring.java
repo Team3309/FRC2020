@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3309.commands.shooter;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team3309.subsystems.Shooter;
@@ -13,7 +14,9 @@ public class EndFiring extends CommandBase {
 
     @Override
     public void execute() {
+
         if(!hasRequirement(Robot.shooter)) return;
+
         Robot.shooter.stopFlywheels();
     }
 
