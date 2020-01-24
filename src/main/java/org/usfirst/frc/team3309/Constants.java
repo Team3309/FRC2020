@@ -66,8 +66,6 @@ public class Constants {
      *
      *
      */
-
-
     public static final int DRIVE_CLOSED_LOOP_RAMP_RATE = 0;
     public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
     public static final int INTAKE_MOTOR_STANDARD_VELOCITY = 0;
@@ -82,6 +80,8 @@ public class Constants {
 
     public static final double TURNER_WHEEL_DIAMETER_INCHES = 0;
     public static final double TURNER_INCHES_PER_REV = TURNER_WHEEL_DIAMETER_INCHES*Math.PI;
+
+    public static final double  DRIVETRAIN_WIDTH = 0;
 
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
 

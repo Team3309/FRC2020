@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3309.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.usfirst.frc.team3309.Constants;
 
 /**
  * @author Joshua Badzey
@@ -11,7 +13,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 
 public class Climber extends SubsystemBase {
-    public Climber() {}
+
+    private WPI_TalonSRX balancerMotor;
+
+    public Climber() {
+        balancerMotor = new WPI_TalonSRX(Constants.BALANCER_MOTOR_ID);
+    }
+
     //will lift up the climber mechanism to grab on to the rung.
     public void liftClimber() {}
     //will change the extension of the climber mechanism; negative is contraction, positive is extension.

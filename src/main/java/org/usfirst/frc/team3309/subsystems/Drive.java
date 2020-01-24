@@ -108,6 +108,7 @@ public class Drive extends SubsystemBase {
             return true;
         } else return false;
     }
+
     public boolean inLowGear() {
         if(!inHighGear()) {
             return true;
