@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import org.usfirst.frc.team3309.Constants;
 import org.usfirst.frc.team3309.Robot;
+import org.usfirst.frc.team3309.util.UnitConversions;
 
 public class DriveManual extends CommandBase {
 
@@ -32,9 +33,9 @@ public class DriveManual extends CommandBase {
         // Convert to wheel speeds
         DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
-        Robot.drive.setLeftRight(ControlMode.PercentOutput,
-                wheelSpeeds.leftMetersPerSecond,
-                wheelSpeeds.rightMetersPerSecond);
+        Robot.drive.setLeftRight(ControlMode.Velocity,
+                UnitConversions.inchesPerSecondToEncoderVelocity(UnitConversions.metersPerSecToInchesPerSec(wheelSpeeds.leftMetersPerSecond)),
+                UnitConversions.inchesPerSecondToEncoderVelocity(UnitConversions.metersPerSecToInchesPerSec(wheelSpeeds.rightMetersPerSecond)));
     }
 
     public void end() {

@@ -75,16 +75,6 @@ public class Drive extends SubsystemBase {
         return -driveMasterRight.getSelectedSensorPosition(0);
     }
 
-    //Converts encoder ticks to physical distance(inches).
-    public double encoderCountsToInches(double counts) {
-        return counts/Constants.DRIVE_ENCODER_COUNTS_PER_REV * (Math.PI*Constants.DRIVE_WHEEL_DIAMETER_INCHES);
-    }
-
-    //Converts physical distance(inches) to encoder ticks.
-    public double inchesToEncoderCounts(double inches) {
-        return inches*(Constants.DRIVE_ENCODER_COUNTS_PER_REV/(Math.PI*Constants.DRIVE_WHEEL_DIAMETER_INCHES));
-    }
-
     public double getLeftEncoderVelocity() {
         return driveMasterLeft.getSelectedSensorVelocity(0);
     }
