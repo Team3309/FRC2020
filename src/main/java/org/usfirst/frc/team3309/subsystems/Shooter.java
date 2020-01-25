@@ -18,6 +18,13 @@ import org.usfirst.frc.team3309.Constants;
 
 public class Shooter extends SubsystemBase {
 
+    public enum shooterState{
+        nothing,
+        straightShot,
+        backSpin,
+        forwardSpin
+    }
+
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
 

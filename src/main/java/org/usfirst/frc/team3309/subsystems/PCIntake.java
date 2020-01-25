@@ -13,6 +13,12 @@ import org.usfirst.frc.team3309.Constants;
  *
  */
 public class PCIntake extends SubsystemBase {
+
+    public enum intakeState {
+        nothing,
+        intaking,
+        outtaking
+    }
     public WPI_TalonFX intakeMotor;
 
     public PCIntake() {

@@ -85,17 +85,19 @@ public class Constants {
 
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
 
-
-    public static final int kLeftDriveMasterPdpChannel = 1;
-    public static final int kLeftDriveSlavePdpChannel = 2;
-    public static final int kRightDriveMasterPdpChannel = 3;
-    public static final int kRightDriveSlavePdpChannel = 4;
-    public static final int kTurnerMotorPdpChannel = 5;
-    public static final int kIntakeMotorPdpChannel = 6;
-    public static final int kIndexerMotorPdpChannel = 7;
-    public static final int kTopShooterMotorPdpChannel = 8;
-    public static final int kBottomShooterMotorPdpChannel = 9;
-    public static final int kBalancerMotorPdpChannel = 10;
+    //All pdp channel numbers are placeholders for now.
+    public static final int kLeftDriveMasterPdpChannel = 0;
+    public static final int kLeftDriveSlavePdpChannel = 1;
+    public static final int kRightDriveMasterPdpChannel = 2;
+    public static final int kRightDriveSlavePdpChannel = 3;
+    public static final int kTurnerRetractorPistonPdpChannel = 4;
+    public static final int kTurnerHeightAdjustmentPistonPdpChannel = 5;
+    public static final int kTurnerMotorPdpChannel = 6;
+    public static final int kIntakeMotorPdpChannel = 7;
+    public static final int kIndexerMotorPdpChannel = 8;
+    public static final int kTopShooterMotorPdpChannel = 9;
+    public static final int kBottomShooterMotorPdpChannel = 10;
+    public static final int kBalancerMotorPdpChannel = 11;
     public static final int kDriveVelocitySlot = 0;
     public static final int kDrivePositionSlot = 0;
     public static final double kDrivePositionP = 0;

@@ -17,6 +17,12 @@ import org.usfirst.frc.team3309.util.DriveSignal;
 
 public class Drive extends SubsystemBase {
 
+    public enum driveState {
+        nothing,
+        drivingStraight,
+        spinTurning,
+        mobileTurning
+    }
     //Memory allocation in preparation for Drive object initialization.
     private WPI_TalonFX driveMasterLeft;
     private WPI_TalonFX driveSlaveLeft;
@@ -27,6 +33,8 @@ public class Drive extends SubsystemBase {
 
     //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
     public Drive() {
+
+
 
         driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
         driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);

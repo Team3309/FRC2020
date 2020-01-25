@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3309.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.*;
 import org.usfirst.frc.team3309.Constants;
@@ -16,10 +17,34 @@ import org.usfirst.frc.team3309.Constants;
 
 public class CtrlPanelTurner extends SubsystemBase {
 
+    public enum turnerState {
+        nothing,
+        turningToRotations,
+        turningToColor
+    }
+
+    public enum panelColor {
+
+        red(1),
+        yellow(2),
+        green(3),
+        cyan(4),
+        unknown(5);
+
+        private int index;
+
+        panelColor(int index) {this.index = index;}
+    }
+
+    private Solenoid retractorPiston;
+    private Solenoid heightAdjustmentPiston;
+
     private WPI_TalonFX ctrlPanelMotor;
     public CtrlPanelTurner() {
         ctrlPanelMotor = new WPI_TalonFX(Constants.TURNER_MOTOR_ID);
         ctrlPanelMotor.configFactoryDefault();
+        retractorPiston = new Solenoid(Constants.kTurnerRetractorPistonPdpChannel);
+        heightAdjustmentPiston = new Solenoid(Constants.kTurnerHeightAdjustmentPistonPdpChannel);
     }
 
     //TODO: account for wacky control panel start positions.
@@ -53,6 +78,19 @@ public class CtrlPanelTurner extends SubsystemBase {
 
     public void getFMSColor() {}
 
-    public void getColor() {}
+
+
+    public void getColor() {
+
+        /*
+         * Pseudocode:
+         *
+         * Have the color sensor detect the color on the control panel;
+         * if it is within tolerable values for yellow, PanelColor = yellow;
+         * if it is within tolerable values for cyan, PanelColor = cyan;
+         * if the CYMK values amount to green, PanelColor = green;
+         * if the CYMK values amount to red, PanelColor = red;
+         */
+    }
 
 }

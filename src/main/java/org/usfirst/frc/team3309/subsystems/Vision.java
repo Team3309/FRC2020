@@ -13,6 +13,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 
 public class Vision extends SubsystemBase {
+
+    public enum visionState {
+        nothing,
+        ledOn,
+        ledOff,
+        calculating
+    }
+
     public Limelight limelight = new Limelight("Shooter Limelight", 0, 0, 0);
 
     public Vision () {

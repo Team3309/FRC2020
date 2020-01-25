@@ -16,6 +16,11 @@ import org.usfirst.frc.team3309.Constants;
 
 public class PCIndexer extends SubsystemBase {
 
+    public enum indexerState {
+        nothing,
+        loading,
+        ejecting
+    }
     private WPI_TalonFX indexerMotor;
 
     public PCIndexer() {
