@@ -23,6 +23,7 @@ public class Climber extends SubsystemBase {
         autoBalancing
     }
 
+
     private WPI_TalonSRX climberMotor;
 
     public Climber() {

@@ -86,10 +86,10 @@ public class CtrlPanelTurner extends SubsystemBase {
          * Pseudocode:
          *
          * Have the color sensor detect the color on the control panel;
-         * if it is within tolerable values for yellow, PanelColor = yellow;
-         * if it is within tolerable values for cyan, PanelColor = cyan;
-         * if the CYMK values amount to green, PanelColor = green;
-         * if the CYMK values amount to red, PanelColor = red;
+         * If RGBSensor.get() == red, return red;
+         * if RGBSensor.get() == green, return green;
+         * if RGBSensor.get() == blue, return blue;
+         * if |RGBSensor.getR()-RGBSensor.getG()| <= someConstant, return yellow;
          */
     }
 
