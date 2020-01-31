@@ -15,8 +15,7 @@ import org.usfirst.frc.team3309.subsystems.*;
 
 public class Robot extends TimedRobot {
 
-    public static Aimer aimer;
-    public static Balancer balancer;
+
     public static Climber climber;
     public static CtrlPanelTurner ctrlPanelTurner;
     public static Drive drive;
@@ -37,8 +36,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
-        aimer = new Aimer();
-        balancer = new Balancer();
+
         climber = new Climber();
         ctrlPanelTurner = new CtrlPanelTurner();
         drive = new Drive();
@@ -117,7 +115,7 @@ public class Robot extends TimedRobot {
      * All we do here is insert the code that is used to start up the rest of the robot code.
      */
     public static void main(String[] args) {
-        RobotBase.startRobot(Robot::new);
+        Robot robot = new Robot();
     }
 
 }
