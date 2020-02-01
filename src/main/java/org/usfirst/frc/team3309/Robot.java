@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
     public static PowerDistributionPanel pdp;
 
     public static OI oi;
-
+    public static boolean isInAuto = false;
 
     /*
      * This function is called when the Robot program starts. use it to initialize your subsystems,
@@ -36,7 +36,6 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
-
         climber = new Climber();
         ctrlPanelTurner = new CtrlPanelTurner();
         drive = new Drive();
@@ -44,8 +43,9 @@ public class Robot extends TimedRobot {
         intake = new PCIntake();
         vision = new Vision();
         pdp = new PowerDistributionPanel();
-
         oi = new OI();
+
+        drive.reset();
 
         super.robotInit();
     }
@@ -80,6 +80,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
+        CommandScheduler.getInstance().cancelAll();
     }
 
     /*
@@ -115,7 +116,18 @@ public class Robot extends TimedRobot {
      * All we do here is insert the code that is used to start up the rest of the robot code.
      */
     public static void main(String[] args) {
+
         Robot robot = new Robot();
+        robot.robotInit();
+
+        if (isInAuto) {
+            robot.autonomousInit();
+            robot.autonomousPeriodic();
+        } else if (!isInAuto) {
+            robot.teleopInit();
+            robot.teleopPeriodic();
+        }
+
     }
 
 }
