@@ -14,6 +14,9 @@ public class FireManual extends CommandBase {
     @Override
     public void execute() {
         if(!hasRequirement(Robot.shooter)) return;
+
+        Robot.shooter.spinPowerCell(1, 1);
+
     }
 
     public void end() {

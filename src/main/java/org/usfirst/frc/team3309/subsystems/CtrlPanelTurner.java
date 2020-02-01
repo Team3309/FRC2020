@@ -88,4 +88,11 @@ public class CtrlPanelTurner extends SubsystemBase {
         return colorSensor.getColor();
     }
 
+    public void deployTurner() {
+        retractorPiston.set(true);
+    }
+    public void retractTurner() {
+        retractorPiston.set(false);
+    }
+
 }
