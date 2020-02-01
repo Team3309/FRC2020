@@ -41,7 +41,7 @@ public class OI {
     public Joystick leftStick = new Joystick(0);
     public Joystick rightStick = new Joystick(1);
     public XboxController operatorController = new XboxController(2);
-    public boolean triggerPressed = leftStick.getTrigger();
+
 
     ClusterGroup leftStickLeftCluster = new ClusterGroup(leftStick, side.left);
     ClusterGroup leftStickRightCluster = new ClusterGroup(leftStick, side.right);
@@ -49,12 +49,45 @@ public class OI {
     ClusterGroup rightStickRightCluster = new ClusterGroup(rightStick, side.right);
     JoystickButton shootingButton = new JoystickButton(leftStick, TRIGGER_ID);
 
-    OI() {
+    public boolean triggerPressed = shootingButton.get();
+    public boolean A_ButtonPressed;
+    public boolean B_ButtonPressed;
+    public boolean B_ButtonHadBeenPressed;
+    public boolean X_ButtonPressed;
+    public boolean Y_ButtonPressed;
+    public boolean northDPadPressed;
+    public boolean southDPadPressed;
+    public boolean westDPadPressed;
+    public boolean eastDPadPressed;
+
+    public OI() {
         leftStickLeftCluster.whenActive(new FireAuto());
+
 
         while (triggerPressed) {
             new FireManual();
         }
+
+        if (!B_ButtonHadBeenPressed && B_ButtonPressed) {
+
+            B_ButtonHadBeenPressed = true;
+            new DeployTurner();
+
+        } else if (B_ButtonHadBeenPressed && !B_ButtonPressed) {
+
+            B_ButtonHadBeenPressed = false;
+            new RetractTurner();
+        }
+
+        if (B_ButtonHadBeenPressed && Y_ButtonPressed) {
+            new RotatePanel();
+        }
+
+        if (B_ButtonHadBeenPressed && X_ButtonPressed) {
+            new RotateToColor();
+        }
+
+
     }
 
     private class ClusterGroup extends Trigger {

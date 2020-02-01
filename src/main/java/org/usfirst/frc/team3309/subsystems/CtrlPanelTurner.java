@@ -93,4 +93,11 @@ public class CtrlPanelTurner extends SubsystemBase {
          */
     }
 
+    public void deployTurner() {
+        retractorPiston.set(true);
+    }
+    public void retractTurner() {
+        retractorPiston.set(false);
+    }
+
 }

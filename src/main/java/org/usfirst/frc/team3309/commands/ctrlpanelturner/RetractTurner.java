@@ -1,13 +1,9 @@
 package org.usfirst.frc.team3309.commands.ctrlpanelturner;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import org.usfirst.frc.team3309.Robot;
-import org.usfirst.frc.team3309.subsystems.CtrlPanelTurner;
 
-public class DeployTurner extends CommandBase {
-
-    public Solenoid turnerDeployPiston;
+public class RetractTurner extends CommandBase{
 
     @Override
     public void initialize() {
@@ -17,16 +13,13 @@ public class DeployTurner extends CommandBase {
     @Override
     public void execute() {
         if (!hasRequirement(Robot.ctrlPanelTurner)) return;
-        Robot.ctrlPanelTurner.deployTurner();
+        Robot.ctrlPanelTurner.retractTurner();
     }
 
-    public void end() {
-
-    }
+    public void end() {}
 
     @Override
     public boolean isFinished() {
         return true;
     }
-
 }
