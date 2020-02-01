@@ -4,6 +4,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import org.usfirst.frc.team3309.commands.aimer.*;
+import org.usfirst.frc.team3309.commands.balancer.*;
+import org.usfirst.frc.team3309.commands.climber.*;
+import org.usfirst.frc.team3309.commands.ctrlpanelturner.*;
+import org.usfirst.frc.team3309.commands.drive.*;
+import org.usfirst.frc.team3309.commands.pcindexer.*;
+import org.usfirst.frc.team3309.commands.pcintake.*;
 import org.usfirst.frc.team3309.commands.shooter.*;
 
 public class OI {
@@ -34,6 +41,7 @@ public class OI {
     public Joystick leftStick = new Joystick(0);
     public Joystick rightStick = new Joystick(1);
     public XboxController operatorController = new XboxController(2);
+    public boolean triggerPressed = leftStick.getTrigger();
 
     ClusterGroup leftStickLeftCluster = new ClusterGroup(leftStick, side.left);
     ClusterGroup leftStickRightCluster = new ClusterGroup(leftStick, side.right);
@@ -43,14 +51,18 @@ public class OI {
 
     OI() {
         leftStickLeftCluster.whenActive(new FireAuto());
+
+        while (triggerPressed) {
+            new FireManual();
+        }
     }
 
     private class ClusterGroup extends Trigger {
 
         Joystick stick;
-        side side;
+        OI.side side;
 
-        ClusterGroup(Joystick stick, side side) {
+        ClusterGroup(Joystick stick, OI.side side) {
             this.stick = stick;
             this.side = side;
         }
