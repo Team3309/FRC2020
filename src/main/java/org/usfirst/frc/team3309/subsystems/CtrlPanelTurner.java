@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.*;
 import org.usfirst.frc.team3309.Constants;
+import edu.wpi.first.wpilibj.I2C.Port;
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.util.Color;
 
 /**
  * @author Joshua Badzey
@@ -40,9 +43,12 @@ public class CtrlPanelTurner extends SubsystemBase {
     private Solenoid heightAdjustmentPiston;
 
     private WPI_TalonFX ctrlPanelMotor;
+    private ColorSensorV3 colorSensor;
+
     public CtrlPanelTurner() {
         ctrlPanelMotor = new WPI_TalonFX(Constants.TURNER_MOTOR_ID);
         ctrlPanelMotor.configFactoryDefault();
+        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
         retractorPiston = new Solenoid(Constants.kTurnerRetractorPistonPdpChannel);
         heightAdjustmentPiston = new Solenoid(Constants.kTurnerHeightAdjustmentPistonPdpChannel);
     }
@@ -78,19 +84,8 @@ public class CtrlPanelTurner extends SubsystemBase {
 
     public void getFMSColor() {}
 
-
-
-    public void getColor() {
-
-        /*
-         * Pseudocode:
-         *
-         * Have the color sensor detect the color on the control panel;
-         * if it is within tolerable values for yellow, PanelColor = yellow;
-         * if it is within tolerable values for cyan, PanelColor = cyan;
-         * if the CYMK values amount to green, PanelColor = green;
-         * if the CYMK values amount to red, PanelColor = red;
-         */
+    public Color getColor() {
+        return colorSensor.getColor();
     }
 
 }

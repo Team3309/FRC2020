@@ -7,12 +7,12 @@ public class IsOnTarget extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.aimer);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.aimer)) return;
+         return;
     }
 
     public void end() {

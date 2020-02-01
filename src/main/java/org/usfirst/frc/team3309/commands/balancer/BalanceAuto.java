@@ -7,12 +7,11 @@ public class BalanceAuto extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.balancer);
+
     }
 
     @Override
-    public void execute() {
-        if(!hasRequirement(Robot.balancer)) return;
+    public void execute() { return;
     }
 
     public void end() {

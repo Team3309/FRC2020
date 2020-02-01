@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import org.usfirst.frc.team3309.subsystems.*;
 
+import java.util.Set;
+
 
 /*
  * This is the Robot class.
@@ -15,8 +17,6 @@ import org.usfirst.frc.team3309.subsystems.*;
 
 public class Robot extends TimedRobot {
 
-    public static Aimer aimer;
-    public static Balancer balancer;
     public static Climber climber;
     public static CtrlPanelTurner ctrlPanelTurner;
     public static Drive drive;
@@ -27,8 +27,11 @@ public class Robot extends TimedRobot {
     public static PowerDistributionPanel pdp;
 
     public static OI oi;
+    public static boolean isInAuto = false;
 
-
+    public Robot() {
+        super(0.01);
+    }
     /*
      * This function is called when the Robot program starts. use it to initialize your subsystems,
      * and to set up anything that needs to be initialized with the robot.
@@ -37,8 +40,6 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
-        aimer = new Aimer();
-        balancer = new Balancer();
         climber = new Climber();
         ctrlPanelTurner = new CtrlPanelTurner();
         drive = new Drive();
@@ -46,8 +47,9 @@ public class Robot extends TimedRobot {
         intake = new PCIntake();
         vision = new Vision();
         pdp = new PowerDistributionPanel();
-
         oi = new OI();
+
+        drive.reset();
 
         super.robotInit();
     }
@@ -66,6 +68,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().run();
     }
 
     /*
@@ -82,6 +86,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
+        CommandScheduler.getInstance().cancelAll();
     }
 
     /*
@@ -110,14 +115,6 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-    }
-
-    /*
-     * This is the main function, which is where every java program starts.
-     * All we do here is insert the code that is used to start up the rest of the robot code.
-     */
-    public static void main(String[] args) {
-        RobotBase.startRobot(Robot::new);
     }
 
 }

@@ -7,12 +7,12 @@ public class ManualShift extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.balancer);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.balancer)) return;
+         return;
     }
 
     public void end() {

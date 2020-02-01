@@ -14,13 +14,12 @@ public class AimAuto extends CommandBase {
     public void initialize() {
         turnPID = new PIDController(Constants.kAimingP, Constants.kAimingI, Constants.kAimingD);
 
-        addRequirements(Robot.aimer);
         addRequirements(Robot.drive);
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.aimer) || !hasRequirement(Robot.drive)) return;
+        if (!hasRequirement(Robot.drive)) return;
 
         double turn = 0;
         if (Robot.vision.limelight.hasTarget()) {
