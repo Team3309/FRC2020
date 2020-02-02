@@ -52,18 +52,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Friarbots\Documents\frc2020\.wpilib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Friarbots\Documents\frc2020" />
       <recent name="C:\Users\Friarbots\Documents\frc2020\src\main" />
       <recent name="C:\Users\Friarbots\Documents\frc2020\gradle\wrapper" />
       <recent name="C:\Users\Friarbots\Documents\frc2020\.wpilib" />
       <recent name="C:\Users\Friarbots\Documents\frc2020\.idea" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Friarbots\Documents\frc2020\.wpilib" />
     </key>
   </component>
   <component name="RunManager">
@@ -116,6 +117,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="53" y="15" key="SettingsEditor" timestamp="1580627188454">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="53" y="15" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1580627188454" />
     <state x="163" y="164" key="run.anything.popup" timestamp="1580626263050">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
