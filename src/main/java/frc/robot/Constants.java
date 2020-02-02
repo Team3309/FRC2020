@@ -54,10 +54,10 @@ public class Constants {
     public static final int DRIVE_RIGHT_SLAVE_ID = 7;
     public static final int DRIVE_LEFT_MASTER_ID = 6;
     public static final int DRIVE_LEFT_SLAVE_ID = 8;
-    public static final int TURNER_MOTOR_ID = 5;
-    public static final int INDEXER_MOTOR_ID = 6;
-    public static final int INTAKE_MOTOR_ID = 7;
-    public static final int BALANCER_MOTOR_ID = 8;
+    public static final int TURNER_MOTOR_ID = 20;
+    public static final int INDEXER_MOTOR_ID = 21;
+    public static final int INTAKE_MOTOR_ID = 22;
+    public static final int BALANCER_MOTOR_ID = 23;
     public static final int SHOOTER_TOP_MOTOR_ID = 2;
     public static final int SHOOTER_BOTTOM_MOTOR_ID = 3;
 
