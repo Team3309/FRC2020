@@ -23,6 +23,10 @@ public class DriveManual extends CommandBase {
         double turn = Robot.oi.rightStick.getY();
         boolean quickturn = Robot.oi.rightStick.getTrigger();
 
+        //TODO: Update with RobotContainer DI
+        //Robot.drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickturn, false));
+
+
     }
 
     public void end() {
