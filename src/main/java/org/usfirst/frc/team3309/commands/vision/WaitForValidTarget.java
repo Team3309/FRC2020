@@ -6,13 +6,11 @@ import org.usfirst.frc.team3309.Robot;
 public class WaitForValidTarget extends CommandBase {
 
     @Override
-    public void initialize() {
-        addRequirements(Robot.vision);
-    }
+    public void initialize() {}
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.vision)) return;
+        return;
     }
 
     public void end() {

@@ -54,39 +54,39 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     //TODO: account for wacky control panel start positions.
     //turns the control panel by amount; if inRevs == true, will turn in revolutions, else, will turn in degrees.
-    public void turn(double segments) {
+    public void Turn(double segments) {
         ctrlPanelMotor.set(ControlMode.Position, segments*Constants.ENCODER_COUNTS_PER_DEGREE*
                     45*(20/Constants.TURNER_INCHES_PER_REV));
 
     }
 
-    public void engage() {
+    public void Engage() {
         /*
         * Pseudocode:
         *
         */
     }
 
-    public void disengage() {
+    public void Disengage() {
         /*
         * Pseudocode:
         *
         */
     }
 
-    public void raiseTurner() {
+    public void RaiseTurner() {
         /*
         * Pseudocode:
         *
         */
     }
 
-    public void getFMSColor() {}
+    public void GetFMSColor() {}
 
-    public void deployTurner() {
+    public void DeployTurner() {
         retractorPiston.set(true);
     }
-    public void retractTurner() {
+    public void RetractTurner() {
         retractorPiston.set(false);
     }
 

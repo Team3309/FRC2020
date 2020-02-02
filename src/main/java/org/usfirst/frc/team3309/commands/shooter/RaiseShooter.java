@@ -7,12 +7,12 @@ public class RaiseShooter extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.shooter);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.shooter)) return;
+        return;
     }
 
     public void end() {

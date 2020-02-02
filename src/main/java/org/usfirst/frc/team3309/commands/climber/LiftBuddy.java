@@ -7,12 +7,12 @@ public class LiftBuddy extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.climber);
+
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.climber)) return;
+        return;
     }
 
     public void end() {

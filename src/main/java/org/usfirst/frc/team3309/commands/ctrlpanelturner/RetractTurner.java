@@ -7,13 +7,12 @@ public class RetractTurner extends CommandBase{
 
     @Override
     public void initialize() {
-        addRequirements(Robot.ctrlPanelTurner);
+
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.ctrlPanelTurner)) return;
-        Robot.ctrlPanelTurner.retractTurner();
+
     }
 
     public void end() {}

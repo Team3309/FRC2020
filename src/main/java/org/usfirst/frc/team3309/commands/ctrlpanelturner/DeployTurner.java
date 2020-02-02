@@ -10,13 +10,13 @@ public class DeployTurner extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.ctrlPanelTurner);
+
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.ctrlPanelTurner)) return;
-        Robot.ctrlPanelTurner.deployTurner();
+        return;
+
     }
 
     public void end() {

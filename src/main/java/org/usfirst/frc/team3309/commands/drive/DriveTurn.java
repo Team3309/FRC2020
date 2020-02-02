@@ -7,14 +7,12 @@ public class DriveTurn extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.drive);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.drive)) return;
-
-
+        return;
     }
 
     public void end() {

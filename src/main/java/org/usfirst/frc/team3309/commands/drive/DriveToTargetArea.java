@@ -7,14 +7,12 @@ public class DriveToTargetArea extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.drive, Robot.shooter);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.drive) || !hasRequirement(Robot.shooter)) return;
-
-
+         return;
     }
 
     public void end() {

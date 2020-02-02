@@ -31,7 +31,7 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     //will lift up the climber mechanism to grab on to the rung.
-    public void liftClimber() {}
+    public void LiftClimber() {}
     //will change the extension of the climber mechanism; negative is contraction, positive is extension.
-    public void changeHeight(double height) {}
+    public void ChangeHeight(double height) {}
 }

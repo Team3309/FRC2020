@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3309.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.usfirst.frc.team3309.Constants;
@@ -28,12 +27,12 @@ public class IndexerSubsystem extends SubsystemBase {
         indexerMotor.configFactoryDefault();
     }
     //will detect whether indexer is full or not.
-    public boolean isFull() {return false;}
+    public boolean IsFull() {return false;}
     //will detect whether indexer is empty or not
-    public boolean isEmpty() {return !isFull();}
+    public boolean IsEmpty() {return !IsFull();}
     //will load power cell into shooter or eject it into the intake; if (inOrOut), load; else if(!inOrOut), eject; else
     //stand still.
-    public void load() {}
-    public void eject() {}
-    public void stopIndexer() {}
+    public void Load() {}
+    public void Eject() {}
+    public void StopIndexer() {}
 }

@@ -12,19 +12,17 @@ public class DriveManual extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.drive);
+
     }
 
     @Override
     public void execute() {
 
-        if(!hasRequirement(Robot.drive)) return;
 
         double throttle = Robot.oi.leftStick.getX();
         double turn = Robot.oi.rightStick.getY();
         boolean quickturn = Robot.oi.rightStick.getTrigger();
 
-        Robot.drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickturn, false));
     }
 
     public void end() {
