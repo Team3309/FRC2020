@@ -20,6 +20,6 @@ public class RobotContainer {
     }
 
     private void ConfigureButtonBindings() {
-
+        boolean foo = true;
     }
 }
