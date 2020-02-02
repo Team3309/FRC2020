@@ -21,6 +21,6 @@ public class RobotContainer {
 
     private void ConfigureButtonBindings() {
         int i = 10;
-
+        boolean foo = false;
     }
 }
