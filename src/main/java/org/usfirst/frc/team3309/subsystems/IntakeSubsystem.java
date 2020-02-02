@@ -12,7 +12,7 @@ import org.usfirst.frc.team3309.Constants;
  * indexer to move power cells around within the robot.
  *
  */
-public class PCIntake extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
 
     public enum intakeState {
         nothing,
@@ -21,7 +21,7 @@ public class PCIntake extends SubsystemBase {
     }
     public WPI_TalonFX intakeMotor;
 
-    public PCIntake() {
+    public IntakeSubsystem() {
         intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
         intakeMotor.configFactoryDefault();
     }

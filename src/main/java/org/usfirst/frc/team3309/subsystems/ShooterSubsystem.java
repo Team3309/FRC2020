@@ -16,7 +16,7 @@ import org.usfirst.frc.team3309.Constants;
  *
  */
 
-public class Shooter extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
 
     public enum shooterState{
         nothing,
@@ -28,7 +28,7 @@ public class Shooter extends SubsystemBase {
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
 
-    public Shooter() {
+    public ShooterSubsystem() {
         topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
         bottomMotor = new WPI_TalonFX(Constants.SHOOTER_BOTTOM_MOTOR_ID);
         topMotor.configFactoryDefault();
@@ -36,7 +36,9 @@ public class Shooter extends SubsystemBase {
     }
 
     //spins up the flywheel to a set speed, with a certain timeout value.
-    public void spinFlywheels(double speed, double timeOut) {}
+    public void spinFlywheels(double speed, double timeOut) {
+
+    }
 
     //immediately stops the flywheels.
     public void stopFlywheels() {

@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc.team3309.util.DriveSignal;
 
-public class Drive extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
 
     public enum driveState {
         nothing,
@@ -32,7 +32,7 @@ public class Drive extends SubsystemBase {
     private Solenoid shifter;
 
     //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
-    public Drive() {
+    public DriveSubsystem() {
 
 
 
@@ -165,14 +165,6 @@ public class Drive extends SubsystemBase {
         SmartDashboard.putNumber("-> encoder distance", getRightEncoderDistance());
         SmartDashboard.putNumber("<- encoder velocity", getLeftEncoderVelocity());
         SmartDashboard.putNumber("-> encoder velocity", getRightEncoderVelocity());
-        SmartDashboard.putNumber("Left Drive Master current",
-                Robot.pdp.getCurrent(Constants.kLeftDriveMasterPdpChannel));
-        SmartDashboard.putNumber("Left Drive Slave current",
-                Robot.pdp.getCurrent(Constants.kLeftDriveSlavePdpChannel));
-        SmartDashboard.putNumber("Right Drive Master current",
-                Robot.pdp.getCurrent(Constants.kRightDriveMasterPdpChannel));
-        SmartDashboard.putNumber("Right Drive Slave current",
-                Robot.pdp.getCurrent(Constants.kRightDriveSlavePdpChannel));
     }
 
 

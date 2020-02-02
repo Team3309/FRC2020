@@ -1,18 +1,19 @@
-package org.usfirst.frc.team3309.commands.climber;
+package org.usfirst.frc.team3309.commands.ctrlpanelturner;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import org.usfirst.frc.team3309.OI;
 import org.usfirst.frc.team3309.Robot;
 
-public class LiftBuddy extends CommandBase {
+public class RotateManual extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.climber);
+        addRequirements(Robot.ctrlPanelTurner);
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.climber)) return;
+        if (!hasRequirement(Robot.ctrlPanelTurner)) return;
     }
 
     public void end() {

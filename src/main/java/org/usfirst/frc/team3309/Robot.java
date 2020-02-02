@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3309;
 
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -14,18 +13,18 @@ import org.usfirst.frc.team3309.subsystems.*;
  */
 
 public class Robot extends TimedRobot {
-
+    private RobotContainer Container;
+    /*
     public static Climber climber;
     public static CtrlPanelTurner ctrlPanelTurner;
     public static Drive drive;
     public static PCIndexer indexer;
     public static PCIntake intake;
-    public static Shooter shooter;
+    public static ShooterSubsystem shooter;
     public static Vision vision;
     public static PowerDistributionPanel pdp;
-
+    */
     public static OI oi;
-    public static boolean isInAuto = false;
 
     public Robot() {
         super(0.01);
@@ -37,7 +36,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-
+        /*
         climber = new Climber();
         ctrlPanelTurner = new CtrlPanelTurner();
         drive = new Drive();
@@ -46,10 +45,9 @@ public class Robot extends TimedRobot {
         vision = new Vision();
         pdp = new PowerDistributionPanel();
         oi = new OI();
-
         drive.reset();
-
-        super.robotInit();
+        */
+        Container = new RobotContainer();
     }
 
     /*
@@ -66,8 +64,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        CommandScheduler.getInstance().cancelAll();
-        CommandScheduler.getInstance().run();
+
     }
 
     /*

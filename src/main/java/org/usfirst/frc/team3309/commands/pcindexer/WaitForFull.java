@@ -2,7 +2,6 @@ package org.usfirst.frc.team3309.commands.pcindexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import org.usfirst.frc.team3309.Robot;
-import org.usfirst.frc.team3309.subsystems.PCIndexer;
 
 public class WaitForFull extends CommandBase {
 

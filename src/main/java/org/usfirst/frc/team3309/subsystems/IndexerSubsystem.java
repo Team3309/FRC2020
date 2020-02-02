@@ -14,7 +14,7 @@ import org.usfirst.frc.team3309.Constants;
  *
  */
 
-public class PCIndexer extends SubsystemBase {
+public class IndexerSubsystem extends SubsystemBase {
 
     public enum indexerState {
         nothing,
@@ -23,7 +23,7 @@ public class PCIndexer extends SubsystemBase {
     }
     private WPI_TalonFX indexerMotor;
 
-    public PCIndexer() {
+    public IndexerSubsystem() {
         indexerMotor = new WPI_TalonFX(Constants.INDEXER_MOTOR_ID);
         indexerMotor.configFactoryDefault();
     }

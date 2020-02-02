@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3309;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -12,6 +13,7 @@ import org.usfirst.frc.team3309.commands.drive.*;
 import org.usfirst.frc.team3309.commands.pcindexer.*;
 import org.usfirst.frc.team3309.commands.pcintake.*;
 import org.usfirst.frc.team3309.commands.shooter.*;
+
 
 public class OI {
 
@@ -41,7 +43,7 @@ public class OI {
     public Joystick leftStick = new Joystick(0);
     public Joystick rightStick = new Joystick(1);
     public XboxController operatorController = new XboxController(2);
-
+    public Timer controlTimer = new Timer();
 
     ClusterGroup leftStickLeftCluster = new ClusterGroup(leftStick, side.left);
     ClusterGroup leftStickRightCluster = new ClusterGroup(leftStick, side.right);
@@ -49,9 +51,7 @@ public class OI {
     ClusterGroup rightStickRightCluster = new ClusterGroup(rightStick, side.right);
     JoystickButton shootingButton = new JoystickButton(leftStick, TRIGGER_ID);
 
-    public boolean triggerPressed = shootingButton.get();
-    public boolean A_ButtonPressed;
-    public boolean B_ButtonPressed;
+    public boolean triggerPressed;
     public boolean B_ButtonHadBeenPressed;
     public boolean X_ButtonPressed;
     public boolean Y_ButtonPressed;
@@ -61,32 +61,36 @@ public class OI {
     public boolean eastDPadPressed;
 
     public OI() {
+
         leftStickLeftCluster.whenActive(new FireAuto());
 
 
-        while (triggerPressed) {
+        if (shootingButton.get()) {
+            triggerPressed = shootingButton.get();
             new FireManual();
         }
 
-        if (!B_ButtonHadBeenPressed && B_ButtonPressed) {
-
+        //Deploys or retracts turner based on a toggle. Works off of
+        if (!B_ButtonHadBeenPressed && operatorController.getBButton()) {
             B_ButtonHadBeenPressed = true;
             new DeployTurner();
-
-        } else if (B_ButtonHadBeenPressed && !B_ButtonPressed) {
-
+        } else if (B_ButtonHadBeenPressed && !operatorController.getBButton()) {
             B_ButtonHadBeenPressed = false;
             new RetractTurner();
         }
 
-        if (B_ButtonHadBeenPressed && Y_ButtonPressed) {
+        //Tries to obtain Rotation Control if the turner is deployed and the "Y" button is pressed.
+        if (B_ButtonHadBeenPressed && operatorController.getYButton()) {
             new RotatePanel();
         }
-
-        if (B_ButtonHadBeenPressed && X_ButtonPressed) {
+        //Tries to obtain Position Control if the turner is deployed and the "X" button is pressed.
+        if (B_ButtonHadBeenPressed && operatorController.getBButton()) {
             new RotateToColor();
         }
 
+        if (operatorController.getAButton()) {
+            new LoadBall();
+        }
 
     }
 

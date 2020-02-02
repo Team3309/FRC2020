@@ -13,7 +13,7 @@ import org.usfirst.frc.team3309.Constants;
  *
  */
 
-public class Climber extends SubsystemBase {
+public class ClimberSubsystem extends SubsystemBase {
 
     private enum climberState {
         nothing,
@@ -26,7 +26,7 @@ public class Climber extends SubsystemBase {
 
     private WPI_TalonSRX climberMotor;
 
-    public Climber() {
+    public ClimberSubsystem() {
         climberMotor = new WPI_TalonSRX(Constants.BALANCER_MOTOR_ID);
     }
 
