@@ -21,15 +21,15 @@ public class DriveSignal {
     public static DriveSignal NEUTRAL = new DriveSignal(0, 0);
     public static DriveSignal BRAKE = new DriveSignal(0, 0, true);
 
-    public double getLeft() {
+    public double GetLeft() {
         return mLeftMotor;
     }
 
-    public double getRight() {
+    public double GetRight() {
         return mRightMotor;
     }
 
-    public boolean getBrakeMode() {
+    public boolean GetBrakeMode() {
         return mBrakeMode;
     }
 

@@ -14,19 +14,15 @@ public class AimAuto extends CommandBase {
     public void initialize() {
         turnPID = new PIDController(Constants.kAimingP, Constants.kAimingI, Constants.kAimingD);
 
-        addRequirements(Robot.drive);
+
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.drive)) return;
+
 
         double turn = 0;
-        if (Robot.vision.limelight.hasTarget()) {
-            turn = turnPID.calculate(Robot.vision.limelight.getTx(), 0);
-        }
 
-        Robot.drive.setLeftRight(ControlMode.PercentOutput, -turn, turn);
     }
 
     public void end() {

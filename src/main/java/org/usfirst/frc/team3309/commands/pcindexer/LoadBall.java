@@ -8,12 +8,12 @@ public class LoadBall extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.indexer);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.indexer)) return;
+         return;
     }
 
     public void end() {

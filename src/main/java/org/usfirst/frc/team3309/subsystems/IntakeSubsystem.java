@@ -26,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeMotor.configFactoryDefault();
     }
 
-    public void actuate(double speed) {
+    public void Actuate(double speed) {
         intakeMotor.set(ControlMode.Velocity, speed);
     }
 

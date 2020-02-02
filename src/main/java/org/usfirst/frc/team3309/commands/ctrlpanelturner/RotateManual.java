@@ -8,12 +8,12 @@ public class RotateManual extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.ctrlPanelTurner);
+
     }
 
     @Override
     public void execute() {
-        if (!hasRequirement(Robot.ctrlPanelTurner)) return;
+        return;
     }
 
     public void end() {

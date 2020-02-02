@@ -7,14 +7,12 @@ public class FireManual extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.shooter);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.shooter)) return;
 
-        Robot.shooter.spinFlywheels(1, 10);
 
     }
 

@@ -7,12 +7,12 @@ public class IlluminationOn extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Robot.vision);
+
     }
 
     @Override
     public void execute() {
-        if(!hasRequirement(Robot.vision)) return;
+        return;
     }
 
     public void end() {

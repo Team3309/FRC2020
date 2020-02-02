@@ -7,13 +7,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import org.usfirst.frc.team3309.Robot;
 import org.usfirst.frc.team3309.util.DriveSignal;
 import org.usfirst.frc.team3309.Constants;
-import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import org.usfirst.frc.team3309.util.DriveSignal;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -75,96 +71,96 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
-    public double getLeftEncoderDistance() {
+    public double GetLeftEncoderDistance() {
         return driveMasterLeft.getSelectedSensorPosition(0);
     }
 
-    public double getRightEncoderDistance() {
+    public double GetRightEncoderDistance() {
         return -driveMasterRight.getSelectedSensorPosition(0);
     }
 
-    public double getLeftEncoderVelocity() {
+    public double GetLeftEncoderVelocity() {
         return driveMasterLeft.getSelectedSensorVelocity(0);
     }
 
-    public double getRightEncoderVelocity() {
+    public double GetRightEncoderVelocity() {
         return -driveMasterRight.getSelectedSensorVelocity(0);
     }
 
     //Converts degrees/sec to encoder velocity (ticks/sec).
-    public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
+    public double DegreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Constants.ENCODER_COUNTS_PER_DEGREE;
     }
 
     //Sets gearing...
-    public void setHighGear() { shifter.set(true); }
-    public void setLowGear() { shifter.set(false); }
+    public void SetHighGear() { shifter.set(true); }
+    public void SetLowGear() { shifter.set(false); }
 
     //...and gets gearing.
-    public boolean inHighGear() {
+    public boolean InHighGear() {
         if(shifter.get() == true) {
             return true;
         } else return false;
     }
 
-    public boolean inLowGear() {
-        if(!inHighGear()) {
+    public boolean InLowGear() {
+        if(!InHighGear()) {
             return true;
         } else return false;
     }
 
     //Sets left motor.
-    private void setLeft(ControlMode mode, double left,
+    private void SetLeft(ControlMode mode, double left,
                          DemandType demandType, double leftFeedForward) {
         driveMasterLeft.set(mode, left, demandType, leftFeedForward);
     }
 
     //Sets right motor.
-    private void setRight(ControlMode mode, double right,
+    private void SetRight(ControlMode mode, double right,
                           DemandType demandType, double rightFeedforward) {
         driveMasterRight.set(mode, -right, demandType, -rightFeedforward);
     }
 
     //Sets each of the motors simultaneously.
-    public void setLeftRight(ControlMode mode, double left, double right) {
+    public void SetLeftRight(ControlMode mode, double left, double right) {
         driveMasterLeft.set(mode, left);
         driveMasterRight.set(mode, -right);
     }
 
     //Sets each of the motors simultaneously with assigned constants.
-    public void setLeftRight(ControlMode mode, DemandType demandType,
+    public void SetLeftRight(ControlMode mode, DemandType demandType,
                              double left, double right,
                              double leftFeedforward, double rightFeedforward) {
-        setLeft(mode, left, demandType, leftFeedforward);
-        setRight(mode, right, demandType, rightFeedforward);
+        SetLeft(mode, left, demandType, leftFeedforward);
+        SetRight(mode, right, demandType, rightFeedforward);
     }
 
     //Sets the motors according to a DriveSignal object.
-    public void setLeftRight (ControlMode mode, DriveSignal signal) {
-        setLeftRight(mode, signal.getLeft(), signal.getRight());
+    public void SetLeftRight(ControlMode mode, DriveSignal signal) {
+        SetLeftRight(mode, signal.GetLeft(), signal.GetRight());
     }
 
     //Sets the neutral mode for Drive.
-    public void setNeutralMode(NeutralMode mode) {
+    public void SetNeutralMode(NeutralMode mode) {
         driveMasterLeft.setNeutralMode(mode);
         driveMasterRight.setNeutralMode(mode);
     }
 
     //Completely resets the Drive subsystem.
-    public void reset() {
+    public void Reset() {
         driveMasterRight.clearMotionProfileTrajectories();
         driveMasterLeft.clearMotionProfileTrajectories();
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
     //Sends motor data to SmartDashboard.
-    public void outputToDashboard() {
+    public void OutputToDashboard() {
         SmartDashboard.putNumber("Drive <- power", driveMasterLeft.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive -> power", driveMasterRight.getMotorOutputPercent());
-        SmartDashboard.putNumber("<- encoder distance", getLeftEncoderDistance());
-        SmartDashboard.putNumber("-> encoder distance", getRightEncoderDistance());
-        SmartDashboard.putNumber("<- encoder velocity", getLeftEncoderVelocity());
-        SmartDashboard.putNumber("-> encoder velocity", getRightEncoderVelocity());
+        SmartDashboard.putNumber("<- encoder distance", GetLeftEncoderDistance());
+        SmartDashboard.putNumber("-> encoder distance", GetRightEncoderDistance());
+        SmartDashboard.putNumber("<- encoder velocity", GetLeftEncoderVelocity());
+        SmartDashboard.putNumber("-> encoder velocity", GetRightEncoderVelocity());
     }
 
 

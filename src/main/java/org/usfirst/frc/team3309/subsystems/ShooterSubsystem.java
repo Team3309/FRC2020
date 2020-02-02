@@ -36,12 +36,12 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //spins up the flywheel to a set speed, with a certain timeout value.
-    public void spinFlywheels(double speed, double timeOut) {
+    public void SpinFlywheels(double speed, double timeOut) {
 
     }
 
     //immediately stops the flywheels.
-    public void stopFlywheels() {
+    public void StopFlywheels() {
         topMotor.setNeutralMode(NeutralMode.Coast);
         topMotor.set(ControlMode.Velocity, 0);
         bottomMotor.setNeutralMode(NeutralMode.Coast);
@@ -50,7 +50,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //differentiates the rate of spin for motors so that the power cell itself can spin predictably.
-    public void spinPowerCell(double topSpin, double bottomSpin) {
+    public void SpinPowerCell(double topSpin, double bottomSpin) {
         topMotor.set(ControlMode.Velocity, topSpin);
         bottomMotor.set(ControlMode.Velocity, bottomSpin);
     }
