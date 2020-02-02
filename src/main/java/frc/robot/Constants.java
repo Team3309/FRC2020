@@ -50,10 +50,10 @@ public class Constants {
     }
 
     /* DRIVETRAIN */
-    public static final int DRIVE_LEFT_MASTER_ID = 4;
-    public static final int DRIVE_LEFT_SLAVE_ID = 16;
-    public static final int DRIVE_RIGHT_MASTER_ID = 15;
-    public static final int DRIVE_RIGHT_SLAVE_ID = 1;
+    public static final int DRIVE_RIGHT_MASTER_ID = 5;
+    public static final int DRIVE_RIGHT_SLAVE_ID = 7;
+    public static final int DRIVE_LEFT_MASTER_ID = 6;
+    public static final int DRIVE_LEFT_SLAVE_ID = 8;
     public static final int TURNER_MOTOR_ID = 5;
     public static final int INDEXER_MOTOR_ID = 6;
     public static final int INTAKE_MOTOR_ID = 7;
@@ -86,10 +86,10 @@ public class Constants {
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
 
     //All pdp channel numbers are placeholders for now.
-    public static final int kLeftDriveMasterPdpChannel = 14;
-    public static final int kLeftDriveSlavePdpChannel = 15;
-    public static final int kRightDriveMasterPdpChannel = 0;
-    public static final int kRightDriveSlavePdpChannel = 1;
+    public static final int kLeftDriveMasterPdpChannel = 1;
+    public static final int kLeftDriveSlavePdpChannel = 2;
+    public static final int kRightDriveMasterPdpChannel = 13;
+    public static final int kRightDriveSlavePdpChannel = 14;
     public static final int kTurnerRetractorPistonPdpChannel = 4;
     public static final int kTurnerHeightAdjustmentPistonPdpChannel = 5;
     public static final int kTurnerMotorPdpChannel = 6;
