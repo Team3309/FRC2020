@@ -46,7 +46,7 @@ public class RobotContainer {
         new JoystickButton(Robot.oi.operatorController, XboxController.Button.kA.value)
                 .whileHeld(new DriveSimpleTest(0.1, Drive));
 
-        Button button = new JoystickButton(Robot.oi.operatorController, XboxController.Button.kB.value)
+        new JoystickButton(Robot.oi.operatorController, XboxController.Button.kB.value)
                 .whileHeld(new RunCommand(() -> Drive.SetLeftRight(ControlMode.PercentOutput, 0.2, 0.2), Drive));
     }
 
