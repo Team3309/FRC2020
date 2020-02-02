@@ -19,9 +19,14 @@ public class AimAuto extends CommandBase {
 
     @Override
     public void execute() {
-
-
         double turn = 0;
+
+        //TODO: Update with RobotContainer DI
+//        if (Robot.vision.limelight.hasTarget()) {
+//            turn = turnPID.calculate(Robot.vision.limelight.getTx(), 0);
+//        }
+//
+//        Robot.drive.setLeftRight(ControlMode.PercentOutput, -turn, turn);
 
     }
 
