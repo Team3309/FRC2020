@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85c08ef8-145c-4868-9c57-7a1eda9c4ce8" name="Default Changelist" comment="" />
+    <list default="true" id="1b5ef187-108b-4ba6-bf23-bbb7cd1973c6" name="Default Changelist" comment="Updated drive manual to actually take the Drive subsystem and talk to it.  Added outputs to the test commands to see if they're running.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/RobotContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/RobotContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/commands/drive/DriveManual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/commands/drive/DriveManual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/robot/commands/drive/DriveSimpleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/robot/commands/drive/DriveSimpleTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +48,14 @@
       </state>
     </system>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1XExNoIEbzr8i0eW1IZVV6TiT5w" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -119,7 +131,15 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updated drive manual to actually take the Drive subsystem and talk to it.  Added outputs to the test commands to see if they're running." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated drive manual to actually take the Drive subsystem and talk to it.  Added outputs to the test commands to see if they're running." />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="614" y="115" key="CommitChangelistDialog2" timestamp="1580630372791">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="614" y="115" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1580630372791" />
     <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1580629119345">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

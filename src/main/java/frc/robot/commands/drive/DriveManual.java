@@ -1,39 +1,39 @@
 package frc.robot.commands.drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.CheesyDriveHelper;
 
-public class DriveManual extends CommandBase {
+public class DriveManual extends CommandBase
+{
+    private DriveSubsystem Drive;
+    private CheesyDriveHelper cheesyDrive = new CheesyDriveHelper();
 
-
-    CheesyDriveHelper cheesyDrive = new CheesyDriveHelper();
-
-    @Override
-    public void initialize() {
-
+    public DriveManual(DriveSubsystem drive)
+    {
+        Drive = drive;
     }
 
     @Override
-    public void execute() {
+    public void initialize() { }
 
-
+    @Override
+    public void execute()
+    {
         double throttle = Robot.oi.leftStick.getX();
         double turn = Robot.oi.rightStick.getY();
-        boolean quickturn = Robot.oi.rightStick.getTrigger();
+        boolean quickTurn = Robot.oi.rightStick.getTrigger();
 
-        //TODO: Update with RobotContainer DI
-        //Robot.drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickturn, false));
-
-
+        Drive.SetLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickTurn, false));
     }
 
-    public void end() {
-
-    }
+    public void end() { }
 
     @Override
-    public boolean isFinished() {
+    public boolean isFinished()
+    {
         return false;
     }
 }
