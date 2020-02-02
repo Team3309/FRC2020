@@ -17,6 +17,8 @@ public class DriveManual extends CommandBase
 
     public DriveManual(Joystick leftStick, Joystick rightStick, DriveSubsystem drive)
     {
+        addRequirements(drive);
+
         LeftStick = leftStick;
         RightStick = rightStick;
         Drive = drive;
