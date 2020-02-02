@@ -58,8 +58,8 @@ public class Constants {
     public static final int INDEXER_MOTOR_ID = 6;
     public static final int INTAKE_MOTOR_ID = 7;
     public static final int BALANCER_MOTOR_ID = 8;
-    public static final int SHOOTER_TOP_MOTOR_ID = 10;
-    public static final int SHOOTER_BOTTOM_MOTOR_ID = 11;
+    public static final int SHOOTER_TOP_MOTOR_ID = 2;
+    public static final int SHOOTER_BOTTOM_MOTOR_ID = 3;
 
     /**
      * Motor and physical constants.
@@ -95,8 +95,8 @@ public class Constants {
     public static final int kTurnerMotorPdpChannel = 6;
     public static final int kIntakeMotorPdpChannel = 7;
     public static final int kIndexerMotorPdpChannel = 8;
-    public static final int kTopShooterMotorPdpChannel = 9;
-    public static final int kBottomShooterMotorPdpChannel = 10;
+    public static final int kTopShooterMotorPdpChannel = 15;
+    public static final int kBottomShooterMotorPdpChannel = 0;
     public static final int kBalancerMotorPdpChannel = 11;
     public static final int kDriveVelocitySlot = 0;
     public static final int kDrivePositionSlot = 0;
