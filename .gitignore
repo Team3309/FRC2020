@@ -19,7 +19,7 @@
 *.dylib
 *.dll
 
-workspace.xml
+/.idea/
 
 # Fortran module files
 *.mod
