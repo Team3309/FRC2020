@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
     private RobotContainer Container;
     private Command autonomousCommand;
-    public static OI oi;
 
     public Robot() {
         super(0.01);
