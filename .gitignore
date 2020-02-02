@@ -19,6 +19,8 @@
 *.dylib
 *.dll
 
+workspace.xml
+
 # Fortran module files
 *.mod
 *.smod
