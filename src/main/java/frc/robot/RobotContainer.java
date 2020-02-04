@@ -35,7 +35,7 @@ public class RobotContainer
     private final VisionSubsystem Vision = new VisionSubsystem();
 
     // -- Input
-    private final OINew OI = new OINew();
+    private final OperatorInterface OI = new OperatorInterface();
 
     // -- Auto
     SendableChooser<Command> Chooser = new SendableChooser<>();
@@ -73,7 +73,9 @@ public class RobotContainer
                 .whileHeld(new DriveSimpleTest(0.1, Drive));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whileHeld(new RunCommand(() -> Drive.SetLeftRight(ControlMode.PercentOutput, 0.2, 0.2), Drive).beforeStarting(() -> System.out.println("before start B")));
+                .whileHeld(new RunCommand(() -> Drive.SetLeftRight(ControlMode.PercentOutput, 0.2, 0.2), Drive)
+                        .beforeStarting(() -> System.out.println("before start B")));
+
     }
 
     // --------------------------------------------------------------------------------------------

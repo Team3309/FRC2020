@@ -20,6 +20,7 @@ public class IndexerSubsystem extends SubsystemBase {
         loading,
         ejecting
     }
+
     private WPI_TalonFX indexerMotor;
 
     public IndexerSubsystem() {

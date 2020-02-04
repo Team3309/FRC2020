@@ -30,8 +30,6 @@ public class DriveSubsystem extends SubsystemBase {
     //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
     public DriveSubsystem() {
 
-
-
         driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
         driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);
         driveMasterRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_MASTER_ID);

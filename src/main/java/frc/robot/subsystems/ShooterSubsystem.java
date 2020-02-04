@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -27,6 +28,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
 
+    private Timer controlTimer = new Timer();
+
     public ShooterSubsystem() {
         topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
         bottomMotor = new WPI_TalonFX(Constants.SHOOTER_BOTTOM_MOTOR_ID);
@@ -36,7 +39,19 @@ public class ShooterSubsystem extends SubsystemBase {
 
     //spins up the flywheel to a set speed, with a certain timeout value.
     public void SpinFlywheels(double speed, double timeOut) {
+        controlTimer.start();
 
+        while (controlTimer.get() < timeOut) {
+            topMotor.set(speed);
+            bottomMotor.set(speed);
+        }
+
+        if (controlTimer.get() > timeOut) {
+            topMotor.set(ControlMode.PercentOutput, 0);
+            topMotor.set(ControlMode.PercentOutput, 0);
+            controlTimer.stop();
+            controlTimer.reset();
+        }
     }
 
     //immediately stops the flywheels.
@@ -44,8 +59,7 @@ public class ShooterSubsystem extends SubsystemBase {
         topMotor.setNeutralMode(NeutralMode.Coast);
         topMotor.set(ControlMode.Velocity, 0);
         bottomMotor.setNeutralMode(NeutralMode.Coast);
-        bottomMotor.set(ControlMode.Velocity, 0);
-
+        bottomMotor.set(ControlMode.PercentOutput, 0);
     }
 
     //differentiates the rate of spin for motors so that the power cell itself can spin predictably.

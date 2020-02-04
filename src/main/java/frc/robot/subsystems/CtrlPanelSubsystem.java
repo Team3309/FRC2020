@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -41,8 +42,10 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     private WPI_TalonFX ctrlPanelMotor;
 
+    private ColorSensorV3 colorSensor;
+
     public CtrlPanelSubsystem() {
-        ctrlPanelMotor = new WPI_TalonFX(Constants.TURNER_MOTOR_ID);
+        ctrlPanelMotor = new WPI_TalonFX(Constants.kTurnerMotorPdpChannel);
         ctrlPanelMotor.configFactoryDefault();
         retractorPiston = new Solenoid(Constants.kTurnerRetractorPistonPdpChannel);
         heightAdjustmentPiston = new Solenoid(Constants.kTurnerHeightAdjustmentPistonPdpChannel);
@@ -51,6 +54,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     //TODO: account for wacky control panel start positions.
     //turns the control panel by amount; if inRevs == true, will turn in revolutions, else, will turn in degrees.
     public void Turn(double segments) {
+
         ctrlPanelMotor.set(ControlMode.Position, segments*Constants.ENCODER_COUNTS_PER_DEGREE*
                     45*(20/Constants.TURNER_INCHES_PER_REV));
 
@@ -77,7 +81,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         */
     }
 
-    public void GetFMSColor() {}
+    public void GetFMSColor() {
+    }
 
     public void DeployTurner() {
         retractorPiston.set(true);
