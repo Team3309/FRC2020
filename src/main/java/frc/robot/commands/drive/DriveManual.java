@@ -30,8 +30,8 @@ public class DriveManual extends CommandBase
     @Override
     public void execute()
     {
-        double throttle = LeftStick.getX();
-        double turn = RightStick.getY();
+        double throttle = LeftStick.getY();
+        double turn = -RightStick.getX();
         boolean quickTurn = RightStick.getTrigger();
 
         Drive.SetLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickTurn, false));
