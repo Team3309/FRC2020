@@ -10,51 +10,6 @@ import java.util.Arrays;
  */
 public class Constants {
 
-    /*
-     * These MAC_ADDR values are just unique IDs for each of the roboRIO's used in 2020
-     * They are used to identify which robot the code is running on, because some values are specific to each robot.
-     */
-    private static final byte[] PRACTICEBOT_MAC_ADDR = {0x00, (byte) 0x80, 0x2F, 0x17, (byte) 0x85, (byte) 0xD3};
-    private static final byte[] COMPBOT_MAC_ADDR = {0x00, (byte) 0x80, 0x2F, 0x22, (byte) 0xB0, (byte) 0x6C}; // find this at comp
-
-    /*
-     * This enum defines a type with 2 values, PRACTICE and COMPETITION
-     * These values represent our COMPETITION robot and PRACTICE robot.
-     */
-    public enum Robot {
-        PRACTICE,
-        COMPETITION
-    }
-
-    /*
-     * This holds an instance of the type we defined above.
-     * The static block beneath it just handles fetching the address of the rio we are running on
-     * and sets currentRobot to the appropriate value
-     */
-    public static Robot currentRobot;
-
-    static {
-        try {
-            byte[] rioMac = NetworkInterface.getByName("eth0").getHardwareAddress();
-            if (Arrays.equals(rioMac, PRACTICEBOT_MAC_ADDR)) {
-                currentRobot = Robot.PRACTICE;
-            } else if (Arrays.equals(rioMac, COMPBOT_MAC_ADDR)) {
-                currentRobot = Robot.COMPETITION;
-            } else {
-                currentRobot = null;
-                System.err.println("Oh no! Unknown robot! Did somebody install a new rio?");
-            }
-        } catch (SocketException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /* DRIVETRAIN */
-    public static final int DRIVE_RIGHT_MASTER_ID = 5;
-    public static final int DRIVE_RIGHT_SLAVE_ID = 7;
-    public static final int DRIVE_LEFT_MASTER_ID = 6;
-    public static final int DRIVE_LEFT_SLAVE_ID = 8;
-
     public static final int TURNER_MOTOR_ID = 20;
     public static final int TURNER_RETRACTOR_PISTON_ID = 0;
     public static final int TURNER_HEIGHT_ADJUST_PISTON_ID = 1;
@@ -89,10 +44,6 @@ public class Constants {
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
 
     //All pdp channel numbers are placeholders for now.
-    public static final int kLeftDriveMasterPdpChannel = 1;
-    public static final int kLeftDriveSlavePdpChannel = 2;
-    public static final int kRightDriveMasterPdpChannel = 13;
-    public static final int kRightDriveSlavePdpChannel = 14;
     public static final int kTurnerRetractorPistonPdpChannel = 4;
     public static final int kTurnerHeightAdjustmentPistonPdpChannel = 5;
     public static final int kTurnerMotorPdpChannel = 6;

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Config;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.util.DriveSignal;
@@ -27,10 +28,10 @@ public class DriveSubsystem extends SubsystemBase {
     public DriveSubsystem(RobotContainer container) {
 
         robotContainer = container;
-        driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
-        driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);
-        driveMasterRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_MASTER_ID);
-        driveSlaveRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_SLAVE_ID);
+        driveMasterLeft = new WPI_TalonFX(Config.DriveLeftMasterID);
+        driveSlaveLeft = new WPI_TalonFX(Config.DriveLeftSlaveID);
+        driveMasterRight = new WPI_TalonFX(Config.DriveRightMasterID);
+        driveSlaveRight = new WPI_TalonFX(Config.DriveRightSlaveID);
 
         configDriveMaster(driveMasterLeft);
         configDriveSlave(driveSlaveLeft, driveMasterLeft);
@@ -152,15 +153,15 @@ public class DriveSubsystem extends SubsystemBase {
     //Sends motor data to SmartDashboard.
     public void OutputToDashboard() {
         SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
-        SmartDashboard.putNumber("Drive right power", driveMasterRight.getMotorOutputPercent());
+        SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive left position", GetLeftEncoderPosition());
         SmartDashboard.putNumber("Drive right position", GetRightEncoderPosition());
         SmartDashboard.putNumber("Drive left velocity", GetLeftEncoderVelocity());
         SmartDashboard.putNumber("Drive right velocity", GetRightEncoderVelocity());
-        SmartDashboard.putNumber("Drive left 1 current", robotContainer.GetCurrent(Constants.kLeftDriveMasterPdpChannel));
-        SmartDashboard.putNumber("Drive left 2 current", robotContainer.GetCurrent(Constants.kLeftDriveSlavePdpChannel));
-        SmartDashboard.putNumber("Drive right 1 current", robotContainer.GetCurrent(Constants.kRightDriveMasterPdpChannel));
-        SmartDashboard.putNumber("Drive right 2 current", robotContainer.GetCurrent(Constants.kRightDriveSlavePdpChannel));
+        SmartDashboard.putNumber("Drive left 1 current", robotContainer.GetCurrent(Config.DriveLeftMasterPdpChannel));
+        SmartDashboard.putNumber("Drive left 2 current", robotContainer.GetCurrent(Config.DriveLeftSlavePdpChannel));
+        SmartDashboard.putNumber("Drive right 1 current", robotContainer.GetCurrent(Config.DriveRightMasterPdpChannel));
+        SmartDashboard.putNumber("Drive right 2 current", robotContainer.GetCurrent(Config.DriveRightSlavePdpChannel));
     }
 
 

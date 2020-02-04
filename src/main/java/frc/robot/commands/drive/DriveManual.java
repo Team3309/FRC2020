@@ -2,9 +2,8 @@ package frc.robot.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
+import frc.robot.Config;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.CheesyDriveHelper;
 
@@ -15,6 +14,7 @@ public class DriveManual extends CommandBase
     private Joystick RightStick;
 
     private CheesyDriveHelper cheesyDrive = new CheesyDriveHelper();
+    Config.RobotModel a = Config.currentRobot;
 
     public DriveManual(Joystick leftStick, Joystick rightStick, DriveSubsystem drive)
     {
