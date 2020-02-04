@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,6 +25,7 @@ public class DriveSubsystem extends SubsystemBase {
     private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
     private WPI_TalonFX driveSlaveRight;
+    private PowerDistributionPanel pdp;
 
     private Solenoid shifter;
 
@@ -69,11 +71,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
-    public double GetLeftEncoderDistance() {
+    public double GetLeftEncoderPosition() {
         return driveMasterLeft.getSelectedSensorPosition(0);
     }
 
-    public double GetRightEncoderDistance() {
+    public double GetRightEncoderPosition() {
         return -driveMasterRight.getSelectedSensorPosition(0);
     }
 
@@ -151,14 +153,19 @@ public class DriveSubsystem extends SubsystemBase {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
+
     //Sends motor data to SmartDashboard.
     public void OutputToDashboard() {
-        SmartDashboard.putNumber("Drive <- power", driveMasterLeft.getMotorOutputPercent());
-        SmartDashboard.putNumber("Drive -> power", driveMasterRight.getMotorOutputPercent());
-        SmartDashboard.putNumber("<- encoder distance", GetLeftEncoderDistance());
-        SmartDashboard.putNumber("-> encoder distance", GetRightEncoderDistance());
-        SmartDashboard.putNumber("<- encoder velocity", GetLeftEncoderVelocity());
-        SmartDashboard.putNumber("-> encoder velocity", GetRightEncoderVelocity());
+        SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
+        SmartDashboard.putNumber("Drive right power", driveMasterRight.getMotorOutputPercent());
+        SmartDashboard.putNumber("Drive left position", GetLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive right position", GetRightEncoderPosition());
+        SmartDashboard.putNumber("Drive left velocity", GetLeftEncoderVelocity());
+        SmartDashboard.putNumber("Drive right velocity", GetRightEncoderVelocity());
+        SmartDashboard.putNumber("Drive left 1 current", pdp.getCurrent(Constants.kLeftDriveMasterPdpChannel));
+        SmartDashboard.putNumber("Drive left 2 current", pdp.getCurrent(Constants.kLeftDriveSlavePdpChannel));
+        SmartDashboard.putNumber("Drive right 1 current", pdp.getCurrent(Constants.kRightDriveMasterPdpChannel));
+        SmartDashboard.putNumber("Drive right 2 current", pdp.getCurrent(Constants.kRightDriveSlavePdpChannel));
     }
 
 

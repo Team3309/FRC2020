@@ -91,4 +91,9 @@ public class RobotContainer
     {
         return Chooser.getSelected();
     }
+
+    public void OutputToDashboard() {
+        Drive.OutputToDashboard();
+    }
+
 }
