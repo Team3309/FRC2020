@@ -55,6 +55,8 @@ public class Constants {
     public static final int DRIVE_LEFT_MASTER_ID = 6;
     public static final int DRIVE_LEFT_SLAVE_ID = 8;
     public static final int TURNER_MOTOR_ID = 20;
+    public static final int TURNER_RETRACTOR_PISTON_ID = 24;
+    public static final int TURNER_HEIGHT_ADJUST_PISTON_ID = 25;
     public static final int INDEXER_MOTOR_ID = 21;
     public static final int INTAKE_MOTOR_ID = 22;
     public static final int BALANCER_MOTOR_ID = 23;

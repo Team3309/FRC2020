@@ -45,10 +45,10 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private ColorSensorV3 colorSensor;
 
     public CtrlPanelSubsystem() {
-        ctrlPanelMotor = new WPI_TalonFX(Constants.kTurnerMotorPdpChannel);
+        ctrlPanelMotor = new WPI_TalonFX(Constants.TURNER_MOTOR_ID);
         ctrlPanelMotor.configFactoryDefault();
-        retractorPiston = new Solenoid(Constants.kTurnerRetractorPistonPdpChannel);
-        heightAdjustmentPiston = new Solenoid(Constants.kTurnerHeightAdjustmentPistonPdpChannel);
+        retractorPiston = new Solenoid(Constants.TURNER_RETRACTOR_PISTON_ID);
+        heightAdjustmentPiston = new Solenoid(Constants.TURNER_HEIGHT_ADJUST_PISTON_ID);
     }
 
     //TODO: account for wacky control panel start positions.

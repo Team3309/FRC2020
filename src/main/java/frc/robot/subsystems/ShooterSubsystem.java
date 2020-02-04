@@ -31,8 +31,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private Timer controlTimer = new Timer();
 
     public ShooterSubsystem() {
-        topMotor = new WPI_TalonFX(Constants.kTopShooterMotorPdpChannel);
-        bottomMotor = new WPI_TalonFX(Constants.kBottomShooterMotorPdpChannel);
+        topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
+        bottomMotor = new WPI_TalonFX(Constants.SHOOTER_BOTTOM_MOTOR_ID);
         ConfigTalon(topMotor);
         ConfigTalon(bottomMotor);
     }
@@ -45,13 +45,13 @@ public class ShooterSubsystem extends SubsystemBase {
         talon.configClosedloopRamp(Constants.kShooterClosedLoopRampRate);
         talon.configOpenloopRamp(Constants.kShooterOpenLoopRampRate, 10);
 
-        talon.config_kP(deviceId, Constants.kShooterVelocityP);
-        talon.config_kI(deviceId, Constants.kShooterVelocityI);
+        talon.config_kP(deviceId, Constants.kShooterVelocityP, 10);
+        talon.config_kI(deviceId, Constants.kShooterVelocityI, 10);
         talon.config_IntegralZone(deviceId, Constants.kShooterVelocityIntegralZone, 10);
-        talon.config_kD(deviceId, Constants.kShooterVelocityD);
-        talon.config_kF(deviceId, Constants.kShooterVelocityF);
+        talon.config_kD(deviceId, Constants.kShooterVelocityD, 10);
+        talon.config_kF(deviceId, Constants.kShooterVelocityF, 10);
 
-        talon.setNeutralMode(NeutralMode.Brake);
+        talon.setNeutralMode(NeutralMode.Coast);
         talon.setInverted(false);
         talon.setSensorPhase(false);
     }
