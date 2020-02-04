@@ -66,7 +66,6 @@ public class OI {
 
         if (shootingButton.get()) {
             triggerPressed = shootingButton.get();
-            new FireManual();
         }
 
         //Deploys or retracts turner based on a toggle. Works off of

@@ -103,6 +103,16 @@ public class Constants {
     public static final double kDrivePositionP = 0;
     public static final double kDrivePositionD = 0;
 
+    /* SHOOTER CONFIG CONSTANTS */
+
+    public static final double kShooterClosedLoopRampRate = 0;
+    public static final double kShooterOpenLoopRampRate = 0;
+    public static final double kShooterVelocityP = 0;
+    public static final double kShooterVelocityI = 0;
+    public static final int kShooterVelocityIntegralZone = 0;
+    public static final double kShooterVelocityD = 0;
+    public static final double kShooterVelocityF = 0;
+
     /* AIMING CONSTANTS */
     public static final double kAimingP = 0;
     public static final double kAimingI = 0;

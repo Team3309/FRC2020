@@ -33,8 +33,27 @@ public class ShooterSubsystem extends SubsystemBase {
     public ShooterSubsystem() {
         topMotor = new WPI_TalonFX(Constants.kTopShooterMotorPdpChannel);
         bottomMotor = new WPI_TalonFX(Constants.kBottomShooterMotorPdpChannel);
-        topMotor.configFactoryDefault();
-        bottomMotor.configFactoryDefault();
+        ConfigTalon(topMotor);
+        ConfigTalon(bottomMotor);
+    }
+
+    public void ConfigTalon(WPI_TalonFX talon) {
+
+        talon.configFactoryDefault();
+        int deviceId = talon.getDeviceID();
+
+        talon.configClosedloopRamp(Constants.kShooterClosedLoopRampRate);
+        talon.configOpenloopRamp(Constants.kShooterOpenLoopRampRate, 10);
+
+        talon.config_kP(deviceId, Constants.kShooterVelocityP);
+        talon.config_kI(deviceId, Constants.kShooterVelocityI);
+        talon.config_IntegralZone(deviceId, Constants.kShooterVelocityIntegralZone, 10);
+        talon.config_kD(deviceId, Constants.kShooterVelocityD);
+        talon.config_kF(deviceId, Constants.kShooterVelocityF);
+
+        talon.setNeutralMode(NeutralMode.Brake);
+        talon.setInverted(false);
+        talon.setSensorPhase(false);
     }
 
     //spins up the flywheel to a set speed, with a certain timeout value.
