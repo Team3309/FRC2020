@@ -101,10 +101,6 @@ public class Constants {
     public static final int kTopShooterMotorPdpChannel = 15;
     public static final int kBottomShooterMotorPdpChannel = 0;
     public static final int kBalancerMotorPdpChannel = 11;
-    public static final int kDriveVelocitySlot = 0;
-    public static final int kDrivePositionSlot = 0;
-    public static final double kDrivePositionP = 0;
-    public static final double kDrivePositionD = 0;
 
     /* SHOOTER CONFIG CONSTANTS */
 
