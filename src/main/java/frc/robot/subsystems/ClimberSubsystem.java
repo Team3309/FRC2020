@@ -15,15 +15,6 @@ import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-    private enum climberState {
-        nothing,
-        extended,
-        retracted,
-        manualBalancing,
-        autoBalancing
-    }
-
-
     private WPI_TalonSRX climberMotor;
 
     public ClimberSubsystem() {

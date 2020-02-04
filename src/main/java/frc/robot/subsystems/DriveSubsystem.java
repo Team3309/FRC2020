@@ -13,12 +13,7 @@ import frc.robot.util.DriveSignal;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    public enum driveState {
-        nothing,
-        drivingStraight,
-        spinTurning,
-        mobileTurning
-    }
+
     //Memory allocation in preparation for Drive object initialization.
     private WPI_TalonFX driveMasterLeft;
     private WPI_TalonFX driveSlaveLeft;
@@ -50,9 +45,9 @@ public class DriveSubsystem extends SubsystemBase {
 
         talon.configClosedloopRamp(Constants.DRIVE_CLOSED_LOOP_RAMP_RATE);
         talon.configOpenloopRamp(Constants.DRIVE_OPEN_LOOP_RAMP_RATE, 10);
-        talon.config_kP(deviceID, Constants.kDriveVelocityP);
-        talon.config_kD(deviceID, Constants.kDriveVelocityD);
-        talon.config_kF(deviceID, Constants.kDriveVelocityF);
+        talon.config_kP(deviceID, Constants.DriveVelocityP);
+        talon.config_kD(deviceID, Constants.DriveVelocityD);
+        talon.config_kF(deviceID, Constants.DriveVelocityF);
 
         talon.setNeutralMode(NeutralMode.Brake);
         talon.setInverted(true);

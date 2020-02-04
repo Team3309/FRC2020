@@ -15,12 +15,6 @@ import frc.robot.Constants;
 
 public class IndexerSubsystem extends SubsystemBase {
 
-    public enum indexerState {
-        nothing,
-        loading,
-        ejecting
-    }
-
     private WPI_TalonFX indexerMotor;
 
     public IndexerSubsystem() {

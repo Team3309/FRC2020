@@ -72,9 +72,9 @@ public class Constants {
     public static final int DRIVE_OPEN_LOOP_RAMP_RATE = 0;
     public static final int INTAKE_MOTOR_STANDARD_VELOCITY = 0;
 
-    public static final int kDriveVelocityP = 0;
-    public static final int kDriveVelocityD = 0;
-    public static final int kDriveVelocityF = 0;
+    public static final int DriveVelocityP = 0;
+    public static final int DriveVelocityD = 0;
+    public static final int DriveVelocityF = 0;
     public static final double DRIVE_WHEEL_DIAMETER_INCHES = 0;
     public static final double DRIVE_WHEEL_RADIUS_INCHES = DRIVE_WHEEL_DIAMETER_INCHES/2;
     public static final double DRIVE_INCHES_PER_REV = (DRIVE_WHEEL_DIAMETER_INCHES*Math.PI);
@@ -88,36 +88,36 @@ public class Constants {
     public static final double ENCODER_COUNTS_PER_DEGREE = 0;
 
     //All pdp channel numbers are placeholders for now.
-    public static final int kLeftDriveMasterPdpChannel = 1;
-    public static final int kLeftDriveSlavePdpChannel = 2;
-    public static final int kRightDriveMasterPdpChannel = 13;
-    public static final int kRightDriveSlavePdpChannel = 14;
-    public static final int kTurnerRetractorPistonPdpChannel = 4;
-    public static final int kTurnerHeightAdjustmentPistonPdpChannel = 5;
-    public static final int kTurnerMotorPdpChannel = 6;
-    public static final int kIntakeMotorPdpChannel = 7;
-    public static final int kIndexerMotorPdpChannel = 8;
-    public static final int kTopShooterMotorPdpChannel = 15;
-    public static final int kBottomShooterMotorPdpChannel = 0;
-    public static final int kBalancerMotorPdpChannel = 11;
-    public static final int kDriveVelocitySlot = 0;
-    public static final int kDrivePositionSlot = 0;
-    public static final double kDrivePositionP = 0;
-    public static final double kDrivePositionD = 0;
+    public static final int LeftDriveMasterPdpChannel = 1;
+    public static final int LeftDriveSlavePdpChannel = 2;
+    public static final int RightDriveMasterPdpChannel = 13;
+    public static final int RightDriveSlavePdpChannel = 14;
+    public static final int TurnerRetractorPistonPdpChannel = 4;
+    public static final int TurnerHeightAdjustmentPistonPdpChannel = 5;
+    public static final int TurnerMotorPdpChannel = 6;
+    public static final int IntakeMotorPdpChannel = 7;
+    public static final int IndexerMotorPdpChannel = 8;
+    public static final int TopShooterMotorPdpChannel = 15;
+    public static final int BottomShooterMotorPdpChannel = 0;
+    public static final int BalancerMotorPdpChannel = 11;
+    public static final int DriveVelocitySlot = 0;
+    public static final int DrivePositionSlot = 0;
+    public static final double DrivePositionP = 0;
+    public static final double DrivePositionD = 0;
 
     /* SHOOTER CONFIG CONSTANTS */
 
-    public static final double kShooterClosedLoopRampRate = 0;
-    public static final double kShooterOpenLoopRampRate = 0;
-    public static final double kShooterVelocityP = 0;
-    public static final double kShooterVelocityI = 0;
-    public static final int kShooterVelocityIntegralZone = 0;
-    public static final double kShooterVelocityD = 0;
-    public static final double kShooterVelocityF = 0;
+    public static final double ShooterClosedLoopRampRate = 0;
+    public static final double ShooterOpenLoopRampRate = 0;
+    public static final double ShooterVelocityP = 0;
+    public static final double ShooterVelocityI = 0;
+    public static final int ShooterVelocityIntegralZone = 0;
+    public static final double ShooterVelocityD = 0;
+    public static final double ShooterVelocityF = 0;
 
     /* AIMING CONSTANTS */
-    public static final double kAimingP = 0;
-    public static final double kAimingI = 0;
-    public static final double kAimingD = 0;
+    public static final double AimingP = 0;
+    public static final double AimingI = 0;
+    public static final double AimingD = 0;
 
 }

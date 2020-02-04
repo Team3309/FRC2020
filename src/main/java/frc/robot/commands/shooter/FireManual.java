@@ -2,6 +2,7 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -9,15 +10,13 @@ public class FireManual extends CommandBase {
 
 
     public ShooterSubsystem Shooter;
-    public Joystick LeftStick;
-    public Joystick RightStick;
+    public XboxController Controller;
 
 
-    public FireManual (ShooterSubsystem shooter, Joystick lStick, Joystick rStick) {
-        addRequirements(shooter);
+    public FireManual (ShooterSubsystem shooter, XboxController controller) {
         Shooter = shooter;
-        LeftStick = lStick;
-        RightStick = rStick;
+        Controller = controller;
+        addRequirements(shooter);
     }
 
     @Override
@@ -28,10 +27,10 @@ public class FireManual extends CommandBase {
     @Override
     public void execute() {
 
-        double topMotor = LeftStick.getX();
-        double bottomMotor= -RightStick.getY();
+        double topSpeed = Controller.getX(GenericHID.Hand.kLeft) * 24000;
+        double bottomSpeed= -Controller.getX(GenericHID.Hand.kRight) * 24000;
 
-        Shooter.SpinPowerCell(topMotor, bottomMotor);
+        Shooter.SpinPowerCell(topSpeed, bottomSpeed);
     }
 
     public void end() {

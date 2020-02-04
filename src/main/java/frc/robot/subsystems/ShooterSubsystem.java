@@ -18,17 +18,10 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-    public enum shooterState{
-        nothing,
-        straightShot,
-        backSpin,
-        forwardSpin
-    }
 
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
 
-    private Timer controlTimer = new Timer();
 
     public ShooterSubsystem() {
         topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
@@ -39,17 +32,16 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void ConfigTalon(WPI_TalonFX talon) {
 
-        talon.configFactoryDefault();
-        int deviceId = talon.getDeviceID();
+        talon.configFactoryDefault();;
 
-        talon.configClosedloopRamp(Constants.kShooterClosedLoopRampRate);
-        talon.configOpenloopRamp(Constants.kShooterOpenLoopRampRate, 10);
+        talon.configClosedloopRamp(Constants.ShooterClosedLoopRampRate);
+        talon.configOpenloopRamp(Constants.ShooterOpenLoopRampRate, 10);
 
-        talon.config_kP(deviceId, Constants.kShooterVelocityP, 10);
-        talon.config_kI(deviceId, Constants.kShooterVelocityI, 10);
-        talon.config_IntegralZone(deviceId, Constants.kShooterVelocityIntegralZone, 10);
-        talon.config_kD(deviceId, Constants.kShooterVelocityD, 10);
-        talon.config_kF(deviceId, Constants.kShooterVelocityF, 10);
+        talon.config_kP(0, Constants.ShooterVelocityP, 10);
+        talon.config_kI(0, Constants.ShooterVelocityI, 10);
+        talon.config_IntegralZone(0, Constants.ShooterVelocityIntegralZone, 10);
+        talon.config_kD(0, Constants.ShooterVelocityD, 10);
+        talon.config_kF(0, Constants.ShooterVelocityF, 10);
 
         talon.setNeutralMode(NeutralMode.Coast);
         talon.setInverted(false);
@@ -57,20 +49,9 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //spins up the flywheel to a set speed, with a certain timeout value.
-    public void SpinFlywheels(double speed, double timeOut) {
-        controlTimer.start();
+    public void SpinUpFlywheels(double speed, double timeOut) {
 
-        while (controlTimer.get() < timeOut) {
-            topMotor.set(speed);
-            bottomMotor.set(speed);
-        }
 
-        if (controlTimer.get() >= timeOut) {
-            topMotor.set(ControlMode.PercentOutput, 0);
-            topMotor.set(ControlMode.PercentOutput, 0);
-            controlTimer.stop();
-            controlTimer.reset();
-        }
     }
 
     //immediately stops the flywheels.
@@ -80,23 +61,21 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //differentiates the rate of spin for motors so that the power cell itself can spin predictably.
-    public void SpinPowerCell(double topSpin, double bottomSpin) {
-        topMotor.set(ControlMode.Velocity, topSpin);
-        bottomMotor.set(ControlMode.Velocity, bottomSpin);
+    public void SpinPowerCell(double topSpeed, double bottomSpeed) {
+        topMotor.set(ControlMode.Velocity, topSpeed);
+        bottomMotor.set(ControlMode.Velocity, bottomSpeed);
     }
 
     //above method, but with a timeout.
-    public void SpinPowerCell(double topSpin, double bottomSpin, double timeOut) {
+    public void SpinPowerCell(double topSpeed, double bottomSpeed, double timeOut) {
 
-        controlTimer.start();
-        while (controlTimer.get() < timeOut) {
-            topMotor.set(topSpin);
-            bottomMotor.set(bottomSpin);
-        }
+    }
 
-        if (controlTimer.get() >= timeOut) {
-            topMotor.set(ControlMode.PercentOutput, 0);
-            bottomMotor.set(ControlMode.PercentOutput, 0);
-        }
+    public double GetTopMotorVelocity() {
+        return topMotor.getSelectedSensorVelocity();
+    }
+
+    public double GetBottomMotorVelocity() {
+        return -bottomMotor.getSelectedSensorVelocity();
     }
 }

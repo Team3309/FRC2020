@@ -14,11 +14,6 @@ import frc.robot.Constants;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
-    public enum intakeState {
-        nothing,
-        intaking,
-        outtaking
-    }
     public WPI_TalonFX intakeMotor;
 
     public IntakeSubsystem() {

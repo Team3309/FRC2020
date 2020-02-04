@@ -14,12 +14,6 @@ import frc.robot.util.Limelight;
 
 public class VisionSubsystem extends SubsystemBase {
 
-    public enum visionState {
-        nothing,
-        ledOn,
-        ledOff,
-        calculating
-    }
 
     public Limelight limelight = new Limelight("Shooter Limelight", 0, 0, 0);
 

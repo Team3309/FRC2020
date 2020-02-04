@@ -18,12 +18,6 @@ import frc.robot.Constants;
 
 public class CtrlPanelSubsystem extends SubsystemBase {
 
-    public enum turnerState {
-        nothing,
-        turningToRotations,
-        turningToColor
-    }
-
     public enum panelColor {
 
         red(1),
