@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
+import frc.robot.commands.shooter.FireManual;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -57,6 +58,7 @@ public class RobotContainer
     private void SetDefaultCommands()
     {
         Drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, Drive));
+        Shooter.setDefaultCommand(new FireManual(Shooter, OI.DriverLeft, OI.DriverRight));
     }
 
     // --------------------------------------------------------------------------------------------

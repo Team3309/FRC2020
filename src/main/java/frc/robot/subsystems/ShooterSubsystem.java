@@ -31,8 +31,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private Timer controlTimer = new Timer();
 
     public ShooterSubsystem() {
-        topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
-        bottomMotor = new WPI_TalonFX(Constants.SHOOTER_BOTTOM_MOTOR_ID);
+        topMotor = new WPI_TalonFX(Constants.kTopShooterMotorPdpChannel);
+        bottomMotor = new WPI_TalonFX(Constants.kBottomShooterMotorPdpChannel);
         topMotor.configFactoryDefault();
         bottomMotor.configFactoryDefault();
     }
@@ -46,7 +46,7 @@ public class ShooterSubsystem extends SubsystemBase {
             bottomMotor.set(speed);
         }
 
-        if (controlTimer.get() > timeOut) {
+        if (controlTimer.get() >= timeOut) {
             topMotor.set(ControlMode.PercentOutput, 0);
             topMotor.set(ControlMode.PercentOutput, 0);
             controlTimer.stop();
@@ -56,9 +56,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     //immediately stops the flywheels.
     public void StopFlywheels() {
-        topMotor.setNeutralMode(NeutralMode.Coast);
-        topMotor.set(ControlMode.Velocity, 0);
-        bottomMotor.setNeutralMode(NeutralMode.Coast);
+        topMotor.set(ControlMode.PercentOutput, 0);
         bottomMotor.set(ControlMode.PercentOutput, 0);
     }
 
@@ -66,5 +64,20 @@ public class ShooterSubsystem extends SubsystemBase {
     public void SpinPowerCell(double topSpin, double bottomSpin) {
         topMotor.set(ControlMode.Velocity, topSpin);
         bottomMotor.set(ControlMode.Velocity, bottomSpin);
+    }
+
+    //above method, but with a timeout.
+    public void SpinPowerCell(double topSpin, double bottomSpin, double timeOut) {
+
+        controlTimer.start();
+        while (controlTimer.get() < timeOut) {
+            topMotor.set(topSpin);
+            bottomMotor.set(bottomSpin);
+        }
+
+        if (controlTimer.get() >= timeOut) {
+            topMotor.set(ControlMode.PercentOutput, 0);
+            bottomMotor.set(ControlMode.PercentOutput, 0);
+        }
     }
 }
