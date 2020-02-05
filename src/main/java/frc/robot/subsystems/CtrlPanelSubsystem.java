@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.*;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -59,6 +60,29 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         ctrlPanelMotor.set(ControlMode.Position, segments*Constants.ENCODER_COUNTS_PER_DEGREE*
                     45*(20/Constants.TURNER_INCHES_PER_REV));
 
+    }
+
+    public void Rotate (ControlMode mode, double value) {
+        ctrlPanelMotor.set(mode, value);
+    }
+
+    public char getColor () {
+        Color color = colorSensor.getColor();
+        if (color.equals(Color.kRed)) {
+            return 'R';
+        }
+        else if (color.equals(Color.kYellow)) {
+            return 'Y';
+        }
+        else if (color.equals(Color.kGreen)) {
+            return 'G';
+        }
+        else if (color.equals(Color.kCyan)) {
+            return 'B';
+        }
+        else {
+            return '!';
+        }
     }
 
     public void Engage() {

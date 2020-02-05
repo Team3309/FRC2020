@@ -68,4 +68,6 @@ public class Constants {
     public static final double kAimingI = 0;
     public static final double kAimingD = 0;
 
+    /* CONTROL PANEL CONSTANTS */
+    public static final double kTurnerRotationSpeed = 0.8;
 }
