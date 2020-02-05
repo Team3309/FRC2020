@@ -1,10 +1,10 @@
 package frc.robot.commands.ctrlpanelturner;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Config;
 import frc.robot.subsystems.CtrlPanelSubsystem;
+import frc.robot.util.PanelColor;
 
 public class RotateToColor extends CommandBase {
 
@@ -15,11 +15,11 @@ public class RotateToColor extends CommandBase {
 
     private CtrlPanelSubsystem Manipulator;
     private rotationDirection Direction;
-    private CtrlPanelSubsystem.panelColor TargetColor;
+    private PanelColor TargetColor;
 
     private boolean Done = false;
 
-    public RotateToColor (CtrlPanelSubsystem manipulator, rotationDirection direction, CtrlPanelSubsystem.panelColor color) {
+    public RotateToColor (CtrlPanelSubsystem manipulator, rotationDirection direction, PanelColor color) {
         Manipulator = manipulator;
         Direction = direction;
         TargetColor = color;
@@ -32,7 +32,7 @@ public class RotateToColor extends CommandBase {
 
     @Override
     public void execute() {
-        CtrlPanelSubsystem.panelColor sensorColor = Manipulator.getColor();
+        PanelColor sensorColor = Manipulator.getColor();
 
         if (sensorColor == TargetColor) {
             Done = true;

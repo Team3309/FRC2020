@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.util.PanelColor;
 
 /**
  * @author Joshua Badzey
@@ -24,20 +25,6 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         nothing,
         turningToRotations,
         turningToColor
-    }
-
-    public enum panelColor {
-
-        red(1),
-        yellow(2),
-        green(3),
-        cyan(4),
-        noValue(5),
-        unknown(6);
-
-        private int index;
-
-        panelColor(int index) {this.index = index;}
     }
 
     private Solenoid retractorPiston;
@@ -67,22 +54,22 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         ctrlPanelMotor.set(mode, value);
     }
 
-    public panelColor getColor () {
+    public PanelColor getColor () {
         Color color = colorSensor.getColor();
         if (color.equals(Color.kRed)) {
-            return panelColor.red;
+            return PanelColor.red;
         }
         else if (color.equals(Color.kYellow)) {
-            return panelColor.yellow;
+            return PanelColor.yellow;
         }
         else if (color.equals(Color.kGreen)) {
-            return panelColor.green;
+            return PanelColor.green;
         }
         else if (color.equals(Color.kCyan)) {
-            return panelColor.cyan;
+            return PanelColor.cyan;
         }
         else {
-            return panelColor.unknown;
+            return PanelColor.unknown;
         }
     }
 
@@ -107,7 +94,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         */
     }
 
-    public panelColor GetFMSColor() {
+    public PanelColor GetFMSColor() {
         String gameData;
         gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0)
@@ -115,19 +102,19 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             switch (gameData.charAt(0))
             {
                 case 'B' :
-                    return panelColor.cyan;
+                    return PanelColor.cyan;
                 case 'G' :
-                    return panelColor.green;
+                    return PanelColor.green;
                 case 'R' :
-                    return panelColor.red;
+                    return PanelColor.red;
                 case 'Y' :
-                    return panelColor.yellow;
+                    return PanelColor.yellow;
                 default :
                     DriverStation.reportError("Corrupt FMS Value!", true);
-                    return panelColor.unknown;
+                    return PanelColor.unknown;
             }
         } else {
-            return panelColor.noValue;
+            return PanelColor.noValue;
         }
     }
 
