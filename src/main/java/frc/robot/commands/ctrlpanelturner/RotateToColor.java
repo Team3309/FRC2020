@@ -15,11 +15,11 @@ public class RotateToColor extends CommandBase {
 
     private CtrlPanelSubsystem Manipulator;
     private rotationDirection Direction;
-    private char TargetColor;
+    private CtrlPanelSubsystem.panelColor TargetColor;
 
     private boolean Done = false;
 
-    public RotateToColor (CtrlPanelSubsystem manipulator, rotationDirection direction, char color) {
+    public RotateToColor (CtrlPanelSubsystem manipulator, rotationDirection direction, CtrlPanelSubsystem.panelColor color) {
         Manipulator = manipulator;
         Direction = direction;
         TargetColor = color;
@@ -32,7 +32,7 @@ public class RotateToColor extends CommandBase {
 
     @Override
     public void execute() {
-        char sensorColor = Manipulator.getColor();
+        CtrlPanelSubsystem.panelColor sensorColor = Manipulator.getColor();
 
         if (sensorColor == TargetColor) {
             Done = true;

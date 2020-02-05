@@ -32,7 +32,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         yellow(2),
         green(3),
         cyan(4),
-        unknown(5);
+        noValue(5),
+        unknown(6);
 
         private int index;
 
@@ -66,22 +67,22 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         ctrlPanelMotor.set(mode, value);
     }
 
-    public char getColor () {
+    public panelColor getColor () {
         Color color = colorSensor.getColor();
         if (color.equals(Color.kRed)) {
-            return 'R';
+            return panelColor.red;
         }
         else if (color.equals(Color.kYellow)) {
-            return 'Y';
+            return panelColor.yellow;
         }
         else if (color.equals(Color.kGreen)) {
-            return 'G';
+            return panelColor.green;
         }
         else if (color.equals(Color.kCyan)) {
-            return 'B';
+            return panelColor.cyan;
         }
         else {
-            return '!';
+            return panelColor.unknown;
         }
     }
 
@@ -106,7 +107,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         */
     }
 
-    public char GetFMSColor() {
+    public panelColor GetFMSColor() {
         String gameData;
         gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0)
@@ -114,20 +115,25 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             switch (gameData.charAt(0))
             {
                 case 'B' :
-                    return 'B';
+                    return panelColor.cyan;
                 case 'G' :
-                    return 'G';
+                    return panelColor.green;
                 case 'R' :
-                    return 'R';
+                    return panelColor.red;
                 case 'Y' :
-                    return 'Y';
+                    return panelColor.yellow;
                 default :
                     DriverStation.reportError("Corrupt FMS Value!", true);
-                    return '!';
+                    return panelColor.unknown;
             }
         } else {
-            return '0';
+            return panelColor.noValue;
         }
+    }
+
+    public boolean IsFMSColorAvalible() {
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        return gameData.length() > 0;
     }
 
     public void DeployTurner() {
