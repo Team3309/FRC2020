@@ -1,8 +1,15 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class FireAuto extends CommandBase {
+
+    private ShooterSubsystem Shooter;
+
+    public FireAuto (ShooterSubsystem shooter) {
+        Shooter = shooter;
+    }
 
     @Override
     public void initialize() {
@@ -11,7 +18,7 @@ public class FireAuto extends CommandBase {
 
     @Override
     public void execute() {
-        return;
+        Shooter.SpinFlywheels(0, 30);
     }
 
     public void end() {

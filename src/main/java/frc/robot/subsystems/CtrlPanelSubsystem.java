@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.*;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -17,6 +18,12 @@ import frc.robot.Config;
  */
 
 public class CtrlPanelSubsystem extends SubsystemBase {
+
+    public enum turnerState {
+        nothing,
+        turningToRotations,
+        turningToColor
+    }
 
     public enum panelColor {
 
@@ -54,6 +61,29 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     }
 
+    public void Rotate (ControlMode mode, double value) {
+        ctrlPanelMotor.set(mode, value);
+    }
+
+    public char getColor () {
+        Color color = colorSensor.getColor();
+        if (color.equals(Color.kRed)) {
+            return 'R';
+        }
+        else if (color.equals(Color.kYellow)) {
+            return 'Y';
+        }
+        else if (color.equals(Color.kGreen)) {
+            return 'G';
+        }
+        else if (color.equals(Color.kCyan)) {
+            return 'B';
+        }
+        else {
+            return '!';
+        }
+    }
+
     public void Engage() {
         /*
         * Pseudocode:
@@ -75,7 +105,28 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         */
     }
 
-    public void GetFMSColor() {
+    public char GetFMSColor() {
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if(gameData.length() > 0)
+        {
+            switch (gameData.charAt(0))
+            {
+                case 'B' :
+                    return 'B';
+                case 'G' :
+                    return 'G';
+                case 'R' :
+                    return 'R';
+                case 'Y' :
+                    return 'Y';
+                default :
+                    DriverStation.reportError("Corrupt FMS Value!", true);
+                    return '!';
+            }
+        } else {
+            return '0';
+        }
     }
 
     public void DeployTurner() {

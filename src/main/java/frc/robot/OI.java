@@ -83,7 +83,7 @@ public class OI {
         }
         //Tries to obtain Position Control if the turner is deployed and the "X" button is pressed.
         if (B_ButtonHadBeenPressed && operatorController.getBButton()) {
-            new RotateToColor();
+            //new RotateToColor();
         }
 
         if (operatorController.getAButton()) {
