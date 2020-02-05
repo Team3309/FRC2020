@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,11 +30,12 @@ public class RobotContainer
     // -- Subsystems
     private final ClimberSubsystem Climber = new ClimberSubsystem();
     private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem();
-    private final DriveSubsystem Drive = new DriveSubsystem();
+    private final DriveSubsystem Drive = new DriveSubsystem(this);
     private final IndexerSubsystem Indexer = new IndexerSubsystem();
     private final IntakeSubsystem Intake = new IntakeSubsystem();
     private final ShooterSubsystem Shooter = new ShooterSubsystem();
     private final VisionSubsystem Vision = new VisionSubsystem();
+    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
     // -- Input
     private final OperatorInterface OI = new OperatorInterface();
@@ -91,4 +93,13 @@ public class RobotContainer
     {
         return Chooser.getSelected();
     }
+
+    public double GetCurrent(int channel) {
+        return pdp.getCurrent(channel);
+    }
+
+    public void OutputToDashboard() {
+        Drive.OutputToDashboard();
+    }
+
 }

@@ -5,30 +5,34 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Config;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.util.DriveSignal;
 
 public class DriveSubsystem extends SubsystemBase {
 
 
     //Memory allocation in preparation for Drive object initialization.
+    private RobotContainer robotContainer;
     private WPI_TalonFX driveMasterLeft;
     private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
     private WPI_TalonFX driveSlaveRight;
-
     private Solenoid shifter;
 
     //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
-    public DriveSubsystem() {
+    public DriveSubsystem(RobotContainer container) {
 
-        driveMasterLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_MASTER_ID);
-        driveSlaveLeft = new WPI_TalonFX(Constants.DRIVE_LEFT_SLAVE_ID);
-        driveMasterRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_MASTER_ID);
-        driveSlaveRight = new WPI_TalonFX(Constants.DRIVE_RIGHT_SLAVE_ID);
+        robotContainer = container;
+        driveMasterLeft = new WPI_TalonFX(Config.DriveLeftMasterID);
+        driveSlaveLeft = new WPI_TalonFX(Config.DriveLeftSlaveID);
+        driveMasterRight = new WPI_TalonFX(Config.DriveRightMasterID);
+        driveSlaveRight = new WPI_TalonFX(Config.DriveRightSlaveID);
 
         configDriveMaster(driveMasterLeft);
         configDriveSlave(driveSlaveLeft, driveMasterLeft);
@@ -64,11 +68,11 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
-    public double GetLeftEncoderDistance() {
+    public double GetLeftEncoderPosition() {
         return driveMasterLeft.getSelectedSensorPosition(0);
     }
 
-    public double GetRightEncoderDistance() {
+    public double GetRightEncoderPosition() {
         return -driveMasterRight.getSelectedSensorPosition(0);
     }
 
@@ -146,14 +150,19 @@ public class DriveSubsystem extends SubsystemBase {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
+
     //Sends motor data to SmartDashboard.
     public void OutputToDashboard() {
-        SmartDashboard.putNumber("Drive <- power", driveMasterLeft.getMotorOutputPercent());
-        SmartDashboard.putNumber("Drive -> power", driveMasterRight.getMotorOutputPercent());
-        SmartDashboard.putNumber("<- encoder distance", GetLeftEncoderDistance());
-        SmartDashboard.putNumber("-> encoder distance", GetRightEncoderDistance());
-        SmartDashboard.putNumber("<- encoder velocity", GetLeftEncoderVelocity());
-        SmartDashboard.putNumber("-> encoder velocity", GetRightEncoderVelocity());
+        SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
+        SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());
+        SmartDashboard.putNumber("Drive left position", GetLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive right position", GetRightEncoderPosition());
+        SmartDashboard.putNumber("Drive left velocity", GetLeftEncoderVelocity());
+        SmartDashboard.putNumber("Drive right velocity", GetRightEncoderVelocity());
+        SmartDashboard.putNumber("Drive left 1 current", robotContainer.GetCurrent(Config.DriveLeftMasterPdpChannel));
+        SmartDashboard.putNumber("Drive left 2 current", robotContainer.GetCurrent(Config.DriveLeftSlavePdpChannel));
+        SmartDashboard.putNumber("Drive right 1 current", robotContainer.GetCurrent(Config.DriveRightMasterPdpChannel));
+        SmartDashboard.putNumber("Drive right 2 current", robotContainer.GetCurrent(Config.DriveRightSlavePdpChannel));
     }
 
 
