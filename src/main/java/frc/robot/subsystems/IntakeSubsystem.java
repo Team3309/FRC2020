@@ -3,7 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Config;
+import frc.robot.RobotContainer;
 
 /**
  * @author Joshua Badzey
@@ -14,11 +15,13 @@ import frc.robot.Constants;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
+    public RobotContainer robotContainer;
     public WPI_TalonFX intakeMotor;
 
-    public IntakeSubsystem() {
-        intakeMotor = new WPI_TalonFX(Constants.INTAKE_MOTOR_ID);
+    public IntakeSubsystem(RobotContainer container) {
+        intakeMotor = new WPI_TalonFX(Config.IntakeMotorID);
         intakeMotor.configFactoryDefault();
+        robotContainer = container;
     }
 
     public void Actuate(double speed) {

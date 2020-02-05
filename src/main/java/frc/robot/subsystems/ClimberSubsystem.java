@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Config;
 
 
 /**
@@ -18,7 +18,7 @@ public class ClimberSubsystem extends SubsystemBase {
     private WPI_TalonSRX climberMotor;
 
     public ClimberSubsystem() {
-        climberMotor = new WPI_TalonSRX(Constants.BALANCER_MOTOR_ID);
+        climberMotor = new WPI_TalonSRX(Config.BalancerMotorId);
     }
 
     //will lift up the climber mechanism to grab on to the rung.

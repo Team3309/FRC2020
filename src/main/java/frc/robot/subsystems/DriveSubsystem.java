@@ -5,19 +5,17 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.util.DriveSignal;
 
 public class DriveSubsystem extends SubsystemBase {
 
 
-    //Memory allocation in preparation for Drive object initialization.
+    //Memory allocation in preparation for Drive object initialization.-------------------------------------------------
     private RobotContainer robotContainer;
     private WPI_TalonFX driveMasterLeft;
     private WPI_TalonFX driveSlaveLeft;
@@ -25,7 +23,7 @@ public class DriveSubsystem extends SubsystemBase {
     private WPI_TalonFX driveSlaveRight;
     private Solenoid shifter;
 
-    //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
+    //Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.----
     public DriveSubsystem(RobotContainer container) {
 
         robotContainer = container;
@@ -41,17 +39,17 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
-    //Configuration methods ready-to-go when Drive gets initialized.
+    //Configuration methods ready-to-go when Drive gets initialized.----------------------------------------------------
     private void configDriveMaster(WPI_TalonFX talon) {
 
         talon.configFactoryDefault();
         int deviceID = talon.getDeviceID();
 
-        talon.configClosedloopRamp(Constants.DRIVE_CLOSED_LOOP_RAMP_RATE);
-        talon.configOpenloopRamp(Constants.DRIVE_OPEN_LOOP_RAMP_RATE, 10);
-        talon.config_kP(deviceID, Constants.DriveVelocityP);
-        talon.config_kD(deviceID, Constants.DriveVelocityD);
-        talon.config_kF(deviceID, Constants.DriveVelocityF);
+        talon.configClosedloopRamp(Config.DriveClosedLoopRampRate);
+        talon.configOpenloopRamp(Config.DriveOpenLoopRampRate, 10);
+        talon.config_kP(deviceID, Config.DriveVelocityP);
+        talon.config_kD(deviceID, Config.DriveVelocityD);
+        talon.config_kF(deviceID, Config.DriveVelocityF);
 
         talon.setNeutralMode(NeutralMode.Brake);
         talon.setInverted(true);
@@ -84,16 +82,16 @@ public class DriveSubsystem extends SubsystemBase {
         return -driveMasterRight.getSelectedSensorVelocity(0);
     }
 
-    //Converts degrees/sec to encoder velocity (ticks/sec).
+    //Converts degrees/sec to encoder velocity (ticks/sec).-------------------------------------------------------------
     public double DegreesPerSecToEncoderVelocity(double degreesPerSecond) {
-        return degreesPerSecond * Constants.ENCODER_COUNTS_PER_DEGREE;
+        return degreesPerSecond * Config.EncoderCountsPerDegree;
     }
 
-    //Sets gearing...
+    //Sets gearing...---------------------------------------------------------------------------------------------------
     public void SetHighGear() { shifter.set(true); }
     public void SetLowGear() { shifter.set(false); }
 
-    //...and gets gearing.
+    //...and gets gearing.----------------------------------------------------------------------------------------------
     public boolean InHighGear() {
         if(shifter.get() == true) {
             return true;
@@ -106,25 +104,25 @@ public class DriveSubsystem extends SubsystemBase {
         } else return false;
     }
 
-    //Sets left motor.
+    //Sets left motor.--------------------------------------------------------------------------------------------------
     private void SetLeft(ControlMode mode, double left,
                          DemandType demandType, double leftFeedForward) {
         driveMasterLeft.set(mode, left, demandType, leftFeedForward);
     }
 
-    //Sets right motor.
+    //Sets right motor.-------------------------------------------------------------------------------------------------
     private void SetRight(ControlMode mode, double right,
                           DemandType demandType, double rightFeedforward) {
         driveMasterRight.set(mode, -right, demandType, -rightFeedforward);
     }
 
-    //Sets each of the motors simultaneously.
+    //Sets each of the motors simultaneously.---------------------------------------------------------------------------
     public void SetLeftRight(ControlMode mode, double left, double right) {
         driveMasterLeft.set(mode, left);
         driveMasterRight.set(mode, -right);
     }
 
-    //Sets each of the motors simultaneously with assigned constants.
+    //Sets each of the motors simultaneously with assigned constants.---------------------------------------------------
     public void SetLeftRight(ControlMode mode, DemandType demandType,
                              double left, double right,
                              double leftFeedforward, double rightFeedforward) {
@@ -132,18 +130,18 @@ public class DriveSubsystem extends SubsystemBase {
         SetRight(mode, right, demandType, rightFeedforward);
     }
 
-    //Sets the motors according to a DriveSignal object.
+    //Sets the motors according to a DriveSignal object.----------------------------------------------------------------
     public void SetLeftRight(ControlMode mode, DriveSignal signal) {
         SetLeftRight(mode, signal.GetLeft(), signal.GetRight());
     }
 
-    //Sets the neutral mode for Drive.
+    //Sets the neutral mode for Drive.----------------------------------------------------------------------------------
     public void SetNeutralMode(NeutralMode mode) {
         driveMasterLeft.setNeutralMode(mode);
         driveMasterRight.setNeutralMode(mode);
     }
 
-    //Completely resets the Drive subsystem.
+    //Completely resets the Drive subsystem.----------------------------------------------------------------------------
     public void Reset() {
         driveMasterRight.clearMotionProfileTrajectories();
         driveMasterLeft.clearMotionProfileTrajectories();
@@ -151,7 +149,7 @@ public class DriveSubsystem extends SubsystemBase {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
 
-    //Sends motor data to SmartDashboard.
+    //Sends motor data to SmartDashboard.-------------------------------------------------------------------------------
     public void OutputToDashboard() {
         SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());

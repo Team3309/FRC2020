@@ -3,9 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Config;
 
 /**
  * @author Joshua Badzey
@@ -24,8 +23,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
     public ShooterSubsystem() {
-        topMotor = new WPI_TalonFX(Constants.SHOOTER_TOP_MOTOR_ID);
-        bottomMotor = new WPI_TalonFX(Constants.SHOOTER_BOTTOM_MOTOR_ID);
+        topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
+        bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
         ConfigTalon(topMotor);
         ConfigTalon(bottomMotor);
     }
@@ -34,14 +33,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
         talon.configFactoryDefault();;
 
-        talon.configClosedloopRamp(Constants.ShooterClosedLoopRampRate);
-        talon.configOpenloopRamp(Constants.ShooterOpenLoopRampRate, 10);
+        talon.configClosedloopRamp(Config.ShooterClosedLoopRampRate);
+        talon.configOpenloopRamp(Config.ShooterOpenLoopRampRate, 10);
 
-        talon.config_kP(0, Constants.ShooterVelocityP, 10);
-        talon.config_kI(0, Constants.ShooterVelocityI, 10);
-        talon.config_IntegralZone(0, Constants.ShooterVelocityIntegralZone, 10);
-        talon.config_kD(0, Constants.ShooterVelocityD, 10);
-        talon.config_kF(0, Constants.ShooterVelocityF, 10);
+        talon.config_kP(0, Config.ShooterVelocityP, 10);
+        talon.config_kI(0, Config.ShooterVelocityI, 10);
+        talon.config_IntegralZone(0, Config.ShooterVelocityIntegralZone, 10);
+        talon.config_kD(0, Config.ShooterVelocityD, 10);
+        talon.config_kF(0, Config.ShooterVelocityF, 10);
 
         talon.setNeutralMode(NeutralMode.Coast);
         talon.setInverted(false);
@@ -49,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //spins up the flywheel to a set speed, with a certain timeout value.
-    public void SpinUpFlywheels(double speed, double timeOut) {
+    public void SpinUpFlywheels(double speed) {
 
 
     }
@@ -64,11 +63,6 @@ public class ShooterSubsystem extends SubsystemBase {
     public void SpinPowerCell(double topSpeed, double bottomSpeed) {
         topMotor.set(ControlMode.Velocity, topSpeed);
         bottomMotor.set(ControlMode.Velocity, bottomSpeed);
-    }
-
-    //above method, but with a timeout.
-    public void SpinPowerCell(double topSpeed, double bottomSpeed, double timeOut) {
-
     }
 
     public double GetTopMotorVelocity() {

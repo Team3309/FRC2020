@@ -3,7 +3,7 @@ package frc.robot.commands.aimer;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Config;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
@@ -21,7 +21,7 @@ public class AimAuto extends CommandBase {
 
     @Override
     public void initialize() {
-        turnPID = new PIDController(Constants.AimingP, Constants.AimingI, Constants.AimingD);
+        turnPID = new PIDController(Config.AimingP, Config.AimingI, Config.AimingD);
 
         addRequirements();
     }

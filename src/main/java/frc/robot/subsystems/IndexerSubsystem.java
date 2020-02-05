@@ -2,7 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Config;
+
 
 /**
  * @author Joshua Badzey
@@ -18,7 +19,7 @@ public class IndexerSubsystem extends SubsystemBase {
     private WPI_TalonFX indexerMotor;
 
     public IndexerSubsystem() {
-        indexerMotor = new WPI_TalonFX(Constants.INDEXER_MOTOR_ID);
+        indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
         indexerMotor.configFactoryDefault();
     }
     //will detect whether indexer is full or not.

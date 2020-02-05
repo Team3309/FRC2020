@@ -8,17 +8,108 @@ import java.util.Arrays;
 
 public class Config {
 
-    // Robot parameters
+    /** Robot parameters
+     *
+     *
+     */
 
+    public static double EncoderCountsPerDegree = 600;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Drive Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    //Drive Motor IDs---------------------------------------------------------------------------------------------------
     public static int DriveLeftMasterID;
     public static int DriveLeftSlaveID;
     public static int DriveRightMasterID;
     public static int DriveRightSlaveID;
 
+    //Drive Motor PDP Channels------------------------------------------------------------------------------------------
     public static int DriveLeftMasterPdpChannel;
     public static int DriveLeftSlavePdpChannel;
     public static int DriveRightMasterPdpChannel;
     public static int DriveRightSlavePdpChannel;
+
+    //Drive PID Parameters----------------------------------------------------------------------------------------------
+    public static int DriveClosedLoopRampRate;
+    public static int DriveOpenLoopRampRate;
+    public static int DriveVelocityP;
+    public static int DriveVelocityD;
+    public static int DriveVelocityF;
+
+    //Physical Constants for Drive--------------------------------------------------------------------------------------
+    public static double DriveWheelDiameterInInches;
+    public static double DriveWheelRadiusInInches = DriveWheelDiameterInInches/2;
+    public static double DriveWheelInchesPerRevolution = DriveWheelDiameterInInches * Math.PI;
+    public static double DriveWheelEncoderCountsPerRevolution = EncoderCountsPerDegree *
+            360 * DriveWheelRadiusInInches;
+    public static double DrivetrainWidthInInches;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Intake Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    public static int IntakeMotorID;
+    public static int IntakeMotorPdpChannel;
+    //------------------------------------------------------------------------------------------------------------------
+    //Control Panel Manipulator Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    //Manipulator Actuator IDs------------------------------------------------------------------------------------------
+    public static int TurnerMotorID;
+    public static int TurnerTractorPistonID; //Tractor: (retract = draw back, protract = draw forward, ergo tract=draw
+    public static int TurnerHeightAdjustmentPistonID;
+
+    //Manipulator Actuator PDP Channels---------------------------------------------------------------------------------
+    public static int TurnerMotorPdpChannel;
+    public static int TurnerTractorPistonPdpChannel;
+    public static int TurnerHeightAdjustmentPistonPdpChannel;
+
+    //Manipulator Physical Constants------------------------------------------------------------------------------------
+    public static double TurnerWheelRadiusInches;
+    public static double TurnerWheelDiameterInches = TurnerWheelRadiusInches*2;
+    public static double TurnerWheelInchesPerRevolution = TurnerWheelDiameterInches * Math.PI;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Shooter Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    //Shooter Motor IDs-------------------------------------------------------------------------------------------------
+    public static int TopShooterMotorID;
+    public static int BottomShooterMotorID;
+
+    //Shooter PDP Channels----------------------------------------------------------------------------------------------
+    public static int TopShooterPdpChannel;
+    public static int BottomShooterPdpChannel;
+
+    //Shooter PID Constants---------------------------------------------------------------------------------------------
+    public static double ShooterClosedLoopRampRate;
+    public static double ShooterOpenLoopRampRate;
+    public static double ShooterVelocityP;
+    public static double ShooterVelocityI;
+    public static int ShooterVelocityIntegralZone;
+    public static double ShooterVelocityD;
+    public static double ShooterVelocityF;
+
+    /* Default Shooter timeout */
+    public static double DefaultShooterTimeout;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Indexer Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    public static int IndexerMotorID;
+    public static int IndexerPdpChannel;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Balancer Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    public static int BalancerMotorId;
+    public static int BalancerPdpChannel;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Aiming Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    public static double AimingP;
+    public static double AimingI;
+    public static double AimingD;
+    public static double AimingF;
 
     /*
      * These MAC_ADDR values are just unique IDs for each of the roboRIOs

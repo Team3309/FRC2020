@@ -32,7 +32,7 @@ public class RobotContainer
     private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem();
     private final DriveSubsystem Drive = new DriveSubsystem(this);
     private final IndexerSubsystem Indexer = new IndexerSubsystem();
-    private final IntakeSubsystem Intake = new IntakeSubsystem();
+    private final IntakeSubsystem Intake = new IntakeSubsystem(this);
     private final ShooterSubsystem Shooter = new ShooterSubsystem();
     private final VisionSubsystem Vision = new VisionSubsystem();
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
@@ -60,7 +60,7 @@ public class RobotContainer
     private void SetDefaultCommands()
     {
         Drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, Drive));
-        Shooter.setDefaultCommand(new FireManual(Shooter, OI.DriverLeft, OI.DriverRight));
+        Shooter.setDefaultCommand(new FireManual(Shooter, OI.OperatorController));
     }
 
     // --------------------------------------------------------------------------------------------
@@ -79,6 +79,7 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                 .whileHeld(new RunCommand(() -> Drive.SetLeftRight(ControlMode.PercentOutput, 0.2, 0.2), Drive)
                         .beforeStarting(() -> System.out.println("before start B")));
+
 
     }
 
