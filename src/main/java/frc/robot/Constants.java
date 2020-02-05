@@ -62,6 +62,7 @@ public class Constants {
     public static final int kShooterVelocityIntegralZone = 0;
     public static final double kShooterVelocityD = 0;
     public static final double kShooterVelocityF = 0;
+    public static final double kShooterGearRatio = 16.0/24.0;
 
     /* AIMING CONSTANTS */
     public static final double kAimingP = 0;

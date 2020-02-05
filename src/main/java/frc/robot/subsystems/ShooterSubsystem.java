@@ -57,12 +57,12 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //spins up the flywheel to a set speed, with a certain timeout value.
-    public void SpinFlywheels(double speed, double timeOut) {
+    public void SpinFlywheels(double rpm, double timeOut) {
         controlTimer.start();
 
         while (controlTimer.get() < timeOut) {
-            topMotor.set(speed);
-            bottomMotor.set(speed);
+            topMotor.set(ControlMode.Velocity, rpm * Constants.kShooterGearRatio);
+            bottomMotor.set(ControlMode.Velocity, rpm * Constants.kShooterGearRatio);
         }
 
         if (controlTimer.get() >= timeOut) {
