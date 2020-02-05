@@ -61,7 +61,7 @@ public class OI {
 
     public OI() {
 
-        leftStickLeftCluster.whenActive(new FireAuto());
+        //leftStickLeftCluster.whenActive(new FireAuto());
 
 
         if (shootingButton.get()) {

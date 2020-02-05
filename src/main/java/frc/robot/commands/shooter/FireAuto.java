@@ -18,7 +18,7 @@ public class FireAuto extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.SpinFlywheels(0, 30);
+        Shooter.SpinUpFlywheels(0);
     }
 
     public void end() {

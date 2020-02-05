@@ -68,6 +68,9 @@ public class Config {
     public static double TurnerWheelDiameterInches = TurnerWheelRadiusInches*2;
     public static double TurnerWheelInchesPerRevolution = TurnerWheelDiameterInches * Math.PI;
 
+    //Manipulator Control Constants-------------------------------------------------------------------------------------
+    public static double TurnerRotationSpeed = 0.8;
+
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Constants//
     //------------------------------------------------------------------------------------------------------------------

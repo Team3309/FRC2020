@@ -3,7 +3,7 @@ package frc.robot.commands.ctrlpanelturner;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Config;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 
 public class RotateToColor extends CommandBase {
@@ -38,9 +38,9 @@ public class RotateToColor extends CommandBase {
             Done = true;
         } else {
             if (Direction == rotationDirection.clockwise) {
-                Manipulator.Rotate(ControlMode.PercentOutput, Constants.kTurnerRotationSpeed);
+                Manipulator.Rotate(ControlMode.PercentOutput, Config.TurnerRotationSpeed);
             } else {
-                Manipulator.Rotate(ControlMode.PercentOutput, -Constants.kTurnerRotationSpeed);
+                Manipulator.Rotate(ControlMode.PercentOutput, -Config.TurnerRotationSpeed);
             }
         }
     }
