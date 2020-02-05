@@ -6,6 +6,7 @@ import com.revrobotics.*;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * @author Joshua Badzey
@@ -81,7 +82,28 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         */
     }
 
-    public void GetFMSColor() {
+    public char GetFMSColor() {
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if(gameData.length() > 0)
+        {
+            switch (gameData.charAt(0))
+            {
+                case 'B' :
+                    return 'B';
+                case 'G' :
+                    return 'G';
+                case 'R' :
+                    return 'R';
+                case 'Y' :
+                    return 'Y';
+                default :
+                    DriverStation.reportError("Corrupt FMS Value!", true);
+                    return '!';
+            }
+        } else {
+            return '0';
+        }
     }
 
     public void DeployTurner() {
