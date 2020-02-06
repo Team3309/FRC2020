@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.*;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -35,19 +36,11 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private ColorSensorV3 colorSensor;
 
     public CtrlPanelSubsystem() {
+        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
         ctrlPanelMotor = new WPI_TalonFX(Config.TurnerMotorID);
         ctrlPanelMotor.configFactoryDefault();
         retractorPiston = new Solenoid(Config.TurnerTractorPistonPdpChannel);
         heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);
-    }
-
-    //TODO: account for wacky control panel start positions.
-    //turns the control panel by amount; if inRevs == true, will turn in revolutions, else, will turn in degrees.
-    public void Turn(double segments) {
-
-        ctrlPanelMotor.set(ControlMode.Position, segments*Config.EncoderCountsPerDegree*
-                    45*(20/Config.TurnerWheelInchesPerRevolution));
-
     }
 
     public void Rotate (ControlMode mode, double value) {
@@ -74,24 +67,12 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     }
 
     public void Engage() {
-        /*
-        * Pseudocode:
-        *
-        */
     }
 
     public void Disengage() {
-        /*
-        * Pseudocode:
-        *
-        */
     }
 
     public void RaiseTurner() {
-        /*
-        * Pseudocode:
-        *
-        */
     }
 
     public PanelColor GetFMSColor() {
@@ -126,8 +107,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public void DeployTurner() {
         retractorPiston.set(true);
     }
+
     public void RetractTurner() {
         retractorPiston.set(false);
     }
-
 }
