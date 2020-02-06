@@ -51,6 +51,7 @@ public class Config {
     public static int IntakeMotorID;
     public static int IntakeMotorPdpChannel;
     public static double IntakeStandardVelocity;
+    public static int IntakeSoleoidChannel;
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
     //------------------------------------------------------------------------------------------------------------------

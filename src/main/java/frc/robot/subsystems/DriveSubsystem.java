@@ -14,7 +14,6 @@ import frc.robot.util.DriveSignal;
 
 public class DriveSubsystem extends SubsystemBase {
 
-
     //Memory allocation in preparation for Drive object initialization.-------------------------------------------------
     private RobotContainer robotContainer;
     private WPI_TalonFX driveMasterLeft;
@@ -36,7 +35,6 @@ public class DriveSubsystem extends SubsystemBase {
         configDriveSlave(driveSlaveLeft, driveMasterLeft);
         configDriveMaster(driveMasterRight);
         configDriveSlave(driveSlaveRight, driveMasterRight);
-
     }
 
     //Configuration methods ready-to-go when Drive gets initialized.----------------------------------------------------
@@ -54,16 +52,13 @@ public class DriveSubsystem extends SubsystemBase {
         talon.setNeutralMode(NeutralMode.Brake);
         talon.setInverted(true);
         talon.setSensorPhase(false);
-
     }
 
     private void configDriveSlave(WPI_TalonFX slave, WPI_TalonFX master) {
-
         slave.configFactoryDefault();
         slave.follow(master);
         slave.setNeutralMode(NeutralMode.Brake);
         slave.setInverted(InvertType.FollowMaster);
-
     }
 
     public double GetLeftEncoderPosition() {
@@ -88,8 +83,13 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     //Sets gearing...---------------------------------------------------------------------------------------------------
-    public void SetHighGear() { shifter.set(true); }
-    public void SetLowGear() { shifter.set(false); }
+    public void SetHighGear() {
+        shifter.set(true);
+    }
+
+    public void SetLowGear() {
+        shifter.set(false);
+    }
 
     //...and gets gearing.----------------------------------------------------------------------------------------------
     public boolean InHighGear() {
@@ -162,6 +162,4 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Drive right 1 current", robotContainer.GetCurrent(Config.DriveRightMasterPdpChannel));
         SmartDashboard.putNumber("Drive right 2 current", robotContainer.GetCurrent(Config.DriveRightSlavePdpChannel));
     }
-
-
 }
