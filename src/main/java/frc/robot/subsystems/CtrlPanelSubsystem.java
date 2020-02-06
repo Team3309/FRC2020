@@ -36,11 +36,11 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private ColorSensorV3 colorSensor;
 
     public CtrlPanelSubsystem() {
-        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+        /*colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
         ctrlPanelMotor = new WPI_TalonFX(Config.TurnerMotorID);
         ctrlPanelMotor.configFactoryDefault();
         retractorPiston = new Solenoid(Config.TurnerTractorPistonPdpChannel);
-        heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);
+        heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);*/
     }
 
     public void Rotate (ControlMode mode, double value) {

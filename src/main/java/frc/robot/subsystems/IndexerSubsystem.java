@@ -19,8 +19,8 @@ public class IndexerSubsystem extends SubsystemBase {
     private WPI_TalonFX indexerMotor;
 
     public IndexerSubsystem() {
-        indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
-        indexerMotor.configFactoryDefault();
+        //indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
+        //indexerMotor.configFactoryDefault();
     }
     //will detect whether indexer is full or not.
     public boolean IsFull() {return false;}
