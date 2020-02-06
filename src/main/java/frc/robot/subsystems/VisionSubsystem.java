@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.util.Limelight;
 
 /**
@@ -16,8 +17,9 @@ public class VisionSubsystem extends SubsystemBase {
 
 
     public Limelight limelight = new Limelight("Shooter Limelight", 0, 0, 0);
+    private RobotContainer robotContainer;
 
-    public VisionSubsystem() {
-
+    public VisionSubsystem(RobotContainer container) {
+        robotContainer = container;
     }
 }

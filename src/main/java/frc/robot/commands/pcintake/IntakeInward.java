@@ -4,16 +4,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import static frc.robot.Config.IntakeStandardVelocity;
 
-public class IntakeReverse extends CommandBase {
+public class IntakeInward extends CommandBase {
 
     private IntakeSubsystem Intake;
     private boolean isDone;
 
-    public IntakeReverse(IntakeSubsystem intake) {
+    public IntakeInward(IntakeSubsystem intake) {
         Intake = intake;
         addRequirements(intake);
-    }
 
+    }
     @Override
     public void initialize() {
 
@@ -22,7 +22,7 @@ public class IntakeReverse extends CommandBase {
     @Override
     public void execute() {
         Intake.Actuate(IntakeStandardVelocity);
-        //if indexer power cell count has been decremented to desired power cell count, isDone = true;
+        //if indexer power cell count has been incremented to desired amount, isDone = true
     }
 
     public void end() {

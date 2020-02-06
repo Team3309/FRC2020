@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.RobotContainer;
 
 
 /**
@@ -17,8 +18,11 @@ import frc.robot.Config;
 public class IndexerSubsystem extends SubsystemBase {
 
     private WPI_TalonFX indexerMotor;
+    private RobotContainer robotContainer;
 
-    public IndexerSubsystem() {
+    public IndexerSubsystem(RobotContainer container) {
+
+        robotContainer = container;
         indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
         indexerMotor.configFactoryDefault();
     }

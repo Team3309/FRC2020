@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.RobotContainer;
 import frc.robot.util.PanelColor;
 
 /**
@@ -27,14 +28,16 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         turningToColor
     }
 
+    private RobotContainer robotContainer;
+
     private Solenoid retractorPiston;
     private Solenoid heightAdjustmentPiston;
-
     private WPI_TalonFX ctrlPanelMotor;
 
     private ColorSensorV3 colorSensor;
 
-    public CtrlPanelSubsystem() {
+    public CtrlPanelSubsystem(RobotContainer container) {
+        robotContainer = container;
         ctrlPanelMotor = new WPI_TalonFX(Config.TurnerMotorID);
         ctrlPanelMotor.configFactoryDefault();
         retractorPiston = new Solenoid(Config.TurnerTractorPistonPdpChannel);

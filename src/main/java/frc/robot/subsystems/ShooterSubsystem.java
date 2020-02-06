@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.RobotContainer;
 
 /**
  * @author Joshua Badzey
@@ -20,9 +21,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
+    private RobotContainer robotContainer;
 
 
-    public ShooterSubsystem() {
+    public ShooterSubsystem(RobotContainer container) {
+        robotContainer = container;
         topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
         bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
         ConfigTalon(topMotor);

@@ -22,6 +22,8 @@ public class RotateToColor extends CommandBase {
     public RotateToColor (CtrlPanelSubsystem manipulator, rotationDirection direction, PanelColor color) {
         Manipulator = manipulator;
         Direction = direction;
+        TargetColor = color;
+        addRequirements(manipulator);
 
         switch (color) {
             case red :
@@ -41,7 +43,7 @@ public class RotateToColor extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(Manipulator);
+
     }
 
     @Override

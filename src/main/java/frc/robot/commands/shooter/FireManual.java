@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class FireManual extends CommandBase {
@@ -11,6 +13,8 @@ public class FireManual extends CommandBase {
 
     public ShooterSubsystem Shooter;
     public XboxController Controller;
+
+    public boolean isDone;
 
 
     public FireManual (ShooterSubsystem shooter, XboxController controller) {
@@ -34,11 +38,13 @@ public class FireManual extends CommandBase {
     }
 
     public void end() {
-
+        Shooter.StopFlywheels();
+        cancel();
     }
 
     @Override
     public boolean isFinished() {
         return false;
     }
+
 }

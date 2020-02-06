@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -28,13 +29,13 @@ public class RobotContainer
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
-    private final ClimberSubsystem Climber = new ClimberSubsystem();
-    private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem();
+    private final ClimberSubsystem Climber = new ClimberSubsystem(this);
+    private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem(this);
     private final DriveSubsystem Drive = new DriveSubsystem(this);
-    private final IndexerSubsystem Indexer = new IndexerSubsystem();
+    private final IndexerSubsystem Indexer = new IndexerSubsystem(this);
     private final IntakeSubsystem Intake = new IntakeSubsystem(this);
-    private final ShooterSubsystem Shooter = new ShooterSubsystem();
-    private final VisionSubsystem Vision = new VisionSubsystem();
+    private final ShooterSubsystem Shooter = new ShooterSubsystem(this);
+    private final VisionSubsystem Vision = new VisionSubsystem(this);
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
     // -- Input
@@ -80,7 +81,8 @@ public class RobotContainer
                 .whileHeld(new RunCommand(() -> Drive.SetLeftRight(ControlMode.PercentOutput, 0.2, 0.2), Drive)
                         .beforeStarting(() -> System.out.println("before start B")));
 
-
+        new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
+                .whileHeld(new RunCommand(() -> new FireManual(Shooter, OI.OperatorController)));
     }
 
     // --------------------------------------------------------------------------------------------

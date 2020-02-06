@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.RobotContainer;
 
 
 /**
@@ -16,8 +17,10 @@ import frc.robot.Config;
 public class ClimberSubsystem extends SubsystemBase {
 
     private WPI_TalonSRX climberMotor;
+    private RobotContainer robotContainer;
 
-    public ClimberSubsystem() {
+    public ClimberSubsystem(RobotContainer container) {
+        robotContainer = container;
         climberMotor = new WPI_TalonSRX(Config.BalancerMotorId);
     }
 
