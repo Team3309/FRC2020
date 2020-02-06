@@ -22,7 +22,21 @@ public class RotateToColor extends CommandBase {
     public RotateToColor (CtrlPanelSubsystem manipulator, rotationDirection direction, PanelColor color) {
         Manipulator = manipulator;
         Direction = direction;
-        TargetColor = color;
+
+        switch (color) {
+            case red :
+                TargetColor = PanelColor.cyan;
+                break;
+            case yellow:
+                TargetColor = PanelColor.green;
+                break;
+            case cyan :
+                TargetColor = PanelColor.red;
+                break;
+            case green:
+                TargetColor = PanelColor.yellow;
+                break;
+        }
     }
 
     @Override
