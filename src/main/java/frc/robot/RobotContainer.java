@@ -61,7 +61,7 @@ public class RobotContainer
     private void SetDefaultCommands()
     {
         Drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, Drive));
-        Shooter.setDefaultCommand(new FireManual(Shooter, OI.OperatorController));
+        //Shooter.setDefaultCommand(new FireManual(Shooter, OI.OperatorController));
     }
 
     // --------------------------------------------------------------------------------------------

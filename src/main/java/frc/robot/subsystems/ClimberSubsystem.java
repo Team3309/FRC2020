@@ -19,9 +19,8 @@ public class ClimberSubsystem extends SubsystemBase {
     private WPI_TalonSRX climberMotor;
     private RobotContainer robotContainer;
 
-    public ClimberSubsystem(RobotContainer container) {
-        robotContainer = container;
-        climberMotor = new WPI_TalonSRX(Config.BalancerMotorId);
+    public ClimberSubsystem() {
+        //climberMotor = new WPI_TalonSRX(Config.BalancerMotorId);
     }
 
     //will lift up the climber mechanism to grab on to the rung.

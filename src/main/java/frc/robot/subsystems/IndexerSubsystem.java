@@ -20,11 +20,9 @@ public class IndexerSubsystem extends SubsystemBase {
     private WPI_TalonFX indexerMotor;
     private RobotContainer robotContainer;
 
-    public IndexerSubsystem(RobotContainer container) {
-
-        robotContainer = container;
-        indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
-        indexerMotor.configFactoryDefault();
+    public IndexerSubsystem() {
+        //indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
+        //indexerMotor.configFactoryDefault();
     }
     //will detect whether indexer is full or not.
     public boolean IsFull() {return false;}

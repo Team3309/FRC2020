@@ -24,12 +24,11 @@ public class ShooterSubsystem extends SubsystemBase {
     private RobotContainer robotContainer;
 
 
-    public ShooterSubsystem(RobotContainer container) {
-        robotContainer = container;
-        topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
+    public ShooterSubsystem() {
+        /*topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
         bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
         ConfigTalon(topMotor);
-        ConfigTalon(bottomMotor);
+        ConfigTalon(bottomMotor);*/
     }
 
     public void ConfigTalon(WPI_TalonFX talon) {

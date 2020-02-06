@@ -121,7 +121,7 @@ public class Config {
      * They are used to identify which robot the code is running on, because some values are specific to each robot.
      */
     private static final byte[] Alpha2020_MAC = {
-            (byte) 0x00, (byte) 0x80, (byte) 0x2F, (byte) 0x25, (byte) 0x13, (byte) 0xAA}; // needs update!
+            (byte) 0x00, (byte) 0x80, (byte) 0x2F, (byte) 0x19, (byte) 0x57, (byte) 0x03};
 
     private static final byte[] Practice2017_MAC = {
             (byte) 0x00, (byte) 0x80, (byte) 0x2F, (byte) 0x25, (byte) 0x13, (byte) 0x96};

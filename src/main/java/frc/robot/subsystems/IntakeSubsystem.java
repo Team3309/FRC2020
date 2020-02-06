@@ -21,10 +21,10 @@ public class IntakeSubsystem extends SubsystemBase {
     public Solenoid solenoid;
 
     public IntakeSubsystem(RobotContainer container) {
-        intakeMotor = new WPI_TalonFX(Config.IntakeMotorID);
+        /*intakeMotor = new WPI_TalonFX(Config.IntakeMotorID);
         intakeMotor.configFactoryDefault();
         robotContainer = container;
-        solenoid = new Solenoid(Config.IntakeSoleoidChannel);
+        solenoid = new Solenoid(Config.IntakeSoleoidChannel);*/
     }
 
     public void Spin(double speed) {
