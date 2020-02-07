@@ -24,17 +24,43 @@ public class IntakeSubsystem extends SubsystemBase {
         /*intakeMotor = new WPI_TalonFX(Config.IntakeMotorID);
         intakeMotor.configFactoryDefault();
         robotContainer = container;
-        solenoid = new Solenoid(Config.IntakeSoleoidChannel);*/
+        solenoid = new Solenoid(Config.IntakeSolenoidChannel);*/
     }
 
+    /**
+     * Activates the motor to spin at @param speed.
+     *
+     * @param speed - the speed at which the motors should turn the intake wheels.
+     *
+     */
     public void Spin(double speed) {
-        intakeMotor.set(ControlMode.PercentOutput, speed);
+        intakeMotor.set(ControlMode.Velocity, speed);
     }
 
+    /**
+     * Spins the intake wheels for intaking a power cell.
+     *
+     */
+    public void Intake() { Spin(Config.IntakeStandardVelocity); }
+
+    /**
+     * Spins the intake wheels for outtaking a power cell.
+     *
+     */
+    public void Outtake() { Spin(-Config.IntakeStandardVelocity); }
+
+    /**
+     * Activates intake piston to extend the intake forward.
+     *
+     */
     public void Extend() {
         solenoid.set(true);
     }
 
+    /**
+     * Deactivates the intake piston to retract the intake back.
+     *
+     */
     public void Retract() {
         solenoid.set(false);
     }

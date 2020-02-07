@@ -45,10 +45,25 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);*/
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Activates the control panel motor for turning the control panel. Numerical sign for each direction will be
+     * decided later.
+     *
+     * @param mode - the ControlMode in which the motor is to operate.
+     * @param value - how much the motor is to turn.
+     *
+     -----------------------------------------------------------------------------------------------------------------*/
     public void Rotate (ControlMode mode, double value) {
         ctrlPanelMotor.set(mode, value);
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Returns the color that the color sensor is currently on. This, along with established control panel color
+     * sequence, will enable the robot to turn the control panel to the correct color.
+     *
+     * @return PanelColor.[color] - the color which the color sensor is currently on.
+     *
+     -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getColor () {
         Color color = colorSensor.getColor();
         if (color.equals(Color.kRed)) {
@@ -68,15 +83,30 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
+    /**
+     * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
+     * */
     public void Engage() {
     }
 
+    /**
+     * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
+     * */
     public void Disengage() {
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Raises the control panel turner for correct positioning above the control panel.
+     *
+     -----------------------------------------------------------------------------------------------------------------*/
     public void RaiseTurner() {
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Obtains via the FMS the color to which the robot must turn.
+     *
+     * @return PanelColor.[color] - the color to which the robot must turn the control panel.
+     -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor GetFMSColor() {
         String gameData;
         gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -101,15 +131,28 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
-    public boolean IsFMSColorAvalible() {
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Checks whether the color for position control is available via the FMS.
+     *
+     * @return Whether the FMS color is currently available.
+     -----------------------------------------------------------------------------------------------------------------*/
+    public boolean IsFMSColorAvailable() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         return gameData.length() > 0;
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Extends the control panel turner forward.
+     *
+     -----------------------------------------------------------------------------------------------------------------*/
     public void DeployTurner() {
         retractorPiston.set(true);
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Retracts the control panel turner back.
+     *
+     -----------------------------------------------------------------------------------------------------------------*/
     public void RetractTurner() {
         retractorPiston.set(false);
     }

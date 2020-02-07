@@ -29,12 +29,12 @@ public class RobotContainer
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
-    private final ClimberSubsystem Climber = new ClimberSubsystem(this);
-    private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem(this);
+    private final ClimberSubsystem Climber = new ClimberSubsystem();
+    private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem();
     private final DriveSubsystem Drive = new DriveSubsystem(this);
-    private final IndexerSubsystem Indexer = new IndexerSubsystem(this);
+    private final IndexerSubsystem Indexer = new IndexerSubsystem();
     private final IntakeSubsystem Intake = new IntakeSubsystem(this);
-    private final ShooterSubsystem Shooter = new ShooterSubsystem(this);
+    private final ShooterSubsystem Shooter = new ShooterSubsystem();
     private final VisionSubsystem Vision = new VisionSubsystem(this);
     private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
