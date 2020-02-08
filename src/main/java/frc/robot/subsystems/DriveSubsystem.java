@@ -12,6 +12,8 @@ import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.util.DriveSignal;
 
+import static frc.robot.Config.isDriveInstalled;
+
 public class DriveSubsystem extends SubsystemBase {
 
     private RobotContainer robotContainer;
@@ -30,16 +32,19 @@ public class DriveSubsystem extends SubsystemBase {
      public DriveSubsystem(RobotContainer container) {
 
         robotContainer = container;
-        driveMasterLeft = new WPI_TalonFX(Config.DriveLeftMasterID);
-        driveSlaveLeft = new WPI_TalonFX(Config.DriveLeftSlaveID);
-        driveMasterRight = new WPI_TalonFX(Config.DriveRightMasterID);
-        driveSlaveRight = new WPI_TalonFX(Config.DriveRightSlaveID);
 
-        configDriveMaster(driveMasterLeft);
-        configDriveSlave(driveSlaveLeft, driveMasterLeft);
-        configDriveMaster(driveMasterRight);
-        configDriveSlave(driveSlaveRight, driveMasterRight);
-        SetNeutralMode(NeutralMode.Brake);
+         if (isDriveInstalled) {
+             driveMasterLeft = new WPI_TalonFX(Config.DriveLeftMasterID);
+             driveSlaveLeft = new WPI_TalonFX(Config.DriveLeftSlaveID);
+             driveMasterRight = new WPI_TalonFX(Config.DriveRightMasterID);
+             driveSlaveRight = new WPI_TalonFX(Config.DriveRightSlaveID);
+
+             configDriveMaster(driveMasterLeft);
+             configDriveSlave(driveSlaveLeft, driveMasterLeft);
+             configDriveMaster(driveMasterRight);
+             configDriveSlave(driveSlaveRight, driveMasterRight);
+             SetNeutralMode(NeutralMode.Brake);
+         }
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -128,46 +133,6 @@ public class DriveSubsystem extends SubsystemBase {
      \----------------------------------------------------------------------------------------------------------------*/
     public double DegreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Config.EncoderCountsPerDegree;
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Sets Drive to high gear.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    public void SetHighGear() {
-        shifter.set(true);
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Sets Drive to low gear.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    public void SetLowGear() {
-        shifter.set(false);
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Finds whether or not the drive is in high gear.
-     *
-     * @return If the Drive is in high gear.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    public boolean InHighGear() {
-        if(shifter.get() == true) {
-            return true;
-        } else return false;
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Finds whether or not the drive is in low gear.
-     *
-     * @return If the Drive is in low gear.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    public boolean InLowGear() {
-        if(!InHighGear()) {
-            return true;
-        } else return false;
     }
 
      /**---------------------------------------------------------------------------------------------------------------\

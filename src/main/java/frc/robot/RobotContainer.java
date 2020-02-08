@@ -73,8 +73,9 @@ public class RobotContainer
     // --------------------------------------------------------------------------------------------
     private void SetDefaultCommands()
     {
-        drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
-        //Shooter.setDefaultCommand(new FireManual(Shooter, OI.OperatorController));
+        if (Config.isDriveInstalled) {
+            drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
+        }
     }
 
     // --------------------------------------------------------------------------------------------

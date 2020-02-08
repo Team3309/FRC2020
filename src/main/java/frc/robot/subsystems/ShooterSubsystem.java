@@ -25,10 +25,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
 
     public ShooterSubsystem() {
-        /*topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
-        bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
-        ConfigTalon(topMotor);
-        ConfigTalon(bottomMotor);*/
+        if (Config.isShooterInstalled) {
+            topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
+            bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
+            ConfigTalon(topMotor);
+            ConfigTalon(bottomMotor);
+        }
     }
 
      /**---------------------------------------------------------------------------------------------------------------\

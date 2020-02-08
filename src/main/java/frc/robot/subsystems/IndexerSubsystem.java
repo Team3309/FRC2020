@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
 
+import static frc.robot.Config.isIndexerInstalled;
+
 
 /**---------------------------------------------------------------------------------------------------------------------
  * @author Joshua Badzey
@@ -21,8 +23,10 @@ public class IndexerSubsystem extends SubsystemBase {
     private RobotContainer robotContainer;
 
     public IndexerSubsystem() {
-        //indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
-        //indexerMotor.configFactoryDefault();
+        if (Config.isIndexerInstalled) {
+            indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
+            indexerMotor.configFactoryDefault();
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
