@@ -15,15 +15,15 @@ import java.util.function.Supplier;
 
 public class SelectIntakeToggle extends SelectCommand {
 
-    public SelectIntakeToggle(Supplier<Command> toRun, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectIntakeToggle(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.state == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
-                    RobotContainer.state == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
-                    RobotContainer.state == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE
+            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE
             ) {
                 return new ToIntakeCommandGroup(intake, indexer, shooter, arm); //aka command group 1 (See Slack for details)
-            } else if (RobotContainer.state == RobotContainer.PowerCellHandlingState.INTAKE) {
-                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm); //TODO execute command group 2 instead (see slack for command group descriptions).
+            } else if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
+                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm); //aka command group 2 (See Slack for details)
             } else {
                 //do nothing
                 return new DoNothing();

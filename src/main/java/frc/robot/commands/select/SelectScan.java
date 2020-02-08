@@ -12,12 +12,12 @@ import java.util.function.Supplier;
 
 public class SelectScan extends SelectCommand {
 
-    public SelectScan(Supplier<Command> toRun, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {
+    public SelectScan(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {
-            if (RobotContainer.state == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
-                    RobotContainer.state == RobotContainer.PowerCellHandlingState.INTAKE ||
-                    RobotContainer.state == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
-                    RobotContainer.state == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE
+            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE
             ) {
                 return new DoNothing(); //TODO execute command group 2 instead (see slack for command group descriptions).
             } else {

@@ -12,6 +12,7 @@ import frc.robot.commands.aimer.AimManual;
 import frc.robot.commands.select.SelectIntakeToggle;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
+import frc.robot.commands.select.SelectMultishot;
 import frc.robot.commands.select.SelectReadyToShoot;
 import frc.robot.commands.select.SelectScan;
 import frc.robot.commands.shooter.FireManual;
@@ -24,10 +25,20 @@ import frc.robot.subsystems.*;
 */
 public class RobotContainer
 {
-    public static enum PowerCellHandlingState {
-        ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT
+    public static void setPowerCellHandlingState(PowerCellHandlingState newState) {
+        RobotContainer.state = newState;
     }
-    public static PowerCellHandlingState state = PowerCellHandlingState.ARM_UP_DRIVE;
+
+    public static PowerCellHandlingState getPowerCellHandlingState() {
+        return state;
+    }
+
+    public static enum PowerCellHandlingState {
+        ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
+        INITIALIZE_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
+        INIT_READY_TO_SHOOT
+    }
+    private static PowerCellHandlingState state = PowerCellHandlingState.ARM_UP_DRIVE;
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
     private final ArmSubsystem arm = new ArmSubsystem();
@@ -89,25 +100,28 @@ public class RobotContainer
                 .whileHeld(new RunCommand(() -> new FireManual(shooter, OI.OperatorController)));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
-                .whenPressed(new RunCommand(() -> new SelectIntakeToggle(null, intake, indexer, shooter, arm)
+                .whenPressed(new RunCommand(() -> new SelectIntakeToggle(intake, indexer, shooter, arm)
                 ));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)
-                .whenPressed(new RunCommand(() -> new SelectScan(null, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectScan(intake, indexer, shooter)
                 ));
 
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
+                .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
+                ));
 
         //D East TODO Set constants for angles
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(null, 0, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, intake, indexer, shooter)
                 ));
-        //D North  TODO Set constants for angles
+        //D North TODO Set constants for angles
         new POVButton(OI.OperatorController, 90, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(null, 0, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, intake, indexer, shooter)
                 ));
-        //D West  TODO Set constants for angles
+        //D West TODO Set constants for angles
         new POVButton(OI.OperatorController, 180, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(null, 0, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, intake, indexer, shooter)
                 ));
     }
 
