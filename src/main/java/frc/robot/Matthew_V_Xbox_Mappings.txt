@@ -1,9 +1,0 @@
-Balance: Manual --> J2; Auto --> J2(pressed)
-
-CtrlPanelTurner: Deploy --> B(toggle); Spin --> Y(if "B" pressed);
-ColorMatch --> X; Manual --> J1(if "B" pressed)
-
-PCIndexer: Load --> A; Eject --> TBD;
-Position --> D-Pad(close --> east, mid --> north, far --> west)
-
-Shooter: 'Have manual aim code ready, but let's save that for later.' (last resort)

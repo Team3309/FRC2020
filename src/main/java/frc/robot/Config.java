@@ -10,111 +10,140 @@ public class Config {
 
     /** Robot parameters
      *
+     * Use primitives for constant values that are the same for all frames.
+     *
+     * Use class wrappers (Integer, Double) for configurable values so that a null pointer exception
+     * is thrown if a value is not initialized by the frame specific code.
      *
      */
-
-    public static double EncoderCountsPerDegree = 600;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
     //------------------------------------------------------------------------------------------------------------------
     //Drive Motor IDs---------------------------------------------------------------------------------------------------
-    public static int DriveLeftMasterID;
-    public static int DriveLeftSlaveID;
-    public static int DriveRightMasterID;
-    public static int DriveRightSlaveID;
+    public static Integer DriveLeftMasterID;
+    public static Integer DriveLeftSlaveID;
+    public static Integer DriveRightMasterID;
+    public static Integer DriveRightSlaveID;
 
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
-    public static int DriveLeftMasterPdpChannel;
-    public static int DriveLeftSlavePdpChannel;
-    public static int DriveRightMasterPdpChannel;
-    public static int DriveRightSlavePdpChannel;
+    public static Integer DriveLeftMasterPdpChannel;
+    public static Integer DriveLeftSlavePdpChannel;
+    public static Integer DriveRightMasterPdpChannel;
+    public static Integer DriveRightSlavePdpChannel;
 
     //Drive PID Parameters----------------------------------------------------------------------------------------------
-    public static int DriveClosedLoopRampRate;
-    public static int DriveOpenLoopRampRate;
-    public static int DriveVelocityP;
-    public static int DriveVelocityD;
-    public static int DriveVelocityF;
+    public static Integer DriveClosedLoopRampRate;
+    public static Integer DriveOpenLoopRampRate;
+    public static Integer DriveVelocityP;
+    public static Integer DriveVelocityD;
+    public static Integer DriveVelocityF;
 
     //Physical Constants for Drive--------------------------------------------------------------------------------------
-    public static double DriveWheelDiameterInInches;
-    public static double DriveWheelRadiusInInches = DriveWheelDiameterInInches/2;
-    public static double DriveWheelInchesPerRevolution = DriveWheelDiameterInInches * Math.PI;
-    public static double DriveWheelEncoderCountsPerRevolution = EncoderCountsPerDegree *
+    public static final double DriveWheelDiameterInInches = 6.0;
+    public static final double DriveWheelRadiusInInches = DriveWheelDiameterInInches/2;
+    public static final double DriveWheelInchesPerRevolution = DriveWheelDiameterInInches * Math.PI;
+    public static final double EncoderCountsPerDegree = 600;
+    public static final double DriveWheelEncoderCountsPerRevolution = EncoderCountsPerDegree *
             360 * DriveWheelRadiusInInches;
-    public static double DrivetrainWidthInInches;
+    //public static final double DrivetrainWidthInInches = ?;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static int IntakeMotorID;
-    public static int IntakeMotorPdpChannel;
-    public static double IntakeStandardVelocity;
-    public static int IntakeSoleoidChannel;
+    public static Integer IntakeMotorID;
+    public static Integer IntakeMotorPdpChannel;
+    public static Integer IntakeSoleoidChannel;
+    public static double IntakeInwardPower = 0.3;
+
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
     //------------------------------------------------------------------------------------------------------------------
     //Manipulator Actuator IDs------------------------------------------------------------------------------------------
-    public static int TurnerMotorID;
-    public static int TurnerTractorPistonID; //Tractor: (retract = draw back, protract = draw forward, ergo tract=draw
-    public static int TurnerHeightAdjustmentPistonID;
+    public static Integer TurnerMotorID;
+    public static Integer TurnerTractorPistonID; //Tractor: (retract = draw back, protract = draw forward, ergo tract=draw
+    public static Integer TurnerHeightAdjustmentPistonID;
 
     //Manipulator Actuator PDP Channels---------------------------------------------------------------------------------
-    public static int TurnerMotorPdpChannel;
-    public static int TurnerTractorPistonPdpChannel;
-    public static int TurnerHeightAdjustmentPistonPdpChannel;
+    public static Integer TurnerMotorPdpChannel;
 
     //Manipulator Physical Constants------------------------------------------------------------------------------------
-    public static double TurnerWheelRadiusInches;
-    public static double TurnerWheelDiameterInches = TurnerWheelRadiusInches*2;
-    public static double TurnerWheelInchesPerRevolution = TurnerWheelDiameterInches * Math.PI;
+    public static final double TurnerWheelRadiusInches = 4.0;  //  value?
+    public static final double TurnerWheelDiameterInches = TurnerWheelRadiusInches*2;
+    public static final double TurnerWheelInchesPerRevolution = TurnerWheelDiameterInches * Math.PI;
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
-    public static double TurnerRotationSpeed = 0.8;
+    public static final double TurnerRotationPower = 0.4;
 
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Constants//
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Motor IDs-------------------------------------------------------------------------------------------------
-    public static int TopShooterMotorID;
-    public static int BottomShooterMotorID;
+    public static Integer TopShooterMotorID;
+    public static Integer BottomShooterMotorID;
 
     //Shooter PDP Channels----------------------------------------------------------------------------------------------
-    public static int TopShooterPdpChannel;
-    public static int BottomShooterPdpChannel;
+    public static Integer TopShooterPdpChannel;
+    public static Integer BottomShooterPdpChannel;
 
     //Shooter PID Constants---------------------------------------------------------------------------------------------
-    public static double ShooterClosedLoopRampRate;
-    public static double ShooterOpenLoopRampRate;
-    public static double ShooterVelocityP;
-    public static double ShooterVelocityI;
-    public static int ShooterVelocityIntegralZone;
-    public static double ShooterVelocityD;
-    public static double ShooterVelocityF;
-
-    /* Default Shooter timeout */
-    public static double DefaultShooterTimeout;
+    public static Double ShooterClosedLoopRampRate;
+    public static Double ShooterOpenLoopRampRate;
+    public static Double ShooterVelocityP;
+    public static Double ShooterVelocityI;
+    public static Integer ShooterVelocityIntegralZone;
+    public static Double ShooterVelocityD;
+    public static Double ShooterVelocityF;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static int IndexerMotorID;
-    public static int IndexerPdpChannel;
+    public static Integer IndexerMotorID;
+    public static Integer IndexerPdpChannel;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static int BalancerMotorId;
-    public static int BalancerPdpChannel;
+    public static Integer BalancerMotorId;
+    public static Integer BalancerPdpChannel;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static double AimingP;
-    public static double AimingI;
-    public static double AimingD;
-    public static double AimingF;
+    public static Double AimingP;
+    public static Double AimingI;
+    public static Double AimingD;
+    public static Double AimingF;
+
+
+    private static void frameSpecificConfig() {
+
+        // Values specific to each physical robot
+
+        switch (currentRobot) {
+            case Alpha2020:
+                DriveLeftMasterID = 4;
+                DriveLeftSlaveID = 16;
+                DriveRightMasterID = 15;
+                DriveRightSlaveID = 1;
+                DriveLeftMasterPdpChannel = 14;
+                DriveLeftSlavePdpChannel = 15;
+                DriveRightMasterPdpChannel = 0;
+                DriveRightSlavePdpChannel = 1;
+                break;
+
+            case Practice2017:
+                DriveLeftMasterID = 6;
+                DriveLeftSlaveID = 8;
+                DriveRightMasterID = 5;
+                DriveRightSlaveID = 7;
+                DriveLeftMasterPdpChannel = 13;
+                DriveLeftSlavePdpChannel = 14;
+                DriveRightMasterPdpChannel = 1;
+                DriveRightSlavePdpChannel = 2;
+                break;
+        }
+    }
 
     /*
      * These MAC_ADDR values are just unique IDs for each of the roboRIOs
@@ -157,32 +186,7 @@ public class Config {
             ex.printStackTrace();
             int a = 1 / 0;  // make the world stop
         }
-
-        // Values specific to each physical robot
-
-        switch (currentRobot) {
-            case Alpha2020:
-                DriveLeftMasterID = 4;
-                DriveLeftSlaveID = 16;
-                DriveRightMasterID = 15;
-                DriveRightSlaveID = 1;
-                DriveLeftMasterPdpChannel = 14;
-                DriveLeftSlavePdpChannel = 15;
-                DriveRightMasterPdpChannel = 0;
-                DriveRightSlavePdpChannel = 1;
-                break;
-
-            case Practice2017:
-                DriveLeftMasterID = 6;
-                DriveLeftSlaveID = 8;
-                DriveRightMasterID = 5;
-                DriveRightSlaveID = 7;
-                DriveLeftMasterPdpChannel = 13;
-                DriveLeftSlavePdpChannel = 14;
-                DriveRightMasterPdpChannel = 1;
-                DriveRightSlavePdpChannel = 2;
-                break;
-        }
+        frameSpecificConfig();
     }
 
 }
