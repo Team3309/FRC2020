@@ -14,6 +14,7 @@ public class Config {
      */
 
     public static double EncoderCountsPerDegree = 600;
+    public static boolean isInDebug = false;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
@@ -107,6 +108,18 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static int BalancerMotorId;
     public static int BalancerPdpChannel;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Arm Constants//
+    //------------------------------------------------------------------------------------------------------------------
+    public static int ArmMotorId;
+    public static int ArmMotorPdpChannel;
+    public static int ArmMaxAnglePosition;
+    public static int ArmLongRangeAnglePosition;
+    public static int ArmMidRangeAnglePosition;
+    public static int ArmCloseRangeAnglePosition;
+    public static int ArmTrenchDriveAnglePosition;
+    public static int ArmMinAnglePosition;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming Constants//

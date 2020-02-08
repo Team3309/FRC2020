@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
@@ -8,16 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.arm.RaiseArm;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
 import frc.robot.commands.shooter.FireManual;
-import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.CtrlPanelSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IndexerSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.*;
 
 /*
 * A class that contains all the subsystems and commands that Robot needs. Based off of the RobotContainer
@@ -29,6 +25,7 @@ public class RobotContainer
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
+    private final ArmSubsystem Arm = new ArmSubsystem();
     private final ClimberSubsystem Climber = new ClimberSubsystem();
     private final CtrlPanelSubsystem Turner = new CtrlPanelSubsystem();
     private final DriveSubsystem Drive = new DriveSubsystem(this);
