@@ -21,7 +21,6 @@ public class RaiseArm extends CommandBase {
     @Override
     public void initialize() {
 
-        Arm.MoveArmManually(Controller.getY(GenericHID.Hand.kRight) * Config.EncoderCountsPerDegree);
     }
 
     @Override
