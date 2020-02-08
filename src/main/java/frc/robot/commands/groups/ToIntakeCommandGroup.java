@@ -1,12 +1,13 @@
 package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.arm.MoveArmToIntakePosition;
+import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.intake.EngageIntakeFlywheelAndIndexer;
 import frc.robot.commands.intake.Extend;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.pcindexer.StopIndexer;
 import frc.robot.commands.shooter.StopFlywheel;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -19,8 +20,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 //4) Engage the IIF
 public class ToIntakeCommandGroup extends SequentialCommandGroup {
 
-    public ToIntakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {
-        addCommands(new StopIndexer(indexer), new StopIntake(intake), new StopFlywheel(shooter), new Extend(intake), new MoveArmToIntakePosition(), new EngageIntakeFlywheelAndIndexer(intake, indexer, shooter));
+    public ToIntakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
+        addCommands(new StopIndexer(indexer), new StopIntake(intake), new StopFlywheel(shooter), new Extend(intake), new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm), new EngageIntakeFlywheelAndIndexer(intake, indexer, shooter));
     }
 
 }

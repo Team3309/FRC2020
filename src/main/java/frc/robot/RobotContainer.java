@@ -87,7 +87,7 @@ public class RobotContainer
                 .whileHeld(new RunCommand(() -> new FireManual(shooter, OI.OperatorController)));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
-                .whenPressed(new RunCommand(() -> new SelectIntakeToggle(null, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectIntakeToggle(null, intake, indexer, shooter, arm)
                 ));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)

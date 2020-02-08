@@ -5,12 +5,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class Retract extends CommandBase {
 
-    private IntakeSubsystem Intake;
+    private IntakeSubsystem intake;
 
     public Retract (IntakeSubsystem intake) {
-        Intake = intake;
+        this.intake = intake;
 
-        addRequirements(Intake);
+        addRequirements(intake);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class Retract extends CommandBase {
 
     @Override
     public void execute() {
-        Intake.Retract();
+        intake.Retract();
     }
 
     @Override
