@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
@@ -21,13 +22,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
-    private RobotContainer robotContainer;
+    private Timer ctrlTimer = new Timer();
 
 
     public ShooterSubsystem() {
         if (Config.isShooterInstalled) {
             topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
             bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
+            ctrlTimer.start();
             ConfigTalon(topMotor);
             ConfigTalon(bottomMotor);
         }
@@ -103,5 +105,15 @@ public class ShooterSubsystem extends SubsystemBase {
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetBottomMotorVelocity() {
         return -bottomMotor.getSelectedSensorVelocity();
+    }
+
+     /**---------------------------------------------------------------------------------------------------------------\
+     * Returns whether or not the shooter control timer has exceeded timeout values.
+     *
+     * @return Whether the control timer has timed out.
+     *
+     \----------------------------------------------------------------------------------------------------------------*/
+    public boolean IsTimedOut() {
+        return (ctrlTimer.get() < Config.ShooterStandardTimeout);
     }
 }

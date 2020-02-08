@@ -109,6 +109,7 @@ public class Config {
     public static Double ShooterVelocityD;
     public static Double ShooterVelocityF;
     public static Double ShooterStandardVelocity;
+    public static Double ShooterStandardTimeout;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//

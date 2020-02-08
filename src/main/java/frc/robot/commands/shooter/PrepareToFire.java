@@ -10,14 +10,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class PrepareToFire extends CommandBase {
 
     private ShooterSubsystem Shooter;
-    private XboxController Controller;
-    private Timer ControlTimer;
     private boolean isDone;
 
-    public PrepareToFire(ShooterSubsystem shooter, Timer ctrlTimer) {
+    public PrepareToFire(ShooterSubsystem shooter) {
 
         Shooter = shooter;
-        ControlTimer = ctrlTimer;
         addRequirements(shooter);
     }
 
@@ -34,7 +31,7 @@ public class PrepareToFire extends CommandBase {
         isDone = false;
 
         if (Shooter.GetTopMotorVelocity() < topMotorDesired && Shooter.GetBottomMotorVelocity() < bottomMotorDesired
-                && !isDone) {
+                && !isDone && !Shooter.IsTimedOut()) {
                 Shooter.SpinPowerCell(topMotorDesired, bottomMotorDesired);
         } else if (Shooter.GetTopMotorVelocity() == topMotorDesired &&
                 Shooter.GetBottomMotorVelocity() == bottomMotorDesired) {

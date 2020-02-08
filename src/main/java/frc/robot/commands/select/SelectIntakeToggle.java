@@ -1,6 +1,5 @@
 package frc.robot.commands.select;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
@@ -13,7 +12,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectIntakeToggle extends SelectCommand {
 
-    public SelectIntakeToggle(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectIntakeToggle(IntakeSubsystem intake, IndexerSubsystem indexer,
+                              ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||

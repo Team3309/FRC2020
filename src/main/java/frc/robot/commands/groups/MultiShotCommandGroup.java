@@ -1,8 +1,5 @@
 package frc.robot.commands.groups;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.intake.Retract;
@@ -15,22 +12,16 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class MultiShotCommandGroup extends SequentialCommandGroup {
 
-    public MultiShotCommandGroup(ArmSubsystem arm, ShooterSubsystem shooter,
-                                 IndexerSubsystem indexer, ArmSubsystem.ArmPosition position,
-                                 Timer ctrlTimer, IntakeSubsystem intake) {
+    public MultiShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer, IntakeSubsystem intake) {
 
         addCommands(
                 new Retract(intake),
-                new MoveArmToPosition(position, arm),
-                new PrepareToFire(shooter, ctrlTimer),
+                new PrepareToFire(shooter),
                 new LoadBall(indexer)
         );
 
     }
 
-    public MultiShotCommandGroup() {
-
-    }
 
 
 }
