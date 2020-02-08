@@ -21,7 +21,7 @@ public class IntakeInward extends CommandBase {
 
     @Override
     public void execute() {
-        Intake.Actuate(IntakeStandardVelocity);
+        Intake.Spin(IntakeStandardVelocity);
         //if indexer power cell count has been incremented to desired amount, isDone = true
     }
 
