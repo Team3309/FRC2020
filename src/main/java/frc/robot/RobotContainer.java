@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.aimer.AimManual;
 import frc.robot.commands.select.SelectIntakeToggle;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
@@ -16,6 +15,7 @@ import frc.robot.commands.select.SelectMultishot;
 import frc.robot.commands.select.SelectReadyToShoot;
 import frc.robot.commands.select.SelectScan;
 import frc.robot.commands.shooter.FireManual;
+import frc.robot.commands.shooter.StopFlywheel;
 import frc.robot.subsystems.*;
 
 /*
@@ -75,7 +75,6 @@ public class RobotContainer
     {
         drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         //Shooter.setDefaultCommand(new FireManual(Shooter, OI.OperatorController));
-        arm.setDefaultCommand(new AimManual(arm, OI.OperatorController));
     }
 
     // --------------------------------------------------------------------------------------------
@@ -98,6 +97,9 @@ public class RobotContainer
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
                 .whileHeld(new RunCommand(() -> new FireManual(shooter, OI.OperatorController)));
+
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
+                .whenPressed(new RunCommand(() -> new StopFlywheel(shooter)));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectIntakeToggle(intake, indexer, shooter, arm)
@@ -141,7 +143,7 @@ public class RobotContainer
         return pdp.getCurrent(channel);
     }
 
-    public void OutputToDashboard() {
+    private void OutputToDashboard() {
         drive.OutputToDashboard();
     }
 

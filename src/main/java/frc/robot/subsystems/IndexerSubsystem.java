@@ -56,7 +56,9 @@ public class IndexerSubsystem extends SubsystemBase {
      * flywheel speeds.
      *
      -----------------------------------------------------------------------------------------------------------------*/
-    public void Load() {}
+    public void Load() {
+        indexerMotor.set(Config.IndexerStandardVelocity);
+    }
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Ejects a power cell from the indexer using the shooter. Will not need the same level of speed for the flywheels

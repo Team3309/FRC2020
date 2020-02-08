@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
+import frc.robot.commands.UpdateState;
+import frc.robot.commands.groups.ToScanCommandGroup;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -17,7 +19,8 @@ public class SelectScan extends SelectCommand {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE
             ) {
-                return new DoNothing(); //TODO execute command group 2 instead (see slack for command group descriptions).
+                new UpdateState(RobotContainer.PowerCellHandlingState.SCAN);
+                return new ToScanCommandGroup(); //TODO execute command group 2 instead (see slack for command group descriptions).
             } else {
                 //do nothing
                 return new DoNothing();

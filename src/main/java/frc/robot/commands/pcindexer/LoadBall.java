@@ -2,9 +2,16 @@ package frc.robot.commands.pcindexer;
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexerSubsystem;
 
 public class LoadBall extends CommandBase {
 
+    private IndexerSubsystem Indexer;
+
+    public LoadBall(IndexerSubsystem indexer) {
+        Indexer = indexer;
+        addRequirements(indexer);
+    }
     @Override
     public void initialize() {
 
@@ -12,7 +19,8 @@ public class LoadBall extends CommandBase {
 
     @Override
     public void execute() {
-         return;
+
+        Indexer.Load();
     }
 
     public void end() {
