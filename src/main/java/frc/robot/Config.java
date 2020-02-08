@@ -10,15 +10,26 @@ public class Config {
 
     /** Robot parameters
      *
-     * Use primitives for constant values that are the same for all frames.
+     * Use final primitives for constant values that are the same for all frames.
      *
      * Use class wrappers (Integer, Double) for configurable values so that a null pointer exception
      * is thrown if a value is not initialized by the frame specific code.
      *
      */
 
-    public static double EncoderCountsPerDegree = 600;
-    public static boolean isInDebug = false;
+    public static final boolean isInDebug = false;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Hardware Availability//
+    //------------------------------------------------------------------------------------------------------------------
+    public static Boolean isArmInstalled;
+    public static Boolean isClimberInstalled;
+    public static Boolean isCtrlPanelInstalled;
+    public static Boolean isDriveInstalled;
+    public static Boolean isIndexerInstalled;
+    public static Boolean isIntakeInstalled;
+    public static Boolean isShooterInstalled;
+    public static Boolean isVisionInstalled;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
@@ -44,6 +55,7 @@ public class Config {
 
     //Physical Constants for Drive--------------------------------------------------------------------------------------
     public static final double DriveWheelDiameterInInches = 6.0;
+    public static final double EncoderCountsPerDegree = 600;
     public static final double DriveWheelRadiusInInches = DriveWheelDiameterInInches/2;
     public static final double DriveWheelInchesPerRevolution = DriveWheelDiameterInInches * Math.PI;
     public static final double DriveWheelEncoderCountsPerRevolution = EncoderCountsPerDegree *
@@ -56,7 +68,7 @@ public class Config {
     public static Integer IntakeMotorID;
     public static Integer IntakeMotorPdpChannel;
     public static Integer IntakeSoleoidChannel;
-    public static double IntakeInwardPower = 0.3;
+    public static final double IntakeInwardPower = 0.3;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
@@ -136,6 +148,15 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
+                isArmInstalled = false;
+                isClimberInstalled = false;
+                isCtrlPanelInstalled = false;
+                isDriveInstalled = true;
+                isIndexerInstalled = false;
+                isIntakeInstalled = false;
+                isShooterInstalled = false;
+                isVisionInstalled = false;
+
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;
                 DriveRightMasterID = 15;
@@ -147,6 +168,15 @@ public class Config {
                 break;
 
             case Practice2017:
+                isArmInstalled = false;
+                isClimberInstalled = false;
+                isCtrlPanelInstalled = false;
+                isDriveInstalled = true;
+                isIndexerInstalled = false;
+                isIntakeInstalled = false;
+                isShooterInstalled = false;
+                isVisionInstalled = false;
+
                 DriveLeftMasterID = 6;
                 DriveLeftSlaveID = 8;
                 DriveRightMasterID = 5;
