@@ -8,8 +8,6 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-import java.util.function.Supplier;
-
 public class SelectScan extends SelectCommand {
 
     public SelectScan(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {

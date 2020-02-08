@@ -111,15 +111,15 @@ public class RobotContainer
                 .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
                 ));
 
-        //D East TODO Set constants for angles
+        //D East TODO are these ranges the correct mapping?
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, intake, indexer, shooter)
                 ));
-        //D North TODO Set constants for angles
+        //D North
         new POVButton(OI.OperatorController, 90, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, intake, indexer, shooter)
                 ));
-        //D West TODO Set constants for angles
+        //D West
         new POVButton(OI.OperatorController, 180, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, intake, indexer, shooter)
                 ));
