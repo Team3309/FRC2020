@@ -14,7 +14,6 @@ import frc.robot.util.DriveSignal;
 
 public class DriveSubsystem extends SubsystemBase {
 
-    //Memory allocation in preparation for Drive object initialization.-------------------------------------------------
     private RobotContainer robotContainer;
     private WPI_TalonFX driveMasterLeft;
     private WPI_TalonFX driveSlaveLeft;
@@ -22,12 +21,12 @@ public class DriveSubsystem extends SubsystemBase {
     private WPI_TalonFX driveSlaveRight;
     private Solenoid shifter;
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
      *
      * @param container - the RobotContainer object which will accept this DriveSubsystem object.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
      public DriveSubsystem(RobotContainer container) {
 
         robotContainer = container;
@@ -40,14 +39,15 @@ public class DriveSubsystem extends SubsystemBase {
         configDriveSlave(driveSlaveLeft, driveMasterLeft);
         configDriveMaster(driveMasterRight);
         configDriveSlave(driveSlaveRight, driveMasterRight);
+        SetNeutralMode(NeutralMode.Brake);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Configures a master motor with preset PID constants.
      *
      * @param talon - the Falcon motor to be configured.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     private void configDriveMaster(WPI_TalonFX talon) {
 
         talon.configFactoryDefault();
@@ -64,14 +64,14 @@ public class DriveSubsystem extends SubsystemBase {
         talon.setSensorPhase(false);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Configures a slave motor with the same constants as the master motor and sets it to do what the master motor is
      * doing.
      *
      * @param slave - the motor to follow master.
      * @param master - the motor according to which slave is configured.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     private void configDriveSlave(WPI_TalonFX slave, WPI_TalonFX master) {
         slave.configFactoryDefault();
         slave.follow(master);
@@ -79,98 +79,98 @@ public class DriveSubsystem extends SubsystemBase {
         slave.setInverted(InvertType.FollowMaster);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Finds the current position of the left master encoder.
      *
      * @return The number of encoder counts away from the position at configuration.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public double GetLeftEncoderPosition() {
         return driveMasterLeft.getSelectedSensorPosition(0);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Finds the current position of the right master encoder.
      *
      * @return The number of encoder counts away from the position at configuration.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public double GetRightEncoderPosition() {
         return -driveMasterRight.getSelectedSensorPosition(0);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Finds the current velocity of the left master encoder in counts per 100 milliseconds.
      *
      * @return The current velocity of the motor.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public double GetLeftEncoderVelocity() {
         return driveMasterLeft.getSelectedSensorVelocity(0);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Finds the current velocity of the left master encoder in counts per 100 milliseconds.
      *
      * @return The current velocity of the motor.
      *
-    ------------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public double GetRightEncoderVelocity() {
         return -driveMasterRight.getSelectedSensorVelocity(0);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Converts degrees/sec to encoder velocity (counts/sec).
      *
      * @param degreesPerSecond - the velocity in degrees to be converted to encoder counts.
      * @return The encoder velocity in encoder counts.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public double DegreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Config.EncoderCountsPerDegree;
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Sets Drive to high gear.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void SetHighGear() {
         shifter.set(true);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Sets Drive to low gear.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void SetLowGear() {
         shifter.set(false);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Finds whether or not the drive is in high gear.
      *
      * @return If the Drive is in high gear.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public boolean InHighGear() {
         if(shifter.get() == true) {
             return true;
         } else return false;
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Finds whether or not the drive is in low gear.
      *
      * @return If the Drive is in low gear.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public boolean InLowGear() {
         if(!InHighGear()) {
             return true;
         } else return false;
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Programs the left motor to move according to code instructions.
      *
      * @param mode - The desired control mode for the motor. See Cross The Road Electronics documentation for more
@@ -179,14 +179,14 @@ public class DriveSubsystem extends SubsystemBase {
      * @param demandType - *****
      * @param leftFeedForward - *****
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     private void SetLeft(ControlMode mode, double left,
                          DemandType demandType, double leftFeedForward) {
         driveMasterLeft.set(mode, left, demandType, leftFeedForward);
     }
 
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Programs the right motor to move according to code instructions.
      *
      * @param mode - How the motor will move. See Cross The Road Electronics documentation for more information.
@@ -194,26 +194,26 @@ public class DriveSubsystem extends SubsystemBase {
      * @param demandType - *****
      * @param rightFeedForward - *****
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     private void SetRight(ControlMode mode, double right,
                           DemandType demandType, double rightFeedForward) {
         driveMasterRight.set(mode, -right, demandType, -rightFeedForward);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Programs both motors simultaneously to move.
      *
      * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
      * @param left - The value to which the left motor will be set.
      * @param right - The value to which the right motor will be set.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void SetLeftRight(ControlMode mode, double left, double right) {
         driveMasterLeft.set(mode, left);
         driveMasterRight.set(mode, -right);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Programs each motor simultaneously to move according to certain control constants.
      *
      * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
@@ -223,7 +223,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param leftFeedforward - *****
      * @param rightFeedforward - *****
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void SetLeftRight(ControlMode mode, DemandType demandType,
                              double left, double right,
                              double leftFeedforward, double rightFeedforward) {
@@ -231,31 +231,31 @@ public class DriveSubsystem extends SubsystemBase {
         SetRight(mode, right, demandType, rightFeedforward);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Programs the motors to move according to the left and right constants of a certain DriveSignal object.
      *
      * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
      * @param signal - The DriveSignal object which will serve to provide the left and right motor values.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void SetLeftRight(ControlMode mode, DriveSignal signal) {
         SetLeftRight(mode, signal.GetLeft(), signal.GetRight());
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Sets the default motor behavior for when the motors are neutral (when they are set to 0.)
      *
      * @param mode - The default motor behavior for the drive motors when set to 0.
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void SetNeutralMode(NeutralMode mode) {
         driveMasterLeft.setNeutralMode(mode);
         driveMasterRight.setNeutralMode(mode);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Clears all drive encoder and PID data from before the method was called.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void Reset() {
         driveMasterRight.clearMotionProfileTrajectories();
         driveMasterLeft.clearMotionProfileTrajectories();
@@ -263,11 +263,11 @@ public class DriveSubsystem extends SubsystemBase {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
+     /**---------------------------------------------------------------------------------------------------------------\
      * Sends motor data to SmartDashboard, which will display the data. Includes position, velocity, current draw, and
      * motor output.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     \----------------------------------------------------------------------------------------------------------------*/
     public void OutputToDashboard() {
         SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());

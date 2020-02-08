@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.aimer.AimManual;
 import frc.robot.commands.select.SelectIntakeToggle;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
@@ -63,6 +64,7 @@ public class RobotContainer
     {
         drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         //Shooter.setDefaultCommand(new FireManual(Shooter, OI.OperatorController));
+        arm.setDefaultCommand(new AimManual(arm, OI.OperatorController));
     }
 
     // --------------------------------------------------------------------------------------------
@@ -93,6 +95,7 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectScan(null, intake, indexer, shooter)
                 ));
+
 
         //D East TODO Set constants for angles
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
