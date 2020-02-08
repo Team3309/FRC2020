@@ -41,13 +41,13 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      *
      */
-    public void Intake() { Spin(Config.IntakeStandardVelocity); }
+    public void Intake() { Spin(Config.IntakeInwardPower); }
 
     /**
      * Spins the intake wheels for outtaking a power cell.
      *
      */
-    public void Outtake() { Spin(-Config.IntakeStandardVelocity); }
+    public void Outtake() { Spin(-Config.IntakeInwardPower); }
 
     /**
      * Activates intake piston to extend the intake forward.
