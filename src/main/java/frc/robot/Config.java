@@ -100,7 +100,7 @@ public class Config {
     public static Integer TopShooterPdpChannel;
     public static Integer BottomShooterPdpChannel;
 
-    //Shooter PID Constants---------------------------------------------------------------------------------------------
+    //Shooter Velocity Constants----------------------------------------------------------------------------------------
     public static Double ShooterClosedLoopRampRate;
     public static Double ShooterOpenLoopRampRate;
     public static Double ShooterVelocityP;
@@ -108,12 +108,14 @@ public class Config {
     public static Integer ShooterVelocityIntegralZone;
     public static Double ShooterVelocityD;
     public static Double ShooterVelocityF;
+    public static Double ShooterStandardVelocity;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer IndexerMotorID;
     public static Integer IndexerPdpChannel;
+    public static Double IndexerStandardVelocity;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//

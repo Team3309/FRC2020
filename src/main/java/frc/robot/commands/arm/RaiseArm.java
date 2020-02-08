@@ -3,14 +3,12 @@ package frc.robot.commands.arm;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Config;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class RaiseArm extends CommandBase {
 
     private ArmSubsystem Arm;
     private XboxController Controller;
-    private boolean isDone;
 
     public RaiseArm(ArmSubsystem arm, XboxController controller) {
         Arm = arm;
@@ -25,6 +23,7 @@ public class RaiseArm extends CommandBase {
 
     @Override
     public void execute() {
+        Arm.MoveArmManually(Controller.getY(GenericHID.Hand.kRight));
 
     }
 
@@ -34,6 +33,7 @@ public class RaiseArm extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return isDone;
+        return true;
     }
 }
+

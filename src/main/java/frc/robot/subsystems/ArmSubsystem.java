@@ -24,6 +24,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         ArmPosition(int value){this.value = value;}
     }
+
     private WPI_TalonFX armMotor;
 
 

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class StopFlywheel extends CommandBase {
-    private final ShooterSubsystem shooter;
+    private ShooterSubsystem shooter;
 
     public StopFlywheel(ShooterSubsystem shooter) {
         this.shooter = shooter;
@@ -12,7 +12,7 @@ public class StopFlywheel extends CommandBase {
     }
     @Override
     public void execute() {
-        shooter.SpinUpFlywheels(0);
+        shooter.StopFlywheels();
     }
 
     @Override
