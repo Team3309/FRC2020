@@ -28,12 +28,15 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     public ArmSubsystem() {
-
-        armMotor = new WPI_TalonFX(Config.ArmMotorId);
+        if (Config.isArmInstalled) {
+            armMotor = new WPI_TalonFX(Config.ArmMotorId);
+        }
     }
 
     public void MoveArmManually(double position) {
-        armMotor.set(ControlMode.Position, position);
+        if (Config.isArmInstalled) {
+            armMotor.set(ControlMode.Position, position);
+        }
     }
 
     public void MoveToPosition(ArmPosition position) {
