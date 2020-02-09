@@ -31,6 +31,6 @@ public class MoveArmToPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return Arm.isInPosition();
     }
 }
