@@ -21,8 +21,9 @@ public class ShooterSubsystem extends SubsystemBase {
     private double flywheelSpeedBottom;
 
      public boolean isFlywheelToSpeed() {
-         return Math.abs(GetTopMotorVelocity() - flywheelSpeedTop) < 0.01 &&
-                 Math.abs(GetTopMotorVelocity() - flywheelSpeedTop) < 0.01;
+         return !Config.isArmInstalled || (
+                 Math.abs(GetTopMotorVelocity() - flywheelSpeedTop) < 0.01 &&
+                 Math.abs(GetTopMotorVelocity() - flywheelSpeedTop) < 0.01);
      }
 
     private WPI_TalonFX topMotor;
@@ -94,7 +95,7 @@ public class ShooterSubsystem extends SubsystemBase {
      /** ---------------------------------------------------------------------------------------------------------------
       * Stores motor speed for both motors equally
       *
-      * @param speedTop - stores speed for top motor for later engagement
+      * @param speedTop - stores speed for for later engagement
       * @param speedBottom - stores speed for bottom motor for later engagement
       */
      public void setDesiredSpeed(double speedTop, double speedBottom) {
