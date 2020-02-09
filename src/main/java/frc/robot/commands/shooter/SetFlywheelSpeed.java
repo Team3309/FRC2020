@@ -8,17 +8,19 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SetFlywheelSpeed extends InstantCommand {
 
     private final ShooterSubsystem shooter;
-    private double speed;
+    private double speedTop;
+    private double speedBottom;
 
-    public SetFlywheelSpeed(ShooterSubsystem shooter, double speed) {
+    public SetFlywheelSpeed(ShooterSubsystem shooter, double speedTop, double speedBottom) {
         this.shooter = shooter;
-        this.speed = speed;
+        this.speedTop = speedTop;
+        this.speedBottom = speedBottom;
         addRequirements(shooter);
     }
 
     @Override
     public void execute() {
-        shooter.setDesiredSpeed(speed);
+        shooter.setDesiredSpeed(speedTop, speedBottom);
     }
 
 }

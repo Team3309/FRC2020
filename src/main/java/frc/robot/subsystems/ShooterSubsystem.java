@@ -92,11 +92,14 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
-      * Sets motor speed for both motors equally
+      * Stores motor speed for both motors equally
+      *
+      * @param speedTop - stores speed for top motor for later engagement
+      * @param speedBottom - stores speed for bottom motor for later engagement
       */
-     public void setDesiredSpeed(double speed) {
-         flywheelSpeedTop = speed;
-         flywheelSpeedBottom = speed;
+     public void setDesiredSpeed(double speedTop, double speedBottom) {
+         flywheelSpeedTop = speedTop;
+         flywheelSpeedBottom = speedBottom;
      }
 
      /** ---------------------------------------------------------------------------------------------------------------

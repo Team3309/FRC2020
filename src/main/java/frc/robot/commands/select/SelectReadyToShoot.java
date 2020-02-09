@@ -13,14 +13,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectReadyToShoot extends SelectCommand {
 
-    public SelectReadyToShoot(ArmSubsystem.ArmPosition position, Double speed, IntakeSubsystem intake,
+    public SelectReadyToShoot(ArmSubsystem.ArmPosition position, Double speedTop, Double speedBottom, IntakeSubsystem intake,
                               IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SCAN
             ) {
-                return new ToReadyToShootCommandGroup(position, speed, intake, indexer, shooter, arm);
+                return new ToReadyToShootCommandGroup(position, speedTop, speedBottom, intake, indexer, shooter, arm);
             } else {
                 //do nothing
                 return new DoNothing();
