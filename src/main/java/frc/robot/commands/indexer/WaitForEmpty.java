@@ -1,8 +1,8 @@
-package frc.robot.commands.pcindexer;
+package frc.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class WaitForFull extends CommandBase {
+public class WaitForEmpty extends CommandBase {
 
     @Override
     public void initialize() {
