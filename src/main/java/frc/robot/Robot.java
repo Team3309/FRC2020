@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
 
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * something
+     * Constructor
      */
     public Robot() {
         super(0.01);
