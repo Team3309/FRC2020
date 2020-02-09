@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -12,15 +11,12 @@ import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
 
-import static frc.robot.Config.isDriveInstalled;
-
 public class DriveSubsystem extends SubsystemBase {
 
     private WPI_TalonFX driveMasterLeft;
     private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
     private WPI_TalonFX driveSlaveRight;
-    private Solenoid shifter;
 
      /**---------------------------------------------------------------------------------------------------------------\
      * Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
