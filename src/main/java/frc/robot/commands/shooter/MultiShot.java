@@ -8,6 +8,7 @@ public class MultiShot extends CommandBase {
 
     private final IndexerSubsystem indexer;
     private final ShooterSubsystem shooter;
+    private long lastPowerCellLoad;
 
     public MultiShot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         this.indexer = indexer;
@@ -18,11 +19,11 @@ public class MultiShot extends CommandBase {
     @Override
     public void execute() {
         if (shooter.isFlywheelToSpeed()) {
-            
+            indexer.Load();
         } else {
             //wait
-        }
     }
+}
 
     public void end() {
 
@@ -30,6 +31,6 @@ public class MultiShot extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }
