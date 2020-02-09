@@ -114,15 +114,15 @@ public class RobotContainer
 
         //D East / Right TODO are these angles correct?
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, intake, indexer, shooter)
                 ));
         //D North / Up
         new POVButton(OI.OperatorController, 90, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, intake, indexer, shooter)
                 ));
         //D West / Left
         new POVButton(OI.OperatorController, 180, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, intake, indexer, shooter)
                 ));
 
         //D South / Down
