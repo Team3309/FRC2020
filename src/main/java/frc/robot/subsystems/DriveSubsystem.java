@@ -224,12 +224,10 @@ public class DriveSubsystem extends SubsystemBase {
         driveMasterRight.setSelectedSensorPosition(0, 0, 0);
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Sends motor data to SmartDashboard, which will display the data. Includes position, velocity, current draw, and
-     * motor output.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    public void OutputToDashboard() {
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Sends motor data to SmartDashboard
+     */
+    public void outputToDashboard() {
         SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive left position", GetLeftEncoderPosition());

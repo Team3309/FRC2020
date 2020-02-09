@@ -29,4 +29,12 @@ public class ClimberSubsystem extends SubsystemBase {
     public void LiftClimber() {}
     //will change the extension of the climber mechanism; negative is contraction, positive is extension.
     public void ChangeHeight(double height) {}
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Sends motor data to SmartDashboard
+     */
+    public void outputToDashboard() {
+        //SmartDashboard.putNumber("Key", value);
+    }
+
 }

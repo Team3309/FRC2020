@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -38,11 +39,21 @@ public class RobotContainer
         INIT_READY_TO_SHOOT
     }
     private static PowerCellHandlingState state = PowerCellHandlingState.ARM_UP_DRIVE;
+
+    private final String armDashboardKey = "Display Arm Values";
+    private final String climberDashboardKey = "Display Climber Values";
+    private final String ctrlPanelDashboardKey = "Display CtrlPanel Values";
+    private final static String driveDashboardKey = "Display Drive Values";
+    private final String indexerDashboardKey = "Display Indexer Values";
+    private final String intakeDashboardKey = "Display Intake Values";
+    private final String shooterDashboardKey = "Display Shooter Values";
+    private final String visionDashboardKey = "Display Vision Values";
+
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
     private final ArmSubsystem arm = new ArmSubsystem();
     private final ClimberSubsystem climber = new ClimberSubsystem();
-    private final CtrlPanelSubsystem turner = new CtrlPanelSubsystem();
+    private final CtrlPanelSubsystem ctrlPanel = new CtrlPanelSubsystem();
     private final DriveSubsystem drive = new DriveSubsystem();
     private final IndexerSubsystem indexer = new IndexerSubsystem();
     private final IntakeSubsystem intake = new IntakeSubsystem();
@@ -66,6 +77,8 @@ public class RobotContainer
         SetDefaultCommands();
 
         SetAutoOptions();
+
+        displaySubsystemToggles();
     }
 
     // --------------------------------------------------------------------------------------------
@@ -75,6 +88,17 @@ public class RobotContainer
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
         new DisplayWarnings();
+    }
+
+    private void displaySubsystemToggles() {
+        SmartDashboard.putBoolean(armDashboardKey, false);
+        SmartDashboard.putBoolean(climberDashboardKey, false);
+        SmartDashboard.putBoolean(ctrlPanelDashboardKey, false);
+        SmartDashboard.putBoolean(driveDashboardKey, false);
+        SmartDashboard.putBoolean(indexerDashboardKey, false);
+        SmartDashboard.putBoolean(intakeDashboardKey, false);
+        SmartDashboard.putBoolean(shooterDashboardKey, false);
+        SmartDashboard.putBoolean(visionDashboardKey, false);
     }
 
     // --------------------------------------------------------------------------------------------
@@ -146,9 +170,36 @@ public class RobotContainer
     }
 
     // --------------------------------------------------------------------------------------------
-    public void OutputToDashboard()
+    public void outputToDashboard()
     {
-        drive.OutputToDashboard();
+        if (SmartDashboard.getBoolean(armDashboardKey, false)) {
+            arm.outputToDashboard();
+        }
+        if (SmartDashboard.getBoolean(climberDashboardKey, false)) {
+            climber.outputToDashboard();
+        }
+        if (SmartDashboard.getBoolean(ctrlPanelDashboardKey, false)) {
+            ctrlPanel.outputToDashboard();
+        }
+        if (getDriveDebug()) {
+            drive.outputToDashboard();
+        }
+        if (SmartDashboard.getBoolean(indexerDashboardKey, false)) {
+            indexer.outputToDashboard();
+        }
+        if (SmartDashboard.getBoolean(intakeDashboardKey, false)) {
+            intake.outputToDashboard();
+        }
+        if (SmartDashboard.getBoolean(shooterDashboardKey, false)) {
+            shooter.outputToDashboard();
+        }
+        if (SmartDashboard.getBoolean(visionDashboardKey, false)) {
+            vision.outputToDashboard();
+        }
+    }
+
+    public static boolean getDriveDebug() {
+        return SmartDashboard.getBoolean(driveDashboardKey, false);
     }
 
 }

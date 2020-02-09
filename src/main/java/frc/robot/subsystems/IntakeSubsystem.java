@@ -64,4 +64,11 @@ public class IntakeSubsystem extends SubsystemBase {
     public void Retract() {
         solenoid.set(false);
     }
+
+     /** ----------------------------------------------------------------------------------------------------------------
+      * Sends motor data to SmartDashboard
+      */
+     public void outputToDashboard() {
+         //SmartDashboard.putNumber("Key", value);
+     }
 }

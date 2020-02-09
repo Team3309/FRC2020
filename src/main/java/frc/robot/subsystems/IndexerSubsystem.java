@@ -73,4 +73,11 @@ public class IndexerSubsystem extends SubsystemBase {
 
     //We need to discuss what this method does. @MarkG
     public void StopIndexer() {}
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Sends motor data to SmartDashboard
+     */
+    public void outputToDashboard() {
+        //SmartDashboard.putNumber("Key", value);
+    }
 }

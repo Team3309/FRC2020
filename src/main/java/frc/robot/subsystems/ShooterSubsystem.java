@@ -118,4 +118,11 @@ public class ShooterSubsystem extends SubsystemBase {
     public boolean IsTimedOut() {
         return (ctrlTimer.get() < Config.ShooterStandardTimeout);
     }
+
+     /** ----------------------------------------------------------------------------------------------------------------
+      * Sends motor data to SmartDashboard
+      */
+     public void outputToDashboard() {
+         //SmartDashboard.putNumber("Key", value);
+     }
 }

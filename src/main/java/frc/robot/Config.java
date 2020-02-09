@@ -227,6 +227,7 @@ public class Config {
                     foundMAC = foundMAC + String.format("0x%02X", rioMAC[i]) + " ";
                 }
                 DriverStation.reportError("Running on unknown roboRIO with MAC " + foundMAC, false);
+                System.err.println("Running on unknown roboRIO with MAC " + foundMAC);
                 int a = 1 / 0;  // make the world stop
             }
         } catch (SocketException ex) {
