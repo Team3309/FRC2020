@@ -55,34 +55,21 @@ public class ArmSubsystem extends SubsystemBase {
         }
     }
 
+    //just a stub method for now
+    public void zeroEncoder() {
+
+    }
+
     /**
      * ---------------------------------------------------------------------------------------------------------------\
-     * Moves arm to a preset Arm position.
+     * Moves arm to a preset Arm position. Most of this is done for us properly with the PIDs and MotionMagic.
      *
      * @param position - The Arm position to which the arm will move.
-     *                 <p>
-     *                 \----------------------------------------------------------------------------------------------------------------
+     *
      */
     public void MoveToPosition(ArmPosition position) {
-
-        if (position == ArmPosition.max) {
-            MoveArmManually(armMotor.getSelectedSensorPosition() - Config.ArmMaxAnglePosition);
-            if (Config.isInDebug) DriverStation.reportError("Arm at max angle.", false);
-        } else if (position == ArmPosition.longRange) {
-            MoveArmManually(armMotor.getSelectedSensorVelocity() - Config.ArmLongRangeAnglePosition);
-            if (Config.isInDebug) DriverStation.reportError("Arm at long range angle.", false);
-        } else if (position == ArmPosition.midRange) {
-            MoveArmManually(armMotor.getSelectedSensorPosition() - Config.ArmMidRangeAnglePosition);
-            if (Config.isInDebug) DriverStation.reportError("Arm at mid range angle.", false);
-        } else if (position == ArmPosition.closeRange) {
-            MoveArmManually(armMotor.getSelectedSensorPosition() - Config.ArmCloseRangeAnglePosition);
-            if (Config.isInDebug) DriverStation.reportError("Arm at close range angle.", false);
-        } else if (position == ArmPosition.trench) {
-            MoveArmManually(armMotor.getSelectedSensorPosition() - Config.ArmTrenchDriveAnglePosition);
-            if (Config.isInDebug) DriverStation.reportError("Arm at trench driving angle.", false);
-        } else if (position == ArmPosition.min) {
-            MoveArmManually(armMotor.getSelectedSensorPosition() - Config.ArmMinAnglePosition);
-            if (Config.isInDebug) DriverStation.reportError("Arm at min angle.", false);
+        if (Config.isArmInstalled) {
+            armMotor.set(ControlMode.Position, position.value);
         }
     }
 
