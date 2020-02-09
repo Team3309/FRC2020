@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
@@ -19,12 +22,11 @@ import static frc.robot.Config.isIndexerInstalled;
 
 public class IndexerSubsystem extends SubsystemBase {
 
-    private WPI_TalonFX indexerMotor;
-    private RobotContainer robotContainer;
+    private WPI_TalonSRX indexerMotor;
 
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
-            indexerMotor = new WPI_TalonFX(Config.IndexerMotorID);
+            indexerMotor = new WPI_TalonSRX(Config.IndexerMotorID);
             indexerMotor.configFactoryDefault();
         }
     }
@@ -61,7 +63,10 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void Load() {
-        indexerMotor.set(Config.IndexerStandardVelocity);
+        if (Config.isIndexerInstalled) {
+            int newPosition = 0;  // TODO set this based on current position + desired movement
+            indexerMotor.set(ControlMode.MotionMagic, newPosition);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -71,8 +76,11 @@ public class IndexerSubsystem extends SubsystemBase {
      -----------------------------------------------------------------------------------------------------------------*/
     public void Eject() {}
 
-    //We need to discuss what this method does. @MarkG
-    public void StopIndexer() {}
+    public void StopIndexer() {
+        if (Config.isIndexerInstalled) {
+            indexerMotor.set(ControlMode.PercentOutput, 0.0);
+        }
+    }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends motor data to SmartDashboard

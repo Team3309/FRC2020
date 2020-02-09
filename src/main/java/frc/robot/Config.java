@@ -120,7 +120,6 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer IndexerMotorID;
     public static Integer IndexerPdpChannel;
-    public static Double IndexerStandardVelocity;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -12,7 +13,7 @@ import frc.robot.Config;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
-    private WPI_TalonFX intakeMotor;
+    private WPI_VictorSPX intakeMotor;
     private Solenoid solenoid;
 
 
@@ -21,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public IntakeSubsystem() {
         if (Config.isIntakeInstalled) {
-            intakeMotor = new WPI_TalonFX(Config.IntakeMotorID);
+            intakeMotor = new WPI_VictorSPX(Config.IntakeMotorID);
             intakeMotor.configFactoryDefault();
             solenoid = new Solenoid(Config.IntakeSoleoidChannel);
         }
@@ -33,7 +34,9 @@ public class IntakeSubsystem extends SubsystemBase {
      * @param power -1 to 1
      */
     private void setPowerRaw(double power) {
-        intakeMotor.set(ControlMode.PercentOutput, power);
+        if (Config.isIntakeInstalled) {
+            intakeMotor.set(ControlMode.PercentOutput, power);
+        }
     }
 
 
@@ -57,7 +60,9 @@ public class IntakeSubsystem extends SubsystemBase {
      * Stops the intake wheels from spinning
      */
     public void stop() {
-     intakeMotor.set(ControlMode.PercentOutput, 0);
+        if (Config.isIntakeInstalled) {
+            intakeMotor.set(ControlMode.PercentOutput, 0);
+        }
     }
 
 
@@ -65,7 +70,9 @@ public class IntakeSubsystem extends SubsystemBase {
      * Activates intake piston to extend the intake forward.
      */
     public void extend() {
-        solenoid.set(true);
+        if (Config.isIntakeInstalled) {
+            solenoid.set(true);
+        }
     }
 
 
@@ -73,7 +80,9 @@ public class IntakeSubsystem extends SubsystemBase {
      * Deactivates the intake piston to retract the intake back.
      */
     public void retract() {
-        solenoid.set(false);
+        if (Config.isIntakeInstalled) {
+            solenoid.set(false);
+        }
     }
 
      /** ----------------------------------------------------------------------------------------------------------------

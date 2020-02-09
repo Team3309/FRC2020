@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
@@ -33,13 +34,13 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     private Solenoid retractorPiston;
     private Solenoid heightAdjustmentPiston;
-    private WPI_TalonFX ctrlPanelMotor;
+    private WPI_TalonSRX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-            ctrlPanelMotor = new WPI_TalonFX(Config.TurnerMotorID);
+            ctrlPanelMotor = new WPI_TalonSRX(Config.TurnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
             retractorPiston = new Solenoid(Config.TurnerTractorPistonID);
             heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);
@@ -55,7 +56,9 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void Rotate (ControlMode mode, double value) {
-        ctrlPanelMotor.set(mode, value);
+        if (Config.isCtrlPanelInstalled) {
+            ctrlPanelMotor.set(mode, value);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -147,7 +150,9 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void DeployTurner() {
-        retractorPiston.set(true);
+        if (Config.isCtrlPanelInstalled) {
+            retractorPiston.set(true);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -155,7 +160,9 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void RetractTurner() {
-        retractorPiston.set(false);
+        if (Config.isCtrlPanelInstalled) {
+            retractorPiston.set(false);
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

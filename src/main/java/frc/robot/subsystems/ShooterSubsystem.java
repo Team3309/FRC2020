@@ -27,14 +27,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
-    private Timer ctrlTimer = new Timer();
-
 
     public ShooterSubsystem() {
         if (Config.isShooterInstalled) {
             topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
             bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
-            ctrlTimer.start();
             ConfigTalon(topMotor);
             ConfigTalon(bottomMotor);
         }
@@ -67,7 +64,6 @@ public class ShooterSubsystem extends SubsystemBase {
      * Spins up the flywheels in preparation for firing.
      */
     public void SpinUpFlywheels() {
-
         SetPowerRaw(flywheelSpeedTop, flywheelSpeedBottom);
     }
 
@@ -75,8 +71,10 @@ public class ShooterSubsystem extends SubsystemBase {
      * Stops the flywheels by having them slow down to a complete stop.
      */
     public void StopFlywheels() {
-        topMotor.set(ControlMode.PercentOutput, 0);
-        bottomMotor.set(ControlMode.PercentOutput, 0);
+        if (Config.isShooterInstalled) {
+            topMotor.set(ControlMode.PercentOutput, 0);
+            bottomMotor.set(ControlMode.PercentOutput, 0);
+        }
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
@@ -87,8 +85,10 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param bottomSpeed - the desired speed of the bottom motor.
      */
     public void SetPowerRaw(double topSpeed, double bottomSpeed) {
-        topMotor.set(ControlMode.Velocity, topSpeed);
-        bottomMotor.set(ControlMode.Velocity, bottomSpeed);
+        if (Config.isShooterInstalled) {
+            topMotor.set(ControlMode.Velocity, topSpeed);
+            bottomMotor.set(ControlMode.Velocity, bottomSpeed);
+        }
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
@@ -105,7 +105,10 @@ public class ShooterSubsystem extends SubsystemBase {
      * @return The top motor's current speed.
      */
     public double GetTopMotorVelocity() {
-        return topMotor.getSelectedSensorVelocity();
+        if (Config.isShooterInstalled) {
+            return topMotor.getSelectedSensorVelocity();
+        }
+        return 0;
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
@@ -114,16 +117,10 @@ public class ShooterSubsystem extends SubsystemBase {
      * @return The bottom motor's current speed.
      */
     public double GetBottomMotorVelocity() {
-        return -bottomMotor.getSelectedSensorVelocity();
-    }
-
-     /** ---------------------------------------------------------------------------------------------------------------
-     * Returns whether or not the shooter control timer has exceeded timeout values.
-     *
-     * @return Whether the control timer has timed out.
-     */
-    public boolean IsTimedOut() {
-        return (ctrlTimer.get() < Config.shooterStandardTimeout);
+        if (Config.isShooterInstalled) {
+            return -bottomMotor.getSelectedSensorVelocity();
+        }
+        return 0;
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
