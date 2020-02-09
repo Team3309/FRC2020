@@ -13,7 +13,7 @@ public class ArmSubsystem extends SubsystemBase {
     public int MAXIMUM_ENCODER_DISTANCE_FOR_POSITION = 3; //maximum encoder distance to be properly in a position
 
     public boolean isInPosition() {
-        return Config.isArmInstalled || Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_POSITION;
+        return !Config.isArmInstalled || Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_POSITION;
     }
 
     public enum ArmPosition {
