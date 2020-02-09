@@ -31,7 +31,7 @@ public class EngageIntakeFlywheelAndIndexer extends CommandBase {
     public void execute() {
         intake.Spin(1);
         indexer.Load();
-        shooter.SpinUpFlywheels(-1);
+        shooter.SpinUpFlywheels();
     }
 
     @Override
