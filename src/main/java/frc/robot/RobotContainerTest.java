@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -62,17 +61,17 @@ public class RobotContainerTest
     // --------------------------------------------------------------------------------------------
     private void ConfigureButtonBindings_Operator()
     {
-        int maxShooterIntakeSpeed = 1;
+        double maxShooterIntakeSpeed = 0.25;
 
         // Button A (Intake while held)
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whileHeld(new StartEndCommand(
                         () -> {
-                            intake.SetPowerRaw(1);
+                            intake.intake();
                             shooter.SetPowerRaw(maxShooterIntakeSpeed, maxShooterIntakeSpeed);
                         },
                         () -> {
-                            intake.Stop();
+                            intake.stop();
                             shooter.SetPowerRaw(0,0);
                         },
                         intake, shooter
@@ -83,12 +82,12 @@ public class RobotContainerTest
                 .whileHeld( new StartEndCommand(
                         () ->
                         {
-                            intake.SetPowerRaw(1);
+                            intake.outtake();
                             shooter.SetPowerRaw(-maxShooterIntakeSpeed, -maxShooterIntakeSpeed);
                         },
                         () ->
                         {
-                            intake.Stop();
+                            intake.stop();
                             shooter.SetPowerRaw(0,0);
                         },
                         intake, shooter
@@ -104,6 +103,6 @@ public class RobotContainerTest
     /** ----------------------------------------------------------------------------------------------------------------
      * Send debug values to SmartDashboard
      */
-    public void outputToDashboard() {};
+    public void outputToDashboard() { }
 
 }

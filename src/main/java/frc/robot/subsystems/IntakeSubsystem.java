@@ -29,20 +29,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Activates the motor to spin at @param speed.
-     * @param speed - the speed at which the motors should turn the intake wheels.
-     */
-    private void SetVelocity(double speed) {
-        intakeMotor.set(ControlMode.Velocity, speed);
-    }
-
-
-    /** ----------------------------------------------------------------------------------------------------------------
-     * Temp function for testing the robot before we tune PID.  Don't use in production!
-     * TODO: Delete me once PID is tuned
+     * Set power to the motors
      * @param power -1 to 1
      */
-    public void SetPowerRaw(double power) {
+    private void setPowerRaw(double power) {
         intakeMotor.set(ControlMode.PercentOutput, power);
     }
 
@@ -50,23 +40,23 @@ public class IntakeSubsystem extends SubsystemBase {
     /** ----------------------------------------------------------------------------------------------------------------
      * Spins the intake wheels for intaking a power cell.
      */
-    public void Intake() {
-        SetVelocity(Config.IntakeInwardPower);
+    public void intake() {
+        setPowerRaw(Config.intakeInwardPower);
     }
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Spins the intake wheels for outtaking a power cell.
      */
-    public void Outtake() {
-        SetVelocity(-Config.IntakeInwardPower);
+    public void outtake() {
+        setPowerRaw(-Config.intakeOutwardPower);
     }
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Stops the intake wheels from spinning
      */
-    public void Stop() {
+    public void stop() {
      intakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
@@ -74,7 +64,7 @@ public class IntakeSubsystem extends SubsystemBase {
     /** ----------------------------------------------------------------------------------------------------------------
      * Activates intake piston to extend the intake forward.
      */
-    public void Extend() {
+    public void extend() {
         solenoid.set(true);
     }
 
@@ -82,7 +72,7 @@ public class IntakeSubsystem extends SubsystemBase {
     /** ----------------------------------------------------------------------------------------------------------------
      * Deactivates the intake piston to retract the intake back.
      */
-    public void Retract() {
+    public void retract() {
         solenoid.set(false);
     }
 

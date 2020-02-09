@@ -13,7 +13,7 @@ public class StopIntake extends CommandBase {
 
     @Override
     public void execute() {
-        intake.Stop();
+        intake.stop();
     }
 
     @Override
