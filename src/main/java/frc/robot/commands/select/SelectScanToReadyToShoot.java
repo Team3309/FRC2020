@@ -12,7 +12,7 @@ public class SelectScanToReadyToShoot extends SelectCommand {
     public SelectScanToReadyToShoot(Supplier<Command> toRun) {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SCAN) {
-                return new DoNothing(); //Change to Command Group 6
+                return new DoNothing(); //Change to Command Group 4
             } else {
                 return new DoNothing(); //
             }
