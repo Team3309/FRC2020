@@ -51,7 +51,7 @@ public class PrepareToFire extends CommandBase {
     }
 
     public void end() {
-        Shooter.StopFlywheels();
+
     }
 
     @Override

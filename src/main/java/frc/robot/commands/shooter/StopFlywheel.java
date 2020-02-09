@@ -10,6 +10,11 @@ public class StopFlywheel extends CommandBase {
         this.shooter = shooter;
         addRequirements(shooter);
     }
+
+    @Override
+    public void initialize() {
+
+    }
     @Override
     public void execute() {
         shooter.StopFlywheels();

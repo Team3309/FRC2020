@@ -16,6 +16,14 @@ public class MultiShotCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new Retract(intake),
                 new PrepareToFire(shooter),
+                new LoadBall(indexer),
+                new PrepareToFire(shooter),
+                new LoadBall(indexer),
+                new PrepareToFire(shooter),
+                new LoadBall(indexer),
+                new PrepareToFire(shooter),
+                new LoadBall(indexer),
+                new PrepareToFire(shooter),
                 new LoadBall(indexer)
         );
 
