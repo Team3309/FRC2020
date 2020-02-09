@@ -34,7 +34,7 @@ public class PrepareToFire extends CommandBase {
 
         if (Shooter.GetTopMotorVelocity() < topMotorDesired && Shooter.GetBottomMotorVelocity() < bottomMotorDesired
                 && !isDone && !Shooter.IsTimedOut()) {
-                Shooter.SpinPowerCell(topMotorDesired, bottomMotorDesired);
+                Shooter.SetPowerRaw(topMotorDesired, bottomMotorDesired);
         } else if (Shooter.GetTopMotorVelocity() == topMotorDesired &&
                 Shooter.GetBottomMotorVelocity() == bottomMotorDesired) {
             isDone = true;

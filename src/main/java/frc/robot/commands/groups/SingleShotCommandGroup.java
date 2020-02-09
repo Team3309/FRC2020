@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.intake.Retract;
-import frc.robot.commands.pcindexer.LoadBall;
+import frc.robot.commands.indexer.LoadBall;
 import frc.robot.commands.shooter.PrepareToFire;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;

@@ -135,7 +135,8 @@ public class RobotContainer
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
-                ));
+                ))
+                .whenReleased(new RunCommand(() -> new SelectReadyToShoot(null, intake, indexer, shooter)));
 
         //D East / Right TODO are these angles correct?
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())

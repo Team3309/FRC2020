@@ -1,21 +1,12 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.drive.DriveManual;
-import frc.robot.commands.drive.DriveSimpleTest;
-import frc.robot.commands.select.SelectIntakeToggle;
-import frc.robot.commands.select.SelectMultishot;
-import frc.robot.commands.select.SelectReadyToShoot;
-import frc.robot.commands.select.SelectScan;
-import frc.robot.commands.shooter.FireManual;
-import frc.robot.commands.shooter.StopFlywheel;
 import frc.robot.subsystems.*;
 
 /*
@@ -71,7 +62,37 @@ public class RobotContainerTest
     // --------------------------------------------------------------------------------------------
     private void ConfigureButtonBindings_Operator()
     {
+        int maxShooterIntakeSpeed = 1;
 
+        // Button A (Intake while held)
+        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+                .whileHeld(new StartEndCommand(
+                        () -> {
+                            intake.Intake();
+                            shooter.SetPowerRaw(maxShooterIntakeSpeed, maxShooterIntakeSpeed);
+                        },
+                        () -> {
+                            intake.Stop();
+                            shooter.SetPowerRaw(0,0);
+                        },
+                        intake, shooter
+                ));
+
+        // Button B (Outtake while held)
+        new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
+                .whileHeld( new StartEndCommand(
+                        () ->
+                        {
+                            intake.Intake();
+                            shooter.SetPowerRaw(-maxShooterIntakeSpeed, -maxShooterIntakeSpeed);
+                        },
+                        () ->
+                        {
+                            intake.Stop();
+                            shooter.SetPowerRaw(0,0);
+                        },
+                        intake, shooter
+                ));
     }
 
     // --------------------------------------------------------------------------------------------

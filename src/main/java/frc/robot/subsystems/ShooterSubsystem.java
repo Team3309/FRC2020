@@ -7,15 +7,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
- /**-------------------------------------------------------------------------------------------------------------------\
- * @author Joshua Badzey
- *
+ /** -------------------------------------------------------------------------------------------------------------------
  * The class for the shooter subsystem, which will launch the power cells to desired targets.
  * Will work in tandem with indexer to determine whether to shoot or not, and will work with
  * aimer and drive to determine what level of power to use to achieve an accurate shot.
- *
- \--------------------------------------------------------------------------------------------------------------------*/
-
+ */
 public class ShooterSubsystem extends SubsystemBase {
 
      /**
@@ -67,15 +63,15 @@ public class ShooterSubsystem extends SubsystemBase {
         talon.setSensorPhase(false);
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /** ---------------------------------------------------------------------------------------------------------------
      * Spins up the flywheels in preparation for firing.
      */
     public void SpinUpFlywheels() {
 
-        SpinPowerCell(flywheelSpeedTop, flywheelSpeedBottom);
+        SetPowerRaw(flywheelSpeedTop, flywheelSpeedBottom);
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /** ---------------------------------------------------------------------------------------------------------------
      * Stops the flywheels by having them slow down to a complete stop.
      */
     public void StopFlywheels() {
@@ -83,18 +79,19 @@ public class ShooterSubsystem extends SubsystemBase {
         bottomMotor.set(ControlMode.PercentOutput, 0);
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /** ---------------------------------------------------------------------------------------------------------------
      * Spins up the flywheels at different velocities so that backspin or forward spin can be achieved in addition to a
      * straight shot.
      *
      * @param topSpeed - the desired speed of the top motor.
      * @param bottomSpeed - the desired speed of the bottom motor.
      */
-    public void SpinPowerCell(double topSpeed, double bottomSpeed) {
+    public void SetPowerRaw(double topSpeed, double bottomSpeed) {
         topMotor.set(ControlMode.Velocity, topSpeed);
         bottomMotor.set(ControlMode.Velocity, bottomSpeed);
     }
-     /**---------------------------------------------------------------------------------------------------------------\
+
+     /** ---------------------------------------------------------------------------------------------------------------
       * Sets motor speed for both motors equally
       */
      public void setDesiredSpeed(double speed) {
@@ -102,36 +99,34 @@ public class ShooterSubsystem extends SubsystemBase {
          flywheelSpeedBottom = speed;
      }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /** ---------------------------------------------------------------------------------------------------------------
      * Returns the top motor's current speed.
      *
      * @return The top motor's current speed.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public double GetTopMotorVelocity() {
         return topMotor.getSelectedSensorVelocity();
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /** ---------------------------------------------------------------------------------------------------------------
      * Returns the bottom motor's current speed.
      *
      * @return The bottom motor's current speed.
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public double GetBottomMotorVelocity() {
         return -bottomMotor.getSelectedSensorVelocity();
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /** ---------------------------------------------------------------------------------------------------------------
      * Returns whether or not the shooter control timer has exceeded timeout values.
      *
      * @return Whether the control timer has timed out.
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public boolean IsTimedOut() {
         return (ctrlTimer.get() < Config.shooterStandardTimeout);
     }
 
-     /** ----------------------------------------------------------------------------------------------------------------
+     /** ---------------------------------------------------------------------------------------------------------------
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {

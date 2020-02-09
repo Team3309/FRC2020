@@ -6,7 +6,7 @@ import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.intake.Retract;
 import frc.robot.commands.intake.StopIntake;
-import frc.robot.commands.pcindexer.StopIndexer;
+import frc.robot.commands.indexer.StopIndexer;
 import frc.robot.commands.shooter.StopFlywheel;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;

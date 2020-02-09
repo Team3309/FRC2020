@@ -6,10 +6,10 @@ import frc.robot.subsystems.ArmSubsystem;
 public class MoveArmToPosition extends CommandBase {
 
     private final ArmSubsystem Arm;
-    private final ArmSubsystem.ArmPosition Position;
+    private final ArmSubsystem.ArmPosition position;
 
     public MoveArmToPosition(ArmSubsystem.ArmPosition position, ArmSubsystem arm) {
-        Position = position;
+        this.position = position;
         Arm = arm;
         addRequirements(arm);
     }
@@ -24,7 +24,9 @@ public class MoveArmToPosition extends CommandBase {
      * */
     @Override
     public void execute() {
-        Arm.MoveToPosition(ArmSubsystem.ArmPosition.min);
+        if(position != null) {
+            Arm.MoveToPosition(position);
+        }
     }
 
     @Override
