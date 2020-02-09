@@ -17,11 +17,9 @@ import frc.robot.util.Limelight;
 public class VisionSubsystem extends SubsystemBase {
 
 
-    private Limelight limelight;
-    private RobotContainer robotContainer;
+    public Limelight limelight;
 
-    public VisionSubsystem(RobotContainer container) {
-        robotContainer = container;
+    public VisionSubsystem() {
         if (Config.isVisionInstalled) {
             limelight = new Limelight("Shooter Limelight",
                     0, 0, 0);

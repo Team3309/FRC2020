@@ -1,6 +1,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -12,8 +13,16 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 
 public class Robot extends TimedRobot {
+
     private RobotContainer Container;
+
+    // Probably to use for a couple weeks while we finalize the real robotContainer, to use for testing hardware
+    private RobotContainerTest ContainerTest;
+
     private Command autonomousCommand;
+
+    public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
+
 
     public Robot() {
         super(0.01);
@@ -26,7 +35,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 
-        Container = new RobotContainer();
+        //Container = new RobotContainer();
+        ContainerTest = new RobotContainerTest();
     }
 
     /*

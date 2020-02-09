@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.DisplayWarnings;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
@@ -31,7 +32,7 @@ public class RobotContainer
         return state;
     }
 
-    public static enum PowerCellHandlingState {
+    public enum PowerCellHandlingState {
         ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
         INITIALIZE_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
         INIT_READY_TO_SHOOT
@@ -42,12 +43,11 @@ public class RobotContainer
     private final ArmSubsystem arm = new ArmSubsystem();
     private final ClimberSubsystem climber = new ClimberSubsystem();
     private final CtrlPanelSubsystem turner = new CtrlPanelSubsystem();
-    private final DriveSubsystem drive = new DriveSubsystem(this);
+    private final DriveSubsystem drive = new DriveSubsystem();
     private final IndexerSubsystem indexer = new IndexerSubsystem();
-    private final IntakeSubsystem intake = new IntakeSubsystem(this);
+    private final IntakeSubsystem intake = new IntakeSubsystem();
     private final ShooterSubsystem shooter = new ShooterSubsystem();
-    private final VisionSubsystem vision = new VisionSubsystem(this);
-    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
+    private final VisionSubsystem vision = new VisionSubsystem();
 
     // -- Input
     private final OperatorInterface OI = new OperatorInterface();
@@ -74,6 +74,7 @@ public class RobotContainer
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
+        new DisplayWarnings();
     }
 
     // --------------------------------------------------------------------------------------------
@@ -144,11 +145,9 @@ public class RobotContainer
         return Chooser.getSelected();
     }
 
-    public double GetCurrent(int channel) {
-        return pdp.getCurrent(channel);
-    }
-
-    private void OutputToDashboard() {
+    // --------------------------------------------------------------------------------------------
+    public void OutputToDashboard()
+    {
         drive.OutputToDashboard();
     }
 
