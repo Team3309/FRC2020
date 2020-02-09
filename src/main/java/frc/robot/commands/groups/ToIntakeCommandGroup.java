@@ -4,10 +4,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
-import frc.robot.commands.intake.EngageIntakeFlywheelAndIndexer;
+import frc.robot.commands.intake.EngageIntake;
 import frc.robot.commands.intake.Extend;
 import frc.robot.commands.intake.StopIntake;
+import frc.robot.commands.pcindexer.EngageIndexer;
 import frc.robot.commands.pcindexer.StopIndexer;
+import frc.robot.commands.shooter.EngageShooter;
 import frc.robot.commands.shooter.StopFlywheel;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -30,7 +32,10 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new StopFlywheel(shooter),
                 new Extend(intake),
                 new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm),
-                new EngageIntakeFlywheelAndIndexer(intake, indexer, shooter));
+                new EngageIntake(intake),
+                new EngageIndexer(indexer),
+                new EngageShooter(shooter)
+        );
     }
 
 }
