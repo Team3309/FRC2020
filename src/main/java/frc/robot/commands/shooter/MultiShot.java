@@ -22,8 +22,8 @@ public class MultiShot extends CommandBase {
             indexer.Load();
         } else {
             //wait
+        }
     }
-}
 
     public void end() {
 
