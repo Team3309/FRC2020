@@ -12,7 +12,7 @@ public class EngageIntake extends CommandBase {
 
     @Override
     public void execute() {
-        intake.Spin(1);
+        intake.Intake();
     }
 
 

@@ -137,7 +137,7 @@ public class RobotContainer
                 .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
                 ))
                 .whenReleased(new RunCommand(() -> new SelectReadyToShoot(null, intake, indexer, shooter)));
-
+/* TODO fix D-Pad aborting on getPOV() out of range
         //D East / Right TODO are these angles correct?
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, intake, indexer, shooter)
@@ -155,7 +155,7 @@ public class RobotContainer
         new POVButton(OI.OperatorController, 270, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectIntakeToTrench(intake, indexer, shooter, arm)
                 ));
-
+*/
     }
 
     // --------------------------------------------------------------------------------------------

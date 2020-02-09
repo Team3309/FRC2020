@@ -18,7 +18,7 @@ public class Config {
      */
 
     public static final boolean isInDebug = false;
-    public static final boolean isTestMode = false;  // activate use of RobotContainerTest
+    public static final boolean isTestMode = true;  // activate use of RobotContainerTest
 
     //------------------------------------------------------------------------------------------------------------------
     //Hardware Availability//
