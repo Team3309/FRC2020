@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -8,12 +9,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.select.SelectIntakeToggle;
+import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
-import frc.robot.commands.select.SelectMultishot;
-import frc.robot.commands.select.SelectReadyToShoot;
-import frc.robot.commands.select.SelectScan;
 import frc.robot.commands.shooter.FireManual;
 import frc.robot.commands.shooter.StopFlywheel;
 import frc.robot.subsystems.*;
@@ -100,7 +98,7 @@ public class RobotContainer
                 .whileHeld(new RunCommand(() -> new FireManual(shooter, OI.OperatorController)));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenPressed(new RunCommand(() -> new StopFlywheel(shooter)));
+                .whenPressed(new RunCommand(() -> new SelectReadyToShootToDriving(intake, indexer, shooter, arm)));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectIntakeToggle(intake, indexer, shooter, arm)
@@ -114,18 +112,24 @@ public class RobotContainer
                 .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
                 ));
 
-        //D East TODO are these ranges the correct mapping?
+        //D East / Right TODO are these angles correct?
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(intake, indexer, shooter)
                 ));
-        //D North
+        //D North / Up
         new POVButton(OI.OperatorController, 90, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(intake, indexer, shooter)
                 ));
-        //D West
+        //D West / Left
         new POVButton(OI.OperatorController, 180, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(intake, indexer, shooter)
                 ));
+
+        //D South / Down
+        new POVButton(OI.OperatorController, 270, OI.OperatorController.getPOV())
+                .whenPressed(new RunCommand(() -> new SelectIntakeToTrench(intake, indexer, shooter, arm)
+                ));
+
     }
 
     // --------------------------------------------------------------------------------------------

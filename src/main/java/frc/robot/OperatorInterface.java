@@ -1,7 +1,9 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class OperatorInterface
 {
@@ -9,8 +11,56 @@ public class OperatorInterface
     public Joystick DriverLeft = new Joystick(0);
     public Joystick DriverRight = new Joystick(1);
 
+
+    public ClusterGroup leftStickLeftCluster = new ClusterGroup(DriverLeft, GenericHID.Hand.kLeft);
+    public ClusterGroup leftStickRightCluster = new ClusterGroup(DriverLeft, GenericHID.Hand.kLeft);
+    public ClusterGroup rightStickLeftCluster = new ClusterGroup(DriverRight, GenericHID.Hand.kRight);
+    public ClusterGroup rightStickRightCluster = new ClusterGroup(DriverRight, GenericHID.Hand.kRight);
+
+
+    public static final int LEFT_CLUSTER_1_ID = 1;
+    public static final int LEFT_CLUSTER_2_ID = 1;
+    public static final int LEFT_CLUSTER_3_ID = 1;
+    public static final int LEFT_CLUSTER_4_ID = 1;
+    public static final int LEFT_CLUSTER_5_ID = 1;
+    public static final int LEFT_CLUSTER_6_ID = 1;
+    public static final int RIGHT_CLUSTER_1_ID = 1;
+    public static final int RIGHT_CLUSTER_2_ID = 1;
+    public static final int RIGHT_CLUSTER_3_ID = 1;
+    public static final int RIGHT_CLUSTER_4_ID = 1;
+    public static final int RIGHT_CLUSTER_5_ID = 1;
+    public static final int RIGHT_CLUSTER_6_ID = 1;
+
     // -- Operator
     public XboxController OperatorController = new XboxController(2);
 
+    private class ClusterGroup extends Trigger {
 
+        Joystick stick;
+        GenericHID.Hand side;
+
+        ClusterGroup(Joystick stick, GenericHID.Hand side) {
+            this.stick = stick;
+            this.side = side;
+        }
+
+        @Override
+        public boolean get() {
+            if (side == GenericHID.Hand.kLeft) {
+                return stick.getRawButton(LEFT_CLUSTER_1_ID) ||
+                        stick.getRawButton(LEFT_CLUSTER_2_ID) ||
+                        stick.getRawButton(LEFT_CLUSTER_3_ID) ||
+                        stick.getRawButton(LEFT_CLUSTER_4_ID) ||
+                        stick.getRawButton(LEFT_CLUSTER_5_ID) ||
+                        stick.getRawButton(LEFT_CLUSTER_6_ID);
+            } else {
+                return stick.getRawButton(RIGHT_CLUSTER_1_ID) ||
+                        stick.getRawButton(RIGHT_CLUSTER_2_ID) ||
+                        stick.getRawButton(RIGHT_CLUSTER_3_ID) ||
+                        stick.getRawButton(RIGHT_CLUSTER_4_ID) ||
+                        stick.getRawButton(RIGHT_CLUSTER_5_ID) ||
+                        stick.getRawButton(RIGHT_CLUSTER_6_ID);
+            }
+        }
+    }
 }
