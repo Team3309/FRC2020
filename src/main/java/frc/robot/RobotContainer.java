@@ -87,7 +87,6 @@ public class RobotContainer
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
-        new DisplayWarnings();
     }
 
     private void displaySubsystemToggles() {
