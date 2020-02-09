@@ -1,43 +1,55 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.DisplayWarnings;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
 import frc.robot.commands.shooter.FireManual;
-import frc.robot.commands.shooter.StopFlywheel;
 import frc.robot.subsystems.*;
 
-/*
+/** --------------------------------------------------------------------------------------------------------------------
 * A class that contains all the subsystems and commands that Robot needs. Based off of the RobotContainer
 * example class by WPI.
-*
 */
 public class RobotContainer
 {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Robot state machine state holder.
+     * TODO: The name below is probably incorrect because we're not likely to have two state machines
+     *       but instead have one state machine that the entire robot shares
+     * @param newState new state for the robot, this doesn't actually cause state transitions,
+     *                 but instead is how state transitions mark where the robot is at
+     */
     public static void setPowerCellHandlingState(PowerCellHandlingState newState) {
         RobotContainer.state = newState;
     }
 
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return Current robot state machine state
+     */
     public static PowerCellHandlingState getPowerCellHandlingState() {
         return state;
     }
 
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * All states for the robot finite state machine
+     */
     public enum PowerCellHandlingState {
         ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
         INITIALIZE_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
         INIT_READY_TO_SHOOT
     }
+
+
     private static PowerCellHandlingState state = PowerCellHandlingState.ARM_UP_DRIVE;
 
     private final String armDashboardKey = "Display Arm Values";
@@ -67,28 +79,35 @@ public class RobotContainer
     SendableChooser<Command> Chooser = new SendableChooser<>();
 
 
-    // --------------------------------------------------------------------------------------------
-    public RobotContainer()
-    {
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Constructor
+     */
+    public RobotContainer() {
         // -- Bindings
-        ConfigureButtonBindings_Driver();
-        ConfigureButtonBindings_Operator();
+        configureButtonBindings_Driver();
+        configureButtonBindings_Operator();
 
-        SetDefaultCommands();
+        setDefaultCommands();
 
-        SetAutoOptions();
+        setAutoOptions();
 
         displaySubsystemToggles();
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void SetDefaultCommands()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Set up default commands for any subsystem that needs one
+     */
+    private void setDefaultCommands() {
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
     }
 
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Initialize smart dashboard with toggles to show and hide subsystem outputs
+     */
     private void displaySubsystemToggles() {
         SmartDashboard.putBoolean(armDashboardKey, false);
         SmartDashboard.putBoolean(climberDashboardKey, false);
@@ -100,15 +119,19 @@ public class RobotContainer
         SmartDashboard.putBoolean(visionDashboardKey, false);
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void ConfigureButtonBindings_Driver()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Configure the bindings for the Driver controllers (Dual flight sticks)
+     */
+    private void configureButtonBindings_Driver() {
 
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void ConfigureButtonBindings_Operator()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Configure the bindings for the operator controller (Xbox Controller)
+     */
+    private void configureButtonBindings_Operator() {
         // Testing
         // should these be saved and stored in a variable? -Tim Kavner
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
@@ -156,23 +179,27 @@ public class RobotContainer
 */
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void SetAutoOptions()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Push all the auto commands to the smart dashboard for easy choosing
+     */
+    private void setAutoOptions() {
         //Chooser.addOption("Simple Auto", new SimpleAutoCommand());
     }
 
-    // --------------------------------------------------------------------------------------------
-    public Command GetAutonomousCommand()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return the command chosen by the smartdashboard to run in auto
+     */
+    public Command getAutonomousCommand() {
         return Chooser.getSelected();
     }
+
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Send debug values to SmartDashboard
      */
-    public void outputToDashboard()
-    {
+    public void outputToDashboard() {
         if (SmartDashboard.getBoolean(armDashboardKey, false) && Config.isArmInstalled) {
             arm.outputToDashboard();
         }
@@ -199,7 +226,8 @@ public class RobotContainer
         }
     }
 
-    /**
+
+    /** ----------------------------------------------------------------------------------------------------------------
      * @return boolean indicating if drive values display is enabled
      * Used for DriveAuto to output additional debug information.
      */

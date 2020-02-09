@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.subsystems.*;
 
-/*
-* A class that contains all the subsystems and commands that Robot needs. Based off of the RobotContainer
-* example class by WPI.
-*
+/** --------------------------------------------------------------------------------------------------------------------
+* Temp class that replaces RobotContainer that we can use to test early hardware that either is incompatible
+ * with the real code because hardware is missing, or because real code isn't in a working state and we need
+ * to actuate something on the hardware.
 */
 public class RobotContainerTest
 {
@@ -34,33 +34,40 @@ public class RobotContainerTest
     SendableChooser<Command> Chooser = new SendableChooser<>();
 
 
-    // --------------------------------------------------------------------------------------------
-    public RobotContainerTest()
-    {
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Constructor
+     */
+    public RobotContainerTest() {
         // -- Bindings
         ConfigureButtonBindings_Driver();
         ConfigureButtonBindings_Operator();
 
-        SetDefaultCommands();
+        setDefaultCommands();
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void SetDefaultCommands()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Set up default commands for any subsystem that needs one
+     */
+    private void setDefaultCommands() {
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void ConfigureButtonBindings_Driver()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Configure the bindings for the Driver controllers (Dual flight sticks)
+     */
+    private void ConfigureButtonBindings_Driver() {
 
     }
 
-    // --------------------------------------------------------------------------------------------
-    private void ConfigureButtonBindings_Operator()
-    {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Configure the bindings for the operator controller (Xbox Controller)
+     */
+    private void ConfigureButtonBindings_Operator() {
         double maxShooterIntakeSpeed = 0.25;
 
         // Button A (Intake while held)
@@ -94,11 +101,6 @@ public class RobotContainerTest
                 ));
     }
 
-    // --------------------------------------------------------------------------------------------
-    public Command GetAutonomousCommand()
-    {
-        return null;
-    }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Send debug values to SmartDashboard
