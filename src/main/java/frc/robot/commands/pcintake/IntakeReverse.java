@@ -21,7 +21,7 @@ public class IntakeReverse extends CommandBase {
 
     @Override
     public void execute() {
-        Intake.Spin(-IntakeInwardPower);
+        Intake.Outtake();
         //if indexer power cell count has been decremented to desired power cell count, isDone = true;
     }
 

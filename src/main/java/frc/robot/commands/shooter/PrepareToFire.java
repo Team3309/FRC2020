@@ -1,8 +1,5 @@
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Config;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -37,7 +34,7 @@ public class PrepareToFire extends CommandBase {
 
         if (Shooter.GetTopMotorVelocity() < topMotorDesired && Shooter.GetBottomMotorVelocity() < bottomMotorDesired
                 && !isDone && !Shooter.IsTimedOut()) {
-                Shooter.SpinPowerCell(topMotorDesired, bottomMotorDesired);
+                Shooter.SetPowerRaw(topMotorDesired, bottomMotorDesired);
         } else if (Shooter.GetTopMotorVelocity() == topMotorDesired &&
                 Shooter.GetBottomMotorVelocity() == bottomMotorDesired) {
             isDone = true;
