@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.util.DriveSignal;
 
 import static frc.robot.Config.isDriveInstalled;
@@ -54,11 +53,13 @@ public class DriveSubsystem extends SubsystemBase {
         talon.configFactoryDefault();
         int deviceID = talon.getDeviceID();
 
-        talon.configClosedloopRamp(Config.DriveClosedLoopRampRate);
-        talon.configOpenloopRamp(Config.DriveOpenLoopRampRate, 10);
-        talon.config_kP(deviceID, Config.DriveVelocityP);
-        talon.config_kD(deviceID, Config.DriveVelocityD);
-        talon.config_kF(deviceID, Config.DriveVelocityF);
+        talon.configClosedloopRamp(Config.driveClosedLoopRampRate);
+        talon.configOpenloopRamp(Config.driveOpenLoopRampRate, 10);
+        talon.config_kP(deviceID, Config.driveVelocityP);
+        talon.config_kI(0, Config.driveVelocityI, 10);
+        talon.config_IntegralZone(0, Config.driveVelocityIntegralZone, 10);
+        talon.config_kD(deviceID, Config.driveVelocityD);
+        talon.config_kF(deviceID, Config.driveVelocityF);
 
         talon.setNeutralMode(NeutralMode.Brake);
         talon.setInverted(true);

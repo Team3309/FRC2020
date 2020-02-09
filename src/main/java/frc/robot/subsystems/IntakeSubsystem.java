@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.RobotContainer;
 
 /** --------------------------------------------------------------------------------------------------------------------
  * The class for the power cell intake, which will intake or expel power cells. Will work with shooter and
@@ -30,42 +29,42 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Activates the motor to spin at @param speed.
-     * @param speed - the speed at which the motors should turn the intake wheels.
+     * Set power to the motors
+     * @param power -1 to 1
      */
-    private void Spin(double speed) {
-        intakeMotor.set(ControlMode.Velocity, speed);
+    private void setPowerRaw(double power) {
+        intakeMotor.set(ControlMode.PercentOutput, power);
     }
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Spins the intake wheels for intaking a power cell.
      */
-    public void Intake() {
-        Spin(Config.IntakeInwardPower);
+    public void intake() {
+        setPowerRaw(Config.intakeInwardPower);
     }
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Spins the intake wheels for outtaking a power cell.
      */
-    public void Outtake() {
-        Spin(-Config.IntakeInwardPower);
+    public void outtake() {
+        setPowerRaw(-Config.intakeOutwardPower);
     }
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Stops the intake wheels from spinning
      */
-    public void Stop() {
-     Spin(0);
+    public void stop() {
+     intakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Activates intake piston to extend the intake forward.
      */
-    public void Extend() {
+    public void extend() {
         solenoid.set(true);
     }
 
@@ -73,7 +72,7 @@ public class IntakeSubsystem extends SubsystemBase {
     /** ----------------------------------------------------------------------------------------------------------------
      * Deactivates the intake piston to retract the intake back.
      */
-    public void Retract() {
+    public void retract() {
         solenoid.set(false);
     }
 

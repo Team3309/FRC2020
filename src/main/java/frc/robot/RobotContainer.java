@@ -135,10 +135,10 @@ public class RobotContainer
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
-                ))
-                .whenReleased(new RunCommand(() -> new SelectReadyToShoot(null, null, intake, indexer, shooter, arm)));
+                ));
 
-        //D East / Right TODO are these angles and preset launch options correct?
+/*Fix button logic
+
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), intake, indexer, shooter, arm)
                 ));
@@ -155,7 +155,7 @@ public class RobotContainer
         new POVButton(OI.OperatorController, 270, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectIntakeToTrench(intake, indexer, shooter, arm)
                 ));
-
+*/
     }
 
     // --------------------------------------------------------------------------------------------
@@ -170,7 +170,9 @@ public class RobotContainer
         return Chooser.getSelected();
     }
 
-    // --------------------------------------------------------------------------------------------
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Send debug values to SmartDashboard
+     */
     public void outputToDashboard()
     {
         if (SmartDashboard.getBoolean(armDashboardKey, false)) {

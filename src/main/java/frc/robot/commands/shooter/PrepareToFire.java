@@ -28,8 +28,8 @@ public class PrepareToFire extends CommandBase {
     @Override
     public void execute() {
 
-        double topMotorDesired = Config.ShooterStandardVelocity;
-        double bottomMotorDesired = Config.ShooterStandardVelocity;
+        double topMotorDesired = Config.shooterStandardVelocity;
+        double bottomMotorDesired = Config.shooterStandardVelocity;
         isDone = false;
 
         if (Shooter.GetTopMotorVelocity() < topMotorDesired && Shooter.GetBottomMotorVelocity() < bottomMotorDesired

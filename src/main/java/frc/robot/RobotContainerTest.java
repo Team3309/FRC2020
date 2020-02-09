@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,7 +26,6 @@ public class RobotContainerTest
     private final IntakeSubsystem intake = new IntakeSubsystem();
     private final ShooterSubsystem shooter = new ShooterSubsystem();
     private final VisionSubsystem vision = new VisionSubsystem();
-    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
     // -- Input
     private final OperatorInterface OI = new OperatorInterface();
@@ -63,17 +61,17 @@ public class RobotContainerTest
     // --------------------------------------------------------------------------------------------
     private void ConfigureButtonBindings_Operator()
     {
-        int maxShooterIntakeSpeed = 1;
+        double maxShooterIntakeSpeed = 0.25;
 
         // Button A (Intake while held)
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whileHeld(new StartEndCommand(
                         () -> {
-                            intake.Intake();
+                            intake.intake();
                             shooter.SetPowerRaw(maxShooterIntakeSpeed, maxShooterIntakeSpeed);
                         },
                         () -> {
-                            intake.Stop();
+                            intake.stop();
                             shooter.SetPowerRaw(0,0);
                         },
                         intake, shooter
@@ -84,12 +82,12 @@ public class RobotContainerTest
                 .whileHeld( new StartEndCommand(
                         () ->
                         {
-                            intake.Intake();
+                            intake.outtake();
                             shooter.SetPowerRaw(-maxShooterIntakeSpeed, -maxShooterIntakeSpeed);
                         },
                         () ->
                         {
-                            intake.Stop();
+                            intake.stop();
                             shooter.SetPowerRaw(0,0);
                         },
                         intake, shooter
@@ -101,5 +99,10 @@ public class RobotContainerTest
     {
         return null;
     }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Send debug values to SmartDashboard
+     */
+    public void outputToDashboard() { }
 
 }

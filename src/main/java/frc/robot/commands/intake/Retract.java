@@ -20,7 +20,7 @@ public class Retract extends CommandBase {
 
     @Override
     public void execute() {
-        intake.Retract();
+        intake.retract();
     }
 
     @Override

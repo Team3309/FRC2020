@@ -20,7 +20,7 @@ public class Extend extends CommandBase {
 
     @Override
     public void execute() {
-        intake.Extend();
+        intake.extend();
     }
 
     @Override
