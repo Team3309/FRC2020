@@ -28,7 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
      \----------------------------------------------------------------------------------------------------------------*/
      public DriveSubsystem() {
 
-         if (isDriveInstalled) {
+         if (Config.isDriveInstalled) {
              driveMasterLeft = new WPI_TalonFX(Config.DriveLeftMasterID);
              driveSlaveLeft = new WPI_TalonFX(Config.DriveLeftSlaveID);
              driveMasterRight = new WPI_TalonFX(Config.DriveRightMasterID);
@@ -38,7 +38,6 @@ public class DriveSubsystem extends SubsystemBase {
              configDriveSlave(driveSlaveLeft, driveMasterLeft);
              configDriveMaster(driveMasterRight);
              configDriveSlave(driveSlaveRight, driveMasterRight);
-             SetNeutralMode(NeutralMode.Brake);
          }
     }
 
@@ -88,7 +87,10 @@ public class DriveSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetLeftEncoderPosition() {
-        return driveMasterLeft.getSelectedSensorPosition(0);
+        if (Config.isDriveInstalled) {
+            return driveMasterLeft.getSelectedSensorPosition(0);
+        }
+        return 0;
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -98,7 +100,10 @@ public class DriveSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetRightEncoderPosition() {
-        return -driveMasterRight.getSelectedSensorPosition(0);
+        if (Config.isDriveInstalled) {
+            return -driveMasterRight.getSelectedSensorPosition(0);
+        }
+        return 0;
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -108,7 +113,10 @@ public class DriveSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetLeftEncoderVelocity() {
-        return driveMasterLeft.getSelectedSensorVelocity(0);
+        if (Config.isDriveInstalled) {
+            return driveMasterLeft.getSelectedSensorVelocity(0);
+        }
+        return 0;
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -118,7 +126,10 @@ public class DriveSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetRightEncoderVelocity() {
-        return -driveMasterRight.getSelectedSensorVelocity(0);
+        if (Config.isDriveInstalled) {
+            return -driveMasterRight.getSelectedSensorVelocity(0);
+        }
+        return 0;
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -133,36 +144,6 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
-     * Programs the left motor to move according to code instructions.
-     *
-     * @param mode - The desired control mode for the motor. See Cross The Road Electronics documentation for more
-     *             information.
-     * @param left - The value to which the left motor will be set.
-     * @param demandType - *****
-     * @param leftFeedForward - *****
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    private void SetLeft(ControlMode mode, double left,
-                         DemandType demandType, double leftFeedForward) {
-        driveMasterLeft.set(mode, left, demandType, leftFeedForward);
-    }
-
-
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Programs the right motor to move according to code instructions.
-     *
-     * @param mode - How the motor will move. See Cross The Road Electronics documentation for more information.
-     * @param right - The value to which the right motor will be set.
-     * @param demandType - *****
-     * @param rightFeedForward - *****
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    private void SetRight(ControlMode mode, double right,
-                          DemandType demandType, double rightFeedForward) {
-        driveMasterRight.set(mode, -right, demandType, -rightFeedForward);
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
      * Programs both motors simultaneously to move.
      *
      * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
@@ -171,26 +152,10 @@ public class DriveSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public void SetLeftRight(ControlMode mode, double left, double right) {
-        driveMasterLeft.set(mode, left);
-        driveMasterRight.set(mode, -right);
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
-     * Programs each motor simultaneously to move according to certain control constants.
-     *
-     * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
-     * @param demandType - *****
-     * @param left - The value to which the left motor will be set.
-     * @param right - The value to which the right motor will be set.
-     * @param leftFeedforward - *****
-     * @param rightFeedforward - *****
-     *
-     \----------------------------------------------------------------------------------------------------------------*/
-    public void SetLeftRight(ControlMode mode, DemandType demandType,
-                             double left, double right,
-                             double leftFeedforward, double rightFeedforward) {
-        SetLeft(mode, left, demandType, leftFeedforward);
-        SetRight(mode, right, demandType, rightFeedforward);
+        if (Config.isDriveInstalled) {
+            driveMasterLeft.set(mode, left);
+            driveMasterRight.set(mode, -right);
+        }
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -205,24 +170,16 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
-     * Sets the default motor behavior for when the motors are neutral (when they are set to 0.)
-     *
-     * @param mode - The default motor behavior for the drive motors when set to 0.
-     \----------------------------------------------------------------------------------------------------------------*/
-    public void SetNeutralMode(NeutralMode mode) {
-        driveMasterLeft.setNeutralMode(mode);
-        driveMasterRight.setNeutralMode(mode);
-    }
-
-     /**---------------------------------------------------------------------------------------------------------------\
      * Clears all drive encoder and PID data from before the method was called.
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public void Reset() {
-        driveMasterRight.clearMotionProfileTrajectories();
-        driveMasterLeft.clearMotionProfileTrajectories();
-        driveMasterRight.setSelectedSensorPosition(0, 0, 0);
-        driveMasterRight.setSelectedSensorPosition(0, 0, 0);
+        if (Config.isDriveInstalled) {
+            driveMasterRight.clearMotionProfileTrajectories();
+            driveMasterLeft.clearMotionProfileTrajectories();
+            driveMasterRight.setSelectedSensorPosition(0, 0, 0);
+            driveMasterRight.setSelectedSensorPosition(0, 0, 0);
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

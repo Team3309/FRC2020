@@ -174,32 +174,36 @@ public class RobotContainer
      */
     public void outputToDashboard()
     {
-        if (SmartDashboard.getBoolean(armDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(armDashboardKey, false) && Config.isArmInstalled) {
             arm.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(climberDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(climberDashboardKey, false) && Config.isClimberInstalled) {
             climber.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(ctrlPanelDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(ctrlPanelDashboardKey, false) && Config.isCtrlPanelInstalled) {
             ctrlPanel.outputToDashboard();
         }
-        if (getDriveDebug()) {
+        if (getDriveDebug() && Config.isDriveInstalled) {
             drive.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(indexerDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(indexerDashboardKey, false) && Config.isIndexerInstalled) {
             indexer.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(intakeDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(intakeDashboardKey, false) && Config.isIntakeInstalled) {
             intake.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(shooterDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(shooterDashboardKey, false) && Config.isShooterInstalled) {
             shooter.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(visionDashboardKey, false)) {
+        if (SmartDashboard.getBoolean(visionDashboardKey, false) && Config.isVisionInstalled) {
             vision.outputToDashboard();
         }
     }
 
+    /**
+     * @return boolean indicating if drive values display is enabled
+     * Used for DriveAuto to output additional debug information.
+     */
     public static boolean getDriveDebug() {
         return SmartDashboard.getBoolean(driveDashboardKey, false);
     }
