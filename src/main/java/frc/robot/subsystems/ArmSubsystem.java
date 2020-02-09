@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
-import javax.security.auth.login.Configuration;
-
 public class ArmSubsystem extends SubsystemBase {
 
 
@@ -34,12 +32,24 @@ public class ArmSubsystem extends SubsystemBase {
         }
     }
 
+     /**---------------------------------------------------------------------------------------------------------------\
+     * Moves arm based on a certain number of encoder counts.
+     *
+     * @param position - By how many encoder counts the arm should move.
+     *
+     \----------------------------------------------------------------------------------------------------------------*/
     public void MoveArmManually(double position) {
         if (Config.isArmInstalled) {
             armMotor.set(ControlMode.Position, position);
         }
     }
 
+     /**---------------------------------------------------------------------------------------------------------------\
+     * Moves arm to a preset Arm position.
+     *
+     * @param position  - The Arm position to which the arm will move.
+     *
+     \----------------------------------------------------------------------------------------------------------------*/
     public void MoveToPosition(ArmPosition position) {
 
         if (position == ArmPosition.max) {

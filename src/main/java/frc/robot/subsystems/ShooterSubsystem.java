@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.RobotContainer;
 
  /**-------------------------------------------------------------------------------------------------------------------\
  * @author Joshua Badzey
@@ -94,6 +93,8 @@ public class ShooterSubsystem extends SubsystemBase {
      /**---------------------------------------------------------------------------------------------------------------\
      * Returns the top motor's current speed.
      *
+     * @return The top motor's current speed.
+     *
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetTopMotorVelocity() {
         return topMotor.getSelectedSensorVelocity();
@@ -102,6 +103,7 @@ public class ShooterSubsystem extends SubsystemBase {
      /**---------------------------------------------------------------------------------------------------------------\
      * Returns the bottom motor's current speed.
      *
+     * @return The bottom motor's current speed.
      \----------------------------------------------------------------------------------------------------------------*/
     public double GetBottomMotorVelocity() {
         return -bottomMotor.getSelectedSensorVelocity();

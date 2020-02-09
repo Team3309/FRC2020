@@ -19,7 +19,7 @@ public class SelectReadyToShoot extends SelectCommand {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SCAN
             ) {
                 new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT);
-                return new MultiShotCommandGroup(shooter, indexer, intake); //TODO execute command group 4 instead (see slack for command group descriptions).
+                return new MultiShotCommandGroup(shooter, indexer, intake);
             } else {
                 //do nothing
                 return new DoNothing();

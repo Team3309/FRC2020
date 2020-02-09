@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.RobotContainer;
 
 
 /**
@@ -17,7 +17,7 @@ import frc.robot.RobotContainer;
 public class ClimberSubsystem extends SubsystemBase {
 
     private WPI_TalonSRX climberMotor;
-    private RobotContainer robotContainer;
+    private Solenoid climberPiston;
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {

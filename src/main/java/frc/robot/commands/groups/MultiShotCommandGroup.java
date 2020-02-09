@@ -13,7 +13,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class MultiShotCommandGroup extends SequentialCommandGroup {
 
     public MultiShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer, IntakeSubsystem intake) {
-
         addCommands(
                 new Retract(intake),
                 new PrepareToFire(shooter),
