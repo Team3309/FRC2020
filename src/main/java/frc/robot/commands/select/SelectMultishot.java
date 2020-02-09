@@ -17,7 +17,7 @@ public class SelectMultishot extends SelectCommand {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT) {
                 //return new MultiShotCommandGroup();
-                return new DoNothing(); //change to the multi shot command group when it is finished.
+                return new MultiShotCommandGroup(shooter, indexer, intake); //change to the multi shot command group when it is finished.
             } else {
                 return new DoNothing();
             }

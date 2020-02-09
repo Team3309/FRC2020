@@ -134,20 +134,20 @@ public class RobotContainer
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
-                ))
-                .whenReleased(new RunCommand(() -> new SelectReadyToShoot(null, intake, indexer, shooter)));
-/* TODO fix D-Pad aborting on getPOV() out of range
-        //D East / Right TODO are these angles correct?
+                ));
+
+/*Fix button logic
+
         new POVButton(OI.OperatorController, 0, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), intake, indexer, shooter, arm)
                 ));
         //D North / Up
         new POVButton(OI.OperatorController, 90, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), intake, indexer, shooter, arm)
                 ));
         //D West / Left
         new POVButton(OI.OperatorController, 180, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), intake, indexer, shooter, arm)
                 ));
 
         //D South / Down
