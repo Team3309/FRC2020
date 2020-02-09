@@ -69,7 +69,7 @@ public class RobotContainerTest
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whileHeld(new StartEndCommand(
                         () -> {
-                            intake.Intake();
+                            intake.SetPowerRaw(1);
                             shooter.SetPowerRaw(maxShooterIntakeSpeed, maxShooterIntakeSpeed);
                         },
                         () -> {
@@ -84,7 +84,7 @@ public class RobotContainerTest
                 .whileHeld( new StartEndCommand(
                         () ->
                         {
-                            intake.Intake();
+                            intake.SetPowerRaw(1);
                             shooter.SetPowerRaw(-maxShooterIntakeSpeed, -maxShooterIntakeSpeed);
                         },
                         () ->

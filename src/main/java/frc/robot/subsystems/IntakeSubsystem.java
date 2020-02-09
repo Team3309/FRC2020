@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.RobotContainer;
 
 /** --------------------------------------------------------------------------------------------------------------------
  * The class for the power cell intake, which will intake or expel power cells. Will work with shooter and
@@ -33,8 +32,18 @@ public class IntakeSubsystem extends SubsystemBase {
      * Activates the motor to spin at @param speed.
      * @param speed - the speed at which the motors should turn the intake wheels.
      */
-    private void Spin(double speed) {
+    private void SetVelocity(double speed) {
         intakeMotor.set(ControlMode.Velocity, speed);
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Temp function for testing the robot before we tune PID.  Don't use in production!
+     * TODO: Delete me once PID is tuned
+     * @param power -1 to 1
+     */
+    public void SetPowerRaw(double power) {
+        intakeMotor.set(ControlMode.PercentOutput, power);
     }
 
 
@@ -42,7 +51,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      */
     public void Intake() {
-        Spin(Config.IntakeInwardPower);
+        SetVelocity(Config.IntakeInwardPower);
     }
 
 
@@ -50,7 +59,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for outtaking a power cell.
      */
     public void Outtake() {
-        Spin(-Config.IntakeInwardPower);
+        SetVelocity(-Config.IntakeInwardPower);
     }
 
 
@@ -58,7 +67,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Stops the intake wheels from spinning
      */
     public void Stop() {
-     Spin(0);
+     intakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
 
