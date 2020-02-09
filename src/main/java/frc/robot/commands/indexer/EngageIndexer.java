@@ -8,6 +8,7 @@ public class EngageIndexer extends CommandBase {
 
     public EngageIndexer(IndexerSubsystem indexer) {
         this.indexer = indexer;
+        addRequirements(indexer);
     }
 
     @Override

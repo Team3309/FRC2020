@@ -13,6 +13,7 @@ public class EngageIntake extends CommandBase {
     @Override
     public void execute() {
         intake.intake();
+        addRequirements(intake);
     }
 
 

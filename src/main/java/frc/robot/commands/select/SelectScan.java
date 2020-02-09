@@ -19,7 +19,6 @@ public class SelectScan extends SelectCommand {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE
             ) {
-                new UpdateState(RobotContainer.PowerCellHandlingState.SCAN);
                 return new ToScanCommandGroup(); //TODO execute command group 2 instead (see slack for command group descriptions).
             } else {
                 //do nothing

@@ -13,6 +13,7 @@ public class EngageShooter extends CommandBase {
     @Override
     public void execute() {
         shooter.SpinUpFlywheels();
+        addRequirements(shooter);
     }
 
 
