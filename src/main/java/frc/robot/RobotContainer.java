@@ -169,7 +169,9 @@ public class RobotContainer
         return Chooser.getSelected();
     }
 
-    // --------------------------------------------------------------------------------------------
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Send debug values to SmartDashboard
+     */
     public void outputToDashboard()
     {
         if (SmartDashboard.getBoolean(armDashboardKey, false)) {

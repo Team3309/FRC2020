@@ -36,7 +36,6 @@ public class RobotContainerTest
     private final IntakeSubsystem intake = new IntakeSubsystem();
     private final ShooterSubsystem shooter = new ShooterSubsystem();
     private final VisionSubsystem vision = new VisionSubsystem();
-    private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 
     // -- Input
     private final OperatorInterface OI = new OperatorInterface();
@@ -80,5 +79,10 @@ public class RobotContainerTest
     {
         return null;
     }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Send debug values to SmartDashboard
+     */
+    public void outputToDashboard() {};
 
 }

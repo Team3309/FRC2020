@@ -1,8 +1,5 @@
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Config;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -31,8 +28,8 @@ public class PrepareToFire extends CommandBase {
     @Override
     public void execute() {
 
-        double topMotorDesired = Config.ShooterStandardVelocity;
-        double bottomMotorDesired = Config.ShooterStandardVelocity;
+        double topMotorDesired = Config.shooterStandardVelocity;
+        double bottomMotorDesired = Config.shooterStandardVelocity;
         isDone = false;
 
         if (Shooter.GetTopMotorVelocity() < topMotorDesired && Shooter.GetBottomMotorVelocity() < bottomMotorDesired

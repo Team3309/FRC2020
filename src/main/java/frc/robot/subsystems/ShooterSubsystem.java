@@ -53,14 +53,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
         talon.configFactoryDefault();;
 
-        talon.configClosedloopRamp(Config.ShooterClosedLoopRampRate);
-        talon.configOpenloopRamp(Config.ShooterOpenLoopRampRate, 10);
+        talon.configClosedloopRamp(Config.shooterClosedLoopRampRate);
+        talon.configOpenloopRamp(Config.shooterOpenLoopRampRate, 10);
 
-        talon.config_kP(0, Config.ShooterVelocityP, 10);
-        talon.config_kI(0, Config.ShooterVelocityI, 10);
-        talon.config_IntegralZone(0, Config.ShooterVelocityIntegralZone, 10);
-        talon.config_kD(0, Config.ShooterVelocityD, 10);
-        talon.config_kF(0, Config.ShooterVelocityF, 10);
+        talon.config_kP(0, Config.shooterVelocityP, 10);
+        talon.config_kI(0, Config.shooterVelocityI, 10);
+        talon.config_IntegralZone(0, Config.shooterVelocityIntegralZone, 10);
+        talon.config_kD(0, Config.shooterVelocityD, 10);
+        talon.config_kF(0, Config.shooterVelocityF, 10);
 
         talon.setNeutralMode(NeutralMode.Coast);
         talon.setInverted(false);
@@ -128,7 +128,7 @@ public class ShooterSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public boolean IsTimedOut() {
-        return (ctrlTimer.get() < Config.ShooterStandardTimeout);
+        return (ctrlTimer.get() < Config.shooterStandardTimeout);
     }
 
      /** ----------------------------------------------------------------------------------------------------------------
