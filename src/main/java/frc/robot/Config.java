@@ -18,6 +18,7 @@ public class Config {
      */
 
     public static final boolean isInDebug = false;
+    public static final boolean isTestMode = true;  // activate use of RobotContainerTest
 
     //------------------------------------------------------------------------------------------------------------------
     //Hardware Availability//
@@ -47,11 +48,13 @@ public class Config {
     public static Integer DriveRightSlavePdpChannel;
 
     //Drive PID Parameters----------------------------------------------------------------------------------------------
-    public static Integer DriveClosedLoopRampRate;
-    public static Integer DriveOpenLoopRampRate;
-    public static Integer DriveVelocityP;
-    public static Integer DriveVelocityD;
-    public static Integer DriveVelocityF;
+    public static final double driveClosedLoopRampRate = 0.0;
+    public static final double driveOpenLoopRampRate = 0.15;
+    public static Double driveVelocityP;
+    public static Double driveVelocityI;
+    public static Integer driveVelocityIntegralZone;
+    public static Double driveVelocityD;
+    public static Double driveVelocityF;
 
     //Physical Constants for Drive--------------------------------------------------------------------------------------
     public static final double DriveWheelDiameterInInches = 6.0;
@@ -101,15 +104,15 @@ public class Config {
     public static Integer BottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
-    public static Double ShooterClosedLoopRampRate;
-    public static Double ShooterOpenLoopRampRate;
-    public static Double ShooterVelocityP;
-    public static Double ShooterVelocityI;
-    public static Integer ShooterVelocityIntegralZone;
-    public static Double ShooterVelocityD;
-    public static Double ShooterVelocityF;
-    public static Double ShooterStandardVelocity;
-    public static Double ShooterStandardTimeout;
+    public static final double shooterClosedLoopRampRate = 0.0;
+    public static final double shooterOpenLoopRampRate = 0.15;
+    public static Double shooterVelocityP;
+    public static Double shooterVelocityI;
+    public static Integer shooterVelocityIntegralZone;
+    public static Double shooterVelocityD;
+    public static Double shooterVelocityF;
+    public static Double shooterStandardVelocity;
+    public static Double shooterStandardTimeout;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -127,14 +130,14 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static int ArmMotorId;
-    public static int ArmMotorPdpChannel;
-    public static int ArmMaxAnglePosition;
-    public static int ArmLongRangeAnglePosition;
-    public static int ArmMidRangeAnglePosition;
-    public static int ArmCloseRangeAnglePosition;
-    public static int ArmTrenchDriveAnglePosition;
-    public static int ArmMinAnglePosition;
+    public static Integer ArmMotorId;
+    public static Integer ArmMotorPdpChannel;
+    public static Integer ArmMaxAnglePosition;
+    public static Integer ArmLongRangeAnglePosition;
+    public static Integer ArmMidRangeAnglePosition;
+    public static Integer ArmCloseRangeAnglePosition;
+    public static Integer ArmTrenchDriveAnglePosition;
+    public static Integer ArmMinAnglePosition;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming Constants//
@@ -156,7 +159,7 @@ public class Config {
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = false;
-                isIntakeInstalled = false;
+                isIntakeInstalled = true;
                 isShooterInstalled = false;
                 isVisionInstalled = false;
 
@@ -168,6 +171,18 @@ public class Config {
                 DriveLeftSlavePdpChannel = 15;
                 DriveRightMasterPdpChannel = 0;
                 DriveRightSlavePdpChannel = 1;
+
+                driveVelocityP = 0.1;
+                driveVelocityI = 0.0;
+                driveVelocityIntegralZone = 1000;
+                driveVelocityD = 0.0;
+                driveVelocityF = 0.0;
+
+                shooterVelocityP = 0.1;
+                shooterVelocityI = 0.0;
+                shooterVelocityIntegralZone = 1000;
+                shooterVelocityD = 0.0;
+                shooterVelocityF = 0.0;
                 break;
 
             case Practice2017:
@@ -188,6 +203,18 @@ public class Config {
                 DriveLeftSlavePdpChannel = 14;
                 DriveRightMasterPdpChannel = 1;
                 DriveRightSlavePdpChannel = 2;
+
+                driveVelocityP = 0.1;
+                driveVelocityI = 0.0;
+                driveVelocityIntegralZone = 1000;
+                driveVelocityD = 0.0;
+                driveVelocityF = 0.0;
+
+                shooterVelocityP = 0.1;
+                shooterVelocityI = 0.0;
+                shooterVelocityIntegralZone = 1000;
+                shooterVelocityD = 0.0;
+                shooterVelocityF = 0.0;
                 break;
         }
     }
