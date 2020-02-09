@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.DisplayWarnings;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
@@ -74,6 +75,7 @@ public class RobotContainer
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
+        new DisplayWarnings();
     }
 
     // --------------------------------------------------------------------------------------------
