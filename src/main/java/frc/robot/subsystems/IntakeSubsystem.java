@@ -16,12 +16,10 @@ import frc.robot.RobotContainer;
  \--------------------------------------------------------------------------------------------------------------------*/
 public class IntakeSubsystem extends SubsystemBase {
 
-    private RobotContainer robotContainer;
     private WPI_TalonFX intakeMotor;
     private Solenoid solenoid;
 
-    public IntakeSubsystem(RobotContainer container) {
-        robotContainer = container;
+    public IntakeSubsystem() {
         if (Config.isIntakeInstalled) {
             intakeMotor = new WPI_TalonFX(Config.IntakeMotorID);
             intakeMotor.configFactoryDefault();
