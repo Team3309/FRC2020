@@ -138,6 +138,9 @@ public class Config {
     public static Integer ArmCloseRangeAnglePosition;
     public static Integer ArmTrenchDriveAnglePosition;
     public static Integer ArmMinAnglePosition;
+    public static Integer ArmHalifaxLimitSwitchId;
+    public static Integer ArmTopLimitSwitchId;
+
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming Constants//
@@ -146,7 +149,6 @@ public class Config {
     public static Double AimingI;
     public static Double AimingD;
     public static Double AimingF;
-
 
     private static void frameSpecificConfig() {
 
