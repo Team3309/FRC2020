@@ -24,6 +24,7 @@ public class Config {
     //Hardware Availability//
     //------------------------------------------------------------------------------------------------------------------
     public static Boolean isArmInstalled;
+    public static Boolean isArmCounterweightInstalled;
     public static Boolean isClimberInstalled;
     public static Boolean isCtrlPanelInstalled;
     public static Boolean isDriveInstalled;
