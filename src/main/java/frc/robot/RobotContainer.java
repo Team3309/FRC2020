@@ -147,6 +147,11 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new RunCommand(() -> new SelectReadyToShootToDriving(intake, indexer, shooter, arm)));
 
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
+                .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
+                ));
+
+
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectIntakeToggle(intake, indexer, shooter, arm)
                 ));
@@ -154,11 +159,11 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectScan(intake, indexer, shooter)
                 ));
-
-        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
-                ));
-
+/*
+        new JoystickButton(OI.OperatorController, XboxController.Axis.kRightX.value)
+                .whenPressed(new RunCommand(() -> new SelectManualArmAdjustment(intake, indexer, shooter, arm, OI.OperatorController)
+        ));
+*/
 
 /*
         new POVButton(OI.OperatorController, 0)
