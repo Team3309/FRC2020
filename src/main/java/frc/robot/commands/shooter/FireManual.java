@@ -30,10 +30,9 @@ public class FireManual extends CommandBase {
     public void execute() {
 
         double topSpeed = Controller.getX(GenericHID.Hand.kLeft) * 24000;
-        double bottomSpeed= -Controller.getX(GenericHID.Hand.kRight) * 24000;
+        double bottomSpeed= Controller.getX(GenericHID.Hand.kRight) * 24000;
 
-
-        Shooter.setPowerRaw(topSpeed, bottomSpeed);
+        Shooter.runFlywheels(topSpeed, bottomSpeed);
     }
 
     public void end() {

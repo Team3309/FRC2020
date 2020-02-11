@@ -12,7 +12,7 @@ public class EngageShooter extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.spinUpFlywheels();
+        shooter.runFlywheelsAtPresetSpeeds();
         addRequirements(shooter);
     }
 

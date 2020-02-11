@@ -34,7 +34,7 @@ public class PrepareToFire extends CommandBase {
 
         if (Shooter.getTopMotorVelocity() < topMotorDesired && Shooter.getBottomMotorVelocity() < bottomMotorDesired
                 && !isDone) {
-                Shooter.setPowerRaw(topMotorDesired, bottomMotorDesired);
+                Shooter.runFlywheels(topMotorDesired, bottomMotorDesired);
         } else if (Shooter.getTopMotorVelocity() == topMotorDesired &&
                 Shooter.getBottomMotorVelocity() == bottomMotorDesired) {
             isDone = true;

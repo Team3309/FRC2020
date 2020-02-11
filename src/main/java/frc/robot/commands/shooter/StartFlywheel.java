@@ -15,6 +15,6 @@ public class StartFlywheel extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.spinUpFlywheels();
+        shooter.runFlywheelsAtPresetSpeeds();
     }
 }

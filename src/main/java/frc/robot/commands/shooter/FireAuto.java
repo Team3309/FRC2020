@@ -18,7 +18,7 @@ public class FireAuto extends CommandBase {
 
     @Override
     public void execute() {
-        Shooter.spinUpFlywheels();
+        Shooter.runFlywheelsAtPresetSpeeds();
     }
 
     public void end() {
