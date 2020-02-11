@@ -17,14 +17,12 @@ public class Config {
      *
      */
 
-    public static final boolean isInDebug = false;
     public static final boolean isTestMode = true;  // activate use of RobotContainerTest
 
     //------------------------------------------------------------------------------------------------------------------
     //Hardware Availability//
     //------------------------------------------------------------------------------------------------------------------
     public static Boolean isArmInstalled;
-    public static Boolean isArmCounterweightInstalled;
     public static Boolean isClimberInstalled;
     public static Boolean isCtrlPanelInstalled;
     public static Boolean isDriveInstalled;
@@ -73,9 +71,9 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer IntakeMotorID;
     public static Integer IntakeMotorPdpChannel;
-    public static Integer IntakeSoleoidChannel;
+    public static Integer IntakeSolenoidChannel;
     public static final double intakeInwardPower = 0.3;
-    public static final double intakeOutwardPower = 0.3;
+    public static final double intakeOutwardPower = -0.3;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
@@ -135,26 +133,10 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer ArmMotorId;
     public static Integer ArmMotorPdpChannel;
-    public static Integer ArmMaxAnglePosition;
-    public static Integer ArmLongRangeAnglePosition;
-    public static Integer ArmMidRangeAnglePosition;
-    public static Integer ArmCloseRangeAnglePosition;
-    public static Integer ArmTrenchDriveAnglePosition;
-    public static Integer ArmMinAnglePosition;
     public static Integer ArmHalifaxLimitSwitchId;
     public static Integer ArmTopLimitSwitchId;
 
     public static Integer ArmPositionMaxValue;
-
-
-
-    //------------------------------------------------------------------------------------------------------------------
-    //Aiming Constants//
-    //------------------------------------------------------------------------------------------------------------------
-    public static Double AimingP;
-    public static Double AimingI;
-    public static Double AimingD;
-    public static Double AimingF;
     public static Integer ArmPositionLongRangeValue;
     public static Integer ArmPositionMidRangeValue;
     public static Integer ArmPositionCloseRangeValue;
@@ -162,6 +144,14 @@ public class Config {
     public static Integer ArmPositionMinValue;
     public static Integer ArmPositionHalifaxTopValue;
     public static Integer ArmPositionIntakeStowedLimitValue;
+
+    //------------------------------------------------------------------------------------------------------------------
+    //Aiming PID Constants for Vision Controlled Turning//
+    //------------------------------------------------------------------------------------------------------------------
+    public static Double AimingP;
+    public static Double AimingI;
+    public static Double AimingD;
+    public static Double AimingF;
 
     //
     //Climber Constants//
