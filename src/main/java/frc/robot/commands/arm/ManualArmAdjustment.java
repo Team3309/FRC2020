@@ -3,6 +3,7 @@ package frc.robot.commands.arm;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ArmSubsystem;
 
 
@@ -26,10 +27,15 @@ public class ManualArmAdjustment extends CommandBase {
 
     @Override
     public void execute() {
-        double yRaw = controller.getY(GenericHID.Hand.kRight);
-
-        if (yRaw > DEAD_ZONE) {
-            arm.adjustArm(yRaw * yRaw * yRaw);
+        //normally Select commands handle the PowerCellHandler MegaSubsystem, but because this is a default command we have to check
+        //here instead.
+        if(RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
+                RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.MULTI_SHOT ||
+                RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SINGLE_SHOT) {
+            double yRaw = controller.getY(GenericHID.Hand.kRight);
+            if (yRaw > DEAD_ZONE) {
+                arm.adjustArm(yRaw * yRaw * yRaw);
+            }
         }
     }
 

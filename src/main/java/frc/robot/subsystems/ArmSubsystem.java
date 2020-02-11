@@ -90,9 +90,16 @@ public class ArmSubsystem extends SubsystemBase {
             //So we use speed control.
             //TODO: alternatively, maybe use position control so they can make adjustments before the arm gets to its position in case they know the adjustments to make before hand.
             if (calibrated) {
-                //DO NOT USE MOTION MAGIC. this is a small adjustment.
-                armMotor.set(ControlMode.Position, desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
-                desiredPosition += axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
+                //so we don't attempt to crash the arm
+                if (desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT > armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) &&
+                        desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT < armPositionToEncoderPosition(ArmPosition.max)) {
+                    //DO NOT USE MOTION MAGIC. This is a small adjustment.
+                    desiredPosition += axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
+                    armMotor.set(ControlMode.Position, desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
+                }
+
+
+
             } else {
                 calibrate();
             }
@@ -195,21 +202,10 @@ public class ArmSubsystem extends SubsystemBase {
     public void MoveToPosition(ArmPosition position) {
         if (Config.isArmInstalled) {
             if (calibrated) {
-                if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) {
-                    //we can't have the arm go too high in trench drive for any reason. we check for this
-                    //in theory currently this particular code block will never execute as of writing, but
-                    //future-proofing the arm is important.
-                    if (position.value < ArmPosition.trench.value && position.value > ArmPosition.intakeStowedLimit.value) {
-                        desiredPosition = armPositionToEncoderPosition(position);
-                        armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
 
-                        //TODO finish arm state checks so we don't crash
-                    }
-                } else {
-                    desiredPosition = armPositionToEncoderPosition(position);
-                    armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
-                }
+                desiredPosition = armPositionToEncoderPosition(position);
+                armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
+
             } else {
                 calibrationStoredPosition = position;
                 calibrate();
