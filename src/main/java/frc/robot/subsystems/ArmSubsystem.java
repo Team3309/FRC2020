@@ -1,13 +1,13 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.RobotContainer;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -15,9 +15,9 @@ public class ArmSubsystem extends SubsystemBase {
     //Arm calibration variables//
     //------------------------------------------------------------------------------------------------------------------
 
-    private boolean initialCalibration; //we can't intialize certain states during the constructor because we really want to initialize them on first enable instead
+    private boolean initialCalibration; //we can't initialize certain states during the constructor because we really want to initialize them on first enable instead
     private boolean halifaxCalibrate; //aka "quick calibrate" mode.
-    private boolean calibrated; //whether or not the arm encoder is finised calibrating
+    private boolean calibrated; //whether or not the arm encoder is finished calibrating
     private int initialEncoderCount; //the encoder count at time of calibration finalization.
     private int desiredCalibrationPosition;
     private ArmPosition calibrationStoredPosition;
@@ -28,7 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
     //Other arm variables//
     //------------------------------------------------------------------------------------------------------------------
 
-    private static final int MAXIMUM_ENCODER_DISTANCE_FOR_POSITION = 3; //maximum encoder distance to be properly in a position
+    private static final int MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION = 3; //maximum encoder distance to be properly in a position
     private static final double JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT = 0.1;
 
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
@@ -39,7 +39,6 @@ public class ArmSubsystem extends SubsystemBase {
     private WPI_TalonFX armMotor;
 
 
-    //TODO Find actual values for this part
     public enum ArmPosition {
         max(Config.ArmPositionMaxValue),
         longRange(Config.ArmPositionLongRangeValue),
@@ -64,9 +63,7 @@ public class ArmSubsystem extends SubsystemBase {
         initialCalibration = true;
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.ArmMotorId);
-            //for now, just initialize to armMotor
-            //TODO couldn't we just set the arm position before we get on the field using the halifax switch's static positioning
-            armMotor.setNeutralMode(NeutralMode.Brake);
+            configTalon(armMotor);
             initialEncoderCount = armMotor.getSelectedSensorPosition(0);
             try {
                 //we try to enable, in case there is no halifax currently installed.
@@ -74,9 +71,36 @@ public class ArmSubsystem extends SubsystemBase {
             } catch (Exception e) {
                 DriverStation.reportWarning("ArmSubsystem: Halifax Limit Switch not found!", false);
             }
-            topLimitSwitch = new DigitalInput((Config.ArmTopLimitSwitchId));
+            topLimitSwitch = new DigitalInput(Config.ArmTopLimitSwitchId);
 
         }
+    }
+
+    private void configTalon(WPI_TalonFX talon) {
+        talon.configFactoryDefault();
+
+        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+
+        talon.setNeutralMode(NeutralMode.Brake);
+        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+
+        talon.config_kP(0, Config.ArmP);
+        talon.config_kI(0, Config.ArmI);
+        talon.config_kD(0, Config.ArmD);
+
+        //Motion Magic constants
+        talon.configMotionCruiseVelocity(300000);
+        talon.configMotionAcceleration(180000);
+
+        talon.configPeakOutputForward(1.0);
+        talon.configPeakOutputReverse(-0.42);
+
+
+        talon.setSensorPhase(false); //inverts power to the arm if true
+
+        talon.setNeutralMode(NeutralMode.Brake);
+
+        addChild("Arm Motor", talon);
     }
 
     /**
@@ -88,14 +112,14 @@ public class ArmSubsystem extends SubsystemBase {
             //motion magic / position control doesn't work as well for fine tuning by the operator, who might want
             //to change by as much as just a couple encoder ticks, repeatedly and in quick succession.
             //So we use speed control.
-            //TODO: alternatively, maybe use position control so they can make adjustments before the arm gets to its position in case they know the adjustments to make before hand.
             if (calibrated) {
+                int newDesiredPosition = (int) (desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
                 //so we don't attempt to crash the arm
-                if (desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT > armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) &&
-                        desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT < armPositionToEncoderPosition(ArmPosition.max)) {
+                if (newDesiredPosition > armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) &&
+                        newDesiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT < armPositionToEncoderPosition(ArmPosition.max)) {
                     //DO NOT USE MOTION MAGIC. This is a small adjustment.
-                    desiredPosition += axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
-                    armMotor.set(ControlMode.Position, desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
+                    desiredPosition = newDesiredPosition;
+                    armMotor.set(ControlMode.Position, newDesiredPosition);
                 }
 
 
@@ -120,7 +144,7 @@ public class ArmSubsystem extends SubsystemBase {
             calibrate();
             return false;
         }
-        return !Config.isArmInstalled || (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_POSITION);
+        return !Config.isArmInstalled || (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION);
     }
 
     /**----------------------------------------------------------------------------------------------------------------
@@ -184,7 +208,7 @@ public class ArmSubsystem extends SubsystemBase {
                 }
             }
             //if we're close enough to the target point, set a new one.
-            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_POSITION)) {
+            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION)) {
 
                 desiredCalibrationPosition += CALIBRATION_MOTION_INCREMENT;
                 armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
@@ -202,7 +226,6 @@ public class ArmSubsystem extends SubsystemBase {
     public void moveToPosition(ArmPosition position) {
         if (Config.isArmInstalled) {
             if (calibrated) {
-
                 desiredPosition = armPositionToEncoderPosition(position);
                 armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
 

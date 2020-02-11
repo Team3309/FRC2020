@@ -143,9 +143,11 @@ public class Config {
     public static Integer ArmMinAnglePosition;
     public static Integer ArmHalifaxLimitSwitchId;
     public static Integer ArmTopLimitSwitchId;
-
     public static Integer ArmPositionMaxValue;
 
+    public static Double ArmP;
+    public static Double ArmI;
+    public static Double ArmD;
 
 
     //------------------------------------------------------------------------------------------------------------------
