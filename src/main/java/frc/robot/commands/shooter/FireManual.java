@@ -33,11 +33,11 @@ public class FireManual extends CommandBase {
         double bottomSpeed= -Controller.getX(GenericHID.Hand.kRight) * 24000;
 
 
-        Shooter.SetPowerRaw(topSpeed, bottomSpeed);
+        Shooter.setPowerRaw(topSpeed, bottomSpeed);
     }
 
     public void end() {
-        Shooter.StopFlywheels();
+        Shooter.stopFlywheels();
         cancel();
     }
 

@@ -17,7 +17,7 @@ public class MoveArmToPosition extends CommandBase {
     @Override
     public void initialize() {
         if(position != null) {
-            Arm.MoveToPosition(position);
+            Arm.moveToPosition(position);
         }
     }
 

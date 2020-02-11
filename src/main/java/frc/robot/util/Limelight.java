@@ -23,43 +23,43 @@ public class Limelight {
         this.zRotationOffsetInches = zRotationOffsetInches;
     }
 
-    public boolean HasTarget() {
-        return Get("tv") == 1.0;
+    public boolean hasTarget() {
+        return get("tv") == 1.0;
     }
 
-    public double GetTx() {
-        return Get("tx");
+    public double getTx() {
+        return get("tx");
     }
 
-    public double GetTy() {
-        return Get("ty");
+    public double getTy() {
+        return get("ty");
     }
 
-    public double GetSkew() {
-        return Get("ts");
+    public double getSkew() {
+        return get("ts");
     }
 
-    public double GetArea() {
-        return Get("ta");
+    public double getArea() {
+        return get("ta");
     }
 
-    public double Get(String entryName) {
+    public double get(String entryName) {
         return table.getEntry(entryName).getDouble(0.0);
     }
 
-    public void SetPipeline(int pipeline) {
+    public void setPipeline(int pipeline) {
         table.getEntry("pipeline").setDouble(pipeline);
     }
 
-    public int GetPipeline() {
+    public int getPipeline() {
         return (int) table.getEntry("pipeline").getDouble(0.0);
     }
 
-    public void SetLed(LEDMode mode) {
+    public void setLed(LEDMode mode) {
         table.getEntry("ledMode").setDouble(mode.value);
     }
 
-    public void SetCamMode(CamMode camMode) {
+    public void setCamMode(CamMode camMode) {
         if (camMode == CamMode.VisionProcessor) {
             table.getEntry("camMode").setDouble(0.0);
         } else if (camMode == CamMode.DriverCamera) {

@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -22,8 +21,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
      public boolean isFlywheelToSpeed() {
          return !Config.isArmInstalled || (
-                 Math.abs(GetTopMotorVelocity() - flywheelSpeedTop) < 0.01 &&
-                 Math.abs(GetTopMotorVelocity() - flywheelSpeedTop) < 0.01);
+                 Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < 0.01 &&
+                 Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < 0.01);
      }
 
     private WPI_TalonFX topMotor;
@@ -33,8 +32,8 @@ public class ShooterSubsystem extends SubsystemBase {
         if (Config.isShooterInstalled) {
             topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
             bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
-            ConfigTalon(topMotor);
-            ConfigTalon(bottomMotor);
+            configTalon(topMotor);
+            configTalon(bottomMotor);
         }
     }
 
@@ -43,7 +42,7 @@ public class ShooterSubsystem extends SubsystemBase {
      *
      * @param talon - the talon to be configured.
      */
-    public void ConfigTalon(WPI_TalonFX talon) {
+    public void configTalon(WPI_TalonFX talon) {
 
         talon.configFactoryDefault();;
 
@@ -64,14 +63,14 @@ public class ShooterSubsystem extends SubsystemBase {
      /** ---------------------------------------------------------------------------------------------------------------
      * Spins up the flywheels in preparation for firing.
      */
-    public void SpinUpFlywheels() {
-        SetPowerRaw(flywheelSpeedTop, flywheelSpeedBottom);
+    public void spinUpFlywheels() {
+        setPowerRaw(flywheelSpeedTop, flywheelSpeedBottom);
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
      * Stops the flywheels by having them slow down to a complete stop.
      */
-    public void StopFlywheels() {
+    public void stopFlywheels() {
         if (Config.isShooterInstalled) {
             topMotor.set(ControlMode.PercentOutput, 0);
             bottomMotor.set(ControlMode.PercentOutput, 0);
@@ -85,7 +84,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param topSpeed - the desired speed of the top motor.
      * @param bottomSpeed - the desired speed of the bottom motor.
      */
-    public void SetPowerRaw(double topSpeed, double bottomSpeed) {
+    public void setPowerRaw(double topSpeed, double bottomSpeed) {
         if (Config.isShooterInstalled) {
             topMotor.set(ControlMode.Velocity, topSpeed);
             bottomMotor.set(ControlMode.Velocity, bottomSpeed);
@@ -108,7 +107,7 @@ public class ShooterSubsystem extends SubsystemBase {
      *
      * @return The top motor's current speed.
      */
-    public double GetTopMotorVelocity() {
+    public double getTopMotorVelocity() {
         if (Config.isShooterInstalled) {
             return topMotor.getSelectedSensorVelocity();
         }
@@ -120,7 +119,7 @@ public class ShooterSubsystem extends SubsystemBase {
      *
      * @return The bottom motor's current speed.
      */
-    public double GetBottomMotorVelocity() {
+    public double getBottomMotorVelocity() {
         if (Config.isShooterInstalled) {
             return -bottomMotor.getSelectedSensorVelocity();
         }

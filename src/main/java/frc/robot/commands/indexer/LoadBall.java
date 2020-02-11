@@ -20,7 +20,7 @@ public class LoadBall extends CommandBase {
     @Override
     public void execute() {
 
-        Indexer.Load();
+        Indexer.load();
     }
 
     public void end() {

@@ -13,7 +13,7 @@ public class StopIndexer extends CommandBase {
     }
     @Override
     public void execute() {
-        indexer.StopIndexer();
+        indexer.stopIndexer();
     }
 
     @Override
