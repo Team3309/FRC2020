@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,7 +14,7 @@ import frc.robot.Config;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
-    private WPI_VictorSPX intakeMotor;
+    private TalonSRX intakeMotor;
     private Solenoid solenoid;
 
 
@@ -21,9 +23,11 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public IntakeSubsystem() {
         if (Config.isIntakeInstalled) {
-            intakeMotor = new WPI_VictorSPX(Config.IntakeMotorID);
+            intakeMotor = new WPI_TalonSRX(Config.IntakeMotorID);
             intakeMotor.configFactoryDefault();
-            solenoid = new Solenoid(Config.IntakeSolenoidChannel);
+            if (Config.isPcmInstalled) {
+                solenoid = new Solenoid(Config.IntakeSolenoidChannel);
+            }
         }
     }
 

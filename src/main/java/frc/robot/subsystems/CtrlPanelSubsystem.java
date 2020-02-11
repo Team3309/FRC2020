@@ -42,8 +42,10 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
             ctrlPanelMotor = new WPI_TalonSRX(Config.TurnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
-            retractorPiston = new Solenoid(Config.TurnerTractorPistonID);
-            heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);
+            if (Config.isPcmInstalled) {
+                retractorPiston = new Solenoid(Config.TurnerTractorPistonID);
+                heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);
+            }
         }
     }
 

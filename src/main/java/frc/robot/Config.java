@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Solenoid;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -175,7 +176,7 @@ public class Config {
                 isDriveInstalled = true;
                 isIndexerInstalled = false;
                 isIntakeInstalled = true;
-                isShooterInstalled = false;
+                isShooterInstalled = true;
                 isVisionInstalled = false;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
@@ -184,10 +185,10 @@ public class Config {
                 DriveLeftSlaveID = 16;
                 DriveRightMasterID = 15;
                 DriveRightSlaveID = 1;
-                DriveLeftMasterPdpChannel = 14;
-                DriveLeftSlavePdpChannel = 15;
-                DriveRightMasterPdpChannel = 0;
-                DriveRightSlavePdpChannel = 1;
+                DriveLeftMasterPdpChannel = 1;
+                DriveLeftSlavePdpChannel = 14;
+                DriveRightMasterPdpChannel = 15;
+                DriveRightSlavePdpChannel = 0;
 
                 driveVelocityP = 0.1;
                 driveVelocityI = 0.0;
@@ -195,11 +196,20 @@ public class Config {
                 driveVelocityD = 0.0;
                 driveVelocityF = 0.0;
 
+                TopShooterMotorID = 10;
+                BottomShooterMotorID = 2;
+
+                TopShooterPdpChannel = 12;
+                BottomShooterPdpChannel = 13;
+
                 shooterVelocityP = 0.1;
                 shooterVelocityI = 0.0;
                 shooterVelocityIntegralZone = 1000;
                 shooterVelocityD = 0.0;
                 shooterVelocityF = 0.0;
+
+                IntakeMotorID = 20;
+                IntakeMotorPdpChannel = 11;
                 break;
 
             case Practice2017:

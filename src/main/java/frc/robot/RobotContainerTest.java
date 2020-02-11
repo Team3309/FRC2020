@@ -68,7 +68,7 @@ public class RobotContainerTest
      * Configure the bindings for the operator controller (Xbox Controller)
      */
     private void ConfigureButtonBindings_Operator() {
-        double maxShooterIntakePower = 0.25;
+        double maxShooterIntakePower = 0.4;
 
         // Button A (Intake while held)
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
