@@ -151,6 +151,16 @@ public class Config {
     public static Double AimingD;
     public static Double AimingF;
 
+    //
+    //Climber Constants//
+    //
+
+    public static Integer ClimbMotorOneId;
+    public static Integer ClimbMotorTwoId;
+    public static Integer ClimberDeploySolenoidId;
+    public static Integer HookDeploySolenoidId;
+    public static Integer BuddyClimbDeploySolenoidId;
+
     private static void frameSpecificConfig() {
 
         // Values specific to each physical robot

@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,19 +17,49 @@ import frc.robot.Config;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-    private WPI_TalonSRX climberMotor;
-    private Solenoid climberPiston;
+    private WPI_TalonSRX primaryBalancerMotor, secondaryBalancerMotor;
+    private Solenoid climberDeploy, hookDeploy, buddyClimbDeploy;
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            climberMotor = new WPI_TalonSRX(Config.BalancerMotorId);
+            primaryBalancerMotor = new WPI_TalonSRX(Config.ClimbMotorOneId);
+            secondaryBalancerMotor = new WPI_TalonSRX(Config.ClimbMotorTwoId);
+            climberDeploy = new Solenoid(Config.ClimberDeploySolenoidId);
+            hookDeploy = new Solenoid(Config.HookDeploySolenoidId);
+            buddyClimbDeploy = new Solenoid(Config.BuddyClimbDeploySolenoidId);
         }
     }
 
-    //will lift up the climber mechanism to grab on to the rung.
-    public void LiftClimber() {}
-    //will change the extension of the climber mechanism; negative is contraction, positive is extension.
-    public void ChangeHeight(double height) {}
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Activates the piston for the climber.
+     */
+    public void deployClimber() {
+        if(Config.isClimberInstalled) climberDeploy.set(true);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Activates the piston for the climber hook.
+     */
+    public void deployHook() {
+        if(Config.isClimberInstalled) hookDeploy.set(true);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Activates the piston for the buddy climb mechanism.
+     */
+    public void deployBuddyClimb() {
+        if(Config.isClimberInstalled) buddyClimbDeploy.set(true);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Programs the balancer motor to move by @param amount.
+     */
+    public void balanceRobot(double amount) {
+        if(Config.isClimberInstalled) {
+            primaryBalancerMotor.set(ControlMode.MotionMagic, amount);
+            secondaryBalancerMotor.follow(primaryBalancerMotor);
+        }
+    }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends motor data to SmartDashboard
