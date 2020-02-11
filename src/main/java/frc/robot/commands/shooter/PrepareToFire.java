@@ -20,11 +20,11 @@ public class PrepareToFire extends CommandBase {
 
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /**----------------------------------------------------------------------------------------------------------------
      * Prepares the shooter to fire by spinning up the flywheels. If the passed ShooterSubsystem's timer
      * times out, or the shooter flywheels spin up to velocity, the command ends.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     @Override
     public void execute() {
 

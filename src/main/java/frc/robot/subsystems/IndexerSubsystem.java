@@ -1,14 +1,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
 
-import static frc.robot.Config.isIndexerInstalled;
 
 
 /**---------------------------------------------------------------------------------------------------------------------
@@ -27,7 +25,11 @@ public class IndexerSubsystem extends SubsystemBase {
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
             indexerMotor = new WPI_TalonSRX(Config.IndexerMotorID);
-            indexerMotor.configFactoryDefault();
+            indexerMotor.config_kP(1, Config.IndexerP);
+            indexerMotor.config_kI(1, Config.IndexerI);
+            indexerMotor.config_IntegralZone(1, Config.IndexerIntegralZone);
+            indexerMotor.config_kD(1, Config.IndexerD);
+            indexerMotor.config_kF(1, Config.IndexerF);
         }
     }
 
