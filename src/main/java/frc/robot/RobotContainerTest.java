@@ -79,7 +79,7 @@ public class RobotContainerTest
                         },
                         () -> {
                             intake.stop();
-                            shooter.setPowerRaw(0,0);
+                            shooter.stopFlywheels();
                         },
                         intake, shooter
                 ));
@@ -95,7 +95,7 @@ public class RobotContainerTest
                         () ->
                         {
                             intake.stop();
-                            shooter.setPowerRaw(0,0);
+                            shooter.stopFlywheels();
                         },
                         intake, shooter
                 ));

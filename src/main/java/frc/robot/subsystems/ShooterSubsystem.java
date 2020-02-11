@@ -33,7 +33,11 @@ public class ShooterSubsystem extends SubsystemBase {
             topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
             bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
             configTalon(topMotor);
+            topMotor.setInverted(false);
+            topMotor.setSensorPhase(false);
             configTalon(bottomMotor);
+            bottomMotor.setInverted(true);
+            bottomMotor.setSensorPhase(true);
         }
     }
 
@@ -56,15 +60,13 @@ public class ShooterSubsystem extends SubsystemBase {
         talon.config_kF(0, Config.shooterVelocityF, 10);
 
         talon.setNeutralMode(NeutralMode.Coast);
-        talon.setInverted(false);
-        talon.setSensorPhase(false);
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
      * Spins up the flywheels in preparation for firing.
      */
-    public void spinUpFlywheels() {
-        setPowerRaw(flywheelSpeedTop, flywheelSpeedBottom);
+    public void runFlywheelsAtPresetSpeeds() {
+        runFlywheels(flywheelSpeedTop, flywheelSpeedBottom);
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
@@ -84,7 +86,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param topSpeed - the desired speed of the top motor.
      * @param bottomSpeed - the desired speed of the bottom motor.
      */
-    public void setPowerRaw(double topSpeed, double bottomSpeed) {
+    public void runFlywheels(double topSpeed, double bottomSpeed) {
         if (Config.isShooterInstalled) {
             topMotor.set(ControlMode.Velocity, topSpeed);
             bottomMotor.set(ControlMode.Velocity, bottomSpeed);
@@ -109,7 +111,7 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public double getTopMotorVelocity() {
         if (Config.isShooterInstalled) {
-            return topMotor.getSelectedSensorVelocity();
+            return topMotor.getSelectedSensorVelocity(0);
         }
         return 0;
     }
@@ -121,10 +123,23 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public double getBottomMotorVelocity() {
         if (Config.isShooterInstalled) {
-            return -bottomMotor.getSelectedSensorVelocity();
+            return bottomMotor.getSelectedSensorVelocity(0);
         }
         return 0;
     }
+
+     /** ---------------------------------------------------------------------------------------------------------------
+      * Run the flywheels in voltage control mode for intake testing
+      *
+      * @param topPower - power of the top motor.
+      * @param bottomPower - power of the bottom motor.
+      */
+     public void setPowerRaw(double topPower, double bottomPower) {
+         if (Config.isShooterInstalled) {
+             topMotor.set(ControlMode.PercentOutput, topPower);
+             bottomMotor.set(ControlMode.PercentOutput, bottomPower);
+         }
+     }
 
      /** ---------------------------------------------------------------------------------------------------------------
       * Sends motor data to SmartDashboard
