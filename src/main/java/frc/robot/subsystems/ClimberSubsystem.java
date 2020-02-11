@@ -17,13 +17,13 @@ import frc.robot.Config;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-    private WPI_TalonSRX primaryBalancerMotor, secondaryBalancerMotor;
+    private WPI_TalonSRX primaryClimberMotor, secondaryClimberMotor;
     private Solenoid climberDeploy, hookDeploy, buddyClimbDeploy;
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            primaryBalancerMotor = new WPI_TalonSRX(Config.ClimbMotorOneId);
-            secondaryBalancerMotor = new WPI_TalonSRX(Config.ClimbMotorTwoId);
+            primaryClimberMotor = new WPI_TalonSRX(Config.ClimbMotorOneId);
+            secondaryClimberMotor = new WPI_TalonSRX(Config.ClimbMotorTwoId);
             if (Config.isPcmInstalled) {
                 climberDeploy = new Solenoid(Config.ClimberDeploySolenoidId);
                 hookDeploy = new Solenoid(Config.HookDeploySolenoidId);
@@ -64,8 +64,8 @@ public class ClimberSubsystem extends SubsystemBase {
      */
     public void balanceRobot(double amount) {
         if(Config.isClimberInstalled) {
-            primaryBalancerMotor.set(ControlMode.MotionMagic, amount);
-            secondaryBalancerMotor.follow(primaryBalancerMotor);
+            primaryClimberMotor.set(ControlMode.MotionMagic, amount);
+            secondaryClimberMotor.follow(primaryClimberMotor);
         }
     }
 

@@ -144,9 +144,6 @@ public class RobotContainer
                 .whileHeld(new RunCommand(() -> drive.setLeftRight(ControlMode.PercentOutput, 0.2, 0.2), drive)
                         .beforeStarting(() -> System.out.println("before start B")));
 
-        new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
-                .whileHeld(new RunCommand(() -> new FireManual(shooter, OI.OperatorController)));
-
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new RunCommand(() -> new SelectReadyToShootToDriving(intake, indexer, shooter, arm)));
 

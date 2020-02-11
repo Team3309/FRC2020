@@ -27,8 +27,8 @@ public class ManualArmAdjustment extends CommandBase {
 
     @Override
     public void execute() {
-        //normally Select commands handle the PowerCellHandler MegaSubsystem, but because this is a default command we have to check
-        //here instead.
+        //normally Select commands handle the PowerCellHandler MegaSubsystem, but because this is a default command we
+        //have to check here instead.
         if(RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                 RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.MULTI_SHOT ||
                 RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SINGLE_SHOT) {

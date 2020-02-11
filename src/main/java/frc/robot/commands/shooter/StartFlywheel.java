@@ -17,4 +17,7 @@ public class StartFlywheel extends CommandBase {
     public void execute() {
         shooter.runFlywheelsAtPresetSpeeds();
     }
+    public boolean isFinished() {
+        return shooter.isFlywheelToSpeed();
+    }
 }

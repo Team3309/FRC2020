@@ -122,6 +122,11 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer IndexerMotorID;
     public static Integer IndexerPdpChannel;
+    public static Double IndexerP;
+    public static Double IndexerI;
+    public static Integer IndexerIntegralZone;
+    public static Double IndexerD;
+    public static Double IndexerF;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//
@@ -133,10 +138,9 @@ public class Config {
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer ArmMotorId;
-    public static Integer ArmMotorPdpChannel;
     public static Integer ArmHalifaxLimitSwitchId;
     public static Integer ArmTopLimitSwitchId;
-
+    public static Integer ArmMotorPdpChannel;
     public static Integer ArmPositionMaxValue;
     public static Integer ArmPositionLongRangeValue;
     public static Integer ArmPositionMidRangeValue;
@@ -145,6 +149,13 @@ public class Config {
     public static Integer ArmPositionMinValue;
     public static Integer ArmPositionHalifaxTopValue;
     public static Integer ArmPositionIntakeStowedLimitValue;
+
+    public static Double ArmP;
+    public static Double ArmI;
+    public static Double ArmD;
+
+
+
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//

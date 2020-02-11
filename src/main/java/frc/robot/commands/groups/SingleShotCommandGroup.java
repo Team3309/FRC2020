@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.intake.Retract;
 import frc.robot.commands.indexer.LoadBall;
-import frc.robot.commands.shooter.PrepareToFire;
+import frc.robot.commands.shooter.StartFlywheel;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -15,9 +15,9 @@ public class SingleShotCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new UpdateState(RobotContainer.PowerCellHandlingState.SINGLE_SHOT),
                 new Retract(intake),
-                new PrepareToFire(shooter),
+                new StartFlywheel(shooter),
                 new LoadBall(indexer),
-                new UpdateState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT)
+                new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
         );
 
     }
