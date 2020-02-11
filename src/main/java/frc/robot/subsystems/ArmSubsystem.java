@@ -149,7 +149,7 @@ public class ArmSubsystem extends SubsystemBase {
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0);
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
-                        this.MoveToPosition(calibrationStoredPosition);
+                        this.moveToPosition(calibrationStoredPosition);
 
                     }
                 }
@@ -178,7 +178,7 @@ public class ArmSubsystem extends SubsystemBase {
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0);
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
-                        this.MoveToPosition(calibrationStoredPosition);
+                        this.moveToPosition(calibrationStoredPosition);
                     }
                 }
             }
@@ -198,7 +198,7 @@ public class ArmSubsystem extends SubsystemBase {
      * @param position - The Arm position to which the arm will move.
      *
      */
-    public void MoveToPosition(ArmPosition position) {
+    public void moveToPosition(ArmPosition position) {
         if (Config.isArmInstalled) {
             if (calibrated) {
                 if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||

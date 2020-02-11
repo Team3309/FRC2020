@@ -55,7 +55,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @param value - how much the motor is to turn.
      *
      -----------------------------------------------------------------------------------------------------------------*/
-    public void Rotate (ControlMode mode, double value) {
+    public void rotate(ControlMode mode, double value) {
         if (Config.isCtrlPanelInstalled) {
             ctrlPanelMotor.set(mode, value);
         }
@@ -90,20 +90,20 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     /**
      * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
      * */
-    public void Engage() {
+    public void engage() {
     }
 
     /**
      * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
      * */
-    public void Disengage() {
+    public void disengage() {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Raises the control panel turner for correct positioning above the control panel.
      *
      -----------------------------------------------------------------------------------------------------------------*/
-    public void RaiseTurner() {
+    public void raiseTurner() {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      * @return PanelColor.[color] - the color to which the robot must turn the control panel.
      -----------------------------------------------------------------------------------------------------------------*/
-    public PanelColor GetFMSColor() {
+    public PanelColor getFMSColor() {
         String gameData;
         gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0)
@@ -140,7 +140,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      * @return Whether the FMS color is currently available.
      -----------------------------------------------------------------------------------------------------------------*/
-    public boolean IsFMSColorAvailable() {
+    public boolean isFMSColorAvailable() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         return gameData.length() > 0;
     }
@@ -149,7 +149,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Extends the control panel turner forward.
      *
      -----------------------------------------------------------------------------------------------------------------*/
-    public void DeployTurner() {
+    public void deployTurner() {
         if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             retractorPiston.set(true);
         }
@@ -159,7 +159,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Retracts the control panel turner back.
      *
      -----------------------------------------------------------------------------------------------------------------*/
-    public void RetractTurner() {
+    public void retractTurner() {
         if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             retractorPiston.set(false);
         }

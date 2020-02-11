@@ -32,11 +32,11 @@ public class PrepareToFire extends CommandBase {
         double bottomMotorDesired = Config.shooterStandardVelocity;
         isDone = false;
 
-        if (Shooter.GetTopMotorVelocity() < topMotorDesired && Shooter.GetBottomMotorVelocity() < bottomMotorDesired
+        if (Shooter.getTopMotorVelocity() < topMotorDesired && Shooter.getBottomMotorVelocity() < bottomMotorDesired
                 && !isDone) {
-                Shooter.SetPowerRaw(topMotorDesired, bottomMotorDesired);
-        } else if (Shooter.GetTopMotorVelocity() == topMotorDesired &&
-                Shooter.GetBottomMotorVelocity() == bottomMotorDesired) {
+                Shooter.setPowerRaw(topMotorDesired, bottomMotorDesired);
+        } else if (Shooter.getTopMotorVelocity() == topMotorDesired &&
+                Shooter.getBottomMotorVelocity() == bottomMotorDesired) {
             isDone = true;
             end();
         } else {

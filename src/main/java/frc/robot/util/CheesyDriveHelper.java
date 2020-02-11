@@ -101,7 +101,7 @@ public class CheesyDriveHelper {
             if (Math.abs(linearPower) < kQuickStopDeadband) {
                 double alpha = kQuickStopWeight;
                 mQuickStopAccumlator = (1 - alpha) * mQuickStopAccumlator
-                        + alpha * Util3309.Limit(wheel, 1.0) * kQuickStopScalar;
+                        + alpha * Util3309.limit(wheel, 1.0) * kQuickStopScalar;
             }
             overPower = 1.0;
             angularPower = wheel;

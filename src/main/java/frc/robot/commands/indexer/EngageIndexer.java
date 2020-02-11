@@ -13,7 +13,7 @@ public class EngageIndexer extends CommandBase {
 
     @Override
     public void execute() {
-        indexer.Load();
+        indexer.load();
     }
 
     @Override

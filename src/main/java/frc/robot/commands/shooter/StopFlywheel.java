@@ -17,7 +17,7 @@ public class StopFlywheel extends CommandBase {
     }
     @Override
     public void execute() {
-        shooter.StopFlywheels();
+        shooter.stopFlywheels();
     }
 
     @Override

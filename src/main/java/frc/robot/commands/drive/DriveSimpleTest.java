@@ -31,7 +31,7 @@ public class DriveSimpleTest extends CommandBase {
 
     @Override
     public void execute() {
-        Drive.SetLeftRight(ControlMode.PercentOutput, Speed, Speed);
+        Drive.setLeftRight(ControlMode.PercentOutput, Speed, Speed);
     }
 
     @Override

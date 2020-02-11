@@ -23,7 +23,7 @@ public class RaiseArm extends CommandBase {
 
     @Override
     public void execute() {
-        Arm.MoveArmManually(Controller.getY(GenericHID.Hand.kRight));
+        Arm.adjustArm(Controller.getY(GenericHID.Hand.kRight));
 
     }
 

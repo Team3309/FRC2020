@@ -46,7 +46,7 @@ public class IndexerSubsystem extends SubsystemBase {
      * @return Whether or not the indexer is full.
      *
      */
-    public boolean IsFull() {return false;}
+    public boolean isFull() {return false;}
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Finds out whether the power cell containment area is completely empty of items based on similar electrical
@@ -55,14 +55,14 @@ public class IndexerSubsystem extends SubsystemBase {
      * @return Whether or not the indexer is completely empty.
      *
      */
-    public boolean IsEmpty() {return false;}
+    public boolean isEmpty() {return false;}
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Loads a power cell forward into the shooter. The shooter should ideally have spun up its motors to desired
      * flywheel speeds.
      *
      */
-    public void Load() {
+    public void load() {
         if (Config.isIndexerInstalled) {
             int newPosition = 0;  // TODO set this based on current position + desired movement
             indexerMotor.set(ControlMode.MotionMagic, newPosition);
@@ -74,9 +74,9 @@ public class IndexerSubsystem extends SubsystemBase {
      * as the shooter.
      *
      */
-    public void Eject() {}
+    public void eject() {}
 
-    public void StopIndexer() {
+    public void stopIndexer() {
         if (Config.isIndexerInstalled) {
             indexerMotor.set(ControlMode.PercentOutput, 0.0);
         }
