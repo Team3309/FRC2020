@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
@@ -101,6 +103,7 @@ public class RobotContainer
     private void setDefaultCommands() {
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
+            arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
         }
     }
 
@@ -159,13 +162,9 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectScan(intake, indexer, shooter)
                 ));
-/*
-        new JoystickButton(OI.OperatorController, XboxController.Axis.kRightX.value)
-                .whenPressed(new RunCommand(() -> new SelectManualArmAdjustment(intake, indexer, shooter, arm, OI.OperatorController)
-        ));
-*/
 
-/*
+
+
         new POVButton(OI.OperatorController, 0)
                 .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
                 ));
@@ -182,7 +181,7 @@ public class RobotContainer
         new POVButton(OI.OperatorController, 270, OI.OperatorController.getPOV())
                 .whenPressed(new RunCommand(() -> new SelectIntakeToTrench(intake, indexer, shooter, arm)
                 ));
-*/
+
     }
 
 
