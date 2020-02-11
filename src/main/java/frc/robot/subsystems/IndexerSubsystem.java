@@ -18,7 +18,7 @@ import static frc.robot.Config.isIndexerInstalled;
  * there are. It involves both the internal belt of the power cell containment area and the arm of the shooter.
  * Will work with power cell intake and shooter to determine how many power cells there are atany given moment.
  *
- ---------------------------------------------------------------------------------------------------------------------*/
+ */
 
 public class IndexerSubsystem extends SubsystemBase {
 
@@ -45,7 +45,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      * @return Whether or not the indexer is full.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     */
     public boolean IsFull() {return false;}
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -54,14 +54,14 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      * @return Whether or not the indexer is completely empty.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     */
     public boolean IsEmpty() {return false;}
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Loads a power cell forward into the shooter. The shooter should ideally have spun up its motors to desired
      * flywheel speeds.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     */
     public void Load() {
         if (Config.isIndexerInstalled) {
             int newPosition = 0;  // TODO set this based on current position + desired movement
@@ -73,7 +73,7 @@ public class IndexerSubsystem extends SubsystemBase {
      * Ejects a power cell from the indexer using the shooter. Will not need the same level of speed for the flywheels
      * as the shooter.
      *
-     -----------------------------------------------------------------------------------------------------------------*/
+     */
     public void Eject() {}
 
     public void StopIndexer() {
@@ -83,7 +83,7 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Sends motor data to SmartDashboard
+     * Sends motor data to SmartDashboard.
      */
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);

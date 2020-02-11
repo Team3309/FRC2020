@@ -161,6 +161,16 @@ public class Config {
     public static Integer ArmPositionHalifaxTopValue;
     public static Integer ArmPositionIntakeStowedLimitValue;
 
+    //
+    //Climber Constants//
+    //
+
+    public static Integer ClimbMotorOneId;
+    public static Integer ClimbMotorTwoId;
+    public static Integer ClimberDeploySolenoidId;
+    public static Integer HookDeploySolenoidId;
+    public static Integer BuddyClimbDeploySolenoidId;
+
     private static void frameSpecificConfig() {
 
         // Values specific to each physical robot
