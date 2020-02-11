@@ -75,11 +75,11 @@ public class RobotContainerTest
                 .whileHeld(new StartEndCommand(
                         () -> {
                             intake.intake();
-                            shooter.SetPowerRaw(maxShooterIntakeSpeed, maxShooterIntakeSpeed);
+                            shooter.setPowerRaw(maxShooterIntakeSpeed, maxShooterIntakeSpeed);
                         },
                         () -> {
                             intake.stop();
-                            shooter.SetPowerRaw(0,0);
+                            shooter.setPowerRaw(0,0);
                         },
                         intake, shooter
                 ));
@@ -90,12 +90,12 @@ public class RobotContainerTest
                         () ->
                         {
                             intake.outtake();
-                            shooter.SetPowerRaw(-maxShooterIntakeSpeed, -maxShooterIntakeSpeed);
+                            shooter.setPowerRaw(-maxShooterIntakeSpeed, -maxShooterIntakeSpeed);
                         },
                         () ->
                         {
                             intake.stop();
-                            shooter.SetPowerRaw(0,0);
+                            shooter.setPowerRaw(0,0);
                         },
                         intake, shooter
                 ));

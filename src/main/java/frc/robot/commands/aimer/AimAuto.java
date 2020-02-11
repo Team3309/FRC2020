@@ -34,7 +34,7 @@ public class AimAuto extends CommandBase {
             turn = turnPID.calculate(Vision.limelight.GetTx(), 0);
         } */
 
-        Drive.SetLeftRight(ControlMode.PercentOutput, -turn, turn);
+        Drive.setLeftRight(ControlMode.PercentOutput, -turn, turn);
 
     }
 

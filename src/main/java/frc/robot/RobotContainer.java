@@ -138,7 +138,7 @@ public class RobotContainer
                 .whileHeld(new DriveSimpleTest(0.1, drive));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whileHeld(new RunCommand(() -> drive.SetLeftRight(ControlMode.PercentOutput, 0.2, 0.2), drive)
+                .whileHeld(new RunCommand(() -> drive.setLeftRight(ControlMode.PercentOutput, 0.2, 0.2), drive)
                         .beforeStarting(() -> System.out.println("before start B")));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)

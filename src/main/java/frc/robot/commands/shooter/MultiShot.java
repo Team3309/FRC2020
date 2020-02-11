@@ -19,7 +19,7 @@ public class MultiShot extends CommandBase {
     @Override
     public void execute() {
         if (shooter.isFlywheelToSpeed()) {
-            indexer.Load();
+            indexer.load();
         } else {
             //wait
         }

@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -82,7 +81,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The number of encoder counts away from the position at configuration.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public double GetLeftEncoderPosition() {
+    public double getLeftEncoderPosition() {
         if (Config.isDriveInstalled) {
             return driveMasterLeft.getSelectedSensorPosition(0);
         }
@@ -95,7 +94,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The number of encoder counts away from the position at configuration.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public double GetRightEncoderPosition() {
+    public double getRightEncoderPosition() {
         if (Config.isDriveInstalled) {
             return -driveMasterRight.getSelectedSensorPosition(0);
         }
@@ -108,7 +107,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The current velocity of the motor.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public double GetLeftEncoderVelocity() {
+    public double getLeftEncoderVelocity() {
         if (Config.isDriveInstalled) {
             return driveMasterLeft.getSelectedSensorVelocity(0);
         }
@@ -121,7 +120,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The current velocity of the motor.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public double GetRightEncoderVelocity() {
+    public double getRightEncoderVelocity() {
         if (Config.isDriveInstalled) {
             return -driveMasterRight.getSelectedSensorVelocity(0);
         }
@@ -135,7 +134,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The encoder velocity in encoder counts.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public double DegreesPerSecToEncoderVelocity(double degreesPerSecond) {
+    public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Config.EncoderCountsPerDegree;
     }
 
@@ -147,7 +146,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param right - The value to which the right motor will be set.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public void SetLeftRight(ControlMode mode, double left, double right) {
+    public void setLeftRight(ControlMode mode, double left, double right) {
         if (Config.isDriveInstalled) {
             driveMasterLeft.set(mode, left);
             driveMasterRight.set(mode, -right);
@@ -161,15 +160,15 @@ public class DriveSubsystem extends SubsystemBase {
      * @param signal - The DriveSignal object which will serve to provide the left and right motor values.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public void SetLeftRight(ControlMode mode, DriveSignal signal) {
-        SetLeftRight(mode, signal.GetLeft(), signal.GetRight());
+    public void setLeftRight(ControlMode mode, DriveSignal signal) {
+        setLeftRight(mode, signal.GetLeft(), signal.GetRight());
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
      * Clears all drive encoder and PID data from before the method was called.
      *
      \----------------------------------------------------------------------------------------------------------------*/
-    public void Reset() {
+    public void reset() {
         if (Config.isDriveInstalled) {
             driveMasterRight.clearMotionProfileTrajectories();
             driveMasterLeft.clearMotionProfileTrajectories();
@@ -184,10 +183,10 @@ public class DriveSubsystem extends SubsystemBase {
     public void outputToDashboard() {
         SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
         SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());
-        SmartDashboard.putNumber("Drive left position", GetLeftEncoderPosition());
-        SmartDashboard.putNumber("Drive right position", GetRightEncoderPosition());
-        SmartDashboard.putNumber("Drive left velocity", GetLeftEncoderVelocity());
-        SmartDashboard.putNumber("Drive right velocity", GetRightEncoderVelocity());
+        SmartDashboard.putNumber("Drive left position", getLeftEncoderPosition());
+        SmartDashboard.putNumber("Drive right position", getRightEncoderPosition());
+        SmartDashboard.putNumber("Drive left velocity", getLeftEncoderVelocity());
+        SmartDashboard.putNumber("Drive right velocity", getRightEncoderVelocity());
         SmartDashboard.putNumber("Drive left 1 current", Robot.pdp.getCurrent(Config.DriveLeftMasterPdpChannel));
         SmartDashboard.putNumber("Drive left 2 current", Robot.pdp.getCurrent(Config.DriveLeftSlavePdpChannel));
         SmartDashboard.putNumber("Drive right 1 current", Robot.pdp.getCurrent(Config.DriveRightMasterPdpChannel));

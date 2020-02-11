@@ -35,7 +35,7 @@ public class DriveManual extends CommandBase
         double turn = RightStick.getX();  // positive getX() is to the right
         boolean quickTurn = RightStick.getTrigger();
 
-        Drive.SetLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickTurn, false));
+        Drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickTurn, false));
     }
 
     public void end() { }
