@@ -1,6 +1,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,6 +42,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+
+        // Check if we need to disable the compressor
+        if (Config.isPcmInstalled && !Config.isCompressorEnabled) {
+            Compressor compressor = new Compressor();
+            compressor.stop();
+        }
 
         if (Config.isTestMode) {
             containerTest = new RobotContainerTest();

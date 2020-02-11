@@ -70,7 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Activates intake piston to extend the intake forward.
      */
     public void extend() {
-        if (Config.isIntakeInstalled) {
+        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
             solenoid.set(true);
         }
     }
@@ -80,7 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Deactivates the intake piston to retract the intake back.
      */
     public void retract() {
-        if (Config.isIntakeInstalled) {
+        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
             solenoid.set(false);
         }
     }

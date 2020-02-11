@@ -32,6 +32,8 @@ public class Config {
     public static Boolean isIntakeInstalled;
     public static Boolean isShooterInstalled;
     public static Boolean isVisionInstalled;
+    public static Boolean isPcmInstalled;
+    public static Boolean isCompressorEnabled;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
@@ -175,6 +177,8 @@ public class Config {
                 isIntakeInstalled = true;
                 isShooterInstalled = false;
                 isVisionInstalled = false;
+                isPcmInstalled = false;
+                isCompressorEnabled = false;
 
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;
@@ -207,6 +211,8 @@ public class Config {
                 isIntakeInstalled = false;
                 isShooterInstalled = false;
                 isVisionInstalled = false;
+                isPcmInstalled = true;
+                isCompressorEnabled = true;
 
                 DriveLeftMasterID = 6;
                 DriveLeftSlaveID = 8;

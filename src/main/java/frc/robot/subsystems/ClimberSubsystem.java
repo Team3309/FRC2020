@@ -34,21 +34,27 @@ public class ClimberSubsystem extends SubsystemBase {
      * Activates the piston for the climber.
      */
     public void deployClimber() {
-        if(Config.isClimberInstalled) climberDeploy.set(true);
+        if (Config.isClimberInstalled && Config.isPcmInstalled) {
+            climberDeploy.set(true);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Activates the piston for the climber hook.
      */
     public void deployHook() {
-        if(Config.isClimberInstalled) hookDeploy.set(true);
+        if (Config.isClimberInstalled && Config.isPcmInstalled) {
+            hookDeploy.set(true);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Activates the piston for the buddy climb mechanism.
      */
     public void deployBuddyClimb() {
-        if(Config.isClimberInstalled) buddyClimbDeploy.set(true);
+        if (Config.isClimberInstalled && Config.isPcmInstalled) {
+            buddyClimbDeploy.set(true);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------

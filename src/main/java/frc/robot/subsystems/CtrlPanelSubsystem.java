@@ -150,7 +150,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void DeployTurner() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             retractorPiston.set(true);
         }
     }
@@ -160,7 +160,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void RetractTurner() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             retractorPiston.set(false);
         }
     }
