@@ -144,6 +144,9 @@ public class Config {
     public static Integer ArmHalifaxLimitSwitchId;
     public static Integer ArmTopLimitSwitchId;
 
+    public static Integer ArmPositionMaxValue;
+
+
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming Constants//
@@ -152,6 +155,13 @@ public class Config {
     public static Double AimingI;
     public static Double AimingD;
     public static Double AimingF;
+    public static Integer ArmPositionLongRangeValue;
+    public static Integer ArmPositionMidRangeValue;
+    public static Integer ArmPositionCloseRangeValue;
+    public static Integer ArmPositionTrenchValue;
+    public static Integer ArmPositionMinValue;
+    public static Integer ArmPositionHalifaxTopValue;
+    public static Integer ArmPositionIntakeStowedLimitValue;
 
     //
     //Climber Constants//

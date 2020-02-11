@@ -41,15 +41,15 @@ public class ArmSubsystem extends SubsystemBase {
 
     //TODO Find actual values for this part
     public enum ArmPosition {
-        max(0),
-        longRange(0),
-        midRange(0),
-        closeRange(0),
-        trench(0),
-        min(0),
-        halifaxTop(0), //this is the highest position that the halifax switch will be engaged at.
+        max(Config.ArmPositionMaxValue),
+        longRange(Config.ArmPositionLongRangeValue),
+        midRange(Config.ArmPositionMidRangeValue),
+        closeRange(Config.ArmPositionCloseRangeValue),
+        trench(Config.ArmPositionTrenchValue),
+        min(Config.ArmPositionMinValue),
+        halifaxTop(Config.ArmPositionHalifaxTopValue), //this is the highest position that the halifax switch will be engaged at.
         intermediate(0),
-        intakeStowedMinimum(0);
+        intakeStowedLimit(Config.ArmPositionIntakeStowedLimitValue);
         int value;
 
         ArmPosition(int value) {
@@ -64,15 +64,9 @@ public class ArmSubsystem extends SubsystemBase {
         initialCalibration = true;
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.ArmMotorId);
-            //if the counterweight is not installed we should just start in brake mode.
-            //if the counterweight is installed, we want to set to coast mode so the operators can move the arm to align
-            //with the halifax switch while setting up on the field.
+            //for now, just initialize to armMotor
             //TODO couldn't we just set the arm position before we get on the field using the halifax switch's static positioning
-            if (Config.isArmCounterweightInstalled) {
-                armMotor.setNeutralMode(NeutralMode.Coast);
-            } else {
-                armMotor.setNeutralMode(NeutralMode.Brake);
-            }
+            armMotor.setNeutralMode(NeutralMode.Brake);
             initialEncoderCount = armMotor.getSelectedSensorPosition(0);
             try {
                 //we try to enable, in case there is no halifax currently installed.
@@ -96,9 +90,16 @@ public class ArmSubsystem extends SubsystemBase {
             //So we use speed control.
             //TODO: alternatively, maybe use position control so they can make adjustments before the arm gets to its position in case they know the adjustments to make before hand.
             if (calibrated) {
-                //if speed is very small just stop the motor.
-                armMotor.set(ControlMode.MotionMagic, desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
-                desiredPosition += axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
+                //so we don't attempt to crash the arm
+                if (desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT > armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) &&
+                        desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT < armPositionToEncoderPosition(ArmPosition.max)) {
+                    //DO NOT USE MOTION MAGIC. This is a small adjustment.
+                    desiredPosition += axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
+                    armMotor.set(ControlMode.Position, desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
+                }
+
+
+
             } else {
                 calibrate();
             }
@@ -201,21 +202,10 @@ public class ArmSubsystem extends SubsystemBase {
     public void moveToPosition(ArmPosition position) {
         if (Config.isArmInstalled) {
             if (calibrated) {
-                if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) {
-                    //we can't have the arm go too high in trench drive for any reason. we check for this
-                    //in theory currently this particular code block will never execute as of writing, but
-                    //future-proofing the arm is important.
-                    if (position.value < ArmPosition.trench.value && position.value > ArmPosition.intakeStowedMinimum.value) {
-                        desiredPosition = armPositionToEncoderPosition(position);
-                        armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
 
-                        //TODO finish arm state checks so we don't crash
-                    }
-                } else {
-                    desiredPosition = armPositionToEncoderPosition(position);
-                    armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
-                }
+                desiredPosition = armPositionToEncoderPosition(position);
+                armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
+
             } else {
                 calibrationStoredPosition = position;
                 calibrate();
