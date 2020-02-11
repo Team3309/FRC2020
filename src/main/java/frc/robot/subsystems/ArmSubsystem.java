@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.RobotContainer;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -17,7 +18,6 @@ public class ArmSubsystem extends SubsystemBase {
     private boolean initialCalibration; //we can't intialize certain states during the constructor because we really want to initialize them on first enable instead
     private boolean halifaxCalibrate; //aka "quick calibrate" mode.
     private boolean calibrated; //whether or not the arm encoder is finised calibrating
-    private boolean adjusting; //determines whether or not the arm is doing small adjustments. I feel like at this point we need a state machine just for the arm? - Tim Kavner
     private int initialEncoderCount; //the encoder count at time of calibration finalization.
     private int desiredCalibrationPosition;
     private ArmPosition calibrationStoredPosition;
@@ -48,8 +48,8 @@ public class ArmSubsystem extends SubsystemBase {
         trench(0),
         min(0),
         halifaxTop(0), //this is the highest position that the halifax switch will be engaged at.
-        intermediate(0);
-
+        intermediate(0),
+        intakeStowedMinimum(0);
         int value;
 
         ArmPosition(int value) {
@@ -86,21 +86,10 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     /**
-     * ---------------------------------------------------------------------------------------------------------------\
-     * Moves arm to a specific angle
-     *
-     * @param position - By how many encoder counts the arm should move.
-     *
-     */
-    public void MoveArmManually(double position) {
-
-    }
-
-    /**
      * Adjust the arm in small amounts using speed control.
-     * @param speed a number between 0 and 1, generally describing the tilt of the joystick / trigger that is moving the trigger
+     * @param axisTilt a number between 0 and 1, generally describing the tilt of the joystick / trigger that is moving the trigger
      */
-    public void adjustArm(double speed) {
+    public void adjustArm(double axisTilt) {
         if (Config.isArmInstalled) {
             //motion magic / position control doesn't work as well for fine tuning by the operator, who might want
             //to change by as much as just a couple encoder ticks, repeatedly and in quick succession.
@@ -108,8 +97,8 @@ public class ArmSubsystem extends SubsystemBase {
             //TODO: alternatively, maybe use position control so they can make adjustments before the arm gets to its position in case they know the adjustments to make before hand.
             if (calibrated) {
                 //if speed is very small just stop the motor.
-                armMotor.set(ControlMode.MotionMagic, desiredPosition + speed * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
-                desiredPosition += speed * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
+                armMotor.set(ControlMode.MotionMagic, desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
+                desiredPosition += axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT;
             } else {
                 calibrate();
             }
@@ -117,10 +106,11 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
 
-    /**
+    /**----------------------------------------------------------------------------------------------------------------
      * Checks if the arm is in position. Also attempts to calibrate the arm if the arm is not calibrated yet.
-     * We attempt to calibrate from here because it is the job of the subsystem and it is a command that
-     * commands will repeatedly call as a finish condition for arm movement commands.
+     * We attempt to calibrate from here because it is the job of the subsystem and it is a method that
+     * commands will repeatedly call as a finish condition for arm movement commands, allowing the subsystem
+     * to check that calibration is complete.
      *
      * @return if the arm has reached its destination
      */
@@ -132,7 +122,7 @@ public class ArmSubsystem extends SubsystemBase {
         return !Config.isArmInstalled || (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_POSITION);
     }
 
-    /**
+    /**----------------------------------------------------------------------------------------------------------------
      * Calibration method for the position of the arm motor encoder, this should take priority over moving to an arm position.
      */
     private void calibrate() {
@@ -211,8 +201,21 @@ public class ArmSubsystem extends SubsystemBase {
     public void MoveToPosition(ArmPosition position) {
         if (Config.isArmInstalled) {
             if (calibrated) {
-                desiredPosition = armPositionToEncoderPosition(position);
-                armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
+                if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) {
+                    //we can't have the arm go too high in trench drive for any reason. we check for this
+                    //in theory currently this particular code block will never execute as of writing, but
+                    //future-proofing the arm is important.
+                    if (position.value < ArmPosition.trench.value && position.value > ArmPosition.intakeStowedMinimum.value) {
+                        desiredPosition = armPositionToEncoderPosition(position);
+                        armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
+
+                        //TODO finish arm state checks so we don't crash
+                    }
+                } else {
+                    desiredPosition = armPositionToEncoderPosition(position);
+                    armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
+                }
             } else {
                 calibrationStoredPosition = position;
                 calibrate();
