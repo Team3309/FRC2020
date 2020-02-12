@@ -147,11 +147,14 @@ public class ArmSubsystem extends SubsystemBase {
      * @return if the arm has reached its destination
      */
     public boolean isInPosition() {
+        if (!Config.isArmInstalled) {
+            return true;
+        }
         if (!calibrated) {
             calibrate();
             return false;
         }
-        return !Config.isArmInstalled || (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION);
+        return (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION);
     }
 
     /**----------------------------------------------------------------------------------------------------------------

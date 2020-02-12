@@ -87,8 +87,8 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean isSolenoidSwappingStates() {
-        return !Config.isIntakeInstalled ||
-                !Config.isPcmInstalled ||
+        if (!Config.isIntakeInstalled || !Config.isPcmInstalled) return false;
+        return
                 timer.get() - solenoidStateExtendSwapTime >
                         (isSolenoidExtended ? Config.IntakePistonExtendDelayMilliseconds : Config.IntakePistonRetractDelayMilliseconds);
     }

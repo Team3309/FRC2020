@@ -170,7 +170,7 @@ public class RobotContainer
                 );
 
         //D South / Down
-        new POVButton(OI.OperatorController, 270, OI.OperatorController.getPOV())
+        new POVButton(OI.OperatorController, 270)
                 .whenPressed(new SelectIntakeToTrench(intake, indexer, shooter, arm)
                 );
 
@@ -197,6 +197,7 @@ public class RobotContainer
      * Send debug values to SmartDashboard
      */
     public void outputToDashboard() {
+        SmartDashboard.putString("PC Handling State", state.name());
         if (SmartDashboard.getBoolean(armDashboardKey, false) && Config.isArmInstalled) {
             arm.outputToDashboard();
         }
