@@ -18,7 +18,7 @@ public class Config {
      *
      */
 
-    public static final boolean isTestMode = true;  // activate use of RobotContainerTest
+    public static final boolean isTestMode = false;  // activate use of RobotContainerTest
 
     //------------------------------------------------------------------------------------------------------------------
     //Hardware Availability//
@@ -156,14 +156,14 @@ public class Config {
     public static Integer armHallEffectLimitSwitchId;
     public static Integer armTopLimitSwitchId;
     public static Integer ArmMotorPdpChannel;
-    public static Integer ArmPositionMaxValue;
-    public static Integer ArmPositionLongRangeValue;
-    public static Integer ArmPositionMidRangeValue;
-    public static Integer ArmPositionCloseRangeValue;
-    public static Integer ArmPositionTrenchValue;
-    public static Integer ArmPositionMinValue;
-    public static Integer ArmPositionHallEffectTopValue;
-    public static Integer ArmPositionIntakeStowedLimitValue;
+    public static Integer ArmPositionMaxValue = 0;
+    public static Integer ArmPositionLongRangeValue = 0;
+    public static Integer ArmPositionMidRangeValue = 0;
+    public static Integer ArmPositionCloseRangeValue = 0;
+    public static Integer ArmPositionTrenchValue = 0;
+    public static Integer ArmPositionMinValue = 0;
+    public static Integer ArmPositionHallEffectTopValue = 0;
+    public static Integer ArmPositionIntakeStowedLimitValue = 0;
 
     public static Double armP;
     public static Double armI;
@@ -196,7 +196,7 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
-                isArmInstalled = false;
+                isArmInstalled = false;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
@@ -239,7 +239,7 @@ public class Config {
                 break;
 
             case Practice2017:
-                isArmInstalled = false;
+                isArmInstalled = false;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;

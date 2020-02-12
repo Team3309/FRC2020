@@ -16,7 +16,8 @@ public class SelectToIntake extends SelectCommand {
     public SelectToIntake(IntakeSubsystem intake, IndexerSubsystem indexer,
                           ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if ((RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
+            if ((RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE)
             ) {
