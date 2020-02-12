@@ -73,7 +73,7 @@ public class Config {
     public static Integer IntakeMotorID;
     public static Integer IntakeMotorPdpChannel;
     public static Integer IntakeSolenoidChannel;
-    public static final double intakeInwardPower = 0.3;
+    public static final double intakeInwardPower = 0.6;
     public static final double intakeOutwardPower = -0.3;
 
     //------------------------------------------------------------------------------------------------------------------
