@@ -127,8 +127,8 @@ public class Config {
     public static Double shooterVelocityF;
     public static Double shooterStandardVelocity;
     public static Double shooterStandardTimeout;
-    public static double shooterIntakePowerTopMotor;
-    public static double shooterIntakePowerBottomMotor;
+    public static final double shooterIntakePowerTopMotor = .4;
+    public static final double shooterIntakePowerBottomMotor = .4;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
