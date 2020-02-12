@@ -25,6 +25,6 @@ public class ExtendIntake extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return !intake.isSolenoidSwappingStates();
     }
 }
