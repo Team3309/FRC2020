@@ -55,7 +55,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public void intake() {
 
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
-            intakeMotor.set(ControlMode.Velocity, Config.IntakeInwardSpeed);
+            setPowerRaw(Config.intakeInwardPower);
         }
     }
 
@@ -64,7 +64,10 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for outtaking a power cell.
      */
     public void outtake() {
-        setPowerRaw(-Config.intakeOutwardPower);
+        if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
+            setPowerRaw(-Config.intakeOutwardPower);
+        }
+
     }
 
 
