@@ -16,7 +16,7 @@ public class ArmSubsystem extends SubsystemBase {
     //------------------------------------------------------------------------------------------------------------------
 
     private boolean initialCalibration; //we can't initialize certain states during the constructor because we really want to initialize them on first enable instead
-    private boolean halifaxCalibrate; //aka "quick calibrate" mode.
+    private boolean hallEffectCalibrate; //aka "quick calibrate" mode.
     private boolean calibrated; //whether or not the arm encoder is finished calibrating
     private int initialEncoderCount; //the encoder count at time of calibration finalization.
     private int desiredCalibrationPosition;
@@ -34,7 +34,7 @@ public class ArmSubsystem extends SubsystemBase {
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
 
     private DigitalInput topLimitSwitch;
-    private DigitalInput halifaxLimitSwitch;
+    private DigitalInput hallEffectLimitSwitch;
 
     private WPI_TalonFX armMotor;
 
@@ -46,7 +46,7 @@ public class ArmSubsystem extends SubsystemBase {
         closeRange(Config.ArmPositionCloseRangeValue),
         trench(Config.ArmPositionTrenchValue),
         min(Config.ArmPositionMinValue),
-        halifaxTop(Config.ArmPositionHalifaxTopValue), //this is the highest position that the halifax switch will be engaged at.
+        hallEffectTop(Config.ArmPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
         intermediate(0),
         intakeStowedLimit(Config.ArmPositionIntakeStowedLimitValue);
         int value;
@@ -66,12 +66,12 @@ public class ArmSubsystem extends SubsystemBase {
             configTalon(armMotor);
             initialEncoderCount = armMotor.getSelectedSensorPosition(0);
             try {
-                //we try to enable, in case there is no halifax currently installed.
-                halifaxLimitSwitch = new DigitalInput(Config.ArmHalifaxLimitSwitchId);
+                //we try to enable, in case there is no hall effect currently installed.
+                hallEffectLimitSwitch = new DigitalInput(Config.armHallEffectLimitSwitchId);
             } catch (Exception e) {
-                DriverStation.reportWarning("ArmSubsystem: Halifax Limit Switch not found!", false);
+                DriverStation.reportWarning("ArmSubsystem: Hall Effect Limit Switch not found!", false);
             }
-            topLimitSwitch = new DigitalInput(Config.ArmTopLimitSwitchId);
+            topLimitSwitch = new DigitalInput(Config.armTopLimitSwitchId);
 
         }
     }
@@ -84,9 +84,9 @@ public class ArmSubsystem extends SubsystemBase {
         talon.setNeutralMode(NeutralMode.Brake);
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
-        talon.config_kP(0, Config.ArmP);
-        talon.config_kI(0, Config.ArmI);
-        talon.config_kD(0, Config.ArmD);
+        talon.config_kP(0, Config.armP);
+        talon.config_kI(0, Config.armI);
+        talon.config_kD(0, Config.armD);
 
         //Motion Magic constants
         talon.configMotionCruiseVelocity(300000);
@@ -156,20 +156,20 @@ public class ArmSubsystem extends SubsystemBase {
             if(initialCalibration) {
                 initialCalibration = false;
                 armMotor.setNeutralMode(NeutralMode.Brake);
-                //in case the halifax is not installed, just use the top limit switch.
+                //in case the hall effect is not installed, just use the top limit switch.
                 //we check for switch engagement and not counterweight installation in case of slippage during coast or brake mode.
-                //if there was slippage we want to not use the halifax calibration
-                if (halifaxLimitSwitch != null) {
-                    halifaxCalibrate = halifaxLimitSwitch.get();
+                //if there was slippage we want to not use the hall effect calibration
+                if (hallEffectLimitSwitch != null) {
+                    hallEffectCalibrate = hallEffectLimitSwitch.get();
                 } else {
-                    halifaxCalibrate = false;
+                    hallEffectCalibrate = false;
                 }
                 desiredCalibrationPosition = armMotor.getSelectedSensorPosition(0) + CALIBRATION_MOTION_INCREMENT;
                 armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
 
             }
-            if (halifaxCalibrate) {
-                if (!halifaxLimitSwitch.get()) {
+            if (hallEffectCalibrate) {
+                if (!hallEffectLimitSwitch.get()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0);
                     calibrated = true;
@@ -180,23 +180,23 @@ public class ArmSubsystem extends SubsystemBase {
                 }
 
             } else {
-                //an optimization. This assumes that the halifax limit switch is engaged at a range of encoder positions, and not just one encoder position.
-                //this optimization should still work on just one encoder position engaging the halifax switch, but has a very low likelihood of working.
-                if (halifaxLimitSwitch != null) {
-                    //in the case we have a halifax limit switch but no engagement at initialization, and obtain
-                    //engagement in the middle of calibration (ie the arm slipped down and outside halifax range),
-                    //we can swap to halifax initialization
+                //an optimization. This assumes that the hall effect limit switch is engaged at a range of encoder positions, and not just one encoder position.
+                //this optimization should still work on just one encoder position engaging the hall effect switch, but has a very low likelihood of working.
+                if (hallEffectLimitSwitch != null) {
+                    //in the case we have a hall effect limit switch but no engagement at initialization, and obtain
+                    //engagement in the middle of calibration (ie the arm slipped down and outside hall effect range),
+                    //we can swap to hall effect initialization
                     //this is guaranteed to result in a faster calibration of the encoder than going all the way to the top
-                    if (halifaxLimitSwitch.get()) {
-                        //in this case we have triggered the lower threshold of the halifax limit switch
-                        //switch to halifax calibration
-                        halifaxCalibrate = true;
-                        return; //we can immediately return because the halifax switch will need at least another cycle to complete.
+                    if (hallEffectLimitSwitch.get()) {
+                        //in this case we have triggered the lower threshold of the hall effect limit switch
+                        //switch to hall effect calibration
+                        hallEffectCalibrate = true;
+                        return; //we can immediately return because the hall effect switch will need at least another cycle to complete.
                         //Although in theory we can record this position (assuming we know what it translates to in an arm position (READ: Extra tuning and work))
                         //We'd have to redo a large portion of the code to note three calibration final states to do so.
                     }
                 }
-                //of course if there is no halifax limit switch or the counterweight is not installed or the arm slipped up,
+                //of course if there is no hall effect limit switch or the counterweight is not installed or the arm slipped up,
                 //we need to just go to the top limit switch and start from there.
                 if (topLimitSwitch.get()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
@@ -243,7 +243,7 @@ public class ArmSubsystem extends SubsystemBase {
      * @return The encoder position to feed to a motor
      */
     private int armPositionToEncoderPosition(ArmPosition position) {
-        return position.value + initialEncoderCount - (halifaxCalibrate ? ArmPosition.halifaxTop.value : ArmPosition.max.value);
+        return position.value + initialEncoderCount - (hallEffectCalibrate ? ArmPosition.hallEffectTop.value : ArmPosition.max.value);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

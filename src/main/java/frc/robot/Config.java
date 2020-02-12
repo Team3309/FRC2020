@@ -138,8 +138,8 @@ public class Config {
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer ArmMotorId;
-    public static Integer ArmHalifaxLimitSwitchId;
-    public static Integer ArmTopLimitSwitchId;
+    public static Integer armHallEffectLimitSwitchId;
+    public static Integer armTopLimitSwitchId;
     public static Integer ArmMotorPdpChannel;
     public static Integer ArmPositionMaxValue;
     public static Integer ArmPositionLongRangeValue;
@@ -147,12 +147,12 @@ public class Config {
     public static Integer ArmPositionCloseRangeValue;
     public static Integer ArmPositionTrenchValue;
     public static Integer ArmPositionMinValue;
-    public static Integer ArmPositionHalifaxTopValue;
+    public static Integer ArmPositionHallEffectTopValue;
     public static Integer ArmPositionIntakeStowedLimitValue;
 
-    public static Double ArmP;
-    public static Double ArmI;
-    public static Double ArmD;
+    public static Double armP;
+    public static Double armI;
+    public static Double armD;
 
 
 

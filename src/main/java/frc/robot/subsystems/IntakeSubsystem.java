@@ -14,7 +14,7 @@ import frc.robot.Config;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
-    private TalonSRX intakeMotor;
+    private WPI_TalonSRX intakeMotor;
     private Solenoid solenoid;
 
 
