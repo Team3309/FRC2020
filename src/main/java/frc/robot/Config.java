@@ -74,7 +74,9 @@ public class Config {
     public static Integer IntakeMotorPdpChannel;
     public static Integer IntakeSolenoidChannel;
 
-    public static Integer IntakePistonDelayTimer;
+    public static Double IntakePistonExtendDelayMilliseconds;
+    public static Double IntakePistonRetractDelayMilliseconds;
+
 
     public static double IntakeMotorVelocityP;
     public static double IntakeMotorVelocityI;
@@ -83,7 +85,7 @@ public class Config {
     public static Double IntakeInwardSpeed;
 
     public static final double intakeInwardPower = 0.6;
-    public static final double intakeOutwardPower = -0.3;
+    public static final double intakeOutwardPower = 0.3;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
@@ -125,6 +127,8 @@ public class Config {
     public static Double shooterVelocityF;
     public static Double shooterStandardVelocity;
     public static Double shooterStandardTimeout;
+    public static double shooterIntakePowerTopMotor;
+    public static double shooterIntakePowerBottomMotor;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//

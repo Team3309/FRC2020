@@ -17,14 +17,14 @@ public class RetractIntake extends CommandBase {
 
     @Override
     public void initialize() {
-
+        if (arm.isArmAboveIntakeMinimum()) {
+            intake.retract();
+        }
     }
 
     @Override
     public void execute() {
-        if (arm.isArmAboveIntakeMinimum()) {
-            intake.retract();
-        }
+
     }
 
     @Override

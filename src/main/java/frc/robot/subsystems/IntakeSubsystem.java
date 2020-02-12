@@ -2,10 +2,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -15,16 +14,22 @@ import frc.robot.Config;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
+    private Timer timer;
     private WPI_TalonSRX intakeMotor;
     private Solenoid solenoid;
-    private long solenoidStateSwapTimer;
+    private double solenoidStateExtendSwapTime;
+    private boolean isSolenoidExtended;
 
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
      */
     public IntakeSubsystem() {
+
         if (Config.isIntakeInstalled) {
+
+            timer = new Timer();
+            timer.start();
             intakeMotor = new WPI_TalonSRX(Config.IntakeMotorID);
             intakeMotor.configFactoryDefault();
             intakeMotor.config_kP(0, Config.IntakeMotorVelocityP, 0);
@@ -39,23 +44,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Set power to the motors
-     * @param power -1 to 1
-     */
-    private void setPowerRaw(double power) {
-        if (Config.isIntakeInstalled) {
-            intakeMotor.set(ControlMode.PercentOutput, power);
-        }
-    }
-
-
-    /** ----------------------------------------------------------------------------------------------------------------
      * Spins the intake wheels for intaking a power cell.
      */
     public void intake() {
 
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
-            setPowerRaw(Config.intakeInwardPower);
+            intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
     }
 
@@ -65,7 +59,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public void outtake() {
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
-            setPowerRaw(-Config.intakeOutwardPower);
+            intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
 
     }
@@ -87,12 +81,13 @@ public class IntakeSubsystem extends SubsystemBase {
     public void extend() {
         if (Config.isIntakeInstalled && Config.isPcmInstalled && !isSolenoidSwappingStates()) {
             solenoid.set(true);
-            solenoidStateSwapTimer = System.currentTimeMillis();
+            solenoidStateExtendSwapTime = timer.get();
+            isSolenoidExtended = true;
         }
     }
 
     public boolean isSolenoidSwappingStates() {
-        return System.currentTimeMillis() - solenoidStateSwapTimer > Config.IntakePistonDelayTimer;
+        return timer.get() - solenoidStateExtendSwapTime > (isSolenoidExtended ? Config.IntakePistonExtendDelayMilliseconds : Config.IntakePistonRetractDelayMilliseconds);
     }
 
 
@@ -102,7 +97,8 @@ public class IntakeSubsystem extends SubsystemBase {
     public void retract() {
         if (Config.isIntakeInstalled && Config.isPcmInstalled && !isSolenoidSwappingStates()) {
             solenoid.set(false);
-            solenoidStateSwapTimer = System.currentTimeMillis();
+            solenoidStateExtendSwapTime = timer.get();
+            isSolenoidExtended = false;
         }
     }
 

@@ -15,12 +15,12 @@ public class ExtendIntake extends CommandBase {
 
     @Override
     public void initialize() {
-
+        intake.extend();
     }
 
     @Override
     public void execute() {
-        intake.extend();
+
     }
 
     @Override

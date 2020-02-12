@@ -7,7 +7,7 @@ import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.intake.StartIntakeMotor;
 import frc.robot.commands.intake.ExtendIntake;
 import frc.robot.commands.intake.StopIntake;
-import frc.robot.commands.indexer.EngageIndexer;
+import frc.robot.commands.indexer.EnableIndexer;
 import frc.robot.commands.indexer.StopIndexer;
 import frc.robot.commands.shooter.SetFlywheelSpeed;
 import frc.robot.commands.shooter.StartFlywheel;
@@ -34,7 +34,7 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new ExtendIntake(intake),
                 new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm),
                 new StartIntakeMotor(intake),
-                new EngageIndexer(indexer),
+                new EnableIndexer(indexer),
                 new SetFlywheelSpeed(shooter, -1, -1 ),
                 new StartFlywheel(shooter),
                 new UpdateState(RobotContainer.PowerCellHandlingState.INTAKE)

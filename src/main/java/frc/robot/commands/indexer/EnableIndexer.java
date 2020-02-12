@@ -3,11 +3,11 @@ package frc.robot.commands.indexer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexerSubsystem;
 
-public class EngageIndexer extends CommandBase {
+public class EnableIndexer extends CommandBase {
     private final IndexerSubsystem indexer;
 
 
-    public EngageIndexer(IndexerSubsystem indexer) {
+    public EnableIndexer(IndexerSubsystem indexer) {
         this.indexer = indexer;
         addRequirements(indexer);
     }
