@@ -54,9 +54,9 @@ public class RotateToColor extends CommandBase {
             Done = true;
         } else {
             if (Direction == rotationDirection.clockwise) {
-                Manipulator.rotate(ControlMode.PercentOutput, Config.TurnerRotationPower);
+                //Manipulator.rotate(ControlMode.PercentOutput, Config.TurnerRotationPower);
             } else {
-                Manipulator.rotate(ControlMode.PercentOutput, -Config.TurnerRotationPower);
+                //Manipulator.rotate(ControlMode.PercentOutput, -Config.TurnerRotationPower);
             }
         }
     }

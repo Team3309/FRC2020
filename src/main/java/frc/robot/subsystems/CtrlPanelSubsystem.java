@@ -25,9 +25,9 @@ import frc.robot.util.PanelColor;
 public class CtrlPanelSubsystem extends SubsystemBase {
 
     public enum turnerState {
-        nothing,
-        turningToRotations,
-        turningToColor
+        deployedSpinning,
+        deployedStopped,
+        stowed
     }
 
     private RobotContainer robotContainer;
@@ -49,17 +49,27 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
+    private boolean hasColor () {
+        return getColor() == PanelColor.unknown;
+    }
+
+    private boolean deployed () {
+        return retractorPiston.get();
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
-     * Activates the control panel motor for turning the control panel. Numerical sign for each direction will be
-     * decided later.
-     *
-     * @param mode - the ControlMode in which the motor is to operate.
-     * @param value - how much the motor is to turn.
      *
      -----------------------------------------------------------------------------------------------------------------*/
-    public void rotate(ControlMode mode, double value) {
-        if (Config.isCtrlPanelInstalled) {
-            ctrlPanelMotor.set(mode, value);
+    public void spin() {
+        if (deployed()) {
+            if (hasColor()) {
+                if (isFMSColorAvailable()) {
+
+                }
+                else {
+
+                }
+            }
         }
     }
 
@@ -92,13 +102,15 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     /**
      * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
      * */
-    public void engage() {
+    public void deploy() {
+        retractorPiston.set(true);
     }
 
     /**
      * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
      * */
-    public void disengage() {
+    public void retract() {
+        retractorPiston.set(false);
     }
 
     /**-----------------------------------------------------------------------------------------------------------------

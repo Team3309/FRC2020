@@ -1,8 +1,15 @@
 package frc.robot.commands.ctrlpanelturner;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.CtrlPanelSubsystem;
 
-public class RotatePanel extends CommandBase {
+public class Rotate extends CommandBase {
+
+    CtrlPanelSubsystem manipulator;
+
+    public Rotate (CtrlPanelSubsystem manipulator) {
+        this.manipulator = manipulator;
+    }
 
     @Override
     public void initialize() {
@@ -11,7 +18,7 @@ public class RotatePanel extends CommandBase {
 
     @Override
     public void execute() {
-
+        manipulator.spin();
     }
 
     public void end() {
@@ -20,6 +27,6 @@ public class RotatePanel extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

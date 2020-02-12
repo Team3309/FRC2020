@@ -2,10 +2,15 @@ package frc.robot.commands.ctrlpanelturner;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.CtrlPanelSubsystem;
 
 public class DeployTurner extends CommandBase {
 
-    public Solenoid turnerDeployPiston;
+    CtrlPanelSubsystem manipulator;
+
+    public DeployTurner (CtrlPanelSubsystem manipulator) {
+        this.manipulator = manipulator;
+    }
 
     @Override
     public void initialize() {
@@ -14,8 +19,7 @@ public class DeployTurner extends CommandBase {
 
     @Override
     public void execute() {
-        return;
-
+        manipulator.deploy();
     }
 
     public void end() {
