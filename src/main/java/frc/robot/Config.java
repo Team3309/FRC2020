@@ -127,6 +127,7 @@ public class Config {
     public static Integer IndexerIntegralZone;
     public static Double IndexerD;
     public static Double IndexerF;
+    public static Double StandardIndexerMotionInEncoderCounts;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//

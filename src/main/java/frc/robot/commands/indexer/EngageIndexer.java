@@ -13,7 +13,9 @@ public class EngageIndexer extends CommandBase {
 
     @Override
     public void execute() {
-        indexer.load();
+
+
+        indexer.indexerOut();
     }
 
     @Override
