@@ -1,8 +1,5 @@
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,14 +7,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.DoNothing;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.groups.ToDriveCommandGroup;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
-import frc.robot.commands.drive.DriveSimpleTest;
-import frc.robot.commands.shooter.FireManual;
 import frc.robot.subsystems.*;
 
 /** --------------------------------------------------------------------------------------------------------------------
@@ -146,11 +139,6 @@ public class RobotContainer
                 .whenPressed(new RunCommand(() -> new SelectIntakeToOuttake(intake)))
                 .whenReleased(new RunCommand(() -> new SelectOuttakeToIntake(intake)));
 
-        //TODO why is / was this here?
-        new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whileHeld(new RunCommand(() -> new DoNothing())
-                        .beforeStarting(() -> System.out.println("before start B")));
-
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new RunCommand(() -> new SelectReadyToShootToDriving(intake, indexer, shooter, arm)));
 
@@ -160,7 +148,7 @@ public class RobotContainer
 
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
-                .whenPressed(new RunCommand(() -> new SelectIntakeToggle(intake, indexer, shooter, arm)
+                .whenPressed(new RunCommand(() -> new SelectToIntake(intake, indexer, shooter, arm)
                 ))
                 .whenReleased(new RunCommand(() -> new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm)
                 ));

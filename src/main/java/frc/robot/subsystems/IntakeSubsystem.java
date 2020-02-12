@@ -79,7 +79,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Activates intake piston to extend the intake forward.
      */
     public void extend() {
-        if (Config.isIntakeInstalled && Config.isPcmInstalled && !isSolenoidSwappingStates()) {
+        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
             solenoid.set(true);
             solenoidStateExtendSwapTime = timer.get();
             isSolenoidExtended = true;
@@ -87,7 +87,10 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean isSolenoidSwappingStates() {
-        return timer.get() - solenoidStateExtendSwapTime > (isSolenoidExtended ? Config.IntakePistonExtendDelayMilliseconds : Config.IntakePistonRetractDelayMilliseconds);
+        return !Config.isIntakeInstalled ||
+                !Config.isPcmInstalled ||
+                timer.get() - solenoidStateExtendSwapTime >
+                        (isSolenoidExtended ? Config.IntakePistonExtendDelayMilliseconds : Config.IntakePistonRetractDelayMilliseconds);
     }
 
 
@@ -95,7 +98,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Deactivates the intake piston to retract the intake back.
      */
     public void retract() {
-        if (Config.isIntakeInstalled && Config.isPcmInstalled && !isSolenoidSwappingStates()) {
+        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
             solenoid.set(false);
             solenoidStateExtendSwapTime = timer.get();
             isSolenoidExtended = false;

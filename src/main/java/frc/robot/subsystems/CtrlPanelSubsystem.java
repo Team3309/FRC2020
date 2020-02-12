@@ -61,13 +61,15 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public void spin() {
-        if (deployed()) {
-            if (hasColor()) {
-                if (isFMSColorAvailable()) {
+        if (Config.isCtrlPanelInstalled) {
+            if (deployed()) {
+                if (hasColor()) {
+                    if (isFMSColorAvailable()) {
 
-                }
-                else {
+                    }
+                    else {
 
+                    }
                 }
             }
         }
@@ -81,20 +83,24 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getColor () {
-        Color color = colorSensor.getColor();
-        if (color.equals(Color.kRed)) {
-            return PanelColor.red;
-        }
-        else if (color.equals(Color.kYellow)) {
-            return PanelColor.yellow;
-        }
-        else if (color.equals(Color.kGreen)) {
-            return PanelColor.green;
-        }
-        else if (color.equals(Color.kCyan)) {
-            return PanelColor.cyan;
-        }
-        else {
+        if (Config.isCtrlPanelInstalled) {
+            Color color = colorSensor.getColor();
+            if (color.equals(Color.kRed)) {
+                return PanelColor.red;
+            }
+            else if (color.equals(Color.kYellow)) {
+                return PanelColor.yellow;
+            }
+            else if (color.equals(Color.kGreen)) {
+                return PanelColor.green;
+            }
+            else if (color.equals(Color.kCyan)) {
+                return PanelColor.cyan;
+            }
+            else {
+                return PanelColor.unknown;
+            }
+        } else {
             return PanelColor.unknown;
         }
     }
@@ -103,14 +109,19 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
      * */
     public void deploy() {
-        retractorPiston.set(true);
+
+        if(Config.isCtrlPanelInstalled) {
+            retractorPiston.set(true);
+        }
     }
 
     /**
      * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
      * */
     public void retract() {
-        retractorPiston.set(false);
+        if(Config.isCtrlPanelInstalled) {
+            retractorPiston.set(false);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -126,26 +137,30 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @return PanelColor.[color] - the color to which the robot must turn the control panel.
      -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getFMSColor() {
-        String gameData;
-        gameData = DriverStation.getInstance().getGameSpecificMessage();
-        if(gameData.length() > 0)
-        {
-            switch (gameData.charAt(0))
-            {
-                case 'B' :
-                    return PanelColor.cyan;
-                case 'G' :
-                    return PanelColor.green;
-                case 'R' :
-                    return PanelColor.red;
-                case 'Y' :
-                    return PanelColor.yellow;
-                default :
-                    DriverStation.reportError("Corrupt FMS Value!", true);
-                    return PanelColor.unknown;
-            }
+        if (Config.isCtrlPanelInstalled) {
+            return PanelColor.unknown;
         } else {
-            return PanelColor.noValue;
+            String gameData;
+            gameData = DriverStation.getInstance().getGameSpecificMessage();
+            if(gameData.length() > 0)
+            {
+                switch (gameData.charAt(0))
+                {
+                    case 'B' :
+                        return PanelColor.cyan;
+                    case 'G' :
+                        return PanelColor.green;
+                    case 'R' :
+                        return PanelColor.red;
+                    case 'Y' :
+                        return PanelColor.yellow;
+                    default :
+                        DriverStation.reportError("Corrupt FMS Value!", true);
+                        return PanelColor.unknown;
+                }
+            } else {
+                return PanelColor.noValue;
+            }
         }
     }
 

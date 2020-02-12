@@ -11,19 +11,17 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectIntakeToggle extends SelectCommand {
+public class SelectToIntake extends SelectCommand {
 
-    public SelectIntakeToggle(IntakeSubsystem intake, IndexerSubsystem indexer,
-                              ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectToIntake(IntakeSubsystem intake, IndexerSubsystem indexer,
+                          ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if ((RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE)
             ) {
                 return new ToIntakeCommandGroup(intake, indexer, shooter, arm); //aka command group 1 (See Slack for details)
-            } else if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
-                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm); //aka command group 2 (See Slack for details)
-            } else {
+            }  else {
                 //do nothing
                 return new DoNothing();
             }
