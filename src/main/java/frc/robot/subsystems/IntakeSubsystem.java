@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -16,6 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     private WPI_TalonSRX intakeMotor;
     private Solenoid solenoid;
+    private long solenoidStateSwapTimer;
 
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -25,6 +27,10 @@ public class IntakeSubsystem extends SubsystemBase {
         if (Config.isIntakeInstalled) {
             intakeMotor = new WPI_TalonSRX(Config.IntakeMotorID);
             intakeMotor.configFactoryDefault();
+            intakeMotor.config_kP(0, Config.IntakeMotorVelocityP, 0);
+            intakeMotor.config_kI(0, Config.IntakeMotorVelocityI, 0);
+            intakeMotor.config_kD(0, Config.IntakeMotorVelocityD, 0);
+            intakeMotor.setNeutralMode(NeutralMode.Coast);
             if (Config.isPcmInstalled) {
                 solenoid = new Solenoid(Config.IntakeSolenoidChannel);
             }
@@ -47,7 +53,10 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      */
     public void intake() {
-        setPowerRaw(Config.intakeInwardPower);
+
+        if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
+            intakeMotor.set(ControlMode.Velocity, Config.IntakeInwardSpeed);
+        }
     }
 
 
@@ -73,9 +82,14 @@ public class IntakeSubsystem extends SubsystemBase {
      * Activates intake piston to extend the intake forward.
      */
     public void extend() {
-        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
+        if (Config.isIntakeInstalled && Config.isPcmInstalled && !isSolenoidSwappingStates()) {
             solenoid.set(true);
+            solenoidStateSwapTimer = System.currentTimeMillis();
         }
+    }
+
+    public boolean isSolenoidSwappingStates() {
+        return System.currentTimeMillis() - solenoidStateSwapTimer > Config.IntakePistonDelayTimer;
     }
 
 
@@ -83,8 +97,9 @@ public class IntakeSubsystem extends SubsystemBase {
      * Deactivates the intake piston to retract the intake back.
      */
     public void retract() {
-        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
+        if (Config.isIntakeInstalled && Config.isPcmInstalled && !isSolenoidSwappingStates()) {
             solenoid.set(false);
+            solenoidStateSwapTimer = System.currentTimeMillis();
         }
     }
 

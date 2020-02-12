@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
+import frc.robot.commands.groups.ToDriveCommandGroup;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DriveSimpleTest;
@@ -47,7 +48,7 @@ public class RobotContainer
      */
     public enum PowerCellHandlingState {
         ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
-        INITIALIZE_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
+        INIT_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
         INIT_READY_TO_SHOOT
     }
 
@@ -138,7 +139,8 @@ public class RobotContainer
         // Testing
         // should these be saved and stored in a variable? -Tim Kavner
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whileHeld(new DriveSimpleTest(0.1, drive));
+                .whenPressed(new RunCommand(() -> new SelectIntakeToOuttake(intake)))
+                .whenReleased(new RunCommand(() -> new SelectOuttakeToIntake(intake)));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                 .whileHeld(new RunCommand(() -> drive.setLeftRight(ControlMode.PercentOutput, 0.2, 0.2), drive)
@@ -148,12 +150,14 @@ public class RobotContainer
                 .whenPressed(new RunCommand(() -> new SelectReadyToShootToDriving(intake, indexer, shooter, arm)));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter)
+                .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter, arm)
                 ));
 
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
                 .whenPressed(new RunCommand(() -> new SelectIntakeToggle(intake, indexer, shooter, arm)
+                ))
+                .whenReleased(new RunCommand(() -> new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm)
                 ));
 
         new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)

@@ -73,6 +73,15 @@ public class Config {
     public static Integer IntakeMotorID;
     public static Integer IntakeMotorPdpChannel;
     public static Integer IntakeSolenoidChannel;
+
+    public static Integer IntakePistonDelayTimer;
+
+    public static double IntakeMotorVelocityP;
+    public static double IntakeMotorVelocityI;
+    public static double IntakeMotorVelocityD;
+
+    public static Double IntakeInwardSpeed;
+
     public static final double intakeInwardPower = 0.6;
     public static final double intakeOutwardPower = -0.3;
 

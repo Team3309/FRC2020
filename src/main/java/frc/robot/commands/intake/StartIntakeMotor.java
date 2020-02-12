@@ -3,25 +3,20 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class Retract extends CommandBase {
+public class StartIntakeMotor extends CommandBase {
+    private final IntakeSubsystem intake;
 
-    private IntakeSubsystem intake;
+    public StartIntakeMotor(IntakeSubsystem intake) {
 
-    public Retract (IntakeSubsystem intake) {
         this.intake = intake;
-
         addRequirements(intake);
     }
 
     @Override
-    public void initialize() {
-
-    }
-
-    @Override
     public void execute() {
-        intake.retract();
+        intake.intake();
     }
+
 
     @Override
     public boolean isFinished() {

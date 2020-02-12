@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.StopIndexer;
-import frc.robot.commands.intake.Retract;
+import frc.robot.commands.intake.RetractIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.SetFlywheelSpeed;
 import frc.robot.commands.shooter.StopFlywheel;
@@ -17,13 +17,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
     public ToReadyToShootCommandGroup(ArmSubsystem.ArmPosition position, double speedTop, double speedBottom, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
-                new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT),
+                new UpdateState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
                 new StopFlywheel(shooter),
                 new StopIndexer(indexer),
                 new StopIntake(intake),
                 new MoveArmToPosition(position, arm),
-                new Retract(intake),
-                new SetFlywheelSpeed(shooter, speedTop, speedBottom)
+                new RetractIntake(intake, arm),
+                new SetFlywheelSpeed(shooter, speedTop, speedBottom),
+                new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
         );
     }
 }

@@ -38,6 +38,10 @@ public class ArmSubsystem extends SubsystemBase {
 
     private WPI_TalonFX armMotor;
 
+    public boolean isArmAboveIntakeMinimum() {
+        return armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) - armMotor.getSelectedSensorPosition(0) > 0;
+    }
+
 
     public enum ArmPosition {
         max(Config.ArmPositionMaxValue),
