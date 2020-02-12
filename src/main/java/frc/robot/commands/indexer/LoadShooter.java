@@ -6,10 +6,10 @@ import frc.robot.subsystems.IndexerSubsystem;
 
 public class LoadShooter extends CommandBase {
 
-    private IndexerSubsystem Indexer;
+    private IndexerSubsystem indexer;
 
     public LoadShooter(IndexerSubsystem indexer) {
-        Indexer = indexer;
+        this.indexer = indexer;
         addRequirements(indexer);
     }
     @Override
@@ -19,8 +19,7 @@ public class LoadShooter extends CommandBase {
 
     @Override
     public void execute() {
-
-        Indexer.indexerOut();
+        indexer.indexOut();
     }
 
     public void end() {

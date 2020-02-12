@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -18,20 +19,17 @@ import frc.robot.Config;
 public class IndexerSubsystem extends SubsystemBase {
 
     private enum IndexerState {
-        OFF(0),
-        INDEXING(1),
-        EJECTING(2);
-
-
-        private int value;
-
-        IndexerState(int value) {this.value = value;}
+        OFF,
+        INDEXING,
+        EJECTING
     }
 
     private IndexerState indexerState = IndexerState.OFF;
     private WPI_TalonSRX PrimaryIndexerMotor;
     private WPI_TalonSRX SecondaryIndexerMotor;
     private double IndexerPosition = 0;
+    private DigitalInput Sensor;
+    private int PowerCells;
 
 
     public IndexerSubsystem() {
@@ -49,12 +47,20 @@ public class IndexerSubsystem extends SubsystemBase {
      * Programs the indexer motor to roll the belt forward. Zeroes the relative encoder position when finished.
      *
      */
-    public void indexerOut() {
+    public void indexOut() {
         if (Config.isIndexerInstalled) {
-            indexerState = IndexerState.EJECTING;
-            if (indexerState.value == 2) {
-                PrimaryIndexerMotor.set(ControlMode.Position, IndexerPosition-Config.StandardIndexerMotionInEncoderCounts);
-                IndexerPosition = 0;
+            if (!sensorBlocked()) {
+                indexerState = IndexerState.EJECTING;
+                if (indexerState == IndexerState.EJECTING) {
+                    PrimaryIndexerMotor.set(ControlMode.Position, IndexerPosition
+                            - Config.StandardIndexerMotionInEncoderCounts);
+                    SecondaryIndexerMotor.set(ControlMode.Position,
+                            Config.StandardIndexerMotionInEncoderCounts - IndexerPosition);
+                    IndexerPosition = 0;
+                    if (PowerCells > 0) {
+                        decrementIndexerCounter();
+                    }
+                }
             }
         }
     }
@@ -63,12 +69,20 @@ public class IndexerSubsystem extends SubsystemBase {
      * Programs the indexer motor to roll the belt backward. Zeroes the relative encoder position when finished.
      *
      */
-    public void indexerIn() {
+    public void indexIn() {
         if (Config.isIndexerInstalled) {
-            indexerState = IndexerState.INDEXING;
-            if (indexerState.value == 1) {
-                PrimaryIndexerMotor.set(ControlMode.Position, Config.StandardIndexerMotionInEncoderCounts-IndexerPosition);
-                IndexerPosition = 0;
+            if (sensorBlocked()) {
+                indexerState = IndexerState.INDEXING;
+                if (indexerState == IndexerState.INDEXING && PowerCells < 5) {
+                    PrimaryIndexerMotor.set(ControlMode.Position,
+                            Config.StandardIndexerMotionInEncoderCounts - IndexerPosition);
+                    SecondaryIndexerMotor.set(ControlMode.Position,
+                            IndexerPosition - Config.StandardIndexerMotionInEncoderCounts);
+                    IndexerPosition = 0;
+                    if (PowerCells < 5) {
+                        incrementIndexerCounter();
+                    }
+                }
             }
         }
     }
@@ -77,11 +91,29 @@ public class IndexerSubsystem extends SubsystemBase {
     public void stopIndexer() {
         if (Config.isIndexerInstalled) {
             indexerState = IndexerState.OFF;
-            if (indexerState.value == 0) {
+            if (indexerState == IndexerState.OFF) {
                 PrimaryIndexerMotor.set(ControlMode.PercentOutput, 0.0);
                 IndexerPosition = 0;
             }
         }
+    }
+
+    //Make method that indexes balls properly while taking in multiple power cells at once.
+
+    public boolean sensorBlocked() {
+        return !Sensor.get();
+    }
+
+    public void incrementIndexerCounter() {
+        PowerCells++;
+    }
+
+    public void decrementIndexerCounter() {
+        PowerCells--;
+    }
+
+    public int getCount() {
+        return PowerCells;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

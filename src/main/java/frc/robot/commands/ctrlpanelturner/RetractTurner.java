@@ -1,8 +1,15 @@
 package frc.robot.commands.ctrlpanelturner;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.CtrlPanelSubsystem;
 
 public class RetractTurner extends CommandBase{
+
+    CtrlPanelSubsystem manipulator;
+
+    public RetractTurner (CtrlPanelSubsystem manipulator) {
+        this.manipulator = manipulator;
+    }
 
     @Override
     public void initialize() {
@@ -11,10 +18,12 @@ public class RetractTurner extends CommandBase{
 
     @Override
     public void execute() {
-
+        manipulator.retract();
     }
 
-    public void end() {}
+    public void end() {
+
+    }
 
     @Override
     public boolean isFinished() {
