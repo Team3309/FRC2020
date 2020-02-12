@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.DoNothing;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.groups.ToDriveCommandGroup;
 import frc.robot.commands.select.*;
@@ -145,8 +146,9 @@ public class RobotContainer
                 .whenPressed(new RunCommand(() -> new SelectIntakeToOuttake(intake)))
                 .whenReleased(new RunCommand(() -> new SelectOuttakeToIntake(intake)));
 
+        //TODO why is / was this here?
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whileHeld(new RunCommand(() -> drive.setLeftRight(ControlMode.PercentOutput, 0.2, 0.2), drive)
+                .whileHeld(new RunCommand(() -> new DoNothing())
                         .beforeStarting(() -> System.out.println("before start B")));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
