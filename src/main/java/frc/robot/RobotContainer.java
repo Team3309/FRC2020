@@ -12,6 +12,7 @@ import frc.robot.commands.groups.ToDriveCommandGroup;
 import frc.robot.commands.select.*;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.subsystems.*;
+import frc.robot.util.XBoxControllerAxisButton;
 
 /** --------------------------------------------------------------------------------------------------------------------
 * A class that contains all the subsystems and commands that Robot needs. Based off of the RobotContainer
@@ -136,45 +137,42 @@ public class RobotContainer
         // Testing
         // should these be saved and stored in a variable? -Tim Kavner
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenPressed(new RunCommand(() -> new SelectIntakeToOuttake(intake)))
-                .whenReleased(new RunCommand(() -> new SelectOuttakeToIntake(intake)));
+                .whenPressed(new SelectIntakeToOuttake(intake))
+                .whenReleased(new SelectOuttakeToIntake(intake));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenPressed(new RunCommand(() -> new SelectReadyToShootToDriving(intake, indexer, shooter, arm)));
+                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new RunCommand(() -> new SelectMultishot(intake, indexer, shooter, arm)
-                ));
+                .whenPressed(new SelectMultishot(intake, indexer, shooter, arm)
+                );
 
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
+                .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
+                )
+                .whenReleased(new SelectToDrive(intake, indexer, shooter, arm)
+                );
 
-        new JoystickButton(OI.OperatorController, XboxController.Axis.kLeftTrigger.value)
-                .whenPressed(new RunCommand(() -> new SelectToIntake(intake, indexer, shooter, arm)
-                ))
-                .whenReleased(new RunCommand(() -> new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm)
-                ));
-
-        new JoystickButton(OI.OperatorController, XboxController.Axis.kRightTrigger.value)
-                .whenPressed(new RunCommand(() -> new SelectScan(intake, indexer, shooter)
-                ));
-
-
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
+                .whenPressed(new SelectScan(intake, indexer, shooter)
+                );
 
         new POVButton(OI.OperatorController, 0)
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
-                ));
+                .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
+                );
         //D North / Up
         new POVButton(OI.OperatorController, 90)
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
-                ));
+                .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
+                );
         //D West / Left
         new POVButton(OI.OperatorController, 180)
-                .whenPressed(new RunCommand(() -> new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
-                ));
+                .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
+                );
 
         //D South / Down
         new POVButton(OI.OperatorController, 270, OI.OperatorController.getPOV())
-                .whenPressed(new RunCommand(() -> new SelectIntakeToTrench(intake, indexer, shooter, arm)
-                ));
+                .whenPressed(new SelectIntakeToTrench(intake, indexer, shooter, arm)
+                );
 
     }
 

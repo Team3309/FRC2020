@@ -190,6 +190,9 @@ public class Config {
     public static Integer HookDeploySolenoidId;
     public static Integer BuddyClimbDeploySolenoidId;
 
+
+    public static final double XBoxTriggerButtonThreshold = 0.5;
+
     private static void frameSpecificConfig() {
 
         // Values specific to each physical robot
