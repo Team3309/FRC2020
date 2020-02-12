@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.intake.Retract;
-import frc.robot.commands.indexer.LoadBall;
+import frc.robot.commands.indexer.LoadShooter;
 import frc.robot.commands.shooter.StartFlywheel;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -16,7 +16,7 @@ public class SingleShotCommandGroup extends SequentialCommandGroup {
                 new UpdateState(RobotContainer.PowerCellHandlingState.SINGLE_SHOT),
                 new Retract(intake),
                 new StartFlywheel(shooter),
-                new LoadBall(indexer),
+                new LoadShooter(indexer),
                 new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
         );
 

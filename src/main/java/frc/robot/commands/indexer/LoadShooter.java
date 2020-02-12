@@ -4,11 +4,11 @@ package frc.robot.commands.indexer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexerSubsystem;
 
-public class LoadBall extends CommandBase {
+public class LoadShooter extends CommandBase {
 
     private IndexerSubsystem Indexer;
 
-    public LoadBall(IndexerSubsystem indexer) {
+    public LoadShooter(IndexerSubsystem indexer) {
         Indexer = indexer;
         addRequirements(indexer);
     }
@@ -20,7 +20,7 @@ public class LoadBall extends CommandBase {
     @Override
     public void execute() {
 
-        Indexer.load();
+        Indexer.indexerOut();
     }
 
     public void end() {
