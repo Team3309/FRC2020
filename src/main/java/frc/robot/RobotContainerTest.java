@@ -97,22 +97,6 @@ public class RobotContainerTest
                         },
                         intake, shooter
                 ));
-
-        // Button B (Outtake while held)
-        new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whileHeld( new StartEndCommand(
-                        () ->
-                        {
-                            intake.outtake();
-                            shooter.setPowerRaw(-maxShooterIntakePower, -maxShooterIntakePower);
-                        },
-                        () ->
-                        {
-                            intake.stop();
-                            shooter.stopFlywheels();
-                        },
-                        intake, shooter
-                ));
     }
 
 
