@@ -128,6 +128,7 @@ public class Config {
     public static Double IndexerD;
     public static Double IndexerF;
     public static Double StandardIndexerMotionInEncoderCounts;
+    public static Integer IndexerSensorID;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//

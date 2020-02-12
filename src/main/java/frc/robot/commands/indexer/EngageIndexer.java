@@ -6,6 +6,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 public class EngageIndexer extends CommandBase {
     private final IndexerSubsystem indexer;
 
+
     public EngageIndexer(IndexerSubsystem indexer) {
         this.indexer = indexer;
         addRequirements(indexer);
@@ -13,9 +14,7 @@ public class EngageIndexer extends CommandBase {
 
     @Override
     public void execute() {
-
-
-        indexer.indexerOut();
+        indexer.indexIn();
     }
 
     @Override

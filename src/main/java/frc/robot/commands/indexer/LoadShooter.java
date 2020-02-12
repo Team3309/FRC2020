@@ -19,8 +19,7 @@ public class LoadShooter extends CommandBase {
 
     @Override
     public void execute() {
-
-        Indexer.indexerOut();
+        Indexer.indexOut();
     }
 
     public void end() {
