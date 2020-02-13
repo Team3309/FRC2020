@@ -151,17 +151,17 @@ public class RobotContainer
                 .whenPressed(new SelectToScan(intake, indexer, shooter));
 
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, 1.0, 1.0, intake, indexer, shooter, arm)
                 );
 
         //D North / Up
         new POVButton(OI.OperatorController, 0)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, 0.7, 0.7, intake, indexer, shooter, arm)
                 );
 
         //D West / Left
         new POVButton(OI.OperatorController, 90)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, 0.5, 0.5, intake, indexer, shooter, arm)
                 );
 
         //D South / Down
