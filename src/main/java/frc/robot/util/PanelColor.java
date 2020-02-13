@@ -6,5 +6,5 @@ public enum PanelColor {
     green,
     cyan,
     noValue,
-    unknown;
+    unknown,
 }

@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.*;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -58,17 +57,46 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     *
+     * Decides either to
      -----------------------------------------------------------------------------------------------------------------*/
     public void spin() {
         if (Config.isCtrlPanelInstalled) {
             if (deployed()) {
                 if (hasColor()) {
                     if (isFMSColorAvailable()) {
+                        /*
+                         * Position control
+                         *
+                         * Tell the motor to spin until the color sensor sees the correct color.
+                         */
+                        PanelColor sensorColor = getColor();
 
+                        // Get the desired color from the FMS and change it to the corresponding color that the sensor
+                        // needs to be seeing
+                        PanelColor TargetColor = getFMSColor();
+                        switch (TargetColor) {
+                            case red :
+                                TargetColor = PanelColor.cyan;
+                                break;
+                            case yellow:
+                                TargetColor = PanelColor.green;
+                                break;
+                            case cyan :
+                                TargetColor = PanelColor.red;
+                                break;
+                            case green:
+                                TargetColor = PanelColor.yellow;
+                                break;
+                        }
+
+                        if (sensorColor == TargetColor) {
+                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
+                        } else {
+                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.TurnerRotationPower);
+                        }
                     }
                     else {
-
+                        //Rotation control
                     }
                 }
             }
