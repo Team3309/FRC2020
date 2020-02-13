@@ -8,6 +8,20 @@ import java.util.function.Supplier;
 
 import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
 
+/**
+ * FOR ANY AND ALL TIME TRAVELLERS AND PEOPLE OF THE FUTURE:
+ *
+ * THIS FILE IS A MUCH IMPROVED VERSION OF SELECTCOMMAND.java
+ *
+ * FIRST, IT DOESN'T BOG DOWN YOUR ROBORIO BY CONSTRUCTING YOUR COMMANDS OR COMMAND GROUPS REPEATEDLY
+ * VIA UNNECCESSARY CALLS TO THE SUPPLIER'S GET()
+ *
+ * SECONDLY AND MORE IMPORTANTLY, THIS FILE ACTUALLY SCHEDULES THE COMMAND OR COMMANDGROUP SELECTED
+ * BY THIS SELECT COMMAND.
+ * THIS ALLOWS YOUR SELECTCOMMAND TO NOT REQUIRE THE THINGS THAT YOUR COMMANDGROUP MIGHT
+ * SO THAT IF YOU PRESS A BUTTON ERRONEOUSLY (OUT OF STATE) YOU DO NOT INTERRUPT OTHER COMMANDGROUPS
+ * THAT SHOULD ACTUALLY BE RUNNING
+ */
 public class SelectCommand3309 extends InstantCommand {
 
     private final Supplier<Command> m_toRun;
@@ -17,6 +31,7 @@ public class SelectCommand3309 extends InstantCommand {
         m_toRun = requireNonNullParam(toRun, "toRun", "SelectCommand");
     }
 
+    @Override
     public void initialize() {
         m_selectedCommand = m_toRun.get();
     }
