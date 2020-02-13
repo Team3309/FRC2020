@@ -14,8 +14,10 @@ public class SelectToMultishot extends SelectCommand {
 
     public SelectToMultishot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {
+            System.out.println("Multishot selected");
             if (    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT) {
+                System.out.println("Multishot initiated");
                 return new MultiShotCommandGroup(shooter, indexer);
             } else {
                 return new DoNothing();

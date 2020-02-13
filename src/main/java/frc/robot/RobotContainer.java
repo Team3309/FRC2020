@@ -135,7 +135,7 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
-        new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new SelectToMultishot(indexer, shooter))
                 .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
