@@ -33,7 +33,6 @@ import frc.robot.util.XBoxControllerAxisButton;
 */
 public class RobotContainer
 {
-
     /** ----------------------------------------------------------------------------------------------------------------
      * Robot state machine state holder.
      * TODO: The name below is probably incorrect because we're not likely to have two state machines
@@ -45,14 +44,12 @@ public class RobotContainer
         RobotContainer.state = newState;
     }
 
-
     /** ----------------------------------------------------------------------------------------------------------------
      * @return Current robot state machine state
      */
     public static PowerCellHandlingState getPowerCellHandlingState() {
         return state;
     }
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * All states for the robot finite state machine
@@ -62,7 +59,6 @@ public class RobotContainer
         INIT_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
         INIT_READY_TO_SHOOT
     }
-
 
     private static PowerCellHandlingState state = PowerCellHandlingState.ARM_UP_DRIVE;
 
@@ -92,7 +88,6 @@ public class RobotContainer
     // -- Auto
     SendableChooser<Command> Chooser = new SendableChooser<>();
 
-
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
      */
@@ -100,14 +95,10 @@ public class RobotContainer
         // -- Bindings
         configureButtonBindings_Driver();
         configureButtonBindings_Operator();
-
         setDefaultCommands();
-
         setAutoOptions();
-
         displaySubsystemToggles();
     }
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Set up default commands for any subsystem that needs one
@@ -115,10 +106,11 @@ public class RobotContainer
     private void setDefaultCommands() {
         if (Config.isDriveInstalled) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
+        }
+        if (Config.isArmInstalled) {
             arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
         }
     }
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Initialize smart dashboard with toggles to show and hide subsystem outputs
@@ -134,14 +126,11 @@ public class RobotContainer
         SmartDashboard.putBoolean(visionDashboardKey, false);
     }
 
-
     /** ----------------------------------------------------------------------------------------------------------------
      * Configure the bindings for the Driver controllers (Dual flight sticks)
      */
     private void configureButtonBindings_Driver() {
-
     }
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Configure the bindings for the operator controller (Xbox Controller)
@@ -155,8 +144,6 @@ public class RobotContainer
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
-
-
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new SelectMultishot(intake, indexer, shooter, arm))
@@ -175,10 +162,12 @@ public class RobotContainer
         new POVButton(OI.OperatorController, 270)
                 .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
                 );
+
         //D North / Up
         new POVButton(OI.OperatorController, 0)
                 .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
                 );
+
         //D West / Left
         new POVButton(OI.OperatorController, 90)
                 .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
@@ -188,9 +177,7 @@ public class RobotContainer
         new POVButton(OI.OperatorController, 180)
                 .whenPressed(new SelectIntakeToTrench(intake, indexer, shooter, arm)
                 );
-
     }
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Push all the auto commands to the smart dashboard for easy choosing
@@ -199,14 +186,12 @@ public class RobotContainer
         //Chooser.addOption("Simple Auto", new SimpleAutoCommand());
     }
 
-
     /** ----------------------------------------------------------------------------------------------------------------
      * @return the command chosen by the smartdashboard to run in auto
      */
     public Command getAutonomousCommand() {
         return Chooser.getSelected();
     }
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Send debug values to SmartDashboard
@@ -239,7 +224,6 @@ public class RobotContainer
         }
     }
 
-
     /** ----------------------------------------------------------------------------------------------------------------
      * @return boolean indicating if drive values display is enabled
      * Used for DriveAuto to output additional debug information.
@@ -247,5 +231,4 @@ public class RobotContainer
     public static boolean getDriveDebug() {
         return SmartDashboard.getBoolean(driveDashboardKey, false);
     }
-
 }
