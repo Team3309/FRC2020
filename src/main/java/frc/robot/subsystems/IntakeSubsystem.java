@@ -32,9 +32,6 @@ public class IntakeSubsystem extends SubsystemBase {
             timer.start();
             intakeMotor = new WPI_TalonSRX(Config.IntakeMotorID);
             intakeMotor.configFactoryDefault();
-            intakeMotor.config_kP(0, Config.IntakeMotorVelocityP, 0);
-            intakeMotor.config_kI(0, Config.IntakeMotorVelocityI, 0);
-            intakeMotor.config_kD(0, Config.IntakeMotorVelocityD, 0);
             intakeMotor.setNeutralMode(NeutralMode.Coast);
             if (Config.isPcmInstalled) {
                 solenoid = new Solenoid(Config.IntakeSolenoidChannel);
@@ -59,7 +56,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public void outtake() {
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
-            intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
+            intakeMotor.set(ControlMode.PercentOutput, -Config.intakeOutwardPower);
         }
 
     }
@@ -88,9 +85,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public boolean isSolenoidSwappingStates() {
         if (!Config.isIntakeInstalled || !Config.isPcmInstalled) return false;
-        return
-                timer.get() - solenoidStateExtendSwapTime >
-                        (isSolenoidExtended ? Config.IntakePistonExtendDelayMilliseconds : Config.IntakePistonRetractDelayMilliseconds);
+        return timer.get() - solenoidStateExtendSwapTime >
+                (isSolenoidExtended ? Config.IntakePistonExtendDelaySeconds : Config.IntakePistonRetractDelaySeconds);
     }
 
 

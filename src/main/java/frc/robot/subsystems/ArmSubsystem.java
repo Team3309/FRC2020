@@ -47,15 +47,15 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     public enum ArmPosition {
-        max(Config.ArmPositionMaxValue),
-        longRange(Config.ArmPositionLongRangeValue),
-        midRange(Config.ArmPositionMidRangeValue),
-        closeRange(Config.ArmPositionCloseRangeValue),
-        trench(Config.ArmPositionTrenchValue),
-        min(Config.ArmPositionMinValue),
-        hallEffectTop(Config.ArmPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
+        max(Config.armPositionMaxValue),
+        longRange(Config.armPositionLongRangeValue),
+        midRange(Config.armPositionMidRangeValue),
+        closeRange(Config.armPositionCloseRangeValue),
+        trench(Config.armPositionTrenchValue),
+        min(Config.armPositionMinValue),
+        hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
         intermediate(0),
-        intakeStowedLimit(Config.ArmPositionIntakeStowedLimitValue);
+        intakeStowedLimit(Config.armPositionIntakeStowedLimitValue);
         int value;
 
         ArmPosition(int value) {
@@ -69,7 +69,7 @@ public class ArmSubsystem extends SubsystemBase {
         calibrated = false;
         initialCalibration = true;
         if (Config.isArmInstalled) {
-            armMotor = new WPI_TalonFX(Config.ArmMotorId);
+            armMotor = new WPI_TalonFX(Config.armMotorId);
             configTalon(armMotor);
             initialEncoderCount = armMotor.getSelectedSensorPosition(0);
             try {

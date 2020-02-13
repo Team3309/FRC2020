@@ -65,7 +65,6 @@ public class Config {
     public static final double DriveWheelInchesPerRevolution = DriveWheelDiameterInInches * Math.PI;
     public static final double DriveWheelEncoderCountsPerRevolution = EncoderCountsPerDegree *
             360 * DriveWheelRadiusInInches;
-    //public static final double DrivetrainWidthInInches = ?;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
@@ -74,15 +73,8 @@ public class Config {
     public static Integer IntakeMotorPdpChannel;
     public static Integer IntakeSolenoidChannel;
 
-    public static Double IntakePistonExtendDelayMilliseconds;
-    public static Double IntakePistonRetractDelayMilliseconds;
-
-
-    public static double IntakeMotorVelocityP;
-    public static double IntakeMotorVelocityI;
-    public static double IntakeMotorVelocityD;
-
-    public static Double IntakeInwardSpeed;
+    public static Double IntakePistonExtendDelaySeconds;
+    public static Double IntakePistonRetractDelaySeconds;
 
     public static final double intakeInwardPower = 0.6;
     public static final double intakeOutwardPower = 0.3;
@@ -126,10 +118,8 @@ public class Config {
     public static Integer shooterVelocityIntegralZone;
     public static Double shooterVelocityD;
     public static Double shooterVelocityF;
-    public static Double shooterStandardVelocity;
-    public static Double shooterStandardTimeout;
-    public static final double shooterIntakePowerTopMotor = .4;
-    public static final double shooterIntakePowerBottomMotor = .4;
+    public static final double shooterIntakePowerTopMotor = 0.4;
+    public static final double shooterIntakePowerBottomMotor = 0.4;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -153,25 +143,26 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Integer ArmMotorId;
+    public static Integer armMotorId;
     public static Integer armHallEffectLimitSwitchId;
     public static Integer armTopLimitSwitchId;
-    public static Integer ArmMotorPdpChannel;
-    public static Integer ArmPositionMaxValue = 0;
-    public static Integer ArmPositionLongRangeValue = 0;
-    public static Integer ArmPositionMidRangeValue = 0;
-    public static Integer ArmPositionCloseRangeValue = 0;
-    public static Integer ArmPositionTrenchValue = 0;
-    public static Integer ArmPositionMinValue = 0;
-    public static Integer ArmPositionHallEffectTopValue = 0;
-    public static Integer ArmPositionIntakeStowedLimitValue = 0;
+    public static Integer armMotorPdpChannel;
+
+    // Arm positions MUST be overridden in frameSpecificConfig() when the arm is installed!
+    // The values cannot be null when the arm isn't installed because they are used to initialize a static enum.
+    public static int armPositionMaxValue = 0;
+    public static int armPositionLongRangeValue = 0;
+    public static int armPositionMidRangeValue = 0;
+    public static int armPositionCloseRangeValue = 0;
+    public static int armPositionTrenchValue = 0;
+    public static int armPositionMinValue = 0;
+    public static int armPositionHallEffectTopValue = 0;
+    public static int armPositionIntakeStowedLimitValue = 0;
 
     public static Double armP;
     public static Double armI;
+    public static Integer armIntegralZone;
     public static Double armD;
-
-
-
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
@@ -179,7 +170,6 @@ public class Config {
     public static Double AimingP;
     public static Double AimingI;
     public static Double AimingD;
-    public static Double AimingF;
 
     //
     //Climber Constants//
@@ -268,12 +258,6 @@ public class Config {
                 driveVelocityIntegralZone = 1000;
                 driveVelocityD = 0.0;
                 driveVelocityF = 0.0;
-
-                shooterVelocityP = 0.1;
-                shooterVelocityI = 0.0;
-                shooterVelocityIntegralZone = 1000;
-                shooterVelocityD = 0.0;
-                shooterVelocityF = 0.0;
                 break;
         }
     }
