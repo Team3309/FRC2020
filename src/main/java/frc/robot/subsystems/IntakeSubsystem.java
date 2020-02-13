@@ -20,7 +20,6 @@ public class IntakeSubsystem extends SubsystemBase {
     private Solenoid solenoid;
     private double solenoidStateExtendSwapTime;
     private boolean isSolenoidExtended;
-    private String testState = "Intake"; //TODO DELETE ME
 
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -46,7 +45,6 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      */
     public void intake() {
-        testState = "Intake";
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
             intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
@@ -57,7 +55,6 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for outtaking a power cell.
      */
     public void outtake() {
-        testState = "Outtake";
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
             intakeMotor.set(ControlMode.PercentOutput, -Config.intakeOutwardPower);
         }
@@ -108,6 +105,6 @@ public class IntakeSubsystem extends SubsystemBase {
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {
-         SmartDashboard.putString("Intake State", testState);
+         //SmartDashboard.putString("Intake State", testState);
      }
 }

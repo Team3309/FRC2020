@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.TestPrintCommand;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.groups.MultiShotCommandGroup;
@@ -139,11 +138,11 @@ public class RobotContainer
                 .whenHeld(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whenPressed(new SelectToMultishot(indexer, shooter))
+                .whenHeld(new SelectToMultishot(indexer, shooter))
                 .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
-                .whenHeld(new TestPrintCommand()
+                .whenHeld(new SelectToIntake(intake, indexer, shooter, arm)
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
