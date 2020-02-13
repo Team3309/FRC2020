@@ -9,8 +9,6 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-import java.util.function.Supplier;
-
 public class SelectMultishot extends SelectCommand {
 
 

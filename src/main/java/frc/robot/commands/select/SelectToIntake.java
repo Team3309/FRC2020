@@ -1,10 +1,8 @@
 package frc.robot.commands.select;
 
 import edu.wpi.first.wpilibj2.command.SelectCommand;
-import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToDriveCommandGroup;
 import frc.robot.commands.groups.ToIntakeCommandGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;

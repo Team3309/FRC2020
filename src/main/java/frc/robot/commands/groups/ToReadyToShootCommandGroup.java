@@ -2,7 +2,6 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.StopIndexer;
