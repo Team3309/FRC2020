@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 
-public class UpdateState extends CommandBase {
+public class UpdateState extends InstantCommand {
 
     private final RobotContainer.PowerCellHandlingState savedState;
 
@@ -22,13 +22,6 @@ public class UpdateState extends CommandBase {
         RobotContainer.setPowerCellHandlingState(savedState);
     }
 
-    public void end() {
 
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
 
 }

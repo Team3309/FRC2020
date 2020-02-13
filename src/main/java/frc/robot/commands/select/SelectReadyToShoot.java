@@ -23,7 +23,7 @@ public class SelectReadyToShoot extends SelectCommand {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SCAN ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_INTAKE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_INTAKE
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE
             ) {
                 return new ToReadyToShootCommandGroup(position, speedTop, speedBottom, intake, indexer, shooter, arm);
             } else {

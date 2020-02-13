@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
@@ -143,6 +144,8 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
+
+
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new SelectMultishot(intake, indexer, shooter, arm))
                 .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
@@ -154,23 +157,23 @@ public class RobotContainer
                 );
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
-                .whenPressed(new SelectScan(intake, indexer, shooter)
-                );
+                .whenPressed(new SelectMultishot(intake, indexer, shooter, arm))
+                .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
-        new POVButton(OI.OperatorController, 0)
+        new POVButton(OI.OperatorController, 270)
                 .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
                 );
         //D North / Up
-        new POVButton(OI.OperatorController, 90)
+        new POVButton(OI.OperatorController, 0)
                 .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
                 );
         //D West / Left
-        new POVButton(OI.OperatorController, 180)
+        new POVButton(OI.OperatorController, 90)
                 .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
                 );
 
         //D South / Down
-        new POVButton(OI.OperatorController, 270)
+        new POVButton(OI.OperatorController, 180)
                 .whenPressed(new SelectIntakeToTrench(intake, indexer, shooter, arm)
                 );
 
