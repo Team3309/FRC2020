@@ -49,7 +49,7 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public void configTalon(WPI_TalonFX talon) {
 
-        talon.configFactoryDefault();;
+        talon.configFactoryDefault();
 
         talon.configClosedloopRamp(Config.shooterClosedLoopRampRate);
         talon.configOpenloopRamp(Config.shooterOpenLoopRampRate, 10);

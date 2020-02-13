@@ -21,7 +21,7 @@ public class DisplayWarnings {
     }
 
     private void warnNow() {
-        StringBuilder warnMsg = new StringBuilder("");
+        StringBuilder warnMsg = new StringBuilder();
         conditionalMsg(!Config.isCompressorEnabled, warnMsg, "Compressor");
         conditionalMsg(!Config.isPcmInstalled, warnMsg, "PCM");
         conditionalMsg(!Config.isArmInstalled, warnMsg, "Arm");
