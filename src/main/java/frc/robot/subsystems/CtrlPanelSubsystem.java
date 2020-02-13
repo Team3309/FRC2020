@@ -16,9 +16,8 @@ import frc.robot.util.PanelColor;
  * @author Joshua Badzey & Mark Ghebrial
  *
  * The class for the control panel manipulator mechanism, which will turn the control panel a desired
- * number of times, turn it to a specific color, and receive a color from the FMS. Will work with
+ * number of times, turn it to a specific color, and receive a color from the FMS. Works with
  * FMS to determine what color is needed for position control.
- *
  */
 
 public class CtrlPanelSubsystem extends SubsystemBase {
@@ -60,13 +59,18 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         return retractorPiston.get();
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Resets the class member variables used by rotation control. This method is used in DeployTurner in the initialize
+     * method.
+     -----------------------------------------------------------------------------------------------------------------*/
     public void resetRotationControlCounter () {
         slicesTurned = 0;
         lastColor = PanelColor.noValue;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Decides either to
+     * Decides either to do rotation control, position control, or nothing. Contains the logic for each. This method is
+     * called continuously in the Rotate command, which is default for this subsystem.
      -----------------------------------------------------------------------------------------------------------------*/
     public void spin() {
         if (Config.isCtrlPanelInstalled) {
@@ -104,7 +108,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                         } else {
                             ctrlPanelMotor.set(ControlMode.PercentOutput, Config.TurnerRotationPower);
                         }
-                    }
+                    } //End of position control
                     else {
                         /*
                          * Rotation Control
@@ -128,18 +132,17 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                             slicesTurned++;
                         }
                         lastColor = sensorColor;
-                    }
+                    } //End of rotation control
                 }
             }
         }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Returns the color that the color sensor is currently on. This, along with established control panel color
+     * Returns the color that the color sensor is currently sensing. This, along with established control panel color
      * sequence, will enable the robot to turn the control panel to the correct color.
      *
      * @return PanelColor.[color] - the color which the color sensor is currently on.
-     *
      -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getColor () {
         if (Config.isCtrlPanelInstalled) {
@@ -164,9 +167,9 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
-    /**
-     * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
-     * */
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Flips the manipulator up out of the trench run configuration
+     -----------------------------------------------------------------------------------------------------------------*/
     public void deploy() {
 
         if(Config.isCtrlPanelInstalled) {
@@ -174,9 +177,9 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
-    /**
-     * Let's put this method up for discussion. @JoshB doesn't know what it's doing.
-     * */
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Pulls the manipulator into the trench run configuration
+     -----------------------------------------------------------------------------------------------------------------*/
     public void retract() {
         if(Config.isCtrlPanelInstalled) {
             retractorPiston.set(false);
@@ -184,14 +187,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Raises the control panel turner for correct positioning above the control panel.
-     *
-     -----------------------------------------------------------------------------------------------------------------*/
-    public void raiseTurner() {
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Obtains via the FMS the color to which the robot must turn.
+     * Obtains via the FMS the color to which the robot must turn the control panel.
      *
      * @return PanelColor.[color] - the color to which the robot must turn the control panel.
      -----------------------------------------------------------------------------------------------------------------*/
@@ -224,33 +220,13 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Checks whether the color for position control is available via the FMS.
+     * Checks whether the color for position control is available from the FMS.
      *
      * @return Whether the FMS color is currently available.
      -----------------------------------------------------------------------------------------------------------------*/
     public boolean isFMSColorAvailable() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         return gameData.length() > 0;
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Extends the control panel turner forward.
-     *
-     -----------------------------------------------------------------------------------------------------------------*/
-    public void deployTurner() {
-        if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
-            retractorPiston.set(true);
-        }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Retracts the control panel turner back.
-     *
-     -----------------------------------------------------------------------------------------------------------------*/
-    public void retractTurner() {
-        if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
-            retractorPiston.set(false);
-        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
