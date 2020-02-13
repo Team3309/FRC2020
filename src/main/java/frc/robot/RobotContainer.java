@@ -128,8 +128,6 @@ public class RobotContainer
      * Configure the bindings for the operator controller (Xbox Controller)
      */
     private void configureButtonBindings_Operator() {
-        // Testing
-        // should these be saved and stored in a variable? -Tim Kavner
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new SelectIntakeToOuttake(intake))
                 .whenReleased(new SelectOuttakeToIntake(intake));

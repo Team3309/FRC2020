@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -19,6 +20,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private Solenoid solenoid;
     private double solenoidStateExtendSwapTime;
     private boolean isSolenoidExtended;
+    private String testState = "Intake"; //TODO DELETE ME
 
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -44,7 +46,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      */
     public void intake() {
-
+        testState = "Intake";
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
             intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
@@ -55,6 +57,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for outtaking a power cell.
      */
     public void outtake() {
+        testState = "Outtake";
         if (Config.isIntakeInstalled && !isSolenoidSwappingStates()) {
             intakeMotor.set(ControlMode.PercentOutput, -Config.intakeOutwardPower);
         }
@@ -105,6 +108,6 @@ public class IntakeSubsystem extends SubsystemBase {
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {
-         //SmartDashboard.putNumber("Key", value);
+         SmartDashboard.putString("Intake State", testState);
      }
 }
