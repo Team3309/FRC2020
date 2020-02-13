@@ -14,7 +14,7 @@ public class SelectToDrive extends SelectCommand {
         super(() -> {
             if (RobotContainer.PowerCellHandlingState.INIT_INTAKE == RobotContainer.getPowerCellHandlingState() ||
                 RobotContainer.PowerCellHandlingState.INTAKE == RobotContainer.getPowerCellHandlingState()) {
-                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intermediate, intake, indexer, shooter, arm);
+                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intakeStowedLimit, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();
             }

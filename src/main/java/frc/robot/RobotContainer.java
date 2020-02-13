@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.select.SelectIntakeToOuttake;
-import frc.robot.commands.select.SelectIntakeToTrench;
+import frc.robot.commands.select.SelectToTrench;
 import frc.robot.commands.select.SelectMultishot;
 import frc.robot.commands.select.SelectMultishotToReadyToShoot;
 import frc.robot.commands.select.SelectOuttakeToIntake;
@@ -175,7 +175,7 @@ public class RobotContainer
 
         //D South / Down
         new POVButton(OI.OperatorController, 180)
-                .whenPressed(new SelectIntakeToTrench(intake, indexer, shooter, arm)
+                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm)
                 );
     }
 

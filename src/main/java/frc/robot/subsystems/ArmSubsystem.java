@@ -54,7 +54,6 @@ public class ArmSubsystem extends SubsystemBase {
         trench(Config.armPositionTrenchValue),
         min(Config.armPositionMinValue),
         hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
-        intermediate(0),
         intakeStowedLimit(Config.armPositionIntakeStowedLimitValue);
         int value;
 
