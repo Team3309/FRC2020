@@ -292,9 +292,10 @@ public class Config {
             } else if (Arrays.equals(rioMAC, Practice2017_MAC)) {
                 currentRobot = RobotModel.Practice2017;
             } else {
-                String foundMAC = "";
-                for (int i = 0; i < rioMAC.length; i++) {
-                    foundMAC = foundMAC + String.format("0x%02X", rioMAC[i]) + " ";
+                StringBuilder foundMAC = new StringBuilder();
+                for (byte macOctet: rioMAC) {
+                    foundMAC.append(String.format("0x%02X", macOctet));
+                    foundMAC.append(" ");
                 }
                 DriverStation.reportError("Running on unknown roboRIO with MAC " + foundMAC, false);
                 System.err.println("Running on unknown roboRIO with MAC " + foundMAC);
