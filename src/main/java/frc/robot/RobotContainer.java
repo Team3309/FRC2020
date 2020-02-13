@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.TestPrintCommand;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.select.*;
@@ -141,7 +142,7 @@ public class RobotContainer
                 .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
-                .whenHeld(new PrintCommand("If you see this messag only once, Tim is a genius. If not, oh well.")
+                .whenHeld(new SelectToIntake(intake, indexer, shooter, arm)
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
