@@ -150,21 +150,22 @@ public class RobotContainer
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToScan(intake, indexer, shooter));
 
+        //D-pad Left
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, 1.0, 1.0, intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, Config.shooterLongRangeTopSpeed, Config.shooterLongRangeBottomSpeed, intake, indexer, shooter, arm)
                 );
 
-        //D North / Up
+        //D-pad Up
         new POVButton(OI.OperatorController, 0)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, 0.7, 0.7, intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, Config.shooterMidRangeTopSpeed, Config.shooterMidRangeBottomSpeed, intake, indexer, shooter, arm)
                 );
 
-        //D West / Left
+        //D-pad Right
         new POVButton(OI.OperatorController, 90)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, 0.5, 0.5, intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Config.shooterCloseRangeBottomSpeed, Config.shooterShortRangeBottomSpeed, intake, indexer, shooter, arm)
                 );
 
-        //D South / Down
+        //D-pad Down
         new POVButton(OI.OperatorController, 180)
                 .whenPressed(new SelectToTrench(intake, indexer, shooter, arm)
                 );

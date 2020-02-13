@@ -123,6 +123,14 @@ public class Config {
     public static final int shooterSpeedTolerance = 500; //Encoder counts per 100ms
 
 
+    public static final double shooterLongRangeTopSpeed = 1.0;
+    public static final double shooterLongRangeBottomSpeed = 1.0;
+    public static final double shooterMidRangeTopSpeed = 0.7;
+    public static final double shooterMidRangeBottomSpeed = 0.7;
+    public static final double shooterCloseRangeBottomSpeed = 0.5;
+    public static final double shooterShortRangeBottomSpeed = 0.5;
+
+
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------

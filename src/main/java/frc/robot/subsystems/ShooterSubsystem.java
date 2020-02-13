@@ -19,7 +19,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private Double flywheelSpeedTop;
     private Double flywheelSpeedBottom;
 
-     public boolean isFlywheelToSpeed() {
+     public boolean areFlywheelsToSpeed() {
          if (!Config.isShooterInstalled) return true;
          return (
                  Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < Config.shooterSpeedTolerance &&

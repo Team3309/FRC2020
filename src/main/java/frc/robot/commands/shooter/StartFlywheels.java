@@ -3,12 +3,12 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class StartFlywheel extends CommandBase {
+public class StartFlywheels extends CommandBase {
 
 
     private final ShooterSubsystem shooter;
 
-    public StartFlywheel(ShooterSubsystem shooter) {
+    public StartFlywheels(ShooterSubsystem shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
     }
@@ -18,6 +18,6 @@ public class StartFlywheel extends CommandBase {
         shooter.runFlywheelsAtPresetSpeeds();
     }
     public boolean isFinished() {
-        return shooter.isFlywheelToSpeed();
+        return shooter.areFlywheelsToSpeed();
     }
 }
