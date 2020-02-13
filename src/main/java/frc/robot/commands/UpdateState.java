@@ -18,6 +18,7 @@ public class UpdateState extends InstantCommand {
 
     @Override
     public void execute() {
+        System.out.println(savedState.name());
         RobotContainer.setPowerCellHandlingState(savedState);
     }
 

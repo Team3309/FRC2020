@@ -19,27 +19,9 @@ public class XBoxControllerAxisButton extends InternalButton {
 
     public boolean get() {
         if (axis == XboxController.Axis.kLeftTrigger) {
-            boolean newState = controller.getTriggerAxis(GenericHID.Hand.kLeft) >= threshold;
-            if (!(newState || previousState && !(newState && previousState))) {
-                if (previousState) {
-                    previousState = false;
-                } else {
-                    previousState = true;
-                }
-                return true;
-            }
-            return false;
+            return controller.getTriggerAxis(GenericHID.Hand.kLeft) >= threshold;
         } else if (axis == XboxController.Axis.kRightTrigger) {
-            boolean newState = controller.getTriggerAxis(GenericHID.Hand.kRight) >= threshold;
-            if (!(newState || previousState && !(newState && previousState))) {
-                if (previousState) {
-                    previousState = false;
-                } else {
-                    previousState = true;
-                }
-                return true;
-            }
-            return false;
+            return controller.getTriggerAxis(GenericHID.Hand.kRight) >= threshold;
         } else if (axis == XboxController.Axis.kLeftX) {
             return controller.getX(GenericHID.Hand.kLeft) >= threshold;
         } else if (axis == XboxController.Axis.kRightX) {
