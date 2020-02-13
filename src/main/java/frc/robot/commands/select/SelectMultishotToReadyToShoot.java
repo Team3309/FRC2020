@@ -16,9 +16,8 @@ public class SelectMultishotToReadyToShoot extends SelectCommand {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_MULTI_SHOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.MULTI_SHOT
             ) {
-                return new ToReadyToShootCommandGroup(ArmSubsystem.ArmPosition.max, Double.valueOf(0), Double.valueOf(0), intake, indexer, shooter, arm);
+                return new ToReadyToShootCommandGroup(null, null, null, intake, indexer, shooter, arm);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });

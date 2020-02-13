@@ -14,7 +14,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class MultiShotCommandGroup extends SequentialCommandGroup {
 
-    public MultiShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer, IntakeSubsystem intake, ArmSubsystem arm) {
+    public MultiShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         addCommands(
                 new UpdateState(RobotContainer.PowerCellHandlingState.INIT_MULTI_SHOT),
                 new StartFlywheel(shooter),

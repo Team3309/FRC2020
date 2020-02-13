@@ -42,7 +42,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (!Config.isArmInstalled) {
             return true;
         }
-        return armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) - armMotor.getSelectedSensorPosition(0) > 0;
+        return armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) <= armMotor.getSelectedSensorPosition(0);
     }
 
 
@@ -92,17 +92,18 @@ public class ArmSubsystem extends SubsystemBase {
 
         talon.config_kP(0, Config.armP);
         talon.config_kI(0, Config.armI);
+        talon.config_IntegralZone(0, Config.armIntegralZone);
         talon.config_kD(0, Config.armD);
 
         //Motion Magic constants
-        talon.configMotionCruiseVelocity(300000);
-        talon.configMotionAcceleration(180000);
+        talon.configMotionCruiseVelocity(Config.armCruiseVelocity);
+        talon.configMotionAcceleration(Config.armAcceleration);
 
-        talon.configPeakOutputForward(1.0);
-        talon.configPeakOutputReverse(-0.42);
+        talon.configPeakOutputForward(Config.peakOutputForward);
+        talon.configPeakOutputReverse(Config.peakOutputReverse);
 
 
-        talon.setSensorPhase(false); //inverts power to the arm if true
+        talon.setSensorPhase(false);
 
         talon.setNeutralMode(NeutralMode.Brake);
 

@@ -9,16 +9,14 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectMultishot extends SelectCommand {
+public class SelectToMultishot extends SelectCommand {
 
 
-    public SelectMultishot(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectToMultishot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {
             if (    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT) {
-                //return new MultiShotCommandGroup();
-                return new MultiShotCommandGroup(shooter, indexer, intake, arm); //change to the multi shot command group when it is finished.
+                return new MultiShotCommandGroup(shooter, indexer); //change to the multi shot command group when it is finished.
             } else {
                 return new DoNothing();
             }

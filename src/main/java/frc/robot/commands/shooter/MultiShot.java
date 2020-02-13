@@ -8,7 +8,6 @@ public class MultiShot extends CommandBase {
 
     private final IndexerSubsystem indexer;
     private final ShooterSubsystem shooter;
-    private long lastPowerCellLoad;
 
     public MultiShot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         this.indexer = indexer;
@@ -18,10 +17,9 @@ public class MultiShot extends CommandBase {
 
     @Override
     public void execute() {
+        //only shoot if flywheel is up to speed
         if (shooter.isFlywheelToSpeed()) {
             indexer.indexOut();
-        } else {
-            //wait
         }
     }
 
@@ -29,6 +27,7 @@ public class MultiShot extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        //could potentially stop early if index count turns out to be accurate
         return false;
     }
 }

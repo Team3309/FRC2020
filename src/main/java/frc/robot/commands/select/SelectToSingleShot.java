@@ -9,9 +9,9 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectSingleShot extends SelectCommand {
-    public SelectSingleShot(IntakeSubsystem intake, IndexerSubsystem indexer,
-                            ShooterSubsystem shooter, ArmSubsystem arm) {
+public class SelectToSingleShot extends SelectCommand {
+    public SelectToSingleShot(IntakeSubsystem intake, IndexerSubsystem indexer,
+                              ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT) {
                 return new SingleShotCommandGroup(shooter, indexer, intake, arm); //Change to Command Group 5

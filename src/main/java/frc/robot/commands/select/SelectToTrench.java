@@ -19,7 +19,7 @@ public class SelectToTrench extends SelectCommand {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT
             ) {
-                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.trench, intake, indexer, shooter, arm); //aka command group 2 (See Slack for details)
+                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.trench, intake, indexer, shooter, arm);
             } else {
                 //do nothing
                 return new DoNothing();

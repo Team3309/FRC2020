@@ -120,6 +120,9 @@ public class Config {
     public static final double shooterIntakePowerTopMotor = 0.4;
     public static final double shooterIntakePowerBottomMotor = 0.4;
 
+    public static final int shooterSpeedTolerance = 500; //Encoder counts per 100ms
+
+
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
@@ -162,6 +165,12 @@ public class Config {
     public static Double armI;
     public static Integer armIntegralZone;
     public static Double armD;
+
+
+    public static final double peakOutputReverse = -0.42;
+    public static final double peakOutputForward = 0.42;
+    public static Integer armAcceleration;
+    public static Integer armCruiseVelocity;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//

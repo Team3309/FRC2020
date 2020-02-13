@@ -16,14 +16,14 @@ public class ShooterSubsystem extends SubsystemBase {
      /**
       * Flywheel
       */
-    private double flywheelSpeedTop;
-    private double flywheelSpeedBottom;
+    private Double flywheelSpeedTop;
+    private Double flywheelSpeedBottom;
 
      public boolean isFlywheelToSpeed() {
          if (!Config.isShooterInstalled) return true;
          return (
-                 Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < 0.01 &&
-                 Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < 0.01);
+                 Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < Config.shooterSpeedTolerance &&
+                 Math.abs(getBottomMotorVelocity() - flywheelSpeedBottom) < Config.shooterSpeedTolerance);
      }
 
     private WPI_TalonFX topMotor;
@@ -37,8 +37,8 @@ public class ShooterSubsystem extends SubsystemBase {
             topMotor.setInverted(false);
             topMotor.setSensorPhase(false);
             configTalon(bottomMotor);
-            bottomMotor.setInverted(false);
-            bottomMotor.setSensorPhase(false);
+            bottomMotor.setInverted(true);
+            bottomMotor.setSensorPhase(true);
         }
     }
 
@@ -89,8 +89,10 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public void runFlywheels(double topSpeed, double bottomSpeed) {
         if (Config.isShooterInstalled) {
-            topMotor.set(ControlMode.Velocity, topSpeed);
-            bottomMotor.set(ControlMode.Velocity, bottomSpeed);
+            if (flywheelSpeedTop != null && flywheelSpeedBottom != null) {
+                topMotor.set(ControlMode.Velocity, topSpeed);
+                bottomMotor.set(ControlMode.Velocity, bottomSpeed);
+            }
         }
     }
 
@@ -100,7 +102,7 @@ public class ShooterSubsystem extends SubsystemBase {
       * @param speedTop - stores speed for for later engagement
       * @param speedBottom - stores speed for bottom motor for later engagement
       */
-     public void setDesiredSpeed(double speedTop, double speedBottom) {
+     public void setDesiredSpeed(Double speedTop, Double speedBottom) {
          flywheelSpeedTop = speedTop;
          flywheelSpeedBottom = speedBottom;
      }

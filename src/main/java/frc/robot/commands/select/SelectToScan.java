@@ -8,9 +8,9 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectScan extends SelectCommand {
+public class SelectToScan extends SelectCommand {
 
-    public SelectScan(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {
+    public SelectToScan(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE ||

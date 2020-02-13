@@ -8,15 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveManual;
-import frc.robot.commands.select.SelectIntakeToOuttake;
-import frc.robot.commands.select.SelectToTrench;
-import frc.robot.commands.select.SelectMultishot;
-import frc.robot.commands.select.SelectMultishotToReadyToShoot;
-import frc.robot.commands.select.SelectOuttakeToIntake;
-import frc.robot.commands.select.SelectReadyToShoot;
-import frc.robot.commands.select.SelectReadyToShootToDriving;
-import frc.robot.commands.select.SelectToDrive;
-import frc.robot.commands.select.SelectToIntake;
+import frc.robot.commands.select.*;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
@@ -146,31 +138,30 @@ public class RobotContainer
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new SelectMultishot(intake, indexer, shooter, arm))
+                .whenPressed(new SelectToMultishot(indexer, shooter))
                 .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
                 )
-                .whenReleased(new SelectToDrive(intake, indexer, shooter, arm)
+                .whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
                 );
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
-                .whenPressed(new SelectMultishot(intake, indexer, shooter, arm))
-                .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
+                .whenPressed(new SelectToScan(intake, indexer, shooter));
 
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, Double.valueOf(1.0), Double.valueOf(1.0), intake, indexer, shooter, arm)
                 );
 
         //D North / Up
         new POVButton(OI.OperatorController, 0)
-                .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, Double.valueOf(0.7), Double.valueOf(0.7), intake, indexer, shooter, arm)
                 );
 
         //D West / Left
         new POVButton(OI.OperatorController, 90)
-                .whenPressed(new SelectReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Double.valueOf(0.5), Double.valueOf(0.5), intake, indexer, shooter, arm)
                 );
 
         //D South / Down
