@@ -25,7 +25,4 @@ public class SelectToScan extends SelectCommand {
         });
     }
 
-    public boolean isFinished() {
-        return true;
-    }
 }

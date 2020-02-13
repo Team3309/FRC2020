@@ -22,7 +22,4 @@ public class SelectManualArmAdjustment extends SelectCommand {
         });
     }
 
-    public boolean isFinished() {
-        return true;
-    }
 }

@@ -22,7 +22,4 @@ public class SelectCancelIntake extends SelectCommand {
 
     }
 
-    public boolean isFinished() {
-        return true;
-    }
 }

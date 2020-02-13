@@ -26,7 +26,4 @@ public class SelectToMultishot extends SelectCommand {
         });
     }
 
-    public boolean isFinished() {
-        return true;
-    }
 }
