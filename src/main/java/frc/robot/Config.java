@@ -241,8 +241,8 @@ public class Config {
                 isIntakeInstalled = false;
                 isShooterInstalled = false;
                 isVisionInstalled = false;
-                isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isPcmInstalled = false;
+                isCompressorEnabled = false;
 
                 DriveLeftMasterID = 6;
                 DriveLeftSlaveID = 8;

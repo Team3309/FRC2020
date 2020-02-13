@@ -16,9 +16,14 @@ public class SelectReadyToShoot extends SelectCommand {
     public SelectReadyToShoot(ArmSubsystem.ArmPosition position, Double speedTop, Double speedBottom, IntakeSubsystem intake,
                               IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
+            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_SCAN ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.TRENCH_DRIVE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SCAN
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SCAN ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_INTAKE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_INTAKE
             ) {
                 return new ToReadyToShootCommandGroup(position, speedTop, speedBottom, intake, indexer, shooter, arm);
             } else {

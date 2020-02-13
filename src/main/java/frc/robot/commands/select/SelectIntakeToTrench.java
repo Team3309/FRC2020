@@ -16,7 +16,9 @@ import java.util.function.Supplier;
 public class SelectIntakeToTrench extends SelectCommand {
     public SelectIntakeToTrench(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
+            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_INTAKE ||
+                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE
+            ) {
                 return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.trench, intake, indexer, shooter, arm); //aka command group 2 (See Slack for details)
             } else {
                 //do nothing

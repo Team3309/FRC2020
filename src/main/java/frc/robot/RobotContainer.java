@@ -144,8 +144,8 @@ public class RobotContainer
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new SelectMultishot(intake, indexer, shooter, arm)
-                );
+                .whenPressed(new SelectMultishot(intake, indexer, shooter, arm))
+                .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)

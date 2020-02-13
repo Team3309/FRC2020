@@ -1,9 +1,10 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class StopFlywheel extends CommandBase {
+public class StopFlywheel extends InstantCommand {
     private ShooterSubsystem shooter;
 
     public StopFlywheel(ShooterSubsystem shooter) {
@@ -20,8 +21,4 @@ public class StopFlywheel extends CommandBase {
         shooter.stopFlywheels();
     }
 
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
 }

@@ -20,7 +20,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private double flywheelSpeedBottom;
 
      public boolean isFlywheelToSpeed() {
-         return !Config.isArmInstalled || (
+         if (!Config.isShooterInstalled) return true;
+         return (
                  Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < 0.01 &&
                  Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < 0.01);
      }
