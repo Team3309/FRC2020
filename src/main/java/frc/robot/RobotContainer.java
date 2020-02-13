@@ -131,44 +131,44 @@ public class RobotContainer
      */
     private void configureButtonBindings_Operator() {
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenHeld(new SelectIntakeToOuttake(intake))
+                .whenPressed(new SelectIntakeToOuttake(intake))
                 .whenReleased(new SelectOuttakeToIntake(intake));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenHeld(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
+                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whenHeld(new SelectToMultishot(indexer, shooter))
+                .whenPressed(new SelectToMultishot(indexer, shooter))
                 .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
-                .whenHeld(new SelectToIntake(intake, indexer, shooter, arm)
+                .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
-                .whenHeld(new SelectToScan(intake, indexer, shooter));
+                .whenPressed(new SelectToScan(intake, indexer, shooter));
 
         //D-pad Left
         new POVButton(OI.OperatorController, 270)
-                .whenHeld(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, Config.shooterLongRangeTopSpeed,
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, Config.shooterLongRangeTopSpeed,
                         Config.shooterLongRangeBottomSpeed, intake, indexer, shooter, arm)
                 );
 
         //D-pad Up
         new POVButton(OI.OperatorController, 0)
-                .whenHeld(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, Config.shooterMidRangeTopSpeed,
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, Config.shooterMidRangeTopSpeed,
                         Config.shooterMidRangeBottomSpeed, intake, indexer, shooter, arm)
                 );
 
         //D-pad Right
         new POVButton(OI.OperatorController, 90)
-                .whenHeld(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Config.shooterCloseRangeBottomSpeed,
+                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Config.shooterCloseRangeBottomSpeed,
                         Config.shooterShortRangeBottomSpeed, intake, indexer, shooter, arm)
                 );
 
         //D-pad Down
         new POVButton(OI.OperatorController, 180)
-                .whenHeld(new SelectToTrench(intake, indexer, shooter, arm)
+                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm)
                 );
     }
 
