@@ -9,7 +9,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectToSingleShot extends SelectCommand {
+public class SelectToSingleShot extends SelectCommand3309 {
     public SelectToSingleShot(IntakeSubsystem intake, IndexerSubsystem indexer,
                               ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {

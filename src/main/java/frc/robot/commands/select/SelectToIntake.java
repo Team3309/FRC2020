@@ -9,7 +9,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectToIntake extends SelectCommand {
+public class SelectToIntake extends SelectCommand3309 {
 
     public SelectToIntake(IntakeSubsystem intake, IndexerSubsystem indexer,
                           ShooterSubsystem shooter, ArmSubsystem arm) {

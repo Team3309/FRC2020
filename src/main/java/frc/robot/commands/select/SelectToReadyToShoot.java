@@ -9,7 +9,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectToReadyToShoot extends SelectCommand {
+public class SelectToReadyToShoot extends SelectCommand3309 {
 
     public SelectToReadyToShoot(ArmSubsystem.ArmPosition position, Double speedTop, Double speedBottom, IntakeSubsystem intake,
                                 IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {

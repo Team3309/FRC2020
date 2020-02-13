@@ -6,7 +6,7 @@ import frc.robot.commands.DoNothing;
 import frc.robot.commands.intake.StartIntakeMotor;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class SelectOuttakeToIntake extends SelectCommand {
+public class SelectOuttakeToIntake extends SelectCommand3309 {
 
     public SelectOuttakeToIntake(IntakeSubsystem intake) {
         super(() -> {

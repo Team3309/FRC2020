@@ -10,7 +10,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectManualArmAdjustment extends SelectCommand {
+public class SelectManualArmAdjustment extends SelectCommand3309 {
     public SelectManualArmAdjustment(IntakeSubsystem intake, IndexerSubsystem indexer,
                                      ShooterSubsystem shooter, ArmSubsystem arm, XboxController controller) {
         super(() -> {

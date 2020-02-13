@@ -8,7 +8,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectToScan extends SelectCommand {
+public class SelectToScan extends SelectCommand3309 {
 
     public SelectToScan(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {

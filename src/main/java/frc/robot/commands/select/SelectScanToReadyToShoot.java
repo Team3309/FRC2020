@@ -7,7 +7,7 @@ import frc.robot.commands.DoNothing;
 
 import java.util.function.Supplier;
 
-public class SelectScanToReadyToShoot extends SelectCommand {
+public class SelectScanToReadyToShoot extends SelectCommand3309 {
 
     public SelectScanToReadyToShoot(Supplier<Command> toRun) {
         super(() -> {

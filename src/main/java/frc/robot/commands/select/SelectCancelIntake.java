@@ -9,7 +9,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectCancelIntake extends SelectCommand {
+public class SelectCancelIntake extends SelectCommand3309 {
     public SelectCancelIntake(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.PowerCellHandlingState.INIT_INTAKE == RobotContainer.getPowerCellHandlingState() ||
