@@ -5,6 +5,7 @@ import frc.robot.subsystems.CtrlPanelSubsystem;
 
 public class DeployTurner extends CommandBase {
 
+    //TODO: Add a timer
     CtrlPanelSubsystem manipulator;
 
     public DeployTurner (CtrlPanelSubsystem manipulator) {
@@ -14,12 +15,12 @@ public class DeployTurner extends CommandBase {
     @Override
     public void initialize() {
         //Reset the variables associated with rotationControl
-        manipulator.resetRotationControlCounter();
+        manipulator.resetRotationControlCounter(); //TODO: Remove
     }
 
     @Override
     public void execute() {
-        manipulator.deploy();
+        manipulator.deploy(); //TODO: Move to initialize
     }
 
     public void end() {

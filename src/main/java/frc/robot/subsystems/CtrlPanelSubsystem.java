@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
-import frc.robot.RobotContainer;
 import frc.robot.util.PanelColor;
 
 /**
@@ -28,10 +27,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         stowed
     }
 
-    private RobotContainer robotContainer;
-
     private Solenoid retractorPiston;
-    private Solenoid heightAdjustmentPiston;
     private WPI_TalonSRX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
@@ -46,17 +42,21 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             ctrlPanelMotor.configFactoryDefault();
             if (Config.isPcmInstalled) {
                 retractorPiston = new Solenoid(Config.TurnerTractorPistonID);
-                heightAdjustmentPiston = new Solenoid(Config.TurnerHeightAdjustmentPistonID);
             }
         }
     }
 
     private boolean hasColor () {
-        return getColor() == PanelColor.unknown;
+        return getColor() != PanelColor.unknown;
     }
 
     private boolean deployed () {
-        return retractorPiston.get();
+        //TODO: Add timer
+        if(Config.isPcmInstalled) {
+            return retractorPiston.get();
+        } else {
+            return false;
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * called continuously in the Rotate command, which is default for this subsystem.
      -----------------------------------------------------------------------------------------------------------------*/
     public void spin() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             if (deployed()) {
                 if (hasColor()) {
                     if (isFMSColorAvailable()) {
@@ -145,6 +145,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @return PanelColor.[color] - the color which the color sensor is currently on.
      -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getColor () {
+        //TODO: check if pistion is enabled
         if (Config.isCtrlPanelInstalled) {
             Color color = colorSensor.getColor();
             if (color.equals(Color.kRed)) {
