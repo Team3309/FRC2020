@@ -105,6 +105,7 @@ public class Config {
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
     public static final double TurnerRotationPower = 0.4;
+    public static final int RotationControlSlices = 32;
 
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Constants//

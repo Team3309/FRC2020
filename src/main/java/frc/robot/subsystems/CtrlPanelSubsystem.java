@@ -13,7 +13,7 @@ import frc.robot.RobotContainer;
 import frc.robot.util.PanelColor;
 
 /**
- * @author Joshua Badzey
+ * @author Joshua Badzey & Mark Ghebrial
  *
  * The class for the control panel manipulator mechanism, which will turn the control panel a desired
  * number of times, turn it to a specific color, and receive a color from the FMS. Will work with
@@ -36,6 +36,10 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private WPI_TalonSRX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
+    //Used for rotation control
+    private int slicesTurned = 0;
+    private PanelColor lastColor = PanelColor.noValue;
+
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -56,6 +60,11 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         return retractorPiston.get();
     }
 
+    public void resetRotationControlCounter () {
+        slicesTurned = 0;
+        lastColor = PanelColor.noValue;
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      * Decides either to
      -----------------------------------------------------------------------------------------------------------------*/
@@ -69,6 +78,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                          *
                          * Tell the motor to spin until the color sensor sees the correct color.
                          */
+
                         PanelColor sensorColor = getColor();
 
                         // Get the desired color from the FMS and change it to the corresponding color that the sensor
@@ -96,7 +106,28 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                         }
                     }
                     else {
-                        //Rotation control
+                        /*
+                         * Rotation Control
+                         *
+                         * Spin the motor until the correct amount of rotations has been reached. If the color from the
+                         * sensor is different from the last color detected, then increment slicesTurned
+                         *
+                         * slicesTurned and lastColor are class member variables. They are reset whenever the
+                         * manipulator is deployed.
+                         */
+
+                        PanelColor sensorColor = getColor();
+
+                        if (slicesTurned <= Config.RotationControlSlices) {
+                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.TurnerRotationPower);
+                        } else {
+                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
+                        }
+
+                        if (sensorColor != lastColor) {
+                            slicesTurned++;
+                        }
+                        lastColor = sensorColor;
                     }
                 }
             }
