@@ -17,4 +17,8 @@ public class SelectOuttakeToIntake extends SelectCommand {
             }
         });
     }
+
+    public boolean isFinished() {
+        return true;
+    }
 }

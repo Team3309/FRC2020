@@ -18,4 +18,8 @@ public class SelectScanToReadyToShoot extends SelectCommand {
             }
         });
     }
+
+    public boolean isFinished() {
+        return true;
+    }
 }

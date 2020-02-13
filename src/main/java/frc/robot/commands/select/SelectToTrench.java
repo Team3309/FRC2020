@@ -26,4 +26,8 @@ public class SelectToTrench extends SelectCommand {
             }
         });
     }
+
+    public boolean isFinished() {
+        return true;
+    }
 }

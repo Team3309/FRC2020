@@ -10,6 +10,7 @@ public class XBoxControllerAxisButton extends InternalButton {
     private final XboxController.Axis axis;
     private final double threshold;
 
+
     public XBoxControllerAxisButton(XboxController controller, XboxController.Axis axis, double threshold) {
         this.controller = controller;
         this.axis = axis;

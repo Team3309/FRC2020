@@ -20,4 +20,8 @@ public class SelectToSingleShot extends SelectCommand {
             }
         });
     }
+
+    public boolean isFinished() {
+        return true;
+    }
 }

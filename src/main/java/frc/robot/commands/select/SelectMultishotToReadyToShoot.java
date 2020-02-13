@@ -22,4 +22,8 @@ public class SelectMultishotToReadyToShoot extends SelectCommand {
             }
         });
     }
+
+    public boolean isFinished() {
+        return true;
+    }
 }
