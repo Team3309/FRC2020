@@ -19,7 +19,8 @@ public class MultiShotCommandGroup extends SequentialCommandGroup {
                 new RetractIntake(intake, arm),
                 new StartFlywheel(shooter),
                 new UpdateState(RobotContainer.PowerCellHandlingState.MULTI_SHOT),
-                new MultiShot(indexer, shooter)
+                new MultiShot(indexer, shooter),
+        new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
         );
 
     }

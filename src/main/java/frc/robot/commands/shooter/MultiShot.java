@@ -25,8 +25,10 @@ public class MultiShot extends CommandBase {
         }
     }
 
+
+
     @Override
     public boolean isFinished() {
-        return false;
+        return indexer.getCount() <= 0;
     }
 }
