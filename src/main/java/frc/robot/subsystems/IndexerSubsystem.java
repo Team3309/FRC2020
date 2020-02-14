@@ -127,9 +127,15 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     public double getPrimaryMotorVelocity() {
+        if (!Config.isIndexerInstalled) {
+            return 0;
+        }
         return PrimaryIndexerMotor.getSelectedSensorVelocity();
     }
     public double getSecondaryMotorVelocity() {
+        if (!Config.isIndexerInstalled) {
+            return 0;
+        }
         return SecondaryIndexerMotor.getSelectedSensorVelocity();
     }
 
