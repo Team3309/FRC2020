@@ -6,7 +6,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.util.PanelColor;
@@ -30,6 +30,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private int slicesTurned = 0;
     private PanelColor lastColor = PanelColor.noValue;
 
+    private Timer deployTimer = new Timer();
+
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -46,9 +48,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     }
 
     private boolean deployed () {
-        //TODO: Add timer
         if(Config.isPcmInstalled) {
-            return retractorPiston.get();
+            return retractorPiston.get() && deployTimer.get() <= Config.DeployDelaySeconds;
         } else {
             return false;
         }
@@ -171,8 +172,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Flips the manipulator up out of the trench run configuration
      -----------------------------------------------------------------------------------------------------------------*/
     public void deploy() {
-
         if(Config.isCtrlPanelInstalled) {
+            deployTimer.reset();
             retractorPiston.set(true);
         }
     }

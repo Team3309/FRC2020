@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 
 public class RetractTurner extends CommandBase{
-    //TODO: Same as DeployTurner
 
     CtrlPanelSubsystem manipulator;
 
@@ -14,12 +13,12 @@ public class RetractTurner extends CommandBase{
 
     @Override
     public void initialize() {
-
+        manipulator.retract();
     }
 
     @Override
     public void execute() {
-        manipulator.retract();
+
     }
 
     public void end() {
