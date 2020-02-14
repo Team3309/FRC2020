@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
     private int desiredCalibrationPosition;
     private ArmPosition calibrationStoredPosition;
 
-    private static final int CALIBRATION_MOTION_INCREMENT = 10;
+    private static final int CALIBRATION_MOTION_INCREMENT = 3;
 
     //------------------------------------------------------------------------------------------------------------------
     //Other arm variables//
@@ -212,7 +212,7 @@ public class ArmSubsystem extends SubsystemBase {
                 }
                 //of course if there is no hall effect limit switch or the counterweight is not installed or the arm slipped up,
                 //we need to just go to the top limit switch and start from there.
-                if (topLimitSwitch.get()) {
+                if (armMotor.isFwdLimitSwitchClosed() == 1) {
                     armMotor.set(ControlMode.PercentOutput, 0);
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.max.value;
                     calibrated = true;
