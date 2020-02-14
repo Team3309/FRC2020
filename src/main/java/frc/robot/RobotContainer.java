@@ -129,14 +129,14 @@ public class RobotContainer
 
         //when active is the same as when pressed
         //when inactive is the same as when released
-        //whilepressedonce is the same as when held
+        //whileActiveOnce is the same as when held
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new SelectIntakeToOuttake(intake))
                 .whenReleased(new SelectOuttakeToIntake(intake));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenHeld(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
+                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         //we need to or these buttons together so we initialize a cluster group in the
         //operator buttons
