@@ -18,6 +18,6 @@ public class StopIndexer extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return indexer.getPrimaryMotorVelocity() == 0 && indexer.getSecondaryMotorVelocity() == 0;
     }
 }

@@ -134,7 +134,8 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Integer IndexerMotorID;
+    public static Integer PrimaryIndexerMotorID;
+    public static Integer SecondaryIndexerMotorID;
     public static Integer IndexerPdpChannel;
     public static Double IndexerP;
     public static Double IndexerI;

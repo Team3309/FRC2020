@@ -34,12 +34,18 @@ public class IndexerSubsystem extends SubsystemBase {
 
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
-            PrimaryIndexerMotor = new WPI_TalonSRX(Config.IndexerMotorID);
+            PrimaryIndexerMotor = new WPI_TalonSRX(Config.PrimaryIndexerMotorID);
+            SecondaryIndexerMotor = new WPI_TalonSRX(Config.SecondaryIndexerMotorID);
             PrimaryIndexerMotor.config_kP(1, Config.IndexerP);
             PrimaryIndexerMotor.config_kI(1, Config.IndexerI);
             PrimaryIndexerMotor.config_IntegralZone(1, Config.IndexerIntegralZone);
             PrimaryIndexerMotor.config_kD(1, Config.IndexerD);
             PrimaryIndexerMotor.config_kF(1, Config.IndexerF);
+            SecondaryIndexerMotor.config_kP(2, Config.IndexerP);
+            SecondaryIndexerMotor.config_kI(2, Config.IndexerI);
+            SecondaryIndexerMotor.config_IntegralZone(2, Config.IndexerIntegralZone);
+            SecondaryIndexerMotor.config_kD(2, Config.IndexerD);
+            SecondaryIndexerMotor.config_kF(2, Config.IndexerF);
         }
     }
 
@@ -87,12 +93,16 @@ public class IndexerSubsystem extends SubsystemBase {
         }
     }
 
-    /***/
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Programs the indexer motors to stop completely.
+     *
+     */
     public void stopIndexer() {
         if (Config.isIndexerInstalled) {
             indexerState = IndexerState.OFF;
             if (indexerState == IndexerState.OFF) {
                 PrimaryIndexerMotor.set(ControlMode.PercentOutput, 0.0);
+                SecondaryIndexerMotor.set(ControlMode.PercentOutput, 0.0);
                 IndexerPosition = 0;
             }
         }
@@ -114,6 +124,13 @@ public class IndexerSubsystem extends SubsystemBase {
 
     public int getCount() {
         return PowerCells;
+    }
+
+    public double getPrimaryMotorVelocity() {
+        return PrimaryIndexerMotor.getSelectedSensorVelocity();
+    }
+    public double getSecondaryMotorVelocity() {
+        return SecondaryIndexerMotor.getSelectedSensorVelocity();
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
