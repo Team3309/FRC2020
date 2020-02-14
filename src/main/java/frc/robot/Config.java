@@ -98,6 +98,10 @@ public class Config {
     public static final double TurnerRotationPower = 0.4;
     public static final int RotationControlSlices = 32;
 
+    //Color Sensor thresholds-------------------------------------------------------------------------------------------
+    public static final int ColorThreshold = 127;
+    public static final int ColorEpsilon = 50;
+
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Constants//
     //------------------------------------------------------------------------------------------------------------------
