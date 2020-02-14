@@ -65,7 +65,7 @@ public class IndexerSubsystem extends SubsystemBase {
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 if (PowerCells > 0) {
-                        decrementIndexerCounter();
+                    decrementIndexerCounter();
                 }
             }
         }
@@ -96,14 +96,6 @@ public class IndexerSubsystem extends SubsystemBase {
      * Programs the indexer motors to stop completely.
      *
      */
-    public void stopIndexer() {
-        if (Config.isIndexerInstalled) {
-            if (indexerState == IndexerState.OFF) {
-                UpperIndexerMotor.set(ControlMode.PercentOutput, 0.0);
-                LowerIndexerMotor.set(ControlMode.PercentOutput, 0.0);
-            }
-        }
-    }
 
     //Make method that indexes balls properly while taking in multiple power cells at once.
 

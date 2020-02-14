@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
-import frc.robot.commands.indexer.StopIndexer;
+import frc.robot.commands.indexer.UpdateIndexerState;
 import frc.robot.commands.intake.RetractIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.SetFlywheelsSpeed;
@@ -22,7 +22,7 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new UpdateState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
                 new StopFlywheels(shooter),
-                new StopIndexer(indexer),
+                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.OFF),
                 new StopIntake(intake),
                 new MoveArmToPosition(position, arm),
                 new RetractIntake(intake, arm),

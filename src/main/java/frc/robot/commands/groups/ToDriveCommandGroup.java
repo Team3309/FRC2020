@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
-import frc.robot.commands.indexer.StopIndexer;
+import frc.robot.commands.indexer.UpdateIndexerState;
 import frc.robot.commands.intake.RetractIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.ClearFlywheelsSpeeds;
@@ -22,7 +22,7 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
                 position == ArmSubsystem.ArmPosition.trench ?
                         new UpdateState(RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) :
                         new UpdateState(RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE),
-                new StopIndexer(indexer),
+                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.OFF),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 position == ArmSubsystem.ArmPosition.trench ?
