@@ -1,12 +1,9 @@
 package frc.robot.commands.select;
 
-import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.MultiShotCommandGroup;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectToMultishot extends SelectCommand3309 {
