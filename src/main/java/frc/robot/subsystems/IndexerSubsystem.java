@@ -25,30 +25,29 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     private IndexerState indexerState = IndexerState.OFF;
-    private WPI_TalonSRX PrimaryIndexerMotor;
-    private WPI_TalonSRX SecondaryIndexerMotor;
-    private int PrimaryDesiredEncoderPosition;
-    private int SecondDesiredEncoderPosition;
+    private WPI_TalonSRX UpperIndexerMotor;
+    private WPI_TalonSRX LowerIndexerMotor;
+    private int UpperMotorDesiredEncoderPosition;
+    private int LowerMotorDesiredEncoderPosition;
     private DigitalInput PowerCellSensor;
     private int PowerCells;
 
-
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
-            PrimaryIndexerMotor = new WPI_TalonSRX(Config.PrimaryIndexerMotorID);
-            PrimaryDesiredEncoderPosition = PrimaryIndexerMotor.getSelectedSensorPosition(0);
-            SecondaryIndexerMotor = new WPI_TalonSRX(Config.SecondaryIndexerMotorID);
-            SecondDesiredEncoderPosition = SecondaryIndexerMotor.getSelectedSensorPosition(0);
-            PrimaryIndexerMotor.config_kP(1, Config.IndexerP);
-            PrimaryIndexerMotor.config_kI(1, Config.IndexerI);
-            PrimaryIndexerMotor.config_IntegralZone(1, Config.IndexerIntegralZone);
-            PrimaryIndexerMotor.config_kD(1, Config.IndexerD);
-            PrimaryIndexerMotor.config_kF(1, Config.IndexerF);
-            SecondaryIndexerMotor.config_kP(2, Config.IndexerP);
-            SecondaryIndexerMotor.config_kI(2, Config.IndexerI);
-            SecondaryIndexerMotor.config_IntegralZone(2, Config.IndexerIntegralZone);
-            SecondaryIndexerMotor.config_kD(2, Config.IndexerD);
-            SecondaryIndexerMotor.config_kF(2, Config.IndexerF);
+            UpperIndexerMotor = new WPI_TalonSRX(Config.PrimaryIndexerMotorID);
+            UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
+            LowerIndexerMotor = new WPI_TalonSRX(Config.SecondaryIndexerMotorID);
+            LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
+            UpperIndexerMotor.config_kP(0, Config.IndexerP);
+            UpperIndexerMotor.config_kI(0, Config.IndexerI);
+            UpperIndexerMotor.config_IntegralZone(0, Config.IndexerIntegralZone);
+            UpperIndexerMotor.config_kD(0, Config.IndexerD);
+            UpperIndexerMotor.config_kF(0, Config.IndexerF);
+            LowerIndexerMotor.config_kP(0, Config.IndexerP);
+            LowerIndexerMotor.config_kI(0, Config.IndexerI);
+            LowerIndexerMotor.config_IntegralZone(0, Config.IndexerIntegralZone);
+            LowerIndexerMotor.config_kD(0, Config.IndexerD);
+            LowerIndexerMotor.config_kF(0, Config.IndexerF);
         }
     }
 
@@ -58,17 +57,17 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexOut() {
         if (Config.isIndexerInstalled) {
-                if (indexerState == IndexerState.EJECTING) {
-                    PrimaryDesiredEncoderPosition = PrimaryIndexerMotor.getSelectedSensorPosition(0)
-                            - Config.StandardIndexerMotionInEncoderCounts;
-                    SecondDesiredEncoderPosition = SecondaryIndexerMotor.getSelectedSensorPosition(0)
-                            - Config.StandardIndexerMotionInEncoderCounts;
-                    PrimaryIndexerMotor.set(ControlMode.MotionMagic, PrimaryDesiredEncoderPosition);
-                    SecondaryIndexerMotor.set(ControlMode.MotionMagic, SecondDesiredEncoderPosition);
-                    if (PowerCells > 0) {
+            if (indexerState == IndexerState.EJECTING) {
+                UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
+                        - Config.StandardIndexerMotionInEncoderCounts;
+                LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0)
+                        - Config.StandardIndexerMotionInEncoderCounts;
+                UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
+                LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
+                if (PowerCells > 0) {
                         decrementIndexerCounter();
-                    }
                 }
+            }
         }
     }
 
@@ -80,12 +79,12 @@ public class IndexerSubsystem extends SubsystemBase {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
                 if (indexerState == IndexerState.INDEXING && PowerCells < 5) {
-                    PrimaryDesiredEncoderPosition = Config.StandardIndexerMotionInEncoderCounts -
-                            PrimaryIndexerMotor.getSelectedSensorPosition(0);
-                    SecondDesiredEncoderPosition = Config.StandardIndexerMotionInEncoderCounts
-                            - SecondaryIndexerMotor.getSelectedSensorPosition(0);
-                    PrimaryIndexerMotor.set(ControlMode.MotionMagic, PrimaryDesiredEncoderPosition);
-                    SecondaryIndexerMotor.set(ControlMode.MotionMagic, SecondDesiredEncoderPosition);
+                    UpperMotorDesiredEncoderPosition = Config.StandardIndexerMotionInEncoderCounts -
+                            UpperIndexerMotor.getSelectedSensorPosition(0);
+                    LowerMotorDesiredEncoderPosition = Config.StandardIndexerMotionInEncoderCounts
+                            - LowerIndexerMotor.getSelectedSensorPosition(0);
+                    UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
+                    LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                     incrementIndexerCounter();
 
                 }
@@ -100,60 +99,109 @@ public class IndexerSubsystem extends SubsystemBase {
     public void stopIndexer() {
         if (Config.isIndexerInstalled) {
             if (indexerState == IndexerState.OFF) {
-                PrimaryIndexerMotor.set(ControlMode.PercentOutput, 0.0);
-                SecondaryIndexerMotor.set(ControlMode.PercentOutput, 0.0);
+                UpperIndexerMotor.set(ControlMode.PercentOutput, 0.0);
+                LowerIndexerMotor.set(ControlMode.PercentOutput, 0.0);
             }
         }
     }
 
     //Make method that indexes balls properly while taking in multiple power cells at once.
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Checks if the beam-break sensor is currently blocked.
+     *
+     * @return Whether the beam-break sensor is blocked.
+     */
     public boolean sensorBlocked() {
         return !PowerCellSensor.get();
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Increments the counter for the number of power cells currently in the indexer.
+     *
+     */
     public void incrementIndexerCounter() {
         PowerCells++;
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Decrements the counter for the number of power cells currently in the indexer.
+     *
+     */
     public void decrementIndexerCounter() {
         PowerCells--;
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Gets the number of power cells currently in the indexer.
+     *
+     * @return How many power cells are in the indexer.
+     *
+     */
     public int getCount() {
         return PowerCells;
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Gets the current velocity of the upper motor.
+     *
+     * @return The velocity of the upper motor in encoder counts per 100 milliseconds.
+     *
+     */
     public double getPrimaryMotorVelocity() {
         if (Config.isIndexerInstalled) {
-            return PrimaryIndexerMotor.getSelectedSensorVelocity();
+            return UpperIndexerMotor.getSelectedSensorVelocity();
         } else {
             return 0;
         }
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Gets the current velocity of the lower motor.
+     *
+     * @return The velocity of the lower motor in encoder counts per 100 milliseconds.
+     *
+     */
     public double getSecondaryMotorVelocity() {
         if (Config.isIndexerInstalled) {
-            return SecondaryIndexerMotor.getSelectedSensorVelocity();
+            return LowerIndexerMotor.getSelectedSensorVelocity();
         } else {
             return 0;
         }
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Checks the state of the beam-break sensor, and moves the indexer based on that state.
+     *
+     */
     public void manageSensorState() {
-        if (Config.isIndexerInstalled && sensorBlocked() && indexerState == IndexerState.INDEXING) {
-            indexIn();
+        if (Config.isIndexerInstalled) {
+            if(sensorBlocked() && indexerState == IndexerState.INDEXING) {
+                indexIn();
+            }
         }
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Updates the indexer's state machine.
+     *
+     * @param state - The state to which the state machine will be updated.
+     *
+     */
     public void updateIndexerState(IndexerState state) {
         indexerState = state;
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Checks whether the indexer has reached the target encoder position to within an acceptable range.
+     *
+     * @return Whether the indexer is in position with an acceptable error.
+     *
+     */
     private boolean isInPosition() {
-        return ((Math.abs(PrimaryDesiredEncoderPosition - PrimaryIndexerMotor.getSelectedSensorPosition())
-                < Config.IndexerMaximumEncoderPositionRange)) && (Math.abs(SecondDesiredEncoderPosition
-                - SecondaryIndexerMotor.getSelectedSensorPosition()) < Config.IndexerMaximumEncoderPositionRange);
+        return ((Math.abs(UpperMotorDesiredEncoderPosition - UpperIndexerMotor.getSelectedSensorPosition())
+                < Config.IndexerMaximumEncoderPositionRange)) && (Math.abs(LowerMotorDesiredEncoderPosition
+                - LowerIndexerMotor.getSelectedSensorPosition()) < Config.IndexerMaximumEncoderPositionRange);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
