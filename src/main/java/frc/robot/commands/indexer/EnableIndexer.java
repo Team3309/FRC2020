@@ -2,6 +2,7 @@ package frc.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.ManageIndexer;
 
 public class EnableIndexer extends CommandBase {
     private final IndexerSubsystem indexer;
@@ -14,7 +15,7 @@ public class EnableIndexer extends CommandBase {
 
     @Override
     public void execute() {
-        indexer.indexIn();
+        indexer.updateIndexerState(IndexerSubsystem.IndexerState.INDEXING);
     }
 
     @Override
