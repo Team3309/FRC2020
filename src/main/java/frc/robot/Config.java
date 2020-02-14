@@ -177,6 +177,7 @@ public class Config {
     public static final int armPositionHallEffectTopValue = 0;
     public static final int armPositionIntakeStowedLimitValue = 0;
 
+    //BEFORE SETTING armPIDTestMode TO TRUE: SET THE INTAKE OUT, MUST HAVE ARM IN LOWEST PHYSICAL POSITION, POWER CYCLE ROBOT
     public static final boolean armPIDTestMode = false;
 
     public static Double armP;
