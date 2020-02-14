@@ -21,6 +21,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
      public boolean areFlywheelsToSpeed() {
          if (!Config.isShooterInstalled) return true;
+         if (flywheelSpeedBottom == null || flywheelSpeedTop == null) {
+             return true;
+         }
          return (
                  Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < Config.shooterSpeedTolerance &&
                  Math.abs(getBottomMotorVelocity() - flywheelSpeedBottom) < Config.shooterSpeedTolerance);
@@ -67,7 +70,10 @@ public class ShooterSubsystem extends SubsystemBase {
      * Spins up the flywheels in preparation for firing.
      */
     public void runFlywheelsAtPresetSpeeds() {
-        runFlywheels(flywheelSpeedTop, flywheelSpeedBottom);
+        if (flywheelSpeedTop != null && flywheelSpeedBottom != null) {
+
+            runFlywheels(flywheelSpeedTop, flywheelSpeedBottom);
+        }
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
@@ -150,4 +156,8 @@ public class ShooterSubsystem extends SubsystemBase {
      public void outputToDashboard() {
          //SmartDashboard.putNumber("Key", value);
      }
-}
+
+     public boolean hasPresetSpeeds() {
+         return flywheelSpeedTop != null && flywheelSpeedBottom != null;
+     }
+ }
