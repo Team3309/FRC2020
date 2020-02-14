@@ -31,7 +31,7 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new StopFlywheels(shooter),
                 new ExtendIntake(intake),
                 new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm),
-                new StartIntakeMotor(intake),
+                new StartIntakeMotor(intake, shooter),
                 new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING),
                 new StartShooterIntake(shooter),
                 new UpdateState(RobotContainer.PowerCellHandlingState.INTAKE)

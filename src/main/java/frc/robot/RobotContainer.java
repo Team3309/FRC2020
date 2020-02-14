@@ -158,8 +158,8 @@ public class RobotContainer
         //operator buttons
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .or(OI.rightStickRightCluster)
-                .whenActive(new SelectIntakeToOuttake(intake))
-                .whenInactive(new SelectOuttakeToIntake(intake));
+                .whenActive(new SelectIntakeToOuttake(intake, shooter))
+                .whenInactive(new SelectOuttakeToIntake(intake, shooter));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                 .whenPressed(new DeployControlPanelTurnerCommandGroup(ctrlPanel))

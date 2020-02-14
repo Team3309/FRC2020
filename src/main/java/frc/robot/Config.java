@@ -129,12 +129,12 @@ public class Config {
     public static final int shooterSpeedTolerance = 500; //Encoder counts per 100ms
 
 
-    public static final double shooterLongRangeTopSpeed = 1.0;
-    public static final double shooterLongRangeBottomSpeed = 1.0;
-    public static final double shooterMidRangeTopSpeed = 0.7;
-    public static final double shooterMidRangeBottomSpeed = 0.7;
-    public static final double shooterCloseRangeBottomSpeed = 0.5;
-    public static final double shooterShortRangeBottomSpeed = 0.5;
+    public static final double shooterLongRangeTopSpeed = 10000;
+    public static final double shooterLongRangeBottomSpeed = 10000;
+    public static final double shooterMidRangeTopSpeed = 5000;
+    public static final double shooterMidRangeBottomSpeed = 5000;
+    public static final double shooterCloseRangeBottomSpeed = 3000;
+    public static final double shooterShortRangeBottomSpeed = 3000;
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -163,7 +163,6 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer armMotorId;
     public static Integer armHallEffectLimitSwitchId;
-    public static Integer armTopLimitSwitchId;
     public static Integer armMotorPdpChannel;
 
     // Arm positions MUST be overridden in frameSpecificConfig() when the arm is installed!
@@ -185,11 +184,10 @@ public class Config {
     public static Integer armIntegralZone;
     public static Double armD;
 
-
     public static final double peakOutputReverse = -0.42;
     public static final double peakOutputForward = 0.42;
-    public static Integer armAcceleration;
-    public static Integer armCruiseVelocity;
+    public static final int armAcceleration = 1000;
+    public static final int armCruiseVelocity = 1000;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
@@ -225,8 +223,8 @@ public class Config {
                 isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
-                isPcmInstalled = false;
-                isCompressorEnabled = false;
+                isPcmInstalled = true;
+                isCompressorEnabled = true;
 
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;
@@ -257,6 +255,16 @@ public class Config {
 
                 IntakeMotorID = 20;
                 IntakeMotorPdpChannel = 11;
+                IntakeSolenoidChannel = 3;
+                IntakePistonExtendDelaySeconds = 1.0;
+                IntakePistonRetractDelaySeconds = 1.0;
+
+                armMotorId = 3;
+                armMotorPdpChannel = 3;
+                armP = 0.1;
+                armI = 0.0;
+                armIntegralZone = 500;
+                armD = 0.0;
                 break;
 
             case Practice2017:

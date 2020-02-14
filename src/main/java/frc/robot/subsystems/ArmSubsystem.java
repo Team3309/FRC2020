@@ -33,7 +33,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
 
-    private DigitalInput topLimitSwitch;
     private DigitalInput hallEffectLimitSwitch;
 
     private WPI_TalonFX armMotor;
@@ -77,7 +76,6 @@ public class ArmSubsystem extends SubsystemBase {
             } catch (Exception e) {
                 DriverStation.reportWarning("ArmSubsystem: Hall Effect Limit Switch not found!", false);
             }
-            topLimitSwitch = new DigitalInput(Config.armTopLimitSwitchId);
 
         }
     }

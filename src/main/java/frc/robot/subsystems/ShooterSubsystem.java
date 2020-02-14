@@ -40,8 +40,8 @@ public class ShooterSubsystem extends SubsystemBase {
             topMotor.setInverted(false);
             topMotor.setSensorPhase(false);
             configTalon(bottomMotor);
-            bottomMotor.setInverted(true);
-            bottomMotor.setSensorPhase(true);
+            bottomMotor.setInverted(false);
+            bottomMotor.setSensorPhase(false);
         }
     }
 
