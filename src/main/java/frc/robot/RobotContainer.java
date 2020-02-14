@@ -126,16 +126,24 @@ public class RobotContainer
      * Configure the bindings for the operator controller (Xbox Controller)
      */
     private void configureButtonBindings_Operator() {
+
+        //when active is the same as when pressed
+        //when inactive is the same as when released
+        //whilepressedonce is the same as when held
+
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new SelectIntakeToOuttake(intake))
                 .whenReleased(new SelectOuttakeToIntake(intake));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
+                .whenHeld(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
+        //we need to or these buttons together so we initialize a cluster group in the
+        //operator buttons
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new SelectToMultishot(indexer, shooter))
-                .whenReleased(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
+                .or(OI.leftStickLeftCluster)
+                .whenActive(new SelectToMultishot(indexer, shooter))
+                .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
