@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.IterativeRobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -208,6 +209,7 @@ public class RobotContainer
      * Send debug values to SmartDashboard
      */
     public void outputToDashboard() {
+
         SmartDashboard.putString("PC Handling State", state.name());
         if (SmartDashboard.getBoolean(armDashboardKey, false) && Config.isArmInstalled) {
             arm.outputToDashboard();

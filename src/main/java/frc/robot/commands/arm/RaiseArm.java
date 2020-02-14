@@ -27,9 +27,6 @@ public class RaiseArm extends CommandBase {
 
     }
 
-    public void end() {
-
-    }
 
     @Override
     public boolean isFinished() {
