@@ -9,7 +9,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SelectToMultishot extends SelectCommand {
+public class SelectToMultishot extends SelectCommand3309 {
 
 
     public SelectToMultishot(IndexerSubsystem indexer, ShooterSubsystem shooter) {

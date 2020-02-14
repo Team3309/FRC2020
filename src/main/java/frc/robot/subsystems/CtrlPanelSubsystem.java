@@ -6,10 +6,11 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.util.PanelColor;
+import frc.robot.util.Util3309;
 
 /**
  * @author Joshua Badzey & Mark Ghebrial
@@ -21,19 +22,15 @@ import frc.robot.util.PanelColor;
 
 public class CtrlPanelSubsystem extends SubsystemBase {
 
-    public enum turnerState {
-        deployedSpinning,
-        deployedStopped,
-        stowed
-    }
-
-    private Solenoid retractorPiston;
+    private Solenoid retractorPiston; //TODO: rename
     private WPI_TalonSRX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
     //Used for rotation control
     private int slicesTurned = 0;
     private PanelColor lastColor = PanelColor.noValue;
+
+    private Timer deployTimer = new Timer();
 
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
@@ -51,9 +48,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     }
 
     private boolean deployed () {
-        //TODO: Add timer
         if(Config.isPcmInstalled) {
-            return retractorPiston.get();
+            return retractorPiston.get() && deployTimer.get() <= Config.DeployDelaySeconds;
         } else {
             return false;
         }
@@ -144,27 +140,31 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      * @return PanelColor.[color] - the color which the color sensor is currently on.
      -----------------------------------------------------------------------------------------------------------------*/
-    public PanelColor getColor () {
-        //TODO: check if pistion is enabled
-        if (Config.isCtrlPanelInstalled) {
-            Color color = colorSensor.getColor();
-            if (color.equals(Color.kRed)) {
-                return PanelColor.red;
+    private PanelColor getColor() {
+        if (deployed() && Config.isCtrlPanelInstalled) {
+            ColorSensorV3.RawColor color = colorSensor.getRawColor();
+            int r = color.red;
+            int g = color.green;
+            int b = color.blue;
+
+            //Cyan is the only color that uses the blue value, therefore, we only need to check blue
+            if (b > Config.ColorThreshold) {
+                return PanelColor.cyan;
             }
-            else if (color.equals(Color.kYellow)) {
+            else if (Util3309.epsilonEquals(r, g, Config.ColorEpsilon) && (r + g) / 2 > Config.ColorThreshold) {
                 return PanelColor.yellow;
             }
-            else if (color.equals(Color.kGreen)) {
-                return PanelColor.green;
+            else if (r > Config.ColorThreshold) {
+                return PanelColor.red;
             }
-            else if (color.equals(Color.kCyan)) {
-                return PanelColor.cyan;
+            else if (g > Config.ColorThreshold) {
+                return PanelColor.green;
             }
             else {
                 return PanelColor.unknown;
             }
         } else {
-            return PanelColor.unknown;
+            return PanelColor.noValue;
         }
     }
 
@@ -172,8 +172,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Flips the manipulator up out of the trench run configuration
      -----------------------------------------------------------------------------------------------------------------*/
     public void deploy() {
-
         if(Config.isCtrlPanelInstalled) {
+            deployTimer.reset();
             retractorPiston.set(true);
         }
     }
@@ -236,5 +236,4 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);
     }
-
 }
