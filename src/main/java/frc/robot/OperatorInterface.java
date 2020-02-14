@@ -34,7 +34,9 @@ public class OperatorInterface
     // -- Operator
     public XboxController OperatorController = new XboxController(2);
 
-    private class ClusterGroup extends Trigger {
+    //needs to be public or it hides all the trigger functionality such as whenActive,
+    //which essentially disables the ClusterGroup.
+    public class ClusterGroup extends Trigger {
 
         Joystick stick;
         GenericHID.Hand side;

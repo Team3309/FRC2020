@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
+import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.drive.DriveManual;
+import frc.robot.commands.groups.DeployControlPanelTurnerCommandGroup;
 import frc.robot.commands.groups.MultiShotCommandGroup;
 import frc.robot.commands.select.*;
 import frc.robot.subsystems.*;
@@ -120,6 +122,10 @@ public class RobotContainer
      * Configure the bindings for the Driver controllers (Dual flight sticks)
      */
     private void configureButtonBindings_Driver() {
+        //other cluster groups have identical functionality on the operator controller
+        //so we give them their functionality during operator initialization
+        //in order to 'or' the buttons together
+        OI.leftStickRightCluster.whenActive(new SelectToSingleShot(intake, indexer, shooter, arm));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -131,14 +137,22 @@ public class RobotContainer
         //when inactive is the same as when released
         //whileActiveOnce is the same as when held
 
+
+        //we need to 'or' these buttons together so we initialize a cluster group in the
+        //operator buttons
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenPressed(new SelectIntakeToOuttake(intake))
-                .whenReleased(new SelectOuttakeToIntake(intake));
+                .or(OI.rightStickRightCluster)
+                .whenActive(new SelectIntakeToOuttake(intake))
+                .whenInactive(new SelectOuttakeToIntake(intake));
+
+        new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
+                .whenPressed(new DeployControlPanelTurnerCommandGroup(ctrlPanel))
+                .whenReleased(new RetractTurner(ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
-        //we need to or these buttons together so we initialize a cluster group in the
+        //we need to 'or' these buttons together so we initialize a cluster group in the
         //operator buttons
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
