@@ -168,14 +168,16 @@ public class Config {
 
     // Arm positions MUST be overridden in frameSpecificConfig() when the arm is installed!
     // The values cannot be null when the arm isn't installed because they are used to initialize a static enum.
-    public static int armPositionMaxValue = 0;
-    public static int armPositionLongRangeValue = 0;
-    public static int armPositionMidRangeValue = 0;
-    public static int armPositionCloseRangeValue = 0;
-    public static int armPositionTrenchValue = 0;
-    public static int armPositionMinValue = 0;
-    public static int armPositionHallEffectTopValue = 0;
-    public static int armPositionIntakeStowedLimitValue = 0;
+    public static final int armPositionMaxValue = 0;
+    public static final int armPositionLongRangeValue = 0;
+    public static final int armPositionMidRangeValue = 0;
+    public static final int armPositionCloseRangeValue = 0;
+    public static final int armPositionTrenchValue = 0;
+    public static final int armPositionMinValue = 0;
+    public static final int armPositionHallEffectTopValue = 0;
+    public static final int armPositionIntakeStowedLimitValue = 0;
+
+    public static final boolean armPIDTestMode = false;
 
     public static Double armP;
     public static Double armI;

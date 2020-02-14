@@ -18,7 +18,7 @@ public class ArmSubsystem extends SubsystemBase {
     private boolean initialCalibration; //we can't initialize certain states during the constructor because we really want to initialize them on first enable instead
     private boolean hallEffectCalibrate; //aka "quick calibrate" mode.
     private boolean calibrated; //whether or not the arm encoder is finished calibrating
-    private int initialEncoderCount; //the encoder count at time of calibration finalization.
+    private int initialEncoderCount; //the encoder count at time of calibration finalization, relative to its initialization position.
     private int desiredCalibrationPosition;
     private ArmPosition calibrationStoredPosition;
 
@@ -162,10 +162,15 @@ public class ArmSubsystem extends SubsystemBase {
      */
     private void calibrate() {
         if (Config.isArmInstalled) {
+            if (Config.armPIDTestMode) {
+                initialCalibration = false;
+                calibrated = true;
+                initialEncoderCount = armMotor.getSelectedSensorPosition(0); //absolute minimum, not physical minimum
+                return;
+            }
             //we want to have a one time only cycle because this stuff cannot be done before enable
             if(initialCalibration) {
                 initialCalibration = false;
-                armMotor.setNeutralMode(NeutralMode.Brake);
                 //in case the hall effect is not installed, just use the top limit switch.
                 //we check for switch engagement and not counterweight installation in case of slippage during coast or brake mode.
                 //if there was slippage we want to not use the hall effect calibration
@@ -181,11 +186,10 @@ public class ArmSubsystem extends SubsystemBase {
             if (hallEffectCalibrate) {
                 if (!hallEffectLimitSwitch.get()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
-                    initialEncoderCount = armMotor.getSelectedSensorPosition(0);
+                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.hallEffectTop.value;
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
                         this.moveToPosition(calibrationStoredPosition);
-
                     }
                 }
 
@@ -210,7 +214,7 @@ public class ArmSubsystem extends SubsystemBase {
                 //we need to just go to the top limit switch and start from there.
                 if (topLimitSwitch.get()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
-                    initialEncoderCount = armMotor.getSelectedSensorPosition(0);
+                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.max.value;
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
                         this.moveToPosition(calibrationStoredPosition);
@@ -253,7 +257,7 @@ public class ArmSubsystem extends SubsystemBase {
      * @return The encoder position to feed to a motor
      */
     private int armPositionToEncoderPosition(ArmPosition position) {
-        return position.value + initialEncoderCount - (hallEffectCalibrate ? ArmPosition.hallEffectTop.value : ArmPosition.max.value);
+        return position.value + initialEncoderCount;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

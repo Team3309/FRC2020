@@ -32,13 +32,9 @@ public class SelectCommand3309 extends InstantCommand {
     }
 
     @Override
-    public void initialize() {
-        m_selectedCommand = m_toRun.get();
-    }
-
-
-    @Override
     public void execute() {
+        m_selectedCommand = m_toRun.get();
         CommandScheduler.getInstance().schedule(m_selectedCommand);
     }
+
 }
