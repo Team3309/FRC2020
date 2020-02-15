@@ -2,6 +2,7 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateState;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.UpdateIndexerState;
@@ -28,6 +29,8 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_IN),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
+                arm.isArmAbovePosition(ArmSubsystem.ArmPosition.intakeStowedLimit) ? new DoNothing() :
+                        new MoveArmToPosition(ArmSubsystem.ArmPosition.intakeStowedLimit, arm),
                 new ExtendIntake(intake),
                 new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm),
                 new StartIntakeMotor(intake, shooter),

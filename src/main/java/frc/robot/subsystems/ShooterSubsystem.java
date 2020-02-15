@@ -63,6 +63,7 @@ public class ShooterSubsystem extends SubsystemBase {
         talon.config_kD(0, Config.shooterVelocityD, Config.motorControllerConfigTimeoutMs);
         talon.config_kF(0, Config.shooterVelocityF, Config.motorControllerConfigTimeoutMs);
 
+
         talon.setNeutralMode(NeutralMode.Coast);
     }
 

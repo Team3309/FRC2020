@@ -36,11 +36,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     private WPI_TalonFX armMotor;
 
-    public boolean isArmAboveIntakeMinimum() {
+    public boolean isArmAbovePosition(ArmPosition position) {
         if (!Config.isArmInstalled) {
             return true;
         }
-        return armMotor.getSelectedSensorPosition(0) >= armPositionToEncoderPosition(ArmPosition.intakeStowedLimit);
+        return armMotor.getSelectedSensorPosition(0) >= armPositionToEncoderPosition(position);
     }
 
 
@@ -52,8 +52,9 @@ public class ArmSubsystem extends SubsystemBase {
         trench(Config.armPositionTrenchValue),
         min(Config.armPositionMinValue),
         hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
-        intakeStowedLimit(Config.armPositionIntakeStowedLimitValue),
+        intakeStowedLimit(Config.armPositionIntakeStowedLimitValue), //this is the lowest position the arm can be in without hitting the intake while it deploys
         intakeStowedLimitTarget(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance);
+
         int value;
 
         ArmPosition(int value) {

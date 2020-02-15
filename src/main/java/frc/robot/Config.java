@@ -276,6 +276,8 @@ public class Config {
                 shooterVelocityD = 0.0;
                 shooterVelocityF = 0.05;
 
+
+
                 IntakeMotorID = 20;
                 IntakeMotorPdpChannel = 11;
                 IntakeSolenoidChannel = 3;

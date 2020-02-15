@@ -17,7 +17,7 @@ public class RetractIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        if (arm.isArmAboveIntakeMinimum()) {
+        if (arm.isArmAbovePosition(ArmSubsystem.ArmPosition.intakeStowedLimit)) {
             intake.retract();
         }
     }
