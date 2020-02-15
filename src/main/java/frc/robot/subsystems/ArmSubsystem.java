@@ -64,6 +64,10 @@ public class ArmSubsystem extends SubsystemBase {
 
 
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Constructor. All methods that move the arm require the arm to be installed.
+     *
+     */
     public ArmSubsystem() {
         calibrated = false;
         initialCalibration = true;
@@ -81,6 +85,12 @@ public class ArmSubsystem extends SubsystemBase {
         }
     }
 
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Configures arm motor and limit switches.
+     *
+     * @param talon The motor to be configured.
+     *
+     */
     private void configTalon(WPI_TalonFX talon) {
         talon.configFactoryDefault();
         talon.setSensorPhase(false);
@@ -105,6 +115,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
+     * Sets the neutral mode for the arm motor to Brake (immediate stop).
      *
      */
     public void setBrakeMode() {
@@ -114,6 +125,7 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
+     * Sets the neutral mode for the arm motor to Coast (gradual stop).
      *
      */
     public void setCoastMode() {
@@ -122,9 +134,10 @@ public class ArmSubsystem extends SubsystemBase {
         }
     }
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Adjust the arm in small amounts using speed control.
-     * @param axisTilt a number between 0 and 1, generally describing the tilt of the joystick / trigger that is moving the trigger
+     * @param axisTilt a number between 0 and 1, generally describing the tilt of the joystick / trigger
+     *                 that is moving the trigger
      */
     public void adjustArm(double axisTilt) {
         if (Config.isArmInstalled) {
@@ -153,7 +166,8 @@ public class ArmSubsystem extends SubsystemBase {
      * commands will repeatedly call as a finish condition for arm movement commands, allowing the subsystem
      * to check that calibration is complete.
      *
-     * @return if the arm has reached its destination
+     * @return true if the arm has reached its destination or if no arm is installed.
+     *
      */
     public boolean isInPosition() {
         if (!Config.isArmInstalled) {
@@ -167,7 +181,9 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     /**----------------------------------------------------------------------------------------------------------------
-     * Calibration method for the position of the arm motor encoder, this should take priority over moving to an arm position.
+     * Calibration method for the position of the arm motor encoder, this should take priority over
+     * moving to an arm position.
+     *
      */
     private void calibrate() {
         if (Config.isArmInstalled) {
@@ -240,8 +256,7 @@ public class ArmSubsystem extends SubsystemBase {
         }
     }
 
-    /**
-     * ---------------------------------------------------------------------------------------------------------------\
+    /**---------------------------------------------------------------------------------------------------------------\
      * Moves arm to a preset Arm position. Most of this is done for us properly with the PIDs and MotionMagic.
      *
      * @param position - The Arm position to which the arm will move.
@@ -256,15 +271,18 @@ public class ArmSubsystem extends SubsystemBase {
             } else {
                 calibrationStoredPosition = position;
                 calibrate();
+                desiredPosition = armPositionToEncoderPosition(position);
+                armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
             }
 
         }
     }
 
     /**---------------------------------------------------------------------------------------------------------------
-     * converts an ArmPosition to the actually needed position for the encoder, accounting for initialization position
+     * Converts an ArmPosition to the actually needed position for the encoder, accounting for initialization position
      * @param position ArmPosition to convert
      * @return The encoder position to feed to a motor
+     *
      */
     private int armPositionToEncoderPosition(ArmPosition position) {
         return position.value + initialEncoderCount;
@@ -273,6 +291,7 @@ public class ArmSubsystem extends SubsystemBase {
     /**---------------------------------------------------------------------------------------------------------------
      * Detects if the arm is physically triggering the upper limit switch
      * @return true if the limit switch is engaged
+     *
      */
     private boolean isArmAtUpperLimit() {
         if (armMotor.isFwdLimitSwitchClosed() == 0) {
@@ -283,6 +302,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends motor data to SmartDashboard
+     *
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Arm encoder position", armMotor.getSelectedSensorPosition(0));
