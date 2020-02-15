@@ -1,6 +1,7 @@
-package frc.robot.subsystems;
+package frc.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexerSubsystem;
 
 public class ManageIndexer extends CommandBase {
 

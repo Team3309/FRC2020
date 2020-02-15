@@ -20,8 +20,8 @@ public class IndexerSubsystem extends SubsystemBase {
 
     public enum IndexerState {
         OFF,
-        INDEXING,
-        EJECTING
+        INDEXING_IN,
+        INDEXING_OUT
     }
 
     private IndexerState indexerState = IndexerState.OFF;
@@ -57,7 +57,7 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexOut() {
         if (Config.isIndexerInstalled) {
-            if (indexerState == IndexerState.EJECTING) {
+            if (indexerState == IndexerState.INDEXING_OUT) {
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
                         - Config.StandardIndexerMotionInEncoderCounts;
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0)
@@ -78,7 +78,7 @@ public class IndexerSubsystem extends SubsystemBase {
     private void indexIn() {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
-                if (indexerState == IndexerState.INDEXING && PowerCells < 5) {
+                if (indexerState == IndexerState.INDEXING_IN && PowerCells < 5) {
                     UpperMotorDesiredEncoderPosition = Config.StandardIndexerMotionInEncoderCounts -
                             UpperIndexerMotor.getSelectedSensorPosition(0);
                     LowerMotorDesiredEncoderPosition = Config.StandardIndexerMotionInEncoderCounts
@@ -96,6 +96,17 @@ public class IndexerSubsystem extends SubsystemBase {
      * Programs the indexer motors to stop completely.
      *
      */
+
+    public void stopIndexer() {
+        if (Config.isIndexerInstalled) {
+            if (isInPosition()) {
+                if (indexerState == IndexerState.OFF && PowerCells <= 5) {
+                    UpperIndexerMotor.set(ControlMode.MotionMagic, 0);
+                    LowerIndexerMotor.set(ControlMode.MotionMagic, 0);
+                }
+            }
+        }
+    }
 
     //Make method that indexes balls properly while taking in multiple power cells at once.
 
@@ -168,8 +179,12 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void manageSensorState() {
         if (Config.isIndexerInstalled) {
-            if(sensorBlocked() && indexerState == IndexerState.INDEXING) {
+            if(sensorBlocked() && indexerState == IndexerState.INDEXING_IN) {
                 indexIn();
+            } else if (sensorBlocked() && indexerState == IndexerState.INDEXING_OUT) {
+                indexOut();
+            } else if (sensorBlocked() && indexerState == IndexerState.OFF) {
+                indexOut();
             }
         }
     }

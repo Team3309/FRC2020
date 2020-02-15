@@ -20,6 +20,6 @@ public class UpdateIndexerState extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return indexer.getPrimaryMotorVelocity() == 0 && indexer.getSecondaryMotorVelocity() == 0;
+        return true;
     }
 }

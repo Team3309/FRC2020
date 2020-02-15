@@ -26,13 +26,13 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
     public ToIntakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateState(RobotContainer.PowerCellHandlingState.INIT_INTAKE),
-                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING),
+                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_IN),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new ExtendIntake(intake),
                 new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm),
                 new StartIntakeMotor(intake, shooter),
-                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING),
+                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_IN),
                 new StartShooterIntake(shooter),
                 new UpdateState(RobotContainer.PowerCellHandlingState.INTAKE)
         );
