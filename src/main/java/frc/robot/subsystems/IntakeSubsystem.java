@@ -76,7 +76,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public void extend() {
         if (Config.isIntakeInstalled && Config.isPcmInstalled) {
-            solenoid.set(true);
+            solenoid.set(Config.intakeDefaultIsRetracted);
             solenoidStateExtendSwapTime = timer.get();
             isSolenoidExtended = true;
         }
@@ -94,7 +94,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public void retract() {
         if (Config.isIntakeInstalled && Config.isPcmInstalled) {
-            solenoid.set(false);
+            solenoid.set(!Config.intakeDefaultIsRetracted);
             solenoidStateExtendSwapTime = timer.get();
             isSolenoidExtended = false;
         }

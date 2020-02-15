@@ -75,6 +75,7 @@ public class Config {
 
     public static final double intakeInwardPower = 0.6;
     public static final double intakeOutwardPower = 0.3;
+    public static Boolean intakeDefaultIsRetracted;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
@@ -180,7 +181,7 @@ public class Config {
     // The encoder will be automatically zeroed after the code is deployed with this flag set true.
     // There is no need to change the default intake position because the compressor is disabled while
     // in tuning mode.
-    public static final boolean armPIDTuningMode = true;
+    public static final boolean armPIDTuningMode = false;
 
     // The procedure for running the arm without position sensors is similar to armPIDTestMode
     // and just as dangerous, but we suppress warnings in this mode because we're willing to
@@ -188,12 +189,13 @@ public class Config {
     //
     // BEFORE SETTING armNoPositionSensors TO TRUE:
     //   Connect intake pneumatic valve so intake is extended by default.
+    //   Set intakeDefaultIsRetracted = false
     //   Inform all operators that ***BEFORE*** every power up of the robot, code push,
     //   roboRIO reboot or robot code restart, the following MUST be done:
     //     Manually extend the intake (if needed)
     //     Put the arm in the lowest physical position against the battery case
     //   If the arm is ever moved manually, the robot MUST be power cycled or the robot code MUST be restarted.
-    public static final boolean armNoPositionSensors = false;
+    public static final boolean armNoPositionSensors = true;
 
     public static Double armP;
     public static Double armI;
@@ -278,6 +280,7 @@ public class Config {
                 IntakeSolenoidChannel = 3;
                 IntakePistonExtendDelaySeconds = 1.0;
                 IntakePistonRetractDelaySeconds = 1.0;
+                intakeDefaultIsRetracted = false;  // should be true for competition
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
