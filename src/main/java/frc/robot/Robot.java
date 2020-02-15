@@ -2,6 +2,7 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -51,10 +52,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-        if (Config.armNoPositionSensors) {
-            // Don't let intake suddenly retract and hit the arm on next enable
-            container.extendIntake();
-        }
+        container.disabledInit();
     }
 
 
@@ -127,6 +125,9 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         container.outputToDashboard();
         displayWarnings.execute();
+        if (DriverStation.getInstance().isDisabled()) {
+            container.disabledPeriodic();
+        }
     }
 
 }

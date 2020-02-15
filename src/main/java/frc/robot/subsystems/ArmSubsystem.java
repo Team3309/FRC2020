@@ -84,11 +84,7 @@ public class ArmSubsystem extends SubsystemBase {
         talon.setSensorPhase(false);
         talon.setInverted(true);
         talon.configForwardLimitSwitchSource(FeedbackConnector, NormallyClosed, Config.motorControllerConfigTimeoutMs);
-        talon.setNeutralMode(NeutralMode.Coast);
-
-        if (Config.armPIDTuningMode) {
-            talon.setSelectedSensorPosition(0, 0, Config.motorControllerConfigTimeoutMs);
-        }
+        talon.setNeutralMode(NeutralMode.Brake);
 
         // Position control PID parameters
         talon.config_kP(0, Config.armP, Config.motorControllerConfigTimeoutMs);
@@ -104,6 +100,24 @@ public class ArmSubsystem extends SubsystemBase {
 
         // TODO: Is this useful or just extra overhead?
         addChild("Arm Motor", talon);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     *
+     */
+    public void setBrakeMode() {
+        if (Config.isArmInstalled) {
+            armMotor.setNeutralMode(NeutralMode.Brake);
+        }
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     *
+     */
+    public void setCoastMode() {
+        if (Config.isArmInstalled) {
+            armMotor.setNeutralMode(NeutralMode.Coast);
+        }
     }
 
     /**

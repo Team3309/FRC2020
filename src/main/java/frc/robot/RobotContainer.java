@@ -214,10 +214,20 @@ public class RobotContainer
     }
 
     /**
-     * For use while disabled to avoid surprises
+     * Avoid surprises when enabling
      */
-    public void extendIntake() {
-        intake.extend();
+    public void disabledInit() {
+        intake.gotoDefaultPosition();  // don't move intake on next enable
+        arm.setBrakeMode();  // let arm drop slowly
+    }
+
+    /**
+     * Allow arm to be moved when disabled
+     */
+    public void disabledPeriodic() {
+        if (OI.OperatorController.getXButtonPressed()) {
+            arm.setCoastMode();
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
