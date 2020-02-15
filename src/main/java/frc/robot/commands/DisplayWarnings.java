@@ -20,19 +20,24 @@ public class DisplayWarnings {
     }
 
     private void warnNow() {
-        StringBuilder warnMsg = new StringBuilder();
-        conditionalMsg(!Config.isCompressorEnabled, warnMsg, "Compressor");
-        conditionalMsg(!Config.isPcmInstalled, warnMsg, "PCM");
-        conditionalMsg(!Config.isArmInstalled, warnMsg, "Arm");
-        conditionalMsg(!Config.isClimberInstalled, warnMsg, "Climber");
-        conditionalMsg(!Config.isCtrlPanelInstalled, warnMsg, "CtrlPanel");
-        conditionalMsg(!Config.isDriveInstalled, warnMsg, "Drive");
-        conditionalMsg(!Config.isIndexerInstalled, warnMsg, "Indexer");
-        conditionalMsg(!Config.isIntakeInstalled, warnMsg, "Intake");
-        conditionalMsg(!Config.isShooterInstalled, warnMsg, "Shooter");
-        conditionalMsg(!Config.isVisionInstalled, warnMsg, "Vision");
-        if (!warnMsg.toString().isEmpty()) {
-            DriverStation.reportError("Not installed: " + warnMsg, false);
+        if (Config.isArmInstalled && Config.armPIDTuningMode) {
+            DriverStation.reportError("DANGER: Arm is in PID tuning mode!!!!", false);
+        }
+        else {
+            StringBuilder warnMsg = new StringBuilder();
+            conditionalMsg(!Config.isCompressorEnabled, warnMsg, "Compressor");
+            conditionalMsg(!Config.isPcmInstalled, warnMsg, "PCM");
+            conditionalMsg(!Config.isArmInstalled, warnMsg, "Arm");
+            conditionalMsg(!Config.isClimberInstalled, warnMsg, "Climber");
+            conditionalMsg(!Config.isCtrlPanelInstalled, warnMsg, "CtrlPanel");
+            conditionalMsg(!Config.isDriveInstalled, warnMsg, "Drive");
+            conditionalMsg(!Config.isIndexerInstalled, warnMsg, "Indexer");
+            conditionalMsg(!Config.isIntakeInstalled, warnMsg, "Intake");
+            conditionalMsg(!Config.isShooterInstalled, warnMsg, "Shooter");
+            conditionalMsg(!Config.isVisionInstalled, warnMsg, "Vision");
+            if (!warnMsg.toString().isEmpty()) {
+                DriverStation.reportError("Not installed: " + warnMsg, false);
+            }
         }
     }
 

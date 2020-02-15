@@ -6,8 +6,14 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.Robot;
+
+import static com.ctre.phoenix.motorcontrol.LimitSwitchNormal.NormallyClosed;
+import static com.ctre.phoenix.motorcontrol.LimitSwitchNormal.NormallyOpen;
+import static com.ctre.phoenix.motorcontrol.LimitSwitchSource.FeedbackConnector;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -82,29 +88,30 @@ public class ArmSubsystem extends SubsystemBase {
 
     private void configTalon(WPI_TalonFX talon) {
         talon.configFactoryDefault();
+        talon.setSensorPhase(false);
+        talon.setInverted(true);
+        talon.configForwardLimitSwitchSource(FeedbackConnector, NormallyClosed, 10);
 
-        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        if (Config.armPIDTuningMode) {
+            talon.setNeutralMode(NeutralMode.Coast);
+            talon.setSelectedSensorPosition(0, 0, 10);
+        } else {
+            talon.setNeutralMode(NeutralMode.Brake);
+        }
 
-        talon.setNeutralMode(NeutralMode.Brake);
-        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-
+        // Position control PID parameters
         talon.config_kP(0, Config.armP);
         talon.config_kI(0, Config.armI);
         talon.config_IntegralZone(0, Config.armIntegralZone);
         talon.config_kD(0, Config.armD);
 
-        //Motion Magic constants
+        // Motion Magic parameters
         talon.configMotionCruiseVelocity(Config.armCruiseVelocity);
         talon.configMotionAcceleration(Config.armAcceleration);
-
         talon.configPeakOutputForward(Config.peakOutputForward);
         talon.configPeakOutputReverse(Config.peakOutputReverse);
 
-
-        talon.setSensorPhase(false);
-
-        talon.setNeutralMode(NeutralMode.Brake);
-
+        // TODO: Is this useful or just extra overhead?
         addChild("Arm Motor", talon);
     }
 
@@ -126,9 +133,6 @@ public class ArmSubsystem extends SubsystemBase {
                     desiredPosition = newDesiredPosition;
                     armMotor.set(ControlMode.Position, newDesiredPosition);
                 }
-
-
-
             } else {
                 calibrate();
             }
@@ -160,7 +164,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     private void calibrate() {
         if (Config.isArmInstalled) {
-            if (Config.armPIDTestMode) {
+            if (Config.armPIDTuningMode) {
                 initialCalibration = false;
                 calibrated = true;
                 initialEncoderCount = armMotor.getSelectedSensorPosition(0); //absolute minimum, not physical minimum
@@ -210,7 +214,7 @@ public class ArmSubsystem extends SubsystemBase {
                 }
                 //of course if there is no hall effect limit switch or the counterweight is not installed or the arm slipped up,
                 //we need to just go to the top limit switch and start from there.
-                if (armMotor.isFwdLimitSwitchClosed() == 1) {
+                if (isArmAtUpperLimit()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.max.value;
                     calibrated = true;
@@ -258,10 +262,24 @@ public class ArmSubsystem extends SubsystemBase {
         return position.value + initialEncoderCount;
     }
 
+    /**---------------------------------------------------------------------------------------------------------------
+     * Detects if the arm is physically triggering the upper limit switch
+     * @return true if the limit switch is engaged
+     */
+    private boolean isArmAtUpperLimit() {
+        if (armMotor.isFwdLimitSwitchClosed() == 0) {
+            return true;
+        }
+        return false;
+    }
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends motor data to SmartDashboard
      */
     public void outputToDashboard() {
-        //SmartDashboard.putNumber("Key", value);
+        SmartDashboard.putNumber("Arm encoder position", armMotor.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
+        SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));
+        SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
     }
 }

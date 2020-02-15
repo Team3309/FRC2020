@@ -128,14 +128,12 @@ public class Config {
 
     public static final int shooterSpeedTolerance = 500; //Encoder counts per 100ms
 
-
     public static final double shooterLongRangeTopSpeed = 10000;
     public static final double shooterLongRangeBottomSpeed = 10000;
     public static final double shooterMidRangeTopSpeed = 5000;
     public static final double shooterMidRangeBottomSpeed = 5000;
     public static final double shooterCloseRangeBottomSpeed = 3000;
     public static final double shooterShortRangeBottomSpeed = 3000;
-
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -167,25 +165,29 @@ public class Config {
 
     // Arm positions MUST be overridden in frameSpecificConfig() when the arm is installed!
     // The values cannot be null when the arm isn't installed because they are used to initialize a static enum.
-    public static final int armPositionMaxValue = 0;
-    public static final int armPositionLongRangeValue = 0;
-    public static final int armPositionMidRangeValue = 0;
-    public static final int armPositionCloseRangeValue = 0;
-    public static final int armPositionTrenchValue = 0;
-    public static final int armPositionMinValue = 0;
-    public static final int armPositionHallEffectTopValue = 0;
-    public static final int armPositionIntakeStowedLimitValue = 0;
+    public static int armPositionMaxValue = 0;
+    public static int armPositionLongRangeValue = 0;
+    public static int armPositionMidRangeValue = 0;
+    public static int armPositionCloseRangeValue = 0;
+    public static int armPositionTrenchValue = 0;
+    public static int armPositionMinValue = 0;
+    public static int armPositionHallEffectTopValue = 0;
+    public static int armPositionIntakeStowedLimitValue = 0;
 
-    //BEFORE SETTING armPIDTestMode TO TRUE: SET THE INTAKE OUT, MUST HAVE ARM IN LOWEST PHYSICAL POSITION, POWER CYCLE ROBOT
-    public static final boolean armPIDTestMode = false;
+    //BEFORE SETTING armPIDTestMode TO TRUE:
+    //  Disable the compressor
+    //  Manually extend the intake
+    //  Put the arm in the lowest physical position against the battery case
+    //  Power cycle the robot
+    public static final boolean armPIDTuningMode = true;
 
     public static Double armP;
     public static Double armI;
     public static Integer armIntegralZone;
     public static Double armD;
 
-    public static final double peakOutputReverse = -0.42;
-    public static final double peakOutputForward = 0.42;
+    public static final double peakOutputReverse = -0.2;
+    public static final double peakOutputForward = 0.5;
     public static final int armAcceleration = 1000;
     public static final int armCruiseVelocity = 1000;
 
@@ -223,8 +225,8 @@ public class Config {
                 isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
-                isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isPcmInstalled = false;
+                isCompressorEnabled = false;
 
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;
@@ -265,6 +267,16 @@ public class Config {
                 armI = 0.0;
                 armIntegralZone = 500;
                 armD = 0.0;
+
+                armPositionMaxValue = 185494;
+                armPositionLongRangeValue = 0;
+                armPositionMidRangeValue = 0;
+                armPositionCloseRangeValue = 0;
+                armPositionTrenchValue = 0;
+                armPositionMinValue = 0;
+                armPositionHallEffectTopValue = 0;
+                armPositionIntakeStowedLimitValue = 0;
+
                 break;
 
             case Practice2017:
