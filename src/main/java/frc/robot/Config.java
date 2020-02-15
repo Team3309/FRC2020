@@ -173,12 +173,15 @@ public class Config {
     public static int armPositionHallEffectTopValue = 0;
     public static int armPositionIntakeStowedLimitValue = 0;
 
-    // BEFORE SETTING armPIDTestMode TO TRUE:
+    // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
     //   Manually extend the intake.
     //   Put the arm in the lowest physical position against the battery case.
+    //   Power cycle the robot.
+    //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
+    //     Manually extend the intake.
+    //     Put the arm in the lowest physical position against the battery case.
     //
-    // The encoder will be automatically zeroed after the code is deployed with this flag set true.
     // There is no need to change the default intake position because the compressor is disabled while
     // in tuning mode.
     public static final boolean armPIDTuningMode = false;
@@ -187,14 +190,12 @@ public class Config {
     // and just as dangerous, but we suppress warnings in this mode because we're willing to
     // play with fire to make progress.
     //
-    // BEFORE SETTING armNoPositionSensors TO TRUE:
+    // BEFORE setting armNoPositionSensors to true:
     //   Connect intake pneumatic valve so intake is extended by default.
     //   Set intakeDefaultIsRetracted = false
-    //   Inform all operators that ***BEFORE*** every power up of the robot, code push,
-    //   roboRIO reboot or robot code restart, the following MUST be done:
-    //     Manually extend the intake (if needed)
-    //     Put the arm in the lowest physical position against the battery case
-    //   If the arm is ever moved manually, the robot MUST be power cycled or the robot code MUST be restarted.
+    //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
+    //     Manually extend the intake.
+    //     Put the arm in the lowest physical position against the battery case.
     public static final boolean armNoPositionSensors = true;
 
     public static Double armP;

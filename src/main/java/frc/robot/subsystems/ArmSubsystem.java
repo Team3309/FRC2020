@@ -52,7 +52,8 @@ public class ArmSubsystem extends SubsystemBase {
         trench(Config.armPositionTrenchValue),
         min(Config.armPositionMinValue),
         hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
-        intakeStowedLimit(Config.armPositionIntakeStowedLimitValue);
+        intakeStowedLimit(Config.armPositionIntakeStowedLimitValue),
+        intakeStowedLimitTarget(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance);
         int value;
 
         ArmPosition(int value) {
@@ -172,7 +173,7 @@ public class ArmSubsystem extends SubsystemBase {
             if (Config.armPIDTuningMode || Config.armNoPositionSensors) {
                 initialCalibration = false;
                 calibrated = true;
-                initialEncoderCount = armMotor.getSelectedSensorPosition(0); //absolute minimum, not physical minimum
+                initialEncoderCount = 0;  // Arm was required to be all the way down at power-up
                 return;
             }
             //we want to have a one time only cycle because this stuff cannot be done before enable
