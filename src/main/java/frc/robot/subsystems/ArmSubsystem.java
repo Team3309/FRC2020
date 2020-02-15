@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -12,7 +11,6 @@ import frc.robot.Config;
 import frc.robot.Robot;
 
 import static com.ctre.phoenix.motorcontrol.LimitSwitchNormal.NormallyClosed;
-import static com.ctre.phoenix.motorcontrol.LimitSwitchNormal.NormallyOpen;
 import static com.ctre.phoenix.motorcontrol.LimitSwitchSource.FeedbackConnector;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -34,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
     //Other arm variables//
     //------------------------------------------------------------------------------------------------------------------
 
-    private static final int MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION = 3; //maximum encoder distance to be properly in a position
+    private static final int armPositioningTolerance = 200; //maximum encoder count difference to be properly in a position
     private static final double JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT = 0.1;
 
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
@@ -154,7 +152,8 @@ public class ArmSubsystem extends SubsystemBase {
             calibrate();
             return false;
         }
-        return (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION);
+        return (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) <
+                armPositioningTolerance);
     }
 
     /**----------------------------------------------------------------------------------------------------------------
@@ -222,7 +221,7 @@ public class ArmSubsystem extends SubsystemBase {
                 }
             }
             //if we're close enough to the target point, set a new one.
-            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) < MAXIMUM_ENCODER_DISTANCE_FOR_IN_POSITION)) {
+            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) < armPositioningTolerance)) {
 
                 desiredCalibrationPosition += CALIBRATION_MOTION_INCREMENT;
                 armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);

@@ -3,10 +3,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.Robot;
 
- /** -------------------------------------------------------------------------------------------------------------------
+/** -------------------------------------------------------------------------------------------------------------------
  * The class for the shooter subsystem, which will launch the power cells to desired targets.
  * Will work in tandem with indexer to determine whether to shoot or not, and will work with
  * aimer and drive to determine what level of power to use to achieve an accurate shot.
@@ -37,11 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
             topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
             bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
             configTalon(topMotor);
-            topMotor.setInverted(false);
-            topMotor.setSensorPhase(false);
             configTalon(bottomMotor);
-            bottomMotor.setInverted(false);
-            bottomMotor.setSensorPhase(false);
         }
     }
 
@@ -53,6 +51,8 @@ public class ShooterSubsystem extends SubsystemBase {
     public void configTalon(WPI_TalonFX talon) {
 
         talon.configFactoryDefault();
+        talon.setInverted(true);
+        talon.setSensorPhase(true);
 
         talon.configClosedloopRamp(Config.shooterClosedLoopRampRate);
         talon.configOpenloopRamp(Config.shooterOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
@@ -138,7 +138,8 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
-      * Run the flywheels in voltage control mode for intake testing
+      * Run the flywheels in voltage control mode for intake testing.
+      * Positive power is outtaking, negative power is intaking.
       *
       * @param topPower - power of the top motor.
       * @param bottomPower - power of the bottom motor.
@@ -151,13 +152,25 @@ public class ShooterSubsystem extends SubsystemBase {
      }
 
      /** ---------------------------------------------------------------------------------------------------------------
+      * @return true if flywheel speeds have been set
+      */
+     public boolean hasPresetSpeeds() {
+         return flywheelSpeedTop != null && flywheelSpeedBottom != null;
+     }
+
+     /** ---------------------------------------------------------------------------------------------------------------
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {
-         //SmartDashboard.putNumber("Key", value);
-     }
-
-     public boolean hasPresetSpeeds() {
-         return flywheelSpeedTop != null && flywheelSpeedBottom != null;
+         SmartDashboard.putNumber("Top flywheel speed", getTopMotorVelocity());
+         SmartDashboard.putNumber("Top flywheel desired speed", flywheelSpeedTop == null ? 0 : flywheelSpeedTop);
+         SmartDashboard.putNumber("Top flywheel speed error", flywheelSpeedTop == null ? 0 : getTopMotorVelocity() - flywheelSpeedTop);
+         SmartDashboard.putNumber("Top flywheel power", topMotor.getMotorOutputPercent());
+         SmartDashboard.putNumber("Top flywheel current", Robot.pdp.getCurrent(Config.TopShooterPdpChannel));
+         SmartDashboard.putNumber("Bottom flywheel speed", getBottomMotorVelocity());
+         SmartDashboard.putNumber("Bottom flywheel desired speed", flywheelSpeedBottom == null ? 0 : flywheelSpeedBottom);
+         SmartDashboard.putNumber("Bottom flywheel speed error", flywheelSpeedBottom == null ? 0 : getBottomMotorVelocity() - flywheelSpeedBottom);
+         SmartDashboard.putNumber("Bottom flywheel power", topMotor.getMotorOutputPercent());
+         SmartDashboard.putNumber("Bottom flywheel current", Robot.pdp.getCurrent(Config.TopShooterPdpChannel));
      }
  }

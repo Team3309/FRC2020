@@ -19,7 +19,7 @@ public class StartIntakeMotor extends InstantCommand {
     @Override
     public void execute() {
         intake.intake();
-        shooter.setPowerRaw(Config.shooterIntakePowerTopMotor, Config.shooterIntakePowerBottomMotor);
+        shooter.setPowerRaw(-Config.shooterIntakePowerTopMotor, -Config.shooterIntakePowerBottomMotor);
     }
 
 }
