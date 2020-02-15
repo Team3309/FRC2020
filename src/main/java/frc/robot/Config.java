@@ -237,13 +237,13 @@ public class Config {
                 isArmInstalled = true;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
-                isDriveInstalled = false;
+                isDriveInstalled = true;
                 isIndexerInstalled = false;
-                isIntakeInstalled = false;
+                isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
-                isPcmInstalled = false;
-                isCompressorEnabled = false;
+                isPcmInstalled = true;
+                isCompressorEnabled = true;
 
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;

@@ -276,6 +276,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Arm encoder position", armMotor.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Arm desired encoder position", desiredPosition);
         SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));
         SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
