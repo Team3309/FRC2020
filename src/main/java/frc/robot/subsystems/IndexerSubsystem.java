@@ -38,16 +38,16 @@ public class IndexerSubsystem extends SubsystemBase {
             UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
             LowerIndexerMotor = new WPI_TalonSRX(Config.SecondaryIndexerMotorID);
             LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
-            UpperIndexerMotor.config_kP(0, Config.IndexerP);
-            UpperIndexerMotor.config_kI(0, Config.IndexerI);
-            UpperIndexerMotor.config_IntegralZone(0, Config.IndexerIntegralZone);
-            UpperIndexerMotor.config_kD(0, Config.IndexerD);
-            UpperIndexerMotor.config_kF(0, Config.IndexerF);
-            LowerIndexerMotor.config_kP(0, Config.IndexerP);
-            LowerIndexerMotor.config_kI(0, Config.IndexerI);
-            LowerIndexerMotor.config_IntegralZone(0, Config.IndexerIntegralZone);
-            LowerIndexerMotor.config_kD(0, Config.IndexerD);
-            LowerIndexerMotor.config_kF(0, Config.IndexerF);
+            UpperIndexerMotor.config_kP(0, Config.IndexerP, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.config_kI(0, Config.IndexerI, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.config_IntegralZone(0, Config.IndexerIntegralZone, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.config_kD(0, Config.IndexerD, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.config_kF(0, Config.IndexerF, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.config_kP(0, Config.IndexerP, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.config_kI(0, Config.IndexerI, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.config_IntegralZone(0, Config.IndexerIntegralZone, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.config_kD(0, Config.IndexerD, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.config_kF(0, Config.IndexerF, Config.motorControllerConfigTimeoutMs);
         }
     }
 

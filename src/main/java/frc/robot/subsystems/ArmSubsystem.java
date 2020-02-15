@@ -90,26 +90,24 @@ public class ArmSubsystem extends SubsystemBase {
         talon.configFactoryDefault();
         talon.setSensorPhase(false);
         talon.setInverted(true);
-        talon.configForwardLimitSwitchSource(FeedbackConnector, NormallyClosed, 10);
+        talon.configForwardLimitSwitchSource(FeedbackConnector, NormallyClosed, Config.motorControllerConfigTimeoutMs);
+        talon.setNeutralMode(NeutralMode.Coast);
 
         if (Config.armPIDTuningMode) {
-            talon.setNeutralMode(NeutralMode.Coast);
-            talon.setSelectedSensorPosition(0, 0, 10);
-        } else {
-            talon.setNeutralMode(NeutralMode.Brake);
+            talon.setSelectedSensorPosition(0, 0, Config.motorControllerConfigTimeoutMs);
         }
 
         // Position control PID parameters
-        talon.config_kP(0, Config.armP);
-        talon.config_kI(0, Config.armI);
-        talon.config_IntegralZone(0, Config.armIntegralZone);
-        talon.config_kD(0, Config.armD);
+        talon.config_kP(0, Config.armP, Config.motorControllerConfigTimeoutMs);
+        talon.config_kI(0, Config.armI, Config.motorControllerConfigTimeoutMs);
+        talon.config_IntegralZone(0, Config.armIntegralZone, Config.motorControllerConfigTimeoutMs);
+        talon.config_kD(0, Config.armD, Config.motorControllerConfigTimeoutMs);
 
         // Motion Magic parameters
-        talon.configMotionCruiseVelocity(Config.armCruiseVelocity);
-        talon.configMotionAcceleration(Config.armAcceleration);
-        talon.configPeakOutputForward(Config.peakOutputForward);
-        talon.configPeakOutputReverse(Config.peakOutputReverse);
+        talon.configMotionCruiseVelocity(Config.armCruiseVelocity, Config.motorControllerConfigTimeoutMs);
+        talon.configMotionAcceleration(Config.armAcceleration, Config.motorControllerConfigTimeoutMs);
+        talon.configPeakOutputForward(Config.peakOutputForward, Config.motorControllerConfigTimeoutMs);
+        talon.configPeakOutputReverse(Config.peakOutputReverse, Config.motorControllerConfigTimeoutMs);
 
         // TODO: Is this useful or just extra overhead?
         addChild("Arm Motor", talon);
@@ -164,7 +162,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     private void calibrate() {
         if (Config.isArmInstalled) {
-            if (Config.armPIDTuningMode) {
+            if (Config.armPIDTuningMode || Config.armNoPositionSensors) {
                 initialCalibration = false;
                 calibrated = true;
                 initialEncoderCount = armMotor.getSelectedSensorPosition(0); //absolute minimum, not physical minimum

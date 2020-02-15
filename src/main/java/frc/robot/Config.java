@@ -174,12 +174,28 @@ public class Config {
     public static int armPositionHallEffectTopValue = 0;
     public static int armPositionIntakeStowedLimitValue = 0;
 
-    //BEFORE SETTING armPIDTestMode TO TRUE:
-    //  Disable the compressor
-    //  Manually extend the intake
-    //  Put the arm in the lowest physical position against the battery case
-    //  Power cycle the robot
+    // BEFORE SETTING armPIDTestMode TO TRUE:
+    //   Bleed air.
+    //   Manually extend the intake.
+    //   Put the arm in the lowest physical position against the battery case.
+    //
+    // The encoder will be automatically zeroed after the code is deployed with this flag set true.
+    // There is no need to change the default intake position because the compressor is disabled while
+    // in tuning mode.
     public static final boolean armPIDTuningMode = true;
+
+    // The procedure for running the arm without position sensors is similar to armPIDTestMode
+    // and just as dangerous, but we suppress warnings in this mode because we're willing to
+    // play with fire to make progress.
+    //
+    // BEFORE SETTING armNoPositionSensors TO TRUE:
+    //   Connect intake pneumatic valve so intake is extended by default.
+    //   Inform all operators that ***BEFORE*** every power up of the robot, code push,
+    //   roboRIO reboot or robot code restart, the following MUST be done:
+    //     Manually extend the intake (if needed)
+    //     Put the arm in the lowest physical position against the battery case
+    //   If the arm is ever moved manually, the robot MUST be power cycled or the robot code MUST be restarted.
+    public static final boolean armNoPositionSensors = false;
 
     public static Double armP;
     public static Double armI;
@@ -187,9 +203,9 @@ public class Config {
     public static Double armD;
 
     public static final double peakOutputReverse = -0.2;
-    public static final double peakOutputForward = 0.5;
-    public static final int armAcceleration = 1000;
-    public static final int armCruiseVelocity = 1000;
+    public static final double peakOutputForward = 0.7;
+    public static final int armAcceleration = 10000;
+    public static final int armCruiseVelocity = 6000;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
@@ -210,6 +226,7 @@ public class Config {
 
 
     public static final double XBoxTriggerButtonThreshold = 0.5;
+    public static final int motorControllerConfigTimeoutMs = 10;
 
     private static void frameSpecificConfig() {
 
@@ -217,12 +234,12 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
-                isArmInstalled = false;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
+                isArmInstalled = true;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
-                isDriveInstalled = true;
+                isDriveInstalled = false;
                 isIndexerInstalled = false;
-                isIntakeInstalled = true;
+                isIntakeInstalled = false;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
                 isPcmInstalled = false;
@@ -264,18 +281,30 @@ public class Config {
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
                 armP = 0.1;
-                armI = 0.0;
-                armIntegralZone = 500;
-                armD = 0.0;
+                armI = 3.54972071e-05;
+                armIntegralZone = 3000;
+                armD = 15.0;
 
-                armPositionMaxValue = 185494;
-                armPositionLongRangeValue = 0;
-                armPositionMidRangeValue = 0;
-                armPositionCloseRangeValue = 0;
-                armPositionTrenchValue = 0;
-                armPositionMinValue = 0;
+                // Physical max with chain tight on bottom = 187676
+                // Physical max with chain tight on top = 181690
+                // Safe max with chain tight on bottom = 157983 (stays in place)
+                // Close shot with chain tight on bottom = 138952 (stays in place)
+                // Mid shot with chain tight on bottom = 116436 (drops slowly)
+                // Far shot with chain tight on bottom = 99568 (drops fast)
+                // Trench drive with chain tight on bottom = 47955 (drops fast)
+                // Above intake with chain tight on bottom = 41538 (drops fast)
+                // Above intake with chain tight on top = 32914 (drops fast)
+                // On battery case with chain tight on bottom super light drop < 3000 (blocked)
+                // On battery case with chain tight on bottom hard drop > -7000 (blocked)
+
+                armPositionMaxValue = 157983;
+                armPositionLongRangeValue = 99568;
+                armPositionMidRangeValue = 116436;
+                armPositionCloseRangeValue = 138952;
+                armPositionTrenchValue = 41538;
+                armPositionMinValue = 3000;
                 armPositionHallEffectTopValue = 0;
-                armPositionIntakeStowedLimitValue = 0;
+                armPositionIntakeStowedLimitValue = 41538;
 
                 break;
 

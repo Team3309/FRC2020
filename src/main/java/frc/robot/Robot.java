@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.DisplayWarnings;
 
 
 /*
@@ -44,7 +43,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
 
         // Check if we need to disable the compressor
-        if (Config.isPcmInstalled && !Config.isCompressorEnabled) {
+        if (Config.isPcmInstalled && (!Config.isCompressorEnabled || Config.armPIDTuningMode)) {
             Compressor compressor = new Compressor();
             compressor.stop();
         }
