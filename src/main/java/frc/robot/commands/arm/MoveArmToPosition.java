@@ -16,9 +16,6 @@ public class MoveArmToPosition extends CommandBase {
 
     @Override
     public void initialize() {
-        if(position != null) {
-            Arm.moveToPosition(position);
-        }
     }
 
     /**
@@ -26,7 +23,9 @@ public class MoveArmToPosition extends CommandBase {
      * */
     @Override
     public void execute() {
-
+        if(position != null) {
+            Arm.moveToPosition(position);
+        }
     }
 
     @Override

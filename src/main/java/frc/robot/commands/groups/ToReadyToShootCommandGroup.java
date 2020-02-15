@@ -2,7 +2,8 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.UpdateState;
+import frc.robot.commands.DoNothing;
+import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.UpdateIndexerState;
 import frc.robot.commands.intake.RetractIntake;
@@ -20,15 +21,16 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                                       IntakeSubsystem intake, IndexerSubsystem indexer,
                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
-                new UpdateState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
-                new StopFlywheels(shooter),
-                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.OFF),
+                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
+                position == null ? new DoNothing() : new StopFlywheels(shooter), /*we only want to stop
+                the flywheels if we are moving the arm.*/
+                new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_OUT),
                 new StopIntake(intake),
-                new MoveArmToPosition(position, arm),
+                position == null ? new DoNothing() : new MoveArmToPosition(position, arm), /*if no position argument, do nothing.*/
                 new RetractIntake(intake, arm),
                 new SetFlywheelsSpeed(shooter, speedTop, speedBottom),
                 new StartFlywheels(shooter),
-                new UpdateState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
+                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
         );
     }
 }

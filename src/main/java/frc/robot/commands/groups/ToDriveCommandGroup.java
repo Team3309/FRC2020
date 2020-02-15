@@ -3,7 +3,7 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.UpdateState;
+import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.UpdateIndexerState;
 import frc.robot.commands.intake.RetractIntake;
@@ -20,8 +20,8 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
     public ToDriveCommandGroup(ArmSubsystem.ArmPosition position, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(
                 position == ArmSubsystem.ArmPosition.trench ?
-                        new UpdateState(RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) :
-                        new UpdateState(RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE),
+                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) :
+                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE),
                 new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.OFF),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
@@ -31,7 +31,7 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
                 new MoveArmToPosition(position, arm),
                 new RetractIntake(intake, arm),
                 position == ArmSubsystem.ArmPosition.trench ?
-                        new UpdateState(RobotContainer.PowerCellHandlingState.TRENCH_DRIVE) :
-                        new UpdateState(RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE));
+                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.TRENCH_DRIVE) :
+                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE));
     }
 }
