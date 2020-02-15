@@ -26,14 +26,9 @@ public class ArmSubsystem extends SubsystemBase {
     private int desiredCalibrationPosition;
     private ArmPosition calibrationStoredPosition;
 
-    private static final int CALIBRATION_MOTION_INCREMENT = 3;
-
     //------------------------------------------------------------------------------------------------------------------
     //Other arm variables//
     //------------------------------------------------------------------------------------------------------------------
-
-    private static final int armPositioningTolerance = 200; //maximum encoder count difference to be properly in a position
-    private static final double JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT = 0.1;
 
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
 
@@ -121,10 +116,10 @@ public class ArmSubsystem extends SubsystemBase {
             //to change by as much as just a couple encoder ticks, repeatedly and in quick succession.
             //So we use speed control.
             if (calibrated) {
-                int newDesiredPosition = (int) (desiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT);
+                int newDesiredPosition = (int) (desiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor);
                 //so we don't attempt to crash the arm
                 if (newDesiredPosition > armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) &&
-                        newDesiredPosition + axisTilt * JOYSTICK_TILT_TO_POSITION_ADJUSTMENT_CONVERSION_CONSTANT < armPositionToEncoderPosition(ArmPosition.max)) {
+                        newDesiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor < armPositionToEncoderPosition(ArmPosition.max)) {
                     //DO NOT USE MOTION MAGIC. This is a small adjustment.
                     desiredPosition = newDesiredPosition;
                     armMotor.set(ControlMode.Position, newDesiredPosition);
@@ -152,8 +147,7 @@ public class ArmSubsystem extends SubsystemBase {
             calibrate();
             return false;
         }
-        return (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) <
-                armPositioningTolerance);
+        return (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < Config.armPositioningTolerance);
     }
 
     /**----------------------------------------------------------------------------------------------------------------
@@ -178,9 +172,9 @@ public class ArmSubsystem extends SubsystemBase {
                 } else {
                     hallEffectCalibrate = false;
                 }
-                desiredCalibrationPosition = armMotor.getSelectedSensorPosition(0) + CALIBRATION_MOTION_INCREMENT;
+                desiredCalibrationPosition = armMotor.getSelectedSensorPosition(0) +
+                        Config.armCalibrationMotionIncrement;
                 armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
-
             }
             if (hallEffectCalibrate) {
                 if (!hallEffectLimitSwitch.get()) {
@@ -221,9 +215,10 @@ public class ArmSubsystem extends SubsystemBase {
                 }
             }
             //if we're close enough to the target point, set a new one.
-            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) < armPositioningTolerance)) {
+            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) <
+                    Config.armPositioningTolerance)) {
 
-                desiredCalibrationPosition += CALIBRATION_MOTION_INCREMENT;
+                desiredCalibrationPosition += Config.armCalibrationMotionIncrement;
                 armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
             }
         }

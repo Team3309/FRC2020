@@ -124,14 +124,14 @@ public class Config {
     public static final double shooterIntakePowerTopMotor = 0.4;
     public static final double shooterIntakePowerBottomMotor = 0.4;
 
-    public static final int shooterSpeedTolerance = 500; //Encoder counts per 100ms
+    public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
-    public static final double shooterLongRangeTopSpeed = 10000;
-    public static final double shooterLongRangeBottomSpeed = 10000;
-    public static final double shooterMidRangeTopSpeed = 5000;
-    public static final double shooterMidRangeBottomSpeed = 5000;
-    public static final double shooterCloseRangeBottomSpeed = 3000;
-    public static final double shooterShortRangeBottomSpeed = 3000;
+    public static final double shooterLongRangeTopSpeed = 12000;
+    public static final double shooterLongRangeBottomSpeed = 20000;
+    public static final double shooterMidRangeTopSpeed = 8000;
+    public static final double shooterMidRangeBottomSpeed = 14000;
+    public static final double shooterCloseRangeBottomSpeed = 5000;
+    public static final double shooterShortRangeBottomSpeed = 7000;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -205,6 +205,10 @@ public class Config {
     public static final int armAcceleration = 10000;
     public static final int armCruiseVelocity = 6000;
 
+    public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
+    public static final double armJoystickTiltToPositionFactor = 0.1;
+    public static final int armCalibrationMotionIncrement = 3;
+
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
     //------------------------------------------------------------------------------------------------------------------
@@ -252,23 +256,22 @@ public class Config {
                 DriveRightMasterPdpChannel = 15;
                 DriveRightSlavePdpChannel = 0;
 
-                driveVelocityP = 0.1;
-                driveVelocityI = 0.0;
-                driveVelocityIntegralZone = 1000;
-                driveVelocityD = 0.0;
-                driveVelocityF = 0.0;
+                driveVelocityP = 0.02;
+                driveVelocityI = 0.00015;
+                driveVelocityIntegralZone = 250;
+                driveVelocityD = 0.0006;
+                driveVelocityF = 0.002;
 
                 TopShooterMotorID = 10;
                 BottomShooterMotorID = 2;
-
                 TopShooterPdpChannel = 12;
                 BottomShooterPdpChannel = 13;
 
-                shooterVelocityP = 0.1;
-                shooterVelocityI = 0.0;
-                shooterVelocityIntegralZone = 1000;
+                shooterVelocityP = 0.04;
+                shooterVelocityI = 0.0002;
+                shooterVelocityIntegralZone = 500;
                 shooterVelocityD = 0.0;
-                shooterVelocityF = 0.0;
+                shooterVelocityF = 0.05;
 
                 IntakeMotorID = 20;
                 IntakeMotorPdpChannel = 11;
@@ -278,6 +281,7 @@ public class Config {
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
+
                 armP = 0.1;
                 armI = 3.54972071e-05;
                 armIntegralZone = 3000;
