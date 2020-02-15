@@ -16,16 +16,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
 
     private RobotContainer container;
-
-    // Probably to use for a couple weeks while we finalize the real robotContainer, to use for testing hardware
-    private RobotContainerTest containerTest;
-
     private Command autonomousCommand;
-
     private DisplayWarnings displayWarnings = new DisplayWarnings();
-
     public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
-
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
@@ -48,11 +41,7 @@ public class Robot extends TimedRobot {
             compressor.stop();
         }
 
-        if (Config.isTestMode) {
-            containerTest = new RobotContainerTest();
-        } else {
-            container = new RobotContainer();
-        }
+        container = new RobotContainer();
     }
 
 
@@ -132,11 +121,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-        if (Config.isTestMode) {
-            containerTest.outputToDashboard();
-        } else {
-            container.outputToDashboard();
-        }
+        container.outputToDashboard();
         displayWarnings.execute();
     }
 
