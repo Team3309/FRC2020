@@ -213,6 +213,13 @@ public class RobotContainer
         //Chooser.addOption("Simple Auto", new SimpleAutoCommand());
     }
 
+    /**
+     * For use while disabled to avoid surprises
+     */
+    public void extendIntake() {
+        intake.extend();
+    }
+
     /** ----------------------------------------------------------------------------------------------------------------
      * @return the command chosen by the smartdashboard to run in auto
      */

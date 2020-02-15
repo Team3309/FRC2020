@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -104,6 +105,6 @@ public class IntakeSubsystem extends SubsystemBase {
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {
-         //SmartDashboard.putString("Intake State", testState);
+         SmartDashboard.putBoolean("Intake Extended", isSolenoidExtended);
      }
 }

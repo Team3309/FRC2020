@@ -51,6 +51,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        if (Config.armNoPositionSensors) {
+            // Don't let intake suddenly retract and hit the arm on next enable
+            container.extendIntake();
+        }
     }
 
 

@@ -40,7 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (!Config.isArmInstalled) {
             return true;
         }
-        return armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) <= armMotor.getSelectedSensorPosition(0);
+        return armMotor.getSelectedSensorPosition(0) >= armPositionToEncoderPosition(ArmPosition.intakeStowedLimit);
     }
 
 

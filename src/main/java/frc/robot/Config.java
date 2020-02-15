@@ -127,7 +127,7 @@ public class Config {
 
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
-    public static final double shooterLongRangeTopSpeed = 12000;
+    public static final double shooterLongRangeTopSpeed = 16000;
     public static final double shooterLongRangeBottomSpeed = 20000;
     public static final double shooterMidRangeTopSpeed = 8000;
     public static final double shooterMidRangeBottomSpeed = 14000;
@@ -303,13 +303,13 @@ public class Config {
                 // On battery case with chain tight on bottom hard drop > -7000 (blocked)
 
                 armPositionMaxValue = 157983;
-                armPositionLongRangeValue = 99568;
+                armPositionLongRangeValue = 103000;
                 armPositionMidRangeValue = 116436;
                 armPositionCloseRangeValue = 138952;
-                armPositionTrenchValue = 41538;
+                armPositionTrenchValue = 45000;
                 armPositionMinValue = 3000;
                 armPositionHallEffectTopValue = 0;
-                armPositionIntakeStowedLimitValue = 41538;
+                armPositionIntakeStowedLimitValue = 45000;
 
                 break;
 
