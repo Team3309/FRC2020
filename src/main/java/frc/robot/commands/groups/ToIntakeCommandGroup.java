@@ -29,7 +29,7 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_IN),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
-                arm.isArmAbovePosition(ArmSubsystem.ArmPosition.intakeStowedLimit) ? new DoNothing() :
+                arm.isArmAboveIntakeMinimum() ? new DoNothing() :
                         new MoveArmToPosition(ArmSubsystem.ArmPosition.intakeStowedLimit, arm),
                 new ExtendIntake(intake),
                 new MoveArmToPosition(ArmSubsystem.ArmPosition.min, arm),
