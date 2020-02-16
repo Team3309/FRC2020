@@ -231,7 +231,7 @@ public class Config {
 
 
     public static final double XBoxTriggerButtonThreshold = 0.5;
-    public static final int motorControllerConfigTimeoutMs = 10;
+    public static final int motorControllerConfigTimeoutMs = 25;
 
     private static void frameSpecificConfig() {
 

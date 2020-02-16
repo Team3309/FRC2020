@@ -54,7 +54,7 @@ public class ShooterSubsystem extends SubsystemBase {
         talon.setInverted(true);
         talon.setSensorPhase(true);
 
-        talon.configClosedloopRamp(Config.shooterClosedLoopRampRate);
+        talon.configClosedloopRamp(Config.shooterClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
         talon.configOpenloopRamp(Config.shooterOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
 
         talon.config_kP(0, Config.shooterVelocityP, Config.motorControllerConfigTimeoutMs);
@@ -62,7 +62,6 @@ public class ShooterSubsystem extends SubsystemBase {
         talon.config_IntegralZone(0, Config.shooterVelocityIntegralZone, Config.motorControllerConfigTimeoutMs);
         talon.config_kD(0, Config.shooterVelocityD, Config.motorControllerConfigTimeoutMs);
         talon.config_kF(0, Config.shooterVelocityF, Config.motorControllerConfigTimeoutMs);
-
 
         talon.setNeutralMode(NeutralMode.Coast);
     }
