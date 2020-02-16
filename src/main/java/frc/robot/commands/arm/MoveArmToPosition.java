@@ -16,6 +16,9 @@ public class MoveArmToPosition extends CommandBase {
 
     @Override
     public void initialize() {
+        if (position != null) {
+            Arm.moveToPosition(position);
+        } //this code is in initialize because we want the command to not be restarted once it has been started.
     }
 
     /**
@@ -23,9 +26,7 @@ public class MoveArmToPosition extends CommandBase {
      * */
     @Override
     public void execute() {
-        if(position != null) {
-            Arm.moveToPosition(position);
-        }
+
     }
 
     @Override

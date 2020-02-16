@@ -213,6 +213,7 @@ public class ArmSubsystem extends SubsystemBase {
                     armMotor.set(ControlMode.PercentOutput, 0);
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.hallEffectTop.value;
                     calibrated = true;
+                    moveToPosition(calibrationStoredPosition);
                     if (calibrationStoredPosition != null) {
                         this.moveToPosition(calibrationStoredPosition);
                     }
@@ -242,14 +243,13 @@ public class ArmSubsystem extends SubsystemBase {
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.max.value;
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
-                        this.moveToPosition(calibrationStoredPosition);
+                        moveToPosition(calibrationStoredPosition);
                     }
                 }
             }
             //if we're close enough to the target point, set a new one.
             if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) <
                     Config.armPositioningTolerance)) {
-
                 desiredCalibrationPosition += Config.armCalibrationMotionIncrement;
                 armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
             }
@@ -267,14 +267,10 @@ public class ArmSubsystem extends SubsystemBase {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
                 armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
-
             } else {
                 calibrationStoredPosition = position;
                 calibrate();
-                desiredPosition = armPositionToEncoderPosition(position);
-                armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
             }
-
         }
     }
 
