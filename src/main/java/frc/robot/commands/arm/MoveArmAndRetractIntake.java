@@ -34,7 +34,8 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public boolean isFinished() {
-        if (arm.isInPosition()) intake.retract();
-        return arm.isInPosition();
+        boolean isInPosition = arm.isInPosition(); //stops rare race condition
+        if (isInPosition) intake.retract();
+        return isInPosition;
     }
 }
