@@ -35,16 +35,16 @@ public class Config {
     //Drive Constants//
     //------------------------------------------------------------------------------------------------------------------
     //Drive Motor IDs---------------------------------------------------------------------------------------------------
-    public static Integer DriveLeftMasterID;
-    public static Integer DriveLeftSlaveID;
-    public static Integer DriveRightMasterID;
-    public static Integer DriveRightSlaveID;
+    public static Integer driveLeftMasterID;
+    public static Integer driveLeftSlaveID;
+    public static Integer driveRightMasterID;
+    public static Integer driveRightSlaveID;
 
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
-    public static Integer DriveLeftMasterPdpChannel;
-    public static Integer DriveLeftSlavePdpChannel;
-    public static Integer DriveRightMasterPdpChannel;
-    public static Integer DriveRightSlavePdpChannel;
+    public static Integer driveLeftMasterPdpChannel;
+    public static Integer driveLeftSlavePdpChannel;
+    public static Integer driveRightMasterPdpChannel;
+    public static Integer driveRightSlavePdpChannel;
 
     //Drive PID Parameters----------------------------------------------------------------------------------------------
     public static final double driveClosedLoopRampRate = 0.0;
@@ -56,22 +56,22 @@ public class Config {
     public static Double driveVelocityF;
 
     //Physical Constants for Drive--------------------------------------------------------------------------------------
-    public static final double DriveWheelDiameterInInches = 6.0;
-    public static final double EncoderCountsPerDegree = 600;
-    public static final double DriveWheelRadiusInInches = DriveWheelDiameterInInches/2;
-    public static final double DriveWheelInchesPerRevolution = DriveWheelDiameterInInches * Math.PI;
-    public static final double DriveWheelEncoderCountsPerRevolution = EncoderCountsPerDegree *
-            360 * DriveWheelRadiusInInches;
+    public static final double driveWheelDiameterInInches = 6.0;
+    public static final double encoderCountsPerDegree = 600;
+    public static final double driveWheelRadiusInInches = driveWheelDiameterInInches /2;
+    public static final double driveWheelInchesPerRevolution = driveWheelDiameterInInches * Math.PI;
+    public static final double driveWheelEncoderCountsPerRevolution = encoderCountsPerDegree *
+            360 * driveWheelRadiusInInches;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Integer IntakeMotorID;
-    public static Integer IntakeMotorPdpChannel;
-    public static Integer IntakeSolenoidChannel;
+    public static Integer intakeMotorID;
+    public static Integer intakeMotorPdpChannel;
+    public static Integer intakeSolenoidChannel;
 
-    public static Double IntakePistonExtendDelaySeconds;
-    public static Double IntakePistonRetractDelaySeconds;
+    public static Double intakePistonExtendDelaySeconds;
+    public static Double intakePistonRetractDelaySeconds;
 
     public static final double intakeInwardPower = 0.6;
     public static final double intakeOutwardPower = 0.3;
@@ -81,38 +81,38 @@ public class Config {
     //Control Panel Manipulator Constants//
     //------------------------------------------------------------------------------------------------------------------
     //Manipulator Actuator IDs------------------------------------------------------------------------------------------
-    public static Integer TurnerMotorID;
-    public static Integer TurnerTractorPistonID; //Tractor: (retract = draw back, protract = draw forward, ergo tract=draw
-    public static Integer TurnerHeightAdjustmentPistonID;
+    public static Integer turnerMotorID;
+    public static Integer turnerTractorPistonID; //Tractor: (retract = draw back, protract = draw forward, ergo tract=draw
+    public static Integer turnerHeightAdjustmentPistonID;
 
     //Manipulator Actuator PDP Channels---------------------------------------------------------------------------------
-    public static Integer TurnerMotorPdpChannel;
+    public static Integer turnerMotorPdpChannel;
 
     //Manipulator Physical Constants------------------------------------------------------------------------------------
-    public static final double TurnerWheelRadiusInches = 4.0;  //  value?
-    public static final double TurnerWheelDiameterInches = TurnerWheelRadiusInches*2;
-    public static final double TurnerWheelInchesPerRevolution = TurnerWheelDiameterInches * Math.PI;
+    public static final double turnerWheelRadiusInches = 4.0;  //  value?
+    public static final double turnerWheelDiameterInches = turnerWheelRadiusInches *2;
+    public static final double turnerWheelInchesPerRevolution = turnerWheelDiameterInches * Math.PI;
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
-    public static final double TurnerRotationPower = 0.4;
-    public static final int RotationControlSlices = 32;
+    public static final double turnerRotationPower = 0.4;
+    public static final int rotationControlSlices = 32;
 
-    public static final double DeployDelaySeconds = .5;
+    public static final double deployDelaySeconds = .5;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
-    public static final int ColorThreshold = 127;
-    public static final int ColorEpsilon = 50;
+    public static final int colorThreshold = 127;
+    public static final int colorEpsilon = 50;
 
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Constants//
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Motor IDs-------------------------------------------------------------------------------------------------
-    public static Integer TopShooterMotorID;
-    public static Integer BottomShooterMotorID;
+    public static Integer topShooterMotorID;
+    public static Integer bottomShooterMotorID;
 
     //Shooter PDP Channels----------------------------------------------------------------------------------------------
-    public static Integer TopShooterPdpChannel;
-    public static Integer BottomShooterPdpChannel;
+    public static Integer topShooterPdpChannel;
+    public static Integer bottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
     public static final double shooterClosedLoopRampRate = 1.0;
@@ -137,27 +137,27 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Integer UpperIndexerMotorID;
-    public static Integer LowerIndexerMotorID;
-    public static Integer UpperIndexerMotorPdpChannel;
-    public static Integer LowerIndexerMotorPdpChannel;
-    public static Double IndexerOpenLoopRampRate;
-    public static Double IndexerClosedLoopRampRate;
-    public static Double IndexerP;
-    public static Double IndexerI;
-    public static Integer IndexerIntegralZone;
-    public static Double IndexerD;
-    public static Double IndexerF;
-    public static Integer PowerCellDistanceInEncoderCounts;
+    public static Integer upperIndexerMotorID;
+    public static Integer lowerIndexerMotorID;
+    public static Integer upperIndexerMotorPdpChannel;
+    public static Integer lowerIndexerMotorPdpChannel;
+    public static Double indexerOpenLoopRampRate;
+    public static Double indexerClosedLoopRampRate;
+    public static Double indexerP;
+    public static Double indexerI;
+    public static Integer indexerIntegralZone;
+    public static Double indexerD;
+    public static Double indexerF;
+    public static Integer powerCellDistanceInEncoderCounts;
     public static final Integer indexerPositioningTolerance = 20;
-    public static Integer IndexerSensorID;
-    public static int MaxPowerCells = 5;
+    public static Integer indexerSensorID;
+    public static int maxPowerCells = 5;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Integer BalancerMotorId;
-    public static Integer BalancerPdpChannel;
+    public static Integer balancerMotorId;
+    public static Integer balancerPdpChannel;
 
     //------------------------------------------------------------------------------------------------------------------
     //Arm Constants//
@@ -219,22 +219,22 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
     //------------------------------------------------------------------------------------------------------------------
-    public static Double AimingP;
-    public static Double AimingI;
-    public static Double AimingD;
+    public static Double aimingP;
+    public static Double aimingI;
+    public static Double aimingD;
 
     //
     //Climber Constants//
     //
 
-    public static Integer ClimbMotorOneId;
-    public static Integer ClimbMotorTwoId;
-    public static Integer ClimberDeploySolenoidId;
-    public static Integer HookDeploySolenoidId;
-    public static Integer BuddyClimbDeploySolenoidId;
+    public static Integer climbMotorOneId;
+    public static Integer climbMotorTwoId;
+    public static Integer climberDeploySolenoidId;
+    public static Integer hookDeploySolenoidId;
+    public static Integer buddyClimbDeploySolenoidId;
 
 
-    public static final double XBoxTriggerButtonThreshold = 0.5;
+    public static final double xBoxTriggerButtonThreshold = 0.5;
     public static final int motorControllerConfigTimeoutMs = 25;
 
     private static void frameSpecificConfig() {
@@ -254,14 +254,14 @@ public class Config {
                 isPcmInstalled = true;
                 isCompressorEnabled = true;
 
-                DriveLeftMasterID = 4;
-                DriveLeftSlaveID = 16;
-                DriveRightMasterID = 15;
-                DriveRightSlaveID = 1;
-                DriveLeftMasterPdpChannel = 1;
-                DriveLeftSlavePdpChannel = 14;
-                DriveRightMasterPdpChannel = 15;
-                DriveRightSlavePdpChannel = 0;
+                driveLeftMasterID = 4;
+                driveLeftSlaveID = 16;
+                driveRightMasterID = 15;
+                driveRightSlaveID = 1;
+                driveLeftMasterPdpChannel = 1;
+                driveLeftSlavePdpChannel = 14;
+                driveRightMasterPdpChannel = 15;
+                driveRightSlavePdpChannel = 0;
 
                 driveVelocityP = 0.02;
                 driveVelocityI = 0.00015;
@@ -269,10 +269,10 @@ public class Config {
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
-                TopShooterMotorID = 10;
-                BottomShooterMotorID = 2;
-                TopShooterPdpChannel = 12;
-                BottomShooterPdpChannel = 13;
+                topShooterMotorID = 10;
+                bottomShooterMotorID = 2;
+                topShooterPdpChannel = 12;
+                bottomShooterPdpChannel = 13;
 
                 shooterVelocityP = 0.04;
                 shooterVelocityI = 0.0002;
@@ -280,11 +280,11 @@ public class Config {
                 shooterVelocityD = 0.0;
                 shooterVelocityF = 0.05;
 
-                IntakeMotorID = 20;
-                IntakeMotorPdpChannel = 11;
-                IntakeSolenoidChannel = 3;
-                IntakePistonExtendDelaySeconds = 1.0;
-                IntakePistonRetractDelaySeconds = 1.0;
+                intakeMotorID = 20;
+                intakeMotorPdpChannel = 11;
+                intakeSolenoidChannel = 3;
+                intakePistonExtendDelaySeconds = 1.0;
+                intakePistonRetractDelaySeconds = 1.0;
                 intakeDefaultIsRetracted = false;  // should be true for competition
 
                 armMotorId = 3;
@@ -330,14 +330,14 @@ public class Config {
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
 
-                DriveLeftMasterID = 6;
-                DriveLeftSlaveID = 8;
-                DriveRightMasterID = 5;
-                DriveRightSlaveID = 7;
-                DriveLeftMasterPdpChannel = 13;
-                DriveLeftSlavePdpChannel = 14;
-                DriveRightMasterPdpChannel = 1;
-                DriveRightSlavePdpChannel = 2;
+                driveLeftMasterID = 6;
+                driveLeftSlaveID = 8;
+                driveRightMasterID = 5;
+                driveRightSlaveID = 7;
+                driveLeftMasterPdpChannel = 13;
+                driveLeftSlavePdpChannel = 14;
+                driveRightMasterPdpChannel = 1;
+                driveRightSlavePdpChannel = 2;
 
                 driveVelocityP = 0.1;
                 driveVelocityI = 0.0;

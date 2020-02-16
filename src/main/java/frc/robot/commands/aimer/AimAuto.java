@@ -21,7 +21,7 @@ public class AimAuto extends CommandBase {
 
     @Override
     public void initialize() {
-        turnPID = new PIDController(Config.AimingP, Config.AimingI, Config.AimingD);
+        turnPID = new PIDController(Config.aimingP, Config.aimingI, Config.aimingD);
 
         addRequirements();
     }

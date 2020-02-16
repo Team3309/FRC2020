@@ -22,12 +22,12 @@ public class ClimberSubsystem extends SubsystemBase {
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            primaryClimberMotor = new WPI_TalonSRX(Config.ClimbMotorOneId);
-            secondaryClimberMotor = new WPI_TalonSRX(Config.ClimbMotorTwoId);
+            primaryClimberMotor = new WPI_TalonSRX(Config.climbMotorOneId);
+            secondaryClimberMotor = new WPI_TalonSRX(Config.climbMotorTwoId);
             if (Config.isPcmInstalled) {
-                climberDeploy = new Solenoid(Config.ClimberDeploySolenoidId);
-                hookDeploy = new Solenoid(Config.HookDeploySolenoidId);
-                buddyClimbDeploy = new Solenoid(Config.BuddyClimbDeploySolenoidId);
+                climberDeploy = new Solenoid(Config.climberDeploySolenoidId);
+                hookDeploy = new Solenoid(Config.hookDeploySolenoidId);
+                buddyClimbDeploy = new Solenoid(Config.buddyClimbDeploySolenoidId);
             }
         }
     }

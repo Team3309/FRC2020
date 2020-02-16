@@ -37,9 +37,9 @@ public class IndexerSubsystem extends SubsystemBase {
 
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
-            UpperIndexerMotor = new WPI_TalonSRX(Config.UpperIndexerMotorID);
+            UpperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
             UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
-            LowerIndexerMotor = new WPI_TalonSRX(Config.LowerIndexerMotorID);
+            LowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
             configIndexerTalon(UpperIndexerMotor);
             configIndexerTalon(LowerIndexerMotor);
         }
@@ -51,13 +51,13 @@ public class IndexerSubsystem extends SubsystemBase {
         talon.setInverted(true);
         talon.setSensorPhase(true);
 
-        talon.configOpenloopRamp(Config.IndexerOpenLoopRampRate);
-        talon.configClosedloopRamp(Config.IndexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
-        talon.config_kP(0, Config.IndexerP, Config.motorControllerConfigTimeoutMs);
-        talon.config_kI(0, Config.IndexerI, Config.motorControllerConfigTimeoutMs);
-        talon.config_IntegralZone(0, Config.IndexerIntegralZone, Config.motorControllerConfigTimeoutMs);
-        talon.config_kD(0, Config.IndexerD, Config.motorControllerConfigTimeoutMs);
-        talon.config_kF(0, Config.IndexerF, Config.motorControllerConfigTimeoutMs);
+        talon.configOpenloopRamp(Config.indexerOpenLoopRampRate);
+        talon.configClosedloopRamp(Config.indexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
+        talon.config_kP(0, Config.indexerP, Config.motorControllerConfigTimeoutMs);
+        talon.config_kI(0, Config.indexerI, Config.motorControllerConfigTimeoutMs);
+        talon.config_IntegralZone(0, Config.indexerIntegralZone, Config.motorControllerConfigTimeoutMs);
+        talon.config_kD(0, Config.indexerD, Config.motorControllerConfigTimeoutMs);
+        talon.config_kF(0, Config.indexerF, Config.motorControllerConfigTimeoutMs);
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -67,9 +67,9 @@ public class IndexerSubsystem extends SubsystemBase {
     public void indexOut() {
         if (Config.isIndexerInstalled) {
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
-                        - Config.PowerCellDistanceInEncoderCounts;
+                        - Config.powerCellDistanceInEncoderCounts;
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0)
-                        - Config.PowerCellDistanceInEncoderCounts;
+                        - Config.powerCellDistanceInEncoderCounts;
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 decrementIndexerCounter();
@@ -84,9 +84,9 @@ public class IndexerSubsystem extends SubsystemBase {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
                 if (indexerState == IndexerState.INDEXING_IN) {
-                    UpperMotorDesiredEncoderPosition = Config.PowerCellDistanceInEncoderCounts -
+                    UpperMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts -
                             UpperIndexerMotor.getSelectedSensorPosition(0);
-                    LowerMotorDesiredEncoderPosition = Config.PowerCellDistanceInEncoderCounts
+                    LowerMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts
                             - LowerIndexerMotor.getSelectedSensorPosition(0);
                     UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                     LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
@@ -117,7 +117,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void incrementIndexerCounter() {
-        if (PowerCells < Config.MaxPowerCells) {
+        if (PowerCells < Config.maxPowerCells) {
             PowerCells++;
         }
 
@@ -191,8 +191,8 @@ public class IndexerSubsystem extends SubsystemBase {
                 LowerIndexerMotor.getSelectedSensorPosition(0));
         SmartDashboard.putNumber("Upper motor power:", UpperIndexerMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Lower motor power:", LowerIndexerMotor.getMotorOutputPercent());
-        SmartDashboard.putNumber("Upper motor current:", Robot.pdp.getCurrent(Config.UpperIndexerMotorPdpChannel));
-        SmartDashboard.putNumber("Lower motor current:", Robot.pdp.getCurrent(Config.LowerIndexerMotorPdpChannel));
+        SmartDashboard.putNumber("Upper motor current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
+        SmartDashboard.putNumber("Lower motor current:", Robot.pdp.getCurrent(Config.lowerIndexerMotorPdpChannel));
         SmartDashboard.putBoolean("Sensor blocked:", isSensorBlocked());
     }
 }

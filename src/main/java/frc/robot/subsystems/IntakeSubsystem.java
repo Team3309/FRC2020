@@ -30,11 +30,11 @@ public class IntakeSubsystem extends SubsystemBase {
         if (Config.isIntakeInstalled) {
             timer = new Timer();
             timer.start();
-            intakeMotor = new WPI_TalonSRX(Config.IntakeMotorID);
+            intakeMotor = new WPI_TalonSRX(Config.intakeMotorID);
             intakeMotor.configFactoryDefault();
             intakeMotor.setNeutralMode(NeutralMode.Coast);
             if (Config.isPcmInstalled) {
-                solenoid = new Solenoid(Config.IntakeSolenoidChannel);
+                solenoid = new Solenoid(Config.intakeSolenoidChannel);
                 // Initialize class solenoid state to current hardware setting so we don't skip the first operation
                 if (Config.intakeDefaultIsRetracted) {
                     isSolenoidExtended = solenoid.get();
@@ -89,7 +89,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public boolean isPistonTravelComplete() {
         if (!Config.isIntakeInstalled || !Config.isPcmInstalled) return true;
         return timer.get() - solenoidStateExtendSwapTime >
-                (isSolenoidExtended ? Config.IntakePistonExtendDelaySeconds : Config.IntakePistonRetractDelaySeconds);
+                (isSolenoidExtended ? Config.intakePistonExtendDelaySeconds : Config.intakePistonRetractDelaySeconds);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ public class IntakeSubsystem extends SubsystemBase {
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {
-         SmartDashboard.putNumber("Intake current", Robot.pdp.getCurrent(Config.IntakeMotorPdpChannel));
+         SmartDashboard.putNumber("Intake current", Robot.pdp.getCurrent(Config.intakeMotorPdpChannel));
          SmartDashboard.putBoolean("Intake extended", isSolenoidExtended);
      }
 }

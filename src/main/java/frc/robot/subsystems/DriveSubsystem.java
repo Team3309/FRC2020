@@ -24,10 +24,10 @@ public class DriveSubsystem extends SubsystemBase {
      public DriveSubsystem() {
 
          if (Config.isDriveInstalled) {
-             driveMasterLeft = new WPI_TalonFX(Config.DriveLeftMasterID);
-             driveSlaveLeft = new WPI_TalonFX(Config.DriveLeftSlaveID);
-             driveMasterRight = new WPI_TalonFX(Config.DriveRightMasterID);
-             driveSlaveRight = new WPI_TalonFX(Config.DriveRightSlaveID);
+             driveMasterLeft = new WPI_TalonFX(Config.driveLeftMasterID);
+             driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
+             driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
+             driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
 
              configDriveMaster(driveMasterLeft);
              configDriveSlave(driveSlaveLeft, driveMasterLeft);
@@ -134,7 +134,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      \----------------------------------------------------------------------------------------------------------------*/
     public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
-        return degreesPerSecond * Config.EncoderCountsPerDegree;
+        return degreesPerSecond * Config.encoderCountsPerDegree;
     }
 
      /**---------------------------------------------------------------------------------------------------------------\
@@ -186,9 +186,9 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Drive right position", getRightEncoderPosition());
         SmartDashboard.putNumber("Drive left velocity", getLeftEncoderVelocity());
         SmartDashboard.putNumber("Drive right velocity", getRightEncoderVelocity());
-        SmartDashboard.putNumber("Drive left 1 current", Robot.pdp.getCurrent(Config.DriveLeftMasterPdpChannel));
-        SmartDashboard.putNumber("Drive left 2 current", Robot.pdp.getCurrent(Config.DriveLeftSlavePdpChannel));
-        SmartDashboard.putNumber("Drive right 1 current", Robot.pdp.getCurrent(Config.DriveRightMasterPdpChannel));
-        SmartDashboard.putNumber("Drive right 2 current", Robot.pdp.getCurrent(Config.DriveRightSlavePdpChannel));
+        SmartDashboard.putNumber("Drive left 1 current", Robot.pdp.getCurrent(Config.driveLeftMasterPdpChannel));
+        SmartDashboard.putNumber("Drive left 2 current", Robot.pdp.getCurrent(Config.driveLeftSlavePdpChannel));
+        SmartDashboard.putNumber("Drive right 1 current", Robot.pdp.getCurrent(Config.driveRightMasterPdpChannel));
+        SmartDashboard.putNumber("Drive right 2 current", Robot.pdp.getCurrent(Config.driveRightSlavePdpChannel));
     }
 }

@@ -171,11 +171,11 @@ public class RobotContainer
                 .whenActive(new SelectToMultishot(indexer, shooter))
                 .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
-        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.XBoxTriggerButtonThreshold)
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
                 );
-        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.XBoxTriggerButtonThreshold)
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToScan(intake, indexer, shooter));
 
         //D-pad Left

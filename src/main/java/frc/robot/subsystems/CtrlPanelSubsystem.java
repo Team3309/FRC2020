@@ -35,10 +35,10 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-            ctrlPanelMotor = new WPI_TalonSRX(Config.TurnerMotorID);
+            ctrlPanelMotor = new WPI_TalonSRX(Config.turnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
             if (Config.isPcmInstalled) {
-                retractorPiston = new Solenoid(Config.TurnerTractorPistonID);
+                retractorPiston = new Solenoid(Config.turnerTractorPistonID);
             }
         }
     }
@@ -49,7 +49,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     private boolean deployed () {
         if(Config.isPcmInstalled) {
-            return retractorPiston.get() && deployTimer.get() <= Config.DeployDelaySeconds;
+            return retractorPiston.get() && deployTimer.get() <= Config.deployDelaySeconds;
         } else {
             return false;
         }
@@ -102,7 +102,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                         if (sensorColor == TargetColor) {
                             ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
                         } else {
-                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.TurnerRotationPower);
+                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
                         }
                     } //End of position control
                     else {
@@ -118,8 +118,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
                         PanelColor sensorColor = getColor();
 
-                        if (slicesTurned <= Config.RotationControlSlices) {
-                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.TurnerRotationPower);
+                        if (slicesTurned <= Config.rotationControlSlices) {
+                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
                         } else {
                             ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
                         }
@@ -148,16 +148,16 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             int b = color.blue;
 
             //Cyan is the only color that uses the blue value, therefore, we only need to check blue
-            if (b > Config.ColorThreshold) {
+            if (b > Config.colorThreshold) {
                 return PanelColor.cyan;
             }
-            else if (Util3309.epsilonEquals(r, g, Config.ColorEpsilon) && (r + g) / 2 > Config.ColorThreshold) {
+            else if (Util3309.epsilonEquals(r, g, Config.colorEpsilon) && (r + g) / 2 > Config.colorThreshold) {
                 return PanelColor.yellow;
             }
-            else if (r > Config.ColorThreshold) {
+            else if (r > Config.colorThreshold) {
                 return PanelColor.red;
             }
-            else if (g > Config.ColorThreshold) {
+            else if (g > Config.colorThreshold) {
                 return PanelColor.green;
             }
             else {

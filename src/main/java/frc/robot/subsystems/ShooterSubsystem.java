@@ -36,8 +36,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public ShooterSubsystem() {
         if (Config.isShooterInstalled) {
-            topMotor = new WPI_TalonFX(Config.TopShooterMotorID);
-            bottomMotor = new WPI_TalonFX(Config.BottomShooterMotorID);
+            topMotor = new WPI_TalonFX(Config.topShooterMotorID);
+            bottomMotor = new WPI_TalonFX(Config.bottomShooterMotorID);
             configTalon(topMotor);
             configTalon(bottomMotor);
         }
@@ -166,11 +166,11 @@ public class ShooterSubsystem extends SubsystemBase {
          SmartDashboard.putNumber("Top flywheel desired speed", flywheelSpeedTop == null ? 0 : flywheelSpeedTop);
          SmartDashboard.putNumber("Top flywheel speed error", flywheelSpeedTop == null ? 0 : getTopMotorVelocity() - flywheelSpeedTop);
          SmartDashboard.putNumber("Top flywheel power", topMotor.getMotorOutputPercent());
-         SmartDashboard.putNumber("Top flywheel current", Robot.pdp.getCurrent(Config.TopShooterPdpChannel));
+         SmartDashboard.putNumber("Top flywheel current", Robot.pdp.getCurrent(Config.topShooterPdpChannel));
          SmartDashboard.putNumber("Bottom flywheel speed", getBottomMotorVelocity());
          SmartDashboard.putNumber("Bottom flywheel desired speed", flywheelSpeedBottom == null ? 0 : flywheelSpeedBottom);
          SmartDashboard.putNumber("Bottom flywheel speed error", flywheelSpeedBottom == null ? 0 : getBottomMotorVelocity() - flywheelSpeedBottom);
          SmartDashboard.putNumber("Bottom flywheel power", topMotor.getMotorOutputPercent());
-         SmartDashboard.putNumber("Bottom flywheel current", Robot.pdp.getCurrent(Config.TopShooterPdpChannel));
+         SmartDashboard.putNumber("Bottom flywheel current", Robot.pdp.getCurrent(Config.topShooterPdpChannel));
      }
  }
