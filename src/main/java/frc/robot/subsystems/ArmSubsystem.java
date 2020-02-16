@@ -191,7 +191,9 @@ public class ArmSubsystem extends SubsystemBase {
                 initialEncoderCount = 0; // Arm was required to be all the way down at power-up
                 initialCalibration = false;
                 calibrated = true;
-                moveToPosition(calibrationStoredPosition);
+                if (calibrationStoredPosition != null) {
+                    moveToPosition(calibrationStoredPosition);
+                }
                 return;
             }
             //we want to have a one time only cycle because this stuff cannot be done before enable
