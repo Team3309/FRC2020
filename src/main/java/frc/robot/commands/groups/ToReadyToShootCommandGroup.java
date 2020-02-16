@@ -22,11 +22,11 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
-                position == null ? new DoNothing() : new StopFlywheels(shooter), /*we only want to stop
-                the flywheels if we are moving the arm.*/
+                /*we only want to stop the flywheels if we are moving the arm.*/
+                position == null ? new DoNothing() : new StopFlywheels(shooter),
                 new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_OUT),
                 new StopIntake(intake),
-                position == null ? new DoNothing() : new MoveArmToPosition(position, arm), /*if no position argument, do nothing.*/
+                new MoveArmToPosition(position, arm),
                 new RetractIntake(intake, arm),
                 new SetFlywheelsSpeed(shooter, speedTop, speedBottom),
                 new StartFlywheels(shooter),
