@@ -137,17 +137,21 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Integer PrimaryIndexerMotorID;
-    public static Integer SecondaryIndexerMotorID;
-    public static Integer IndexerPdpChannel;
+    public static Integer UpperIndexerMotorID;
+    public static Integer LowerIndexerMotorID;
+    public static Integer UpperIndexerMotorPdpChannel;
+    public static Integer LowerIndexerMotorPdpChannel;
+    public static Double IndexerOpenLoopRampRate;
+    public static Double IndexerClosedLoopRampRate;
     public static Double IndexerP;
     public static Double IndexerI;
     public static Integer IndexerIntegralZone;
     public static Double IndexerD;
     public static Double IndexerF;
-    public static Integer StandardIndexerMotionInEncoderCounts;
-    public static final Integer IndexerMaximumEncoderPositionRange = 20;
+    public static Integer PowerCellDistanceInEncoderCounts;
+    public static final Integer indexerPositioningTolerance = 20;
     public static Integer IndexerSensorID;
+    public static int MaxPowerCells = 5;
 
     //------------------------------------------------------------------------------------------------------------------
     //Balancer Constants//
