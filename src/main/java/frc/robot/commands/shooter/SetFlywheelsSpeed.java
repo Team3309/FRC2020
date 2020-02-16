@@ -18,7 +18,7 @@ public class SetFlywheelsSpeed extends InstantCommand {
 
     @Override
     public void execute() {
-        if (speedTop != null || speedBottom != null) {
+        if (speedTop != null && speedBottom != null) {
             shooter.setDesiredSpeed(speedTop, speedBottom);
         }
     }
