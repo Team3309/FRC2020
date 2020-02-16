@@ -115,9 +115,6 @@ public class RobotContainer
         if (Config.isArmInstalled) {
             arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
         }
-        if (Config.isIndexerInstalled) {
-            indexer.setDefaultCommand(new ManageIndexer(indexer));
-        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
