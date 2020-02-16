@@ -30,7 +30,8 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public boolean isFinished() {
-        if (arm.isArmAboveIntakeMinimum()) intake.retract(); //do this here to stop rare race condition
-        return arm.isInPosition();
+        boolean isInPosition = arm.isInPosition(); //do this here to stop rare race condition
+        if (arm.isArmAboveIntakeMinimum()) intake.retract();
+        return isInPosition;
     }
 }
