@@ -127,12 +127,12 @@ public class Config {
 
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
-    public static final double shooterLongRangeTopSpeed = 16000;
+    public static final double shooterLongRangeTopSpeed = 16250;
     public static final double shooterLongRangeBottomSpeed = 20000;
-    public static final double shooterMidRangeTopSpeed = 8000;
-    public static final double shooterMidRangeBottomSpeed = 14000;
-    public static final double shooterCloseRangeBottomSpeed = 5000;
-    public static final double shooterShortRangeBottomSpeed = 7000;
+    public static final double shooterMidRangeTopSpeed = 16250;
+    public static final double shooterMidRangeBottomSpeed = 20000;
+    public static final double shooterCloseRangeBottomSpeed = 16250;
+    public static final double shooterShortRangeBottomSpeed = 20000;
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -248,11 +248,11 @@ public class Config {
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = false;
-                isIntakeInstalled = false;
+                isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = false;
+                isCompressorEnabled = true;
 
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;
@@ -308,9 +308,9 @@ public class Config {
                 // On battery case with chain tight on bottom hard drop > -7000 (blocked)
 
                 armPositionMaxValue = 157983;
-                armPositionLongRangeValue = 103000;
-                armPositionMidRangeValue = 116436;
-                armPositionCloseRangeValue = 138952;
+                armPositionLongRangeValue = 103000; //103000
+                armPositionMidRangeValue = 100000; //116436;
+                armPositionCloseRangeValue = 97000; //138952;
                 armPositionTrenchValue = 45000;
                 armPositionMinValue = 3000;
                 armPositionHallEffectTopValue = 0;
