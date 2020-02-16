@@ -28,7 +28,6 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
 
         if (Config.isIntakeInstalled) {
-
             timer = new Timer();
             timer.start();
             intakeMotor = new WPI_TalonSRX(Config.IntakeMotorID);
@@ -36,6 +35,12 @@ public class IntakeSubsystem extends SubsystemBase {
             intakeMotor.setNeutralMode(NeutralMode.Coast);
             if (Config.isPcmInstalled) {
                 solenoid = new Solenoid(Config.IntakeSolenoidChannel);
+                // Initialize class solenoid state to current hardware setting so we don't skip the first operation
+                if (Config.intakeDefaultIsRetracted) {
+                    isSolenoidExtended = solenoid.get();
+                } else {
+                    isSolenoidExtended = !solenoid.get();
+                }
             }
         }
     }
