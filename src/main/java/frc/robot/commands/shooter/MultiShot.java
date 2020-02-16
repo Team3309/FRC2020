@@ -27,7 +27,8 @@ public class MultiShot extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        //could potentially stop early if index count turns out to be accurate
-        return true;
+        //could potentially stop early if index count turns out to be accurate; will let the indexer keep pulsing in the
+        //event that the indexer is inaccurate.
+        return false;
     }
 }

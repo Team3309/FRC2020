@@ -5,9 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndRetractIntake;
-import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.UpdateIndexerState;
-import frc.robot.commands.intake.RetractIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.SetFlywheelsSpeed;
 import frc.robot.commands.shooter.StartFlywheels;
@@ -23,8 +21,8 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
-                position == null ? new DoNothing() : new StopFlywheels(shooter), /*we only want to stop
-                the flywheels if we are moving the arm.*/
+                /*we only want to stop the flywheels if we are moving the arm.*/
+                position == null ? new DoNothing() : new StopFlywheels(shooter),
                 new UpdateIndexerState(indexer, IndexerSubsystem.IndexerState.INDEXING_OUT),
                 new StopIntake(intake),
                 new MoveArmAndRetractIntake(position, intake, arm),
