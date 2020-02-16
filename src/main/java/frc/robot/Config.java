@@ -115,8 +115,8 @@ public class Config {
     public static Integer BottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
-    public static final double shooterClosedLoopRampRate = 0.0;
-    public static final double shooterOpenLoopRampRate = 0.15;
+    public static final double shooterClosedLoopRampRate = 1.0;
+    public static final double shooterOpenLoopRampRate = 1.0;
     public static Double shooterVelocityP;
     public static Double shooterVelocityI;
     public static Integer shooterVelocityIntegralZone;
@@ -244,11 +244,11 @@ public class Config {
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = false;
-                isIntakeInstalled = true;
+                isIntakeInstalled = false;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isCompressorEnabled = false;
 
                 DriveLeftMasterID = 4;
                 DriveLeftSlaveID = 16;
@@ -275,8 +275,6 @@ public class Config {
                 shooterVelocityIntegralZone = 500;
                 shooterVelocityD = 0.0;
                 shooterVelocityF = 0.05;
-
-
 
                 IntakeMotorID = 20;
                 IntakeMotorPdpChannel = 11;
