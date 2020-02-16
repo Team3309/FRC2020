@@ -24,18 +24,13 @@ public class MoveArmAndRetractIntake extends CommandBase {
             arm.moveToPosition(position);
         } else {
             if (!arm.isArmAboveIntakeMinimum()) {
-                arm.moveToPosition(ArmSubsystem.ArmPosition.intakeStowedLimit);
+                arm.moveToPosition(ArmSubsystem.ArmPosition.intakeStowedLimitTarget);
             } //else do nothing.
         }
     }
 
-    public void execute() {
-
-    }
-
     public boolean isFinished() {
-        boolean isInPosition = arm.isInPosition(); //stops rare race condition
-        if (isInPosition) intake.retract();
-        return isInPosition;
+        if (arm.isArmAboveIntakeMinimum()) intake.retract(); //do this here to stop rare race condition
+        return arm.isInPosition();
     }
 }
