@@ -213,7 +213,7 @@ public class Config {
     public static final int armCruiseVelocity = 6000;
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
-    public static final double armJoystickTiltToPositionFactor = 0.1;
+    public static final double armJoystickTiltToPositionFactor = 250;
     public static final int armCalibrationMotionIncrement = 3;
 
     //------------------------------------------------------------------------------------------------------------------
