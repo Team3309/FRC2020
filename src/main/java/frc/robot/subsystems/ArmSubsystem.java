@@ -188,9 +188,10 @@ public class ArmSubsystem extends SubsystemBase {
     private void calibrate() {
         if (Config.isArmInstalled) {
             if (Config.armPIDTuningMode || Config.armNoPositionSensors) {
+                initialEncoderCount = 0; // Arm was required to be all the way down at power-up
                 initialCalibration = false;
                 calibrated = true;
-                initialEncoderCount = 0;  // Arm was required to be all the way down at power-up
+                moveToPosition(calibrationStoredPosition);
                 return;
             }
             //we want to have a one time only cycle because this stuff cannot be done before enable
@@ -213,7 +214,6 @@ public class ArmSubsystem extends SubsystemBase {
                     armMotor.set(ControlMode.PercentOutput, 0);
                     initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.hallEffectTop.value;
                     calibrated = true;
-                    moveToPosition(calibrationStoredPosition);
                     if (calibrationStoredPosition != null) {
                         this.moveToPosition(calibrationStoredPosition);
                     }
