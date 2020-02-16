@@ -27,7 +27,6 @@ import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.util.XBoxControllerAxisButton;
@@ -211,11 +210,17 @@ public class RobotContainer
     }
 
     /**
-     * Avoid surprises when enabling
+     * Avoid surprises for safety when re-enabling
      */
     public void disabledInit() {
-        intake.gotoDefaultPosition();  // don't move intake on next enable
-        arm.setBrakeMode();  // let arm drop slowly
+        // don't move intake on next enable
+        intake.gotoDefaultPosition();
+
+        // let arm drop slowly
+        arm.setBrakeMode();
+
+        // Cancel previous goal position so arm doesn't snap back to where it had been when re-enabled
+        arm.stopMotor();
     }
 
     /**

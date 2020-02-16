@@ -135,6 +135,16 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
+     * Only for use when disabled to cancel previous goal position.
+     *
+     */
+    public void stopMotor() {
+        if (Config.isArmInstalled) {
+            armMotor.set(ControlMode.PercentOutput, 0);
+        }
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
      * Adjust the arm in small amounts using speed control.
      * @param axisTilt a number between 0 and 1, generally describing the tilt of the joystick / trigger
      *                 that is moving the trigger
@@ -292,10 +302,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     private boolean isArmAtUpperLimit() {
-        if (armMotor.isFwdLimitSwitchClosed() == 0) {
-            return true;
-        }
-        return false;
+        return armMotor.isFwdLimitSwitchClosed() == 0;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
