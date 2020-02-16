@@ -30,12 +30,11 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public void execute() {
-        if(arm.isArmAboveIntakeMinimum()) {
-            intake.retract();
-        }
+
     }
 
     public boolean isFinished() {
-        return arm.isInPosition() && intake.isPistonTravelComplete();
+        if (arm.isInPosition()) intake.retract();
+        return arm.isInPosition();
     }
 }
