@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateHandlingState;
+import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.UpdateIndexerState;
 import frc.robot.commands.intake.RetractIntake;
@@ -28,8 +29,7 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
                 position == ArmSubsystem.ArmPosition.trench ?
                         new ClearFlywheelsSpeeds(shooter) :
                         new DoNothing(),
-                new MoveArmToPosition(position, arm),
-                new RetractIntake(intake, arm),
+                new MoveArmAndRetractIntake(position, intake, arm),
                 position == ArmSubsystem.ArmPosition.trench ?
                         new UpdateHandlingState(RobotContainer.PowerCellHandlingState.TRENCH_DRIVE) :
                         new UpdateHandlingState(RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE));
