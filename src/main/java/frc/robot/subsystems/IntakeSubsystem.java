@@ -117,6 +117,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Avoid surprises upon enabling
+     *
+     * TODO:We don't want this method anymore: suppose we disable while intaking. Then we would retract, which is *bad*.
+     * We have no way of knowing the arm state, so we want to just do nothing and hold state at all times.
      */
     public void gotoDefaultPosition() {
         if (Config.intakeDefaultIsRetracted) {
