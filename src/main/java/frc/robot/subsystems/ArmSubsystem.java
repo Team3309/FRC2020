@@ -53,8 +53,8 @@ public class ArmSubsystem extends SubsystemBase {
         min(Config.armPositionMinValue),
         hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
         intakeStowedLimit(Config.armPositionIntakeStowedLimitValue), //this is the lowest position the arm can be in without hitting the intake while it deploys
-        intakeStowedLimitTarget(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance);
-
+        intakeStowedLimitTarget(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance),
+        intakeStowedUpperLimit(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance + Config.armPositionIntakeStowedUpperLimit); //this value is relative to the actual limit + tolerance
         int value;
 
         ArmPosition(int value) {

@@ -176,6 +176,7 @@ public class Config {
     public static int armPositionMinValue = 0;
     public static int armPositionHallEffectTopValue = 0;
     public static int armPositionIntakeStowedLimitValue = 0;
+    public static int armPositionIntakeStowedUpperLimit = 0;
 
     // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
@@ -315,6 +316,7 @@ public class Config {
                 armPositionMinValue = 3000;
                 armPositionHallEffectTopValue = 0;
                 armPositionIntakeStowedLimitValue = 45000;
+                armPositionIntakeStowedUpperLimit = 500;
 
                 break;
 
