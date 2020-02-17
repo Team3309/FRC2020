@@ -102,7 +102,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
 
-    //Make method that indexes balls properly while taking in multiple power cells at once.
+    //TODO: Make method that indexes balls properly while taking in multiple power cells at once.
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Checks if the beam-break sensor is currently blocked.
