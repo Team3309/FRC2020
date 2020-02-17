@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -21,10 +22,10 @@ import frc.robot.Robot;
 public class IndexerSubsystem extends SubsystemBase {
 
     //put command protections inside subsystems (e.g: don't have conflicting commands)
-    //new command for indexing in
     public enum IndexerState {
         OFF,
-        INDEXING_IN
+        INDEXING_IN,
+        INDEXING_OUT
     }
 
     private IndexerState indexerState = IndexerState.OFF;
@@ -34,12 +35,14 @@ public class IndexerSubsystem extends SubsystemBase {
     private int LowerMotorDesiredEncoderPosition;
     private DigitalInput PowerCellSensor;
     private int PowerCells;
+    private boolean isFinishedIndexing = true;
 
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
             UpperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
             UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
             LowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
+            PowerCellSensor = new DigitalInput(Config.indexerSensorID);
             configIndexerTalon(UpperIndexerMotor);
             configIndexerTalon(LowerIndexerMotor);
         }
@@ -66,6 +69,8 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexOut() {
         if (Config.isIndexerInstalled) {
+            if(indexerState == IndexerState.INDEXING_OUT && isFinishedIndexing == true)
+                isFinishedIndexing = false;
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
                         - Config.powerCellDistanceInEncoderCounts;
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0)
@@ -73,6 +78,8 @@ public class IndexerSubsystem extends SubsystemBase {
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 decrementIndexerCounter();
+                indexerState = IndexerState.OFF;
+                isFinishedIndexing = true;
         }
     }
 
@@ -80,10 +87,11 @@ public class IndexerSubsystem extends SubsystemBase {
      * Programs the indexer motor to pulse the belt backward by one power cell.
      *
      */
-    private void indexIn() {
+    public void indexIn() {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
-                if (indexerState == IndexerState.INDEXING_IN) {
+                if (indexerState == IndexerState.INDEXING_IN && isFinishedIndexing == true) {
+                    isFinishedIndexing = false;
                     UpperMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts -
                             UpperIndexerMotor.getSelectedSensorPosition(0);
                     LowerMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts
@@ -91,6 +99,8 @@ public class IndexerSubsystem extends SubsystemBase {
                     UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                     LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                     incrementIndexerCounter();
+                    isFinishedIndexing = true;
+                    indexerState = IndexerState.OFF;
                 }
             }
         }
@@ -112,6 +122,7 @@ public class IndexerSubsystem extends SubsystemBase {
         return !PowerCellSensor.get();
     }
 
+    public boolean isDoneIndexing() { return isFinishedIndexing; }
     /**-----------------------------------------------------------------------------------------------------------------
      * Increments the counter for the number of power cells currently in the indexer.
      *
@@ -149,11 +160,16 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void manageSensorState() {
         if (Config.isIndexerInstalled) {
-            if(isSensorBlocked() && indexerState == IndexerState.INDEXING_IN) {
-                indexIn();
-            } else if (isSensorBlocked() && indexerState == IndexerState.OFF) {
-                indexOut();
+            try {
+                if(isSensorBlocked() && indexerState == IndexerState.INDEXING_IN) {
+                    indexIn();
+                } else if (isSensorBlocked() && indexerState == IndexerState.OFF) {
+                    indexOut();
+                }
+            } catch (NullPointerException e) {
+                DriverStation.reportError("WARNING! Indexer beam break sensor not installed.", false);
             }
+
         }
     }
 
