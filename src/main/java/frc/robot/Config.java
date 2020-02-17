@@ -201,7 +201,7 @@ public class Config {
     //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
     //     Manually extend the intake.
     //     Put the arm in the lowest physical position against the battery case.
-    public static final boolean armNoPositionSensors = true;
+    public static final boolean armNoPositionSensors = false;
 
     public static Double armP;
     public static Double armI;
@@ -286,7 +286,7 @@ public class Config {
                 intakeSolenoidChannel = 3;
                 intakePistonExtendDelaySeconds = 1.0;
                 intakePistonRetractDelaySeconds = 1.0;
-                intakeDefaultIsRetracted = false;  // should be true for competition
+                intakeDefaultIsRetracted = true;  // should be true for competition
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
