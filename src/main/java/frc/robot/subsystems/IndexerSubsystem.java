@@ -69,7 +69,9 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexOut() {
         if (Config.isIndexerInstalled) {
-            if(indexerState == IndexerState.INDEXING_OUT && isFinishedIndexing == true)
+            //check if the indexer is indexing out and if it is currently free for operation
+            if(indexerState == IndexerState.INDEXING_OUT && isFinishedIndexing)
+                //indexer is currently being used.
                 isFinishedIndexing = false;
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
                         - Config.powerCellDistanceInEncoderCounts;
@@ -78,7 +80,9 @@ public class IndexerSubsystem extends SubsystemBase {
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 decrementIndexerCounter();
+                //indexer has done its job, so it can deactivate.
                 indexerState = IndexerState.OFF;
+                //the indexer is free for use by commands.
                 isFinishedIndexing = true;
         }
     }
@@ -90,7 +94,9 @@ public class IndexerSubsystem extends SubsystemBase {
     public void indexIn() {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
-                if (indexerState == IndexerState.INDEXING_IN && isFinishedIndexing == true) {
+                //checks if indexer is indexing in and if it is free for use by commands.
+                if (indexerState == IndexerState.INDEXING_IN && isFinishedIndexing) {
+                    //indexer is currently being used by a command.
                     isFinishedIndexing = false;
                     UpperMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts -
                             UpperIndexerMotor.getSelectedSensorPosition(0);
@@ -99,7 +105,9 @@ public class IndexerSubsystem extends SubsystemBase {
                     UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                     LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                     incrementIndexerCounter();
+                    //indexer is free for use by other commands.
                     isFinishedIndexing = true;
+                    //indexer should be off.
                     indexerState = IndexerState.OFF;
                 }
             }
