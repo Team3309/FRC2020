@@ -213,8 +213,9 @@ public class RobotContainer
      * Avoid surprises for safety when re-enabling
      */
     public void disabledInit() {
-        // don't move intake on next enable
-        intake.gotoDefaultPosition();
+        //We're using a double solenoid now and want to retract but don't can't move the arm in a single cycle if intaking
+        //so the best we can do is nothing, which is fine because the double solenoid holds it state when reenabled.
+        //TODO: Add a test mode only button that lets us have the robot send itself to starting configuration.
 
         // let arm drop slowly
         arm.setBrakeMode();
