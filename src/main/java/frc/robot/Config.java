@@ -248,7 +248,7 @@ public class Config {
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
-                isIndexerInstalled = false;
+                isIndexerInstalled = true;
                 isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;

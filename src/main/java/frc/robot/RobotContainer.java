@@ -10,6 +10,7 @@ import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.groups.DeployControlPanelTurnerCommandGroup;
+import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.select.SelectCancelIntake;
 import frc.robot.commands.select.SelectIntakeToOuttake;
 import frc.robot.commands.select.SelectMultishotToReadyToShoot;
@@ -113,6 +114,9 @@ public class RobotContainer
         }
         if (Config.isArmInstalled) {
             arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
+        }
+        if (Config.isIndexerInstalled) {
+            indexer.setDefaultCommand(new ManageIndexer(indexer));
         }
     }
 
