@@ -40,6 +40,7 @@ public class IndexerSubsystem extends SubsystemBase {
             UpperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
             UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
             LowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
+            PowerCellSensor = new DigitalInput(Config.indexerSensorID);
             configIndexerTalon(UpperIndexerMotor);
             configIndexerTalon(LowerIndexerMotor);
         }
