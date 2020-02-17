@@ -70,6 +70,9 @@ public class Config {
     public static Integer intakeMotorPdpChannel;
     public static Integer intakeSolenoidChannel;
 
+    public static Integer intakeSolenoidChannel1;
+    public static Integer intakeSolenoidChannel2;
+
     public static Double intakePistonExtendDelaySeconds;
     public static Double intakePistonRetractDelaySeconds;
 
