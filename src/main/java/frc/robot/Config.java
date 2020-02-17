@@ -89,15 +89,15 @@ public class Config {
     public static Integer turnerMotorPdpChannel;
 
     //Manipulator Physical Constants------------------------------------------------------------------------------------
-    public static final double turnerWheelRadiusInches = 4.0;  //  value?
-    public static final double turnerWheelDiameterInches = turnerWheelRadiusInches *2;
-    public static final double turnerWheelInchesPerRevolution = turnerWheelDiameterInches * Math.PI;
+    public static final double turnerWheelRadiusInInches = 4.0;  //  value?
+    public static final double turnerWheelDiameterInInches = turnerWheelRadiusInInches *2;
+    public static final double turnerWheelInchesPerRevolution = turnerWheelDiameterInInches * Math.PI;
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
     public static final double turnerRotationPower = 0.4;
     public static final int rotationControlSlices = 32;
 
-    public static final double deployDelaySeconds = .5;
+    public static final double deployDelayInSeconds = .5;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
     public static final int colorThreshold = 127;
@@ -168,12 +168,12 @@ public class Config {
 
     // Arm positions MUST be overridden in frameSpecificConfig() when the arm is installed!
     // The values cannot be null when the arm isn't installed because they are used to initialize a static enum.
-    public static int armPositionMaxValue = 0;
-    public static int armPositionLongRangeValue = 0;
-    public static int armPositionMidRangeValue = 0;
-    public static int armPositionCloseRangeValue = 0;
-    public static int armPositionTrenchValue = 0;
-    public static int armPositionMinValue = 0;
+    public static int maxArmPosition = 0;
+    public static int longRangeArmPosition = 0;
+    public static int midRangeArmPosition = 0;
+    public static int closeRangeArmPosition = 0;
+    public static int trenchArmPosition = 0;
+    public static int minArmPosition = 0;
     public static int armPositionHallEffectTopValue = 0;
     public static int armPositionIntakeStowedLimitValue = 0;
     public static int armPositionIntakeStowedUpperLimit = 0;
@@ -308,12 +308,12 @@ public class Config {
                 // On battery case with chain tight on bottom super light drop < 3000 (blocked)
                 // On battery case with chain tight on bottom hard drop > -7000 (blocked)
 
-                armPositionMaxValue = 157983;
-                armPositionLongRangeValue = 103000; //103000
-                armPositionMidRangeValue = 100000; //116436;
-                armPositionCloseRangeValue = 97000; //138952;
-                armPositionTrenchValue = 45000;
-                armPositionMinValue = 3000;
+                maxArmPosition = 157983;
+                longRangeArmPosition = 103000; //103000
+                midRangeArmPosition = 100000; //116436;
+                closeRangeArmPosition = 97000; //138952;
+                trenchArmPosition = 45000;
+                minArmPosition = 3000;
                 armPositionHallEffectTopValue = 0;
                 armPositionIntakeStowedLimitValue = 45000;
                 armPositionIntakeStowedUpperLimit = 500;

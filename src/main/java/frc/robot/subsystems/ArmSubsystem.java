@@ -45,12 +45,12 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     public enum ArmPosition {
-        max(Config.armPositionMaxValue),
-        longRange(Config.armPositionLongRangeValue),
-        midRange(Config.armPositionMidRangeValue),
-        closeRange(Config.armPositionCloseRangeValue),
-        trench(Config.armPositionTrenchValue),
-        min(Config.armPositionMinValue),
+        max(Config.maxArmPosition),
+        longRange(Config.longRangeArmPosition),
+        midRange(Config.midRangeArmPosition),
+        closeRange(Config.closeRangeArmPosition),
+        trench(Config.trenchArmPosition),
+        min(Config.minArmPosition),
         hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
         intakeStowedLimit(Config.armPositionIntakeStowedLimitValue), //this is the lowest position the arm can be in without hitting the intake while it deploys
         intakeStowedLimitTarget(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance),

@@ -49,7 +49,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     private boolean deployed () {
         if(Config.isPcmInstalled) {
-            return retractorPiston.get() && deployTimer.get() <= Config.deployDelaySeconds;
+            return retractorPiston.get() && deployTimer.get() <= Config.deployDelayInSeconds;
         } else {
             return false;
         }
