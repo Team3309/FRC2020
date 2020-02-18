@@ -124,4 +124,8 @@ public class IntakeSubsystem extends SubsystemBase {
          SmartDashboard.putNumber("Intake current", Robot.pdp.getCurrent(Config.intakeMotorPdpChannel));
          SmartDashboard.putBoolean("Intake extended", isSolenoidExtended);
      }
+
+    public boolean isExtended() {
+         return isSolenoidExtended;
+    }
 }
