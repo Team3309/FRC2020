@@ -7,8 +7,6 @@ import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndExtendIntake;
 import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.LoadIntoArm;
-import frc.robot.commands.indexer.UpdateIndexerState;
-import frc.robot.commands.intake.ExtendIntake;
 import frc.robot.commands.intake.StartIntakeMotor;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.StopFlywheels;

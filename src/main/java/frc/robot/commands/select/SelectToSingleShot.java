@@ -9,11 +9,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectToSingleShot extends SelectCommand3309 {
-    public SelectToSingleShot(IntakeSubsystem intake, IndexerSubsystem indexer,
-                              ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectToSingleShot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT) {
-                return new SingleShotCommandGroup(shooter, indexer, intake, arm); //Change to Command Group 5
+            if ((RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE && shooter.hasPresetSpeeds()
+                    || RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)) {
+                return new SingleShotCommandGroup(shooter, indexer); //Change to Command Group 5
             } else {
                 return new DoNothing(); //
             }

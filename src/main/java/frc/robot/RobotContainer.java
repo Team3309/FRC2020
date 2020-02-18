@@ -141,7 +141,7 @@ public class RobotContainer
         //other cluster groups have identical functionality on the operator controller
         //so we give them their functionality during operator initialization
         //in order to 'or' the buttons together
-        OI.leftStickRightCluster.whenActive(new SelectToSingleShot(intake, indexer, shooter, arm));
+        OI.leftStickRightCluster.whenActive(new SelectToSingleShot(indexer, shooter));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
