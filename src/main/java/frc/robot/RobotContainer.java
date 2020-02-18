@@ -11,17 +11,8 @@ import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.groups.DeployControlPanelTurnerCommandGroup;
 import frc.robot.commands.indexer.ManageIndexer;
-import frc.robot.commands.select.SelectCancelIntake;
-import frc.robot.commands.select.SelectIntakeToOuttake;
-import frc.robot.commands.select.SelectMultishotToReadyToShoot;
-import frc.robot.commands.select.SelectOuttakeToIntake;
-import frc.robot.commands.select.SelectReadyToShootToDriving;
-import frc.robot.commands.select.SelectToIntake;
-import frc.robot.commands.select.SelectToMultishot;
-import frc.robot.commands.select.SelectToReadyToShoot;
-import frc.robot.commands.select.SelectToScan;
-import frc.robot.commands.select.SelectToSingleShot;
-import frc.robot.commands.select.SelectToTrench;
+import frc.robot.commands.select.*;
+import frc.robot.commands.shooter.StartFlywheels;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
@@ -141,7 +132,9 @@ public class RobotContainer
         //other cluster groups have identical functionality on the operator controller
         //so we give them their functionality during operator initialization
         //in order to 'or' the buttons together
-        OI.leftStickRightCluster.whenActive(new SelectToSingleShot(indexer, shooter));
+        OI.leftStickRightCluster
+                .whenActive(new SelectToSingleShot(indexer, shooter))
+                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
