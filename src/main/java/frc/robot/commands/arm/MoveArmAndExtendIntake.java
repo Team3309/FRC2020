@@ -17,6 +17,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 //        //(3) becomes (4) when we lower the arm to minimum position
 public class MoveArmAndExtendIntake extends CommandBase {
 
+
     private final ArmSubsystem arm;
     private final IntakeSubsystem intake;
 
