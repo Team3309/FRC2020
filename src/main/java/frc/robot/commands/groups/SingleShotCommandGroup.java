@@ -3,7 +3,7 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
-import frc.robot.commands.indexer.SingleShot;
+import frc.robot.commands.shooter.SingleShot;
 import frc.robot.commands.shooter.StartFlywheels;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;

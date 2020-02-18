@@ -20,7 +20,7 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
-                /*we only want to stop the flywheels if we are moving the arm.*/
+                /*we only want to stop the flywheels if we are moving the arm. because of the shooter shaking the system*/
                 position == null ? new DoNothing() : new StopFlywheels(shooter),
                 new StopIntake(intake),
                 new MoveArmAndRetractIntake(position, intake, arm),
