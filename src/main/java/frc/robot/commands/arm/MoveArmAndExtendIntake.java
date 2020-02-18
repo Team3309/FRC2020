@@ -19,9 +19,8 @@ public class MoveArmAndExtendIntake extends CommandBase {
 
     private final ArmSubsystem arm;
     private final IntakeSubsystem intake;
+    private boolean hasSetToMin; //a check if we've initialized the final descent.
 
-    //we don't really need a position parameter as the current state machine only wants to ever
-    //have the intake out if we're
     public MoveArmAndExtendIntake(IntakeSubsystem intake, ArmSubsystem arm) {
         this.arm = arm;
         this.intake = intake;
@@ -31,12 +30,20 @@ public class MoveArmAndExtendIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        //three cases, all giving the same result:
+        //four cases, three giving the same result:
+        hasSetToMin = false;
+
+        //intake is already extended and in position
 
         //above the intake upper limit: go to the upper limit to speed things up
         //at the upper limit: do nothing / stay in place (which is identical to going to the upper limit)
         //below the upper limit: go to the upper limit to get out of the way
-        arm.moveToPosition(ArmSubsystem.ArmPosition.intakeStowedUpperLimit);
+        if (intake.isExtended() && intake.isPistonTravelComplete()) {
+            arm.moveToPosition(ArmSubsystem.ArmPosition.min);
+            hasSetToMin = true;
+        } else {
+            arm.moveToPosition(ArmSubsystem.ArmPosition.intakeStowedUpperLimit);
+        }
     }
 
     @Override
@@ -48,13 +55,12 @@ public class MoveArmAndExtendIntake extends CommandBase {
             intake.extend();
         }
 
-        //piston travel is complete returns true if the arm is in the way, so we also check if we are above intake minimum
-        boolean isPistonTravelComplete = intake.isPistonTravelComplete(); //do this here as well to eliminate rare race condition
-        if (isPistonTravelComplete && arm.isArmAboveIntakeMinimum()) {
-            arm.moveToPosition(ArmSubsystem.ArmPosition.min); //this is an intake setup command so there's nowhere else to go
+        //once intake is out of the way start, the final descent. If we've already done that on a previous cycle
+        //then don't do that so we don't mess up our magic motion profile.
+        if (intake.isPistonTravelComplete() && intake.isExtended() && !hasSetToMin) {
+            arm.moveToPosition(ArmSubsystem.ArmPosition.min);
+            hasSetToMin = true;
         }
-        //these two conditions are only true when both actions are done.
-        return isPistonTravelComplete && isInPosition && arm.isInPosition();
-        //check both the initial boolean we set and the current position to prevent premature exits.
+        return arm.isInPosition() && hasSetToMin;
     }
 }

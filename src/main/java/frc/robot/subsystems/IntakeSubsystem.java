@@ -45,6 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Spins the intake wheels for intaking a power cell.
      */
@@ -123,4 +124,8 @@ public class IntakeSubsystem extends SubsystemBase {
          SmartDashboard.putNumber("Intake current", Robot.pdp.getCurrent(Config.intakeMotorPdpChannel));
          SmartDashboard.putBoolean("Intake extended", isSolenoidExtended);
      }
+
+    public boolean isExtended() {
+         return isSolenoidExtended;
+    }
 }
