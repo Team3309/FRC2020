@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -23,26 +22,19 @@ import frc.robot.RobotContainer;
 public class IndexerSubsystem extends SubsystemBase {
 
     //put command protections inside subsystems (e.g: don't have conflicting commands)
-    public enum IndexerState {
-        OFF,
-        INDEXING_IN,
-        INDEXING_OUT
-    }
-
-    private IndexerState indexerState = IndexerState.OFF;
     private WPI_TalonSRX UpperIndexerMotor;
     private WPI_TalonSRX LowerIndexerMotor;
     private int UpperMotorDesiredEncoderPosition;
     private int LowerMotorDesiredEncoderPosition;
     private DigitalInput PowerCellSensor;
     private int PowerCells;
-    private boolean isFinishedIndexing = true;
 
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
             UpperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
             UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
             LowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
+            LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
             if (Config.isIndexerSensorInstalled) {
                 PowerCellSensor = new DigitalInput(Config.indexerSensorID);
             }
@@ -72,10 +64,7 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexOut() {
         if (Config.isIndexerInstalled) {
-            //check if the indexer is indexing out and if it is currently free for operation
-            if(indexerState == IndexerState.INDEXING_OUT && isFinishedIndexing)
-                //indexer is currently being used.
-                isFinishedIndexing = false;
+            if (isInPosition()) {
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
                         - Config.powerCellDistanceInEncoderCounts;
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0)
@@ -83,10 +72,7 @@ public class IndexerSubsystem extends SubsystemBase {
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 decrementIndexerCounter();
-                //indexer has done its job, so it can deactivate.
-                indexerState = IndexerState.OFF;
-                //the indexer is free for use by commands.
-                isFinishedIndexing = true;
+            }
         }
     }
 
@@ -97,32 +83,16 @@ public class IndexerSubsystem extends SubsystemBase {
     public void indexIn() {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
-                //checks if indexer is indexing in and if it is free for use by commands.
-                if (indexerState == IndexerState.INDEXING_IN && isFinishedIndexing) {
-                    //indexer is currently being used by a command.
-                    isFinishedIndexing = false;
-                    UpperMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts -
-                            UpperIndexerMotor.getSelectedSensorPosition(0);
-                    LowerMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts
-                            - LowerIndexerMotor.getSelectedSensorPosition(0);
-                    UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
-                    LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
-                    incrementIndexerCounter();
-                    //indexer is free for use by other commands.
-                    isFinishedIndexing = true;
-                    //indexer should be off.
-                    indexerState = IndexerState.OFF;
-                }
+                UpperMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts -
+                        UpperIndexerMotor.getSelectedSensorPosition(0);
+                LowerMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts
+                        - LowerIndexerMotor.getSelectedSensorPosition(0);
+                UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
+                LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
+                incrementIndexerCounter();
             }
         }
     }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Programs the indexer motors to stop completely.
-     *
-     */
-
-    //Make method that indexes balls properly while taking in multiple power cells at once.
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Checks if the beam-break sensor is currently blocked.
@@ -172,20 +142,10 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void autoIndexIn() {
         if (Config.isIndexerInstalled && Config.isIndexerSensorInstalled) {
-            if(isSensorBlocked() && RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
+            if (isSensorBlocked() && RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
                 indexIn();
             }
         }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Updates the indexer's state machine.
-     *
-     * @param state - The state to which the state machine will be updated.
-     *
-     */
-    public void updateIndexerState(IndexerState state) {
-        indexerState = state;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
