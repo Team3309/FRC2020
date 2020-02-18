@@ -19,7 +19,7 @@ public class LoadIntoArm extends CommandBase {
 
     @Override
     public void execute() {
-            indexer.indexIn();
+        indexer.indexIn();
     }
 
     @Override

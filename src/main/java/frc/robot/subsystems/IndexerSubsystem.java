@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 
 /**---------------------------------------------------------------------------------------------------------------------
@@ -42,7 +43,9 @@ public class IndexerSubsystem extends SubsystemBase {
             UpperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
             UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
             LowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
-            PowerCellSensor = new DigitalInput(Config.indexerSensorID);
+            if (Config.isIndexerSensorInstalled) {
+                PowerCellSensor = new DigitalInput(Config.indexerSensorID);
+            }
             configIndexerTalon(UpperIndexerMotor);
             configIndexerTalon(LowerIndexerMotor);
         }
@@ -127,10 +130,12 @@ public class IndexerSubsystem extends SubsystemBase {
      * @return Whether the beam-break sensor is blocked.
      */
     public boolean isSensorBlocked() {
-        return !PowerCellSensor.get();
+        if (Config.isIndexerSensorInstalled) {
+            return !PowerCellSensor.get();
+        }
+        return false;
     }
 
-    public boolean isDoneIndexing() { return isFinishedIndexing; }
     /**-----------------------------------------------------------------------------------------------------------------
      * Increments the counter for the number of power cells currently in the indexer.
      *
@@ -139,7 +144,6 @@ public class IndexerSubsystem extends SubsystemBase {
         if (PowerCells < Config.maxPowerCells) {
             PowerCells++;
         }
-
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -166,18 +170,11 @@ public class IndexerSubsystem extends SubsystemBase {
      * Checks the state of the beam-break sensor, and moves the indexer based on that state.
      *
      */
-    public void manageSensorState() {
-        if (Config.isIndexerInstalled) {
-            try {
-                if(isSensorBlocked() && indexerState == IndexerState.INDEXING_IN) {
-                    indexIn();
-                } else if (isSensorBlocked() && indexerState == IndexerState.OFF) {
-                    indexOut();
-                }
-            } catch (NullPointerException e) {
-                DriverStation.reportError("WARNING! Indexer beam break sensor not installed.", false);
+    public void autoIndexIn() {
+        if (Config.isIndexerInstalled && Config.isIndexerSensorInstalled) {
+            if(isSensorBlocked() && RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
+                indexIn();
             }
-
         }
     }
 
@@ -218,5 +215,6 @@ public class IndexerSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Upper motor current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
         SmartDashboard.putNumber("Lower motor current:", Robot.pdp.getCurrent(Config.lowerIndexerMotorPdpChannel));
         SmartDashboard.putBoolean("Sensor blocked:", isSensorBlocked());
+        SmartDashboard.putNumber("Current Power Cell count:", getCount());
     }
 }

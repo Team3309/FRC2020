@@ -15,7 +15,7 @@ public class ManageIndexer extends CommandBase {
 
     @Override
     public void execute() {
-        Indexer.manageSensorState();
+        Indexer.autoIndexIn();
     }
 
 }

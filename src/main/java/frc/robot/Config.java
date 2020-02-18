@@ -25,6 +25,7 @@ public class Config {
     public static Boolean isCtrlPanelInstalled;
     public static Boolean isDriveInstalled;
     public static Boolean isIndexerInstalled;
+    public static Boolean isIndexerSensorInstalled;
     public static Boolean isIntakeInstalled;
     public static Boolean isShooterInstalled;
     public static Boolean isVisionInstalled;
