@@ -165,16 +165,17 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Upper motor desired encoder position:", UpperMotorDesiredEncoderPosition);
-        SmartDashboard.putNumber("Lower motor desired encoder position:", LowerMotorDesiredEncoderPosition);
         SmartDashboard.putNumber("Upper motor current encoder position:",
                 UpperIndexerMotor.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Lower motor desired encoder position:", LowerMotorDesiredEncoderPosition);
         SmartDashboard.putNumber("Lower motor current encoder position:",
                 LowerIndexerMotor.getSelectedSensorPosition(0));
         SmartDashboard.putNumber("Upper motor power:", UpperIndexerMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Lower motor power:", LowerIndexerMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Upper motor current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
         SmartDashboard.putNumber("Lower motor current:", Robot.pdp.getCurrent(Config.lowerIndexerMotorPdpChannel));
+        SmartDashboard.putBoolean("In position:", isInPosition());
         SmartDashboard.putBoolean("Sensor blocked:", isSensorBlocked());
-        SmartDashboard.putNumber("Current Power Cell count:", getCount());
+        SmartDashboard.putNumber("Power Cell count:", getCount());
     }
 }
