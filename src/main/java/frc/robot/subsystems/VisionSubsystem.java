@@ -26,7 +26,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Sends motor data to SmartDashboard
+     * Sends limelight data to SmartDashboard.
      */
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);
