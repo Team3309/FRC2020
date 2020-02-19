@@ -12,7 +12,6 @@ import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.groups.DeployControlPanelTurnerCommandGroup;
 import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.select.*;
-import frc.robot.commands.shooter.StartFlywheels;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
