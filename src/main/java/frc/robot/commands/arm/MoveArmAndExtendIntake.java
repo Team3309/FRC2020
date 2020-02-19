@@ -48,8 +48,6 @@ public class MoveArmAndExtendIntake extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        //all logic goes in the is finished to eliminate rare race condition
-        boolean isInPosition = arm.isInPosition();
         //we check for piston needing extending first. this locks out the second part of this function until this part completes.
         if (arm.isArmAboveIntakeMinimum()) {
             intake.extend();

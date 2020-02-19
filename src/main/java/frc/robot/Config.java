@@ -85,7 +85,6 @@ public class Config {
 
     public static final double intakeInwardPower = 0.6;
     public static final double intakeOutwardPower = 0.3;
-    public static Boolean intakeDefaultIsRetracted;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
@@ -206,8 +205,6 @@ public class Config {
     // play with fire to make progress.
     //
     // BEFORE setting armNoPositionSensors to true:
-    //   Connect intake pneumatic valve so intake is extended by default.
-    //   Set intakeDefaultIsRetracted = false
     //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
     //     Manually extend the intake.
     //     Put the arm in the lowest physical position against the battery case.
@@ -294,10 +291,10 @@ public class Config {
 
                 intakeMotorID = 20;
                 intakeMotorPdpChannel = 11;
-                intakeSolenoidChannel1 = 3;
+                intakeSolenoidChannel1 = 1;
+                intakeSolenoidChannel1 = 2;
                 intakePistonExtendDelaySeconds = 1.0;
                 intakePistonRetractDelaySeconds = 1.0;
-                intakeDefaultIsRetracted = true;  // should be true for competition
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
