@@ -22,7 +22,7 @@ import frc.robot.util.Util3309;
 
 public class CtrlPanelSubsystem extends SubsystemBase {
 
-    private Solenoid retractorPiston; //TODO: rename
+    private Solenoid deployerPiston;
     private WPI_TalonSRX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
@@ -38,7 +38,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             ctrlPanelMotor = new WPI_TalonSRX(Config.turnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
             if (Config.isPcmInstalled) {
-                retractorPiston = new Solenoid(Config.turnerTractorPistonID);
+                deployerPiston = new Solenoid(Config.turnerTractorPistonID);
             }
         }
     }
@@ -49,7 +49,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     private boolean deployed () {
         if(Config.isPcmInstalled) {
-            return retractorPiston.get() && deployTimer.get() <= Config.deployDelayInSeconds;
+            return deployerPiston.get() && deployTimer.get() <= Config.deployDelayInSeconds;
         } else {
             return false;
         }
@@ -148,7 +148,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             int b = color.blue;
 
             //Cyan is the only color that uses the blue value, therefore, we only need to check blue
-            if (b > Config.colorThreshold) {
+            if (Util3309.epsilonEquals(b, g, Config.colorEpsilon) && b > Config.colorThreshold) {
                 return PanelColor.cyan;
             }
             else if (Util3309.epsilonEquals(r, g, Config.colorEpsilon) && (r + g) / 2 > Config.colorThreshold) {
@@ -174,7 +174,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public void deploy() {
         if(Config.isCtrlPanelInstalled) {
             deployTimer.reset();
-            retractorPiston.set(true);
+            deployerPiston.set(true);
         }
     }
 
@@ -183,7 +183,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      -----------------------------------------------------------------------------------------------------------------*/
     public void retract() {
         if(Config.isCtrlPanelInstalled) {
-            retractorPiston.set(false);
+            deployerPiston.set(false);
         }
     }
 
