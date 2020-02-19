@@ -12,7 +12,7 @@ public class Rotate extends CommandBase {
     }
 
     @Override
-    public void initialize() {
+    public void initialize() {  // DMK: something missing?
 
     }
 
@@ -21,12 +21,12 @@ public class Rotate extends CommandBase {
         manipulator.spin();
     }
 
-    public void end() {
+    public void end() {  // DMK: something missing?
 
     }
 
     @Override
     public boolean isFinished() {
         return false;
-    }
+    }  // DMK: what ends the command? Needs to be explained here
 }
