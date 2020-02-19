@@ -1,6 +1,8 @@
 package frc.robot;
 
+import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SPI;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -31,6 +33,7 @@ public class Config {
     public static Boolean isVisionInstalled;
     public static Boolean isPcmInstalled;
     public static Boolean isCompressorEnabled;
+    public static Boolean isIMUInstalled;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
@@ -41,6 +44,10 @@ public class Config {
     public static Integer driveRightMasterID;
     public static Integer driveRightSlaveID;
 
+    //
+    public static SPI.Port imuPort;
+    public static ADIS16470_IMU.IMUAxis imuAxis = ADIS16470_IMU.IMUAxis.kZ;
+    public static ADIS16470_IMU.ADIS16470CalibrationTime imuCalibrationTime = ADIS16470_IMU.ADIS16470CalibrationTime._32ms;
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
     public static Integer driveLeftMasterPdpChannel;
     public static Integer driveLeftSlavePdpChannel;

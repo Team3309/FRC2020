@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -16,11 +17,12 @@ public class DriveSubsystem extends SubsystemBase {
     private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
     private WPI_TalonFX driveSlaveRight;
+    private ADIS16470_IMU imu;
 
-     /**---------------------------------------------------------------------------------------------------------------\
+     /**----------------------------------------------------------------------------------------------------------------
      * Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
      public DriveSubsystem() {
 
          if (Config.isDriveInstalled) {
@@ -28,6 +30,8 @@ public class DriveSubsystem extends SubsystemBase {
              driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
              driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
              driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
+             imu = new ADIS16470_IMU(Config.imuAxis, Config.imuPort, Config.imuCalibrationTime);
+             imu.calibrate();
 
              configDriveMaster(driveMasterLeft);
              configDriveSlave(driveSlaveLeft, driveMasterLeft);
@@ -36,12 +40,12 @@ public class DriveSubsystem extends SubsystemBase {
          }
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Configures a master motor with preset PID constants.
      *
      * @param talon - the Falcon motor to be configured.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     private void configDriveMaster(WPI_TalonFX talon) {
 
         talon.configFactoryDefault();
@@ -59,14 +63,14 @@ public class DriveSubsystem extends SubsystemBase {
         talon.setSensorPhase(false);
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Configures a slave motor with the same constants as the master motor and sets it to do what the master motor is
      * doing.
      *
      * @param slave - the motor to follow master.
      * @param master - the motor according to which slave is configured.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     private void configDriveSlave(WPI_TalonFX slave, WPI_TalonFX master) {
         slave.configFactoryDefault();
         slave.follow(master);
@@ -74,12 +78,12 @@ public class DriveSubsystem extends SubsystemBase {
         slave.setInverted(InvertType.FollowMaster);
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Finds the current position of the left master encoder.
      *
      * @return The number of encoder counts away from the position at configuration.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public double getLeftEncoderPosition() {
         if (Config.isDriveInstalled) {
             return driveMasterLeft.getSelectedSensorPosition(0);
@@ -87,12 +91,12 @@ public class DriveSubsystem extends SubsystemBase {
         return 0;
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Finds the current position of the right master encoder.
      *
      * @return The number of encoder counts away from the position at configuration.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+    */
     public double getRightEncoderPosition() {
         if (Config.isDriveInstalled) {
             return -driveMasterRight.getSelectedSensorPosition(0);
@@ -100,12 +104,12 @@ public class DriveSubsystem extends SubsystemBase {
         return 0;
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Finds the current velocity of the left master encoder in counts per 100 milliseconds.
      *
      * @return The current velocity of the motor.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public double getLeftEncoderVelocity() {
         if (Config.isDriveInstalled) {
             return driveMasterLeft.getSelectedSensorVelocity(0);
@@ -113,12 +117,12 @@ public class DriveSubsystem extends SubsystemBase {
         return 0;
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Finds the current velocity of the left master encoder in counts per 100 milliseconds.
      *
      * @return The current velocity of the motor.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public double getRightEncoderVelocity() {
         if (Config.isDriveInstalled) {
             return -driveMasterRight.getSelectedSensorVelocity(0);
@@ -126,25 +130,53 @@ public class DriveSubsystem extends SubsystemBase {
         return 0;
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Gets the current angular position away from its initialization position.
+     *
+     * @return The current angle of the robot.
+     *
+     */
+    public double getAngularPosition() {
+        return imu.getAngle();
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Gets the current angular velocity of the robot.
+     *
+     * @return The current angular velocity.
+     *
+     */
+    public double getAngularVelocity() {
+        return imu.getRate();
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Sets the angle of the IMU to zero.
+     *
+     */
+    public void zeroImu() {
+        imu.reset();
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
      * Converts degrees/sec to encoder velocity (counts/sec).
      *
      * @param degreesPerSecond - the velocity in degrees to be converted to encoder counts.
      * @return The encoder velocity in encoder counts.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Config.encoderCountsPerDegree;
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Programs both motors simultaneously to move.
      *
      * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
      * @param left - The value to which the left motor will be set.
      * @param right - The value to which the right motor will be set.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public void setLeftRight(ControlMode mode, double left, double right) {
         if (Config.isDriveInstalled) {
             driveMasterLeft.set(mode, left);
@@ -152,21 +184,21 @@ public class DriveSubsystem extends SubsystemBase {
         }
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Programs the motors to move according to the left and right constants of a certain DriveSignal object.
      *
      * @param mode - How the motors will move. See Cross The Road Electronics documentation for more information.
      * @param signal - The DriveSignal object which will serve to provide the left and right motor values.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public void setLeftRight(ControlMode mode, DriveSignal signal) {
         setLeftRight(mode, signal.GetLeft(), signal.GetRight());
     }
 
-     /**---------------------------------------------------------------------------------------------------------------\
+    /**-----------------------------------------------------------------------------------------------------------------
      * Clears all drive encoder and PID data from before the method was called.
      *
-     \----------------------------------------------------------------------------------------------------------------*/
+     */
     public void reset() {
         if (Config.isDriveInstalled) {
             driveMasterRight.clearMotionProfileTrajectories();
