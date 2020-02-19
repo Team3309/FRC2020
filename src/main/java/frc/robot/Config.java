@@ -2,8 +2,6 @@ package frc.robot;
 
 import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.SPI;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -136,12 +134,12 @@ public class Config {
 
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
-    public static final double shooterLongRangeTopSpeed = 16250;
-    public static final double shooterLongRangeBottomSpeed = 20000;
-    public static final double shooterMidRangeTopSpeed = 16250;
-    public static final double shooterMidRangeBottomSpeed = 20000;
-    public static final double shooterCloseRangeBottomSpeed = 16250;
-    public static final double shooterShortRangeBottomSpeed = 20000;
+    public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
+            "Long Range", 1, 5000, 16250, 20000);
+    public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
+            "Mid Range", 1, 5000, 16250, 20000);
+    public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
+            "Short Range", 1, 5000, 16250, 20000);
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -163,29 +161,19 @@ public class Config {
     public static int maxPowerCells = 5;
 
     //------------------------------------------------------------------------------------------------------------------
-    //Balancer Constants//
-    //------------------------------------------------------------------------------------------------------------------
-    public static Integer balancerMotorId;
-    public static Integer balancerPdpChannel;
-
-    //------------------------------------------------------------------------------------------------------------------
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer armMotorId;
     public static Integer armHallEffectLimitSwitchId;
     public static Integer armMotorPdpChannel;
 
-    // Arm positions MUST be overridden in frameSpecificConfig() when the arm is installed!
-    // The values cannot be null when the arm isn't installed because they are used to initialize a static enum.
-    public static int maxArmPosition = 0;
-    public static int longRangeArmPosition = 0;
-    public static int midRangeArmPosition = 0;
-    public static int closeRangeArmPosition = 0;
-    public static int trenchArmPosition = 0;
-    public static int minArmPosition = 0;
-    public static int armPositionHallEffectTopValue = 0;
-    public static int armPositionIntakeStowedLimitValue = 0;
-    public static int armPositionIntakeStowedUpperLimit = 0;
+    public static Integer maxArmPosition;
+    public static Integer trenchArmPosition;
+    public static Integer minArmPosition;
+    public static Integer armPositionHallEffectTop;
+    public static Integer armPositionIntakeStowedLimit;
+    public static Integer armPositionIntakeStowedTarget;
+    public static Integer armPositionIntakeStowedUpperLimit;
 
     // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
@@ -304,27 +292,12 @@ public class Config {
                 armIntegralZone = 3000;
                 armD = 15.0;
 
-                // Physical max with chain tight on bottom = 187676
-                // Physical max with chain tight on top = 181690
-                // Safe max with chain tight on bottom = 157983 (stays in place)
-                // Close shot with chain tight on bottom = 138952 (stays in place)
-                // Mid shot with chain tight on bottom = 116436 (drops slowly)
-                // Far shot with chain tight on bottom = 99568 (drops fast)
-                // Trench drive with chain tight on bottom = 47955 (drops fast)
-                // Above intake with chain tight on bottom = 41538 (drops fast)
-                // Above intake with chain tight on top = 32914 (drops fast)
-                // On battery case with chain tight on bottom super light drop < 3000 (blocked)
-                // On battery case with chain tight on bottom hard drop > -7000 (blocked)
-
                 maxArmPosition = 157983;
-                longRangeArmPosition = 103000; //103000
-                midRangeArmPosition = 100000; //116436;
-                closeRangeArmPosition = 97000; //138952;
                 trenchArmPosition = 45000;
                 minArmPosition = 3000;
-                armPositionHallEffectTopValue = 0;
-                armPositionIntakeStowedLimitValue = 45000;
-                armPositionIntakeStowedUpperLimit = 500;
+                armPositionIntakeStowedLimit = 45000;
+                armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
+                armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
 
                 break;
 

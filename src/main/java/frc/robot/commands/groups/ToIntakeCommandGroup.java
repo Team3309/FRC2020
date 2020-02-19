@@ -2,10 +2,8 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndExtendIntake;
-import frc.robot.commands.arm.MoveArmToPosition;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.intake.StartIntakeMotor;
 import frc.robot.commands.intake.StopIntake;
@@ -28,8 +26,6 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_INTAKE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
-                arm.isArmAboveIntakeMinimum() ? new DoNothing() :
-                        new MoveArmToPosition(ArmSubsystem.ArmPosition.intakeStowedLimitTarget, arm),
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartIntakeMotor(intake, shooter),
                 new LoadIntoArm(indexer),

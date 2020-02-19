@@ -1,6 +1,7 @@
 package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Config;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -39,10 +40,10 @@ public class MoveArmAndExtendIntake extends CommandBase {
         //at the upper limit: do nothing / stay in place (which is identical to going to the upper limit)
         //below the upper limit: go to the upper limit to get out of the way
         if (intake.isExtended() && intake.isPistonTravelComplete()) {
-            arm.moveToPosition(ArmSubsystem.ArmPosition.min);
+            arm.moveToPosition(Config.minArmPosition);
             hasSetToMin = true;
         } else {
-            arm.moveToPosition(ArmSubsystem.ArmPosition.intakeStowedUpperLimit);
+            arm.moveToPosition(Config.armPositionIntakeStowedUpperLimit);
         }
     }
 
@@ -56,7 +57,7 @@ public class MoveArmAndExtendIntake extends CommandBase {
         //once intake is out of the way start, the final descent. If we've already done that on a previous cycle
         //then don't do that so we don't mess up our magic motion profile.
         if (intake.isPistonTravelComplete() && intake.isExtended() && !hasSetToMin) {
-            arm.moveToPosition(ArmSubsystem.ArmPosition.min);
+            arm.moveToPosition(Config.minArmPosition);
             hasSetToMin = true;
         }
         return arm.isInPosition() && hasSetToMin;

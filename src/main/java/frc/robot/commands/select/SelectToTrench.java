@@ -1,5 +1,6 @@
 package frc.robot.commands.select;
 
+import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.ToDriveCommandGroup;
@@ -18,7 +19,7 @@ public class SelectToTrench extends SelectCommand3309 {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT
             ) {
-                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.trench, intake, indexer, shooter, arm);
+                return new ToDriveCommandGroup(Config.trenchArmPosition, intake, indexer, shooter, arm);
             } else {
                 //do nothing
                 return new DoNothing();

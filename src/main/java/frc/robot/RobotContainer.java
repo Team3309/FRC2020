@@ -176,20 +176,17 @@ public class RobotContainer
 
         //D-pad Left
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.longRange, Config.shooterLongRangeTopSpeed,
-                        Config.shooterLongRangeBottomSpeed, intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(Config.shooterLongRangeSolution, intake, indexer, shooter, arm)
                 );
 
         //D-pad Up
         new POVButton(OI.OperatorController, 0)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.midRange, Config.shooterMidRangeTopSpeed,
-                        Config.shooterMidRangeBottomSpeed, intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(Config.shooterMidRangeSolution, intake, indexer, shooter, arm)
                 );
 
         //D-pad Right
         new POVButton(OI.OperatorController, 90)
-                .whenPressed(new SelectToReadyToShoot(ArmSubsystem.ArmPosition.closeRange, Config.shooterCloseRangeBottomSpeed,
-                        Config.shooterShortRangeBottomSpeed, intake, indexer, shooter, arm)
+                .whenPressed(new SelectToReadyToShoot(Config.shooterShortRangeSolution, intake, indexer, shooter, arm)
                 );
 
         //D-pad Down

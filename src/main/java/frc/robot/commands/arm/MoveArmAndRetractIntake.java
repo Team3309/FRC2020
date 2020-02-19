@@ -9,24 +9,18 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class MoveArmAndRetractIntake extends CommandBase {
 
 
-    private final ArmSubsystem.ArmPosition position;
+    private final int position;
     private final IntakeSubsystem intake;
     private final ArmSubsystem arm;
 
-    public MoveArmAndRetractIntake(ArmSubsystem.ArmPosition position, IntakeSubsystem intake, ArmSubsystem arm) {
+    public MoveArmAndRetractIntake(int position, IntakeSubsystem intake, ArmSubsystem arm) {
         this.position = position;
         this.intake = intake;
         this.arm = arm;
     }
 
     public void initialize() {
-        if (position != null) {
-            arm.moveToPosition(position);
-        } else {
-            if (!arm.isArmAboveIntakeMinimum()) {
-                arm.moveToPosition(ArmSubsystem.ArmPosition.intakeStowedLimitTarget);
-            } //else do nothing.
-        }
+        arm.moveToPosition(position);
     }
 
     public boolean isFinished() {

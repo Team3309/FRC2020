@@ -1,6 +1,7 @@
 package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.FiringSolution;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateHandlingState;
@@ -15,16 +16,18 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
-    public ToReadyToShootCommandGroup(ArmSubsystem.ArmPosition position, Double speedTop, Double speedBottom,
+    public ToReadyToShootCommandGroup(FiringSolution firingSolution,
                                       IntakeSubsystem intake, IndexerSubsystem indexer,
                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
                 /*we only want to stop the flywheels if we are moving the arm. because of the shooter shaking the system*/
-                position == null ? new DoNothing() : new StopFlywheels(shooter),
+                firingSolution == null ? new DoNothing() : new StopFlywheels(shooter),
                 new StopIntake(intake),
-                new MoveArmAndRetractIntake(position, intake, arm),
-                new SetFlywheelsSpeed(shooter, speedTop, speedBottom),
+                firingSolution == null ? new DoNothing() :
+                        new MoveArmAndRetractIntake(firingSolution.getArmPosition(), intake, arm),
+                firingSolution == null ? new DoNothing() :
+                        new SetFlywheelsSpeed(shooter, firingSolution.getTopFlywheelSpeed(), firingSolution.getBottomFlywheelSpeed()),
                 new StartFlywheels(shooter),
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
         );

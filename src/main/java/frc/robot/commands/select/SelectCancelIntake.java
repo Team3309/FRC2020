@@ -1,5 +1,6 @@
 package frc.robot.commands.select;
 
+import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.ToDriveCommandGroup;
@@ -13,7 +14,7 @@ public class SelectCancelIntake extends SelectCommand3309 {
         super(() -> {
             if (RobotContainer.PowerCellHandlingState.INIT_INTAKE == RobotContainer.getPowerCellHandlingState() ||
                 RobotContainer.PowerCellHandlingState.INTAKE == RobotContainer.getPowerCellHandlingState()) {
-                return new ToDriveCommandGroup(ArmSubsystem.ArmPosition.intakeStowedLimitTarget, intake, indexer, shooter, arm);
+                return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();
             }

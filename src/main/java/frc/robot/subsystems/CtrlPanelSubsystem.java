@@ -30,7 +30,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private int slicesTurned = 0;
     private PanelColor lastColor = PanelColor.noValue;
 
-    private Timer deployTimer = new Timer();
+    private Timer deployTimer = new Timer();  // DMK: timer isn't started
 
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
@@ -43,13 +43,13 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
-    private boolean hasColor () {
+    private boolean hasColor () {  // DMK: rename to distinguish sensing a color from having received a color from FMS
         return getColor() != PanelColor.unknown;
     }
 
-    private boolean deployed () {
+    private boolean deployed () {  // DMK: should be named isDeployed
         if(Config.isPcmInstalled) {
-            return deployerPiston.get() && deployTimer.get() <= Config.deployDelayInSeconds;
+            return deployerPiston.get() && deployTimer.get() <= Config.deployDelayInSeconds;  // DMK: inverted time check
         } else {
             return false;
         }
@@ -58,6 +58,11 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     /**-----------------------------------------------------------------------------------------------------------------
      * Resets the class member variables used by rotation control. This method is used in DeployTurner in the initialize
      * method.
+     * // DMK: don't reference what calls this in comments because it will change as the code evolves.
+     * // DMK: don't say resets variables - anyone can see that from the code.
+     * // DMK: documentation should explain the purpose of the method and the physical conditions under which it is called,
+     * // DMK: not the line of code that calls it.
+     * // DMK: same comments apply to other methods as well.
      -----------------------------------------------------------------------------------------------------------------*/
     public void resetRotationControlCounter () {
         slicesTurned = 0;
@@ -66,12 +71,12 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Decides either to do rotation control, position control, or nothing. Contains the logic for each. This method is
-     * called continuously in the Rotate command, which is default for this subsystem.
+     * called continuously in the Rotate command, which is default for this subsystem.  // DMK: no default command
      -----------------------------------------------------------------------------------------------------------------*/
     public void spin() {
         if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             if (deployed()) {
-                if (hasColor()) {
+                if (hasColor()) {  // DMK sensor might be on white border in-between 2 colors, in-which case we never start turning
                     if (isFMSColorAvailable()) {
                         /*
                          * Position control
@@ -86,7 +91,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                         PanelColor TargetColor = getFMSColor();
                         switch (TargetColor) {
                             case red :
-                                TargetColor = PanelColor.cyan;
+                                TargetColor = PanelColor.cyan;  // DMK: explain why mapping red to cyan, etc.
                                 break;
                             case yellow:
                                 TargetColor = PanelColor.green;
@@ -97,6 +102,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                             case green:
                                 TargetColor = PanelColor.yellow;
                                 break;
+                            // DMK: what if invalid color?
                         }
 
                         if (sensorColor == TargetColor) {
@@ -141,22 +147,29 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @return PanelColor.[color] - the color which the color sensor is currently on.
      -----------------------------------------------------------------------------------------------------------------*/
     private PanelColor getColor() {
-        if (deployed() && Config.isCtrlPanelInstalled) {
+        if (deployed() && Config.isCtrlPanelInstalled) {  // DMK: can this ever be called if not deployed? it's private
             ColorSensorV3.RawColor color = colorSensor.getRawColor();
             int r = color.red;
             int g = color.green;
             int b = color.blue;
 
             //Cyan is the only color that uses the blue value, therefore, we only need to check blue
+            // DMK: then why do we check green?
+            //
+            // DMK: epsilonEquals should be within this class, it's not a general purpose utility method
+            // DMK: epsilonEquals needs comments
+            // DMK: comment the variables in Config
             if (Util3309.epsilonEquals(b, g, Config.colorEpsilon) && b > Config.colorThreshold) {
                 return PanelColor.cyan;
             }
+            // DMK: what is this doing?
             else if (Util3309.epsilonEquals(r, g, Config.colorEpsilon) && (r + g) / 2 > Config.colorThreshold) {
                 return PanelColor.yellow;
             }
             else if (r > Config.colorThreshold) {
                 return PanelColor.red;
             }
+            // danger of erroneously detecting yellow if we failed to detect a true yellow above?
             else if (g > Config.colorThreshold) {
                 return PanelColor.green;
             }
@@ -172,7 +185,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Flips the manipulator up out of the trench run configuration
      -----------------------------------------------------------------------------------------------------------------*/
     public void deploy() {
-        if(Config.isCtrlPanelInstalled) {
+        if(Config.isCtrlPanelInstalled) {  // DMK: check PCM is installed
             deployTimer.reset();
             deployerPiston.set(true);
         }
@@ -182,7 +195,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * Pulls the manipulator into the trench run configuration
      -----------------------------------------------------------------------------------------------------------------*/
     public void retract() {
-        if(Config.isCtrlPanelInstalled) {
+        if(Config.isCtrlPanelInstalled) {  // DMK: check PCM is installed
             deployerPiston.set(false);
         }
     }
@@ -193,7 +206,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @return PanelColor.[color] - the color to which the robot must turn the control panel.
      -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getFMSColor() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.isCtrlPanelInstalled) {  // DMK: inverted logic
             return PanelColor.unknown;
         } else {
             String gameData;
@@ -211,7 +224,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                     case 'Y' :
                         return PanelColor.yellow;
                     default :
-                        DriverStation.reportError("Corrupt FMS Value!", true);
+                        DriverStation.reportError("Corrupt FMS Value!", true);  // DMK: "Unknown color received from FMS"
                         return PanelColor.unknown;
                 }
             } else {
@@ -227,7 +240,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      -----------------------------------------------------------------------------------------------------------------*/
     public boolean isFMSColorAvailable() {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
-        return gameData.length() > 0;
+        return gameData.length() > 0;  // DMK: message might be invalid
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -235,5 +248,6 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);
+        // DMK: add everything you need for debugging here - see intake for example
     }
 }

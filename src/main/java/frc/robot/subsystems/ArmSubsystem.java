@@ -24,7 +24,7 @@ public class ArmSubsystem extends SubsystemBase {
     private boolean calibrated; //whether or not the arm encoder is finished calibrating
     private int initialEncoderCount; //the encoder count at time of calibration finalization, relative to its initialization position.
     private int desiredCalibrationPosition;
-    private ArmPosition calibrationStoredPosition;
+    private Integer calibrationStoredPosition;
 
     //------------------------------------------------------------------------------------------------------------------
     //Other arm variables//
@@ -40,29 +40,8 @@ public class ArmSubsystem extends SubsystemBase {
         if (!Config.isArmInstalled) {
             return true;
         }
-        return armMotor.getSelectedSensorPosition(0) >= armPositionToEncoderPosition(ArmPosition.intakeStowedLimit);
+        return armMotor.getSelectedSensorPosition(0) >= armPositionToEncoderPosition(Config.armPositionIntakeStowedLimit);
     }
-
-
-    public enum ArmPosition {
-        max(Config.maxArmPosition),
-        longRange(Config.longRangeArmPosition),
-        midRange(Config.midRangeArmPosition),
-        closeRange(Config.closeRangeArmPosition),
-        trench(Config.trenchArmPosition),
-        min(Config.minArmPosition),
-        hallEffectTop(Config.armPositionHallEffectTopValue), //this is the highest position that the hall effect switch will be engaged at.
-        intakeStowedLimit(Config.armPositionIntakeStowedLimitValue), //this is the lowest position the arm can be in without hitting the intake while it deploys
-        intakeStowedLimitTarget(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance),
-        intakeStowedUpperLimit(Config.armPositionIntakeStowedLimitValue + Config.armPositioningTolerance + Config.armPositionIntakeStowedUpperLimit); //this value is relative to the actual limit + tolerance
-        int value;
-
-        ArmPosition(int value) {
-            this.value = value;
-        }
-    }
-
-
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Constructor. All methods that move the arm require the arm to be installed.
@@ -157,8 +136,8 @@ public class ArmSubsystem extends SubsystemBase {
             if (calibrated) {
                 int newDesiredPosition = (int) (desiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor);
                 //so we don't attempt to crash the arm
-                if (newDesiredPosition > armPositionToEncoderPosition(ArmPosition.intakeStowedLimit) &&
-                        newDesiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor < armPositionToEncoderPosition(ArmPosition.max)) {
+                if (newDesiredPosition > armPositionToEncoderPosition(Config.armPositionIntakeStowedLimit) &&
+                        newDesiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor < armPositionToEncoderPosition(Config.maxArmPosition)) {
                     //DO NOT USE MOTION MAGIC. This is a small adjustment.
                     desiredPosition = newDesiredPosition;
                     armMotor.set(ControlMode.Position, newDesiredPosition);
@@ -224,7 +203,7 @@ public class ArmSubsystem extends SubsystemBase {
             if (hallEffectCalibrate) {
                 if (!hallEffectLimitSwitch.get()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
-                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.hallEffectTop.value;
+                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - Config.armPositionHallEffectTop;
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
                         this.moveToPosition(calibrationStoredPosition);
@@ -252,7 +231,7 @@ public class ArmSubsystem extends SubsystemBase {
                 //we need to just go to the top limit switch and start from there.
                 if (isArmAtUpperLimit()) {
                     armMotor.set(ControlMode.PercentOutput, 0);
-                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - ArmPosition.max.value;
+                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - Config.maxArmPosition;
                     calibrated = true;
                     if (calibrationStoredPosition != null) {
                         moveToPosition(calibrationStoredPosition);
@@ -274,7 +253,7 @@ public class ArmSubsystem extends SubsystemBase {
      * @param position - The Arm position to which the arm will move.
      *
      */
-    public void moveToPosition(ArmPosition position) {
+    public void moveToPosition(int position) {
         if (Config.isArmInstalled) {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
@@ -292,8 +271,8 @@ public class ArmSubsystem extends SubsystemBase {
      * @return The encoder position to feed to a motor
      *
      */
-    private int armPositionToEncoderPosition(ArmPosition position) {
-        return position.value + initialEncoderCount;
+    private int armPositionToEncoderPosition(int position) {
+        return position + initialEncoderCount;
     }
 
     /**---------------------------------------------------------------------------------------------------------------

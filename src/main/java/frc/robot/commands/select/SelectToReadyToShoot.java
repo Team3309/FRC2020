@@ -1,5 +1,6 @@
 package frc.robot.commands.select;
 
+import frc.robot.FiringSolution;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.ToReadyToShootCommandGroup;
@@ -10,7 +11,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectToReadyToShoot extends SelectCommand3309 {
 
-    public SelectToReadyToShoot(ArmSubsystem.ArmPosition position, Double speedTop, Double speedBottom, IntakeSubsystem intake,
+    public SelectToReadyToShoot(FiringSolution firingSolution, IntakeSubsystem intake,
                                 IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE ||
@@ -24,7 +25,7 @@ public class SelectToReadyToShoot extends SelectCommand3309 {
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT ||
                     RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT
             ) {
-                return new ToReadyToShootCommandGroup(position, speedTop, speedBottom, intake, indexer, shooter, arm);
+                return new ToReadyToShootCommandGroup(firingSolution, intake, indexer, shooter, arm);
             } else {
                 //do nothing
                 return new DoNothing();
