@@ -15,6 +15,7 @@ public class DeployTurner extends CommandBase {
     public void initialize() {
         //Reset the variables associated with rotationControl
         manipulator.resetRotationControlCounter(); //TODO: Remove
+
         manipulator.deploy();
     }
 
