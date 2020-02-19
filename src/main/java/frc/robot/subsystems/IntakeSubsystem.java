@@ -110,11 +110,14 @@ public class IntakeSubsystem extends SubsystemBase {
      * Avoid surprises upon enabling
      */
     public void gotoDefaultPosition() {
-        if (Config.intakeDefaultIsRetracted) {
-            retract();
-        } else {
-            extend();
+        if (Config.isIntakeInstalled) {
+            if (Config.intakeDefaultIsRetracted) {
+                retract();
+            } else {
+                extend();
+            }
         }
+
     }
 
      /** ----------------------------------------------------------------------------------------------------------------

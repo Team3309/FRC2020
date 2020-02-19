@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.analog.adis16470.frc.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -30,7 +31,7 @@ public class DriveSubsystem extends SubsystemBase {
              driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
              driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
              driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
-             imu = new ADIS16470_IMU(Config.imuAxis, Config.imuPort, Config.imuCalibrationTime);
+             imu = new ADIS16470_IMU(Config.imuAxis, SPI.Port.kOnboardCS0, Config.imuCalibrationTime);
              imu.calibrate();
 
              configDriveMaster(driveMasterLeft);
@@ -137,7 +138,9 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getAngularPosition() {
-        return imu.getAngle();
+        if (Config.isIMUInstalled) {
+            return imu.getAngle();
+        } else return 0;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -147,7 +150,9 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getAngularVelocity() {
-        return imu.getRate();
+        if (Config.isIMUInstalled) {
+            return imu.getRate();
+        } else return 0;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -155,7 +160,9 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public void zeroImu() {
-        imu.reset();
+        if (Config.isIMUInstalled) {
+            imu.reset();
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -222,5 +229,7 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Drive left 2 current", Robot.pdp.getCurrent(Config.driveLeftSlavePdpChannel));
         SmartDashboard.putNumber("Drive right 1 current", Robot.pdp.getCurrent(Config.driveRightMasterPdpChannel));
         SmartDashboard.putNumber("Drive right 2 current", Robot.pdp.getCurrent(Config.driveRightSlavePdpChannel));
+        SmartDashboard.putNumber("Angular position", getAngularPosition());
+        SmartDashboard.putNumber("Angular velocity", getAngularVelocity());
     }
 }
