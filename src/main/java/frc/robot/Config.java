@@ -47,6 +47,7 @@ public class Config {
 
     public static ADIS16470_IMU.IMUAxis imuAxis = ADIS16470_IMU.IMUAxis.kZ;
     public static ADIS16470_IMU.ADIS16470CalibrationTime imuCalibrationTime = ADIS16470_IMU.ADIS16470CalibrationTime._4s;
+
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
     public static Integer driveLeftMasterPdpChannel;
     public static Integer driveLeftSlavePdpChannel;
@@ -75,7 +76,9 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer intakeMotorID;
     public static Integer intakeMotorPdpChannel;
-    public static Integer intakeSolenoidChannel;
+
+    public static Integer intakeSolenoidChannel1;
+    public static Integer intakeSolenoidChannel2;
 
     public static Double intakePistonExtendDelaySeconds;
     public static Double intakePistonRetractDelaySeconds;
@@ -208,7 +211,7 @@ public class Config {
     //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
     //     Manually extend the intake.
     //     Put the arm in the lowest physical position against the battery case.
-    public static final boolean armNoPositionSensors = true;
+    public static final boolean armNoPositionSensors = false;
 
     public static Double armP;
     public static Double armI;
@@ -291,10 +294,10 @@ public class Config {
 
                 intakeMotorID = 20;
                 intakeMotorPdpChannel = 11;
-                intakeSolenoidChannel = 3;
+                intakeSolenoidChannel1 = 3;
                 intakePistonExtendDelaySeconds = 1.0;
                 intakePistonRetractDelaySeconds = 1.0;
-                intakeDefaultIsRetracted = false;  // should be true for competition
+                intakeDefaultIsRetracted = true;  // should be true for competition
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;

@@ -50,7 +50,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      */
     public void intake() {
-        if (Config.isIntakeInstalled && isPistonTravelComplete() && solenoid.get() == DoubleSolenoid.Value.kForward) {
+        if (Config.isIntakeInstalled) {
             intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
     }
@@ -59,7 +59,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for outtaking a power cell.
      */
     public void outtake() {
-        if (Config.isIntakeInstalled && isPistonTravelComplete() && solenoid.get() == DoubleSolenoid.Value.kForward) {
+        if (Config.isIntakeInstalled) {
             intakeMotor.set(ControlMode.PercentOutput, -Config.intakeOutwardPower);
         }
     }
@@ -84,7 +84,6 @@ public class IntakeSubsystem extends SubsystemBase {
                 solenoid.set(DoubleSolenoid.Value.kForward);
                 solenoidStateExtendSwapTime = timer.get();
             }
-
         }
     }
 
@@ -120,11 +119,13 @@ public class IntakeSubsystem extends SubsystemBase {
       * Sends motor data to SmartDashboard
       */
      public void outputToDashboard() {
-         SmartDashboard.putNumber("Intake current", Robot.pdp.getCurrent(Config.intakeMotorPdpChannel));
-         SmartDashboard.putString("Intake extended", solenoid.get().name());
+         SmartDashboard.putNumber("Intake motor current", Robot.pdp.getCurrent(Config.intakeMotorPdpChannel));
+         SmartDashboard.putBoolean("Intake extended", isExtended());
+         SmartDashboard.putBoolean("Intake travel complete", isPistonTravelComplete());
      }
 
     public boolean isExtended() {
-         return isSolenoidExtended;
+        if (!Config.isIntakeInstalled || !Config.isPcmInstalled) return true;
+        return solenoid.get() == DoubleSolenoid.Value.kForward;
     }
 }
