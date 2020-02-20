@@ -12,17 +12,8 @@ public class Rotate extends CommandBase {
     }
 
     @Override
-    public void initialize() {  // DMK: something missing?
-
-    }
-
-    @Override
     public void execute() {
         manipulator.spin();
-    }
-
-    public void end() {  // DMK: something missing?
-
     }
 
     @Override

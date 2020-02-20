@@ -17,15 +17,6 @@ public class RetractTurner extends CommandBase{
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    public void end() {
-
-    }
-
-    @Override
     public boolean isFinished() {
         return true;
     }
