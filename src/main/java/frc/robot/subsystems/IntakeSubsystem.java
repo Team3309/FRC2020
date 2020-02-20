@@ -42,6 +42,9 @@ public class IntakeSubsystem extends SubsystemBase {
             if (Config.isPcmInstalled) {
                 solenoid = new DoubleSolenoid(Config.intakeSolenoidChannel1, Config.intakeSolenoidChannel2);
             }
+            if (Config.armNoPositionSensors || Config.armPIDTuningMode) {
+                extend();
+            }
         }
     }
 
