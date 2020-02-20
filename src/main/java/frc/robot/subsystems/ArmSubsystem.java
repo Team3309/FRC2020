@@ -294,5 +294,6 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));
         SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
+        SmartDashboard.putBoolean("Arm calibrated", calibrated);
     }
 }

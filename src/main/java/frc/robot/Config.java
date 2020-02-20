@@ -196,7 +196,7 @@ public class Config {
     //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
     //     Manually extend the intake.
     //     Put the arm in the lowest physical position against the battery case.
-    public static final boolean armNoPositionSensors = false;
+    public static final boolean armNoPositionSensors = true;
 
     public static Double armP;
     public static Double armI;
@@ -210,7 +210,7 @@ public class Config {
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
     public static final double armJoystickTiltToPositionFactor = 250;
-    public static final int armCalibrationMotionIncrement = 3;
+    public static final int armCalibrationMotionIncrement = 300;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
