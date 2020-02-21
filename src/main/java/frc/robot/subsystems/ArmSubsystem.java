@@ -86,8 +86,8 @@ public class ArmSubsystem extends SubsystemBase {
         // Motion Magic parameters
         talon.configMotionCruiseVelocity(Config.armCruiseVelocity, Config.motorControllerConfigTimeoutMs);
         talon.configMotionAcceleration(Config.armAcceleration, Config.motorControllerConfigTimeoutMs);
-        talon.configPeakOutputForward(Config.peakOutputForward, Config.motorControllerConfigTimeoutMs);
-        talon.configPeakOutputReverse(Config.peakOutputReverse, Config.motorControllerConfigTimeoutMs);
+        talon.configPeakOutputForward(Config.armPeakOutputForward, Config.motorControllerConfigTimeoutMs);
+        talon.configPeakOutputReverse(Config.armPeakOutputReverse, Config.motorControllerConfigTimeoutMs);
 
         // TODO: Is this useful or just extra overhead?
         addChild("Arm Motor", talon);
