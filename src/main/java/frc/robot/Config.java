@@ -75,6 +75,7 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer intakeMotorID;
     public static Integer intakeMotorPdpChannel;
+    public static final double intakeOpenLoopRampRate = 1.0;  // don't strip the belt
 
     public static Integer intakeSolenoidChannel1;
     public static Integer intakeSolenoidChannel2;
@@ -123,8 +124,8 @@ public class Config {
     public static Integer bottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
-    public static final double shooterClosedLoopRampRate = 1.0;
-    public static final double shooterOpenLoopRampRate = 1.0;
+    public static final double shooterClosedLoopRampRate = 1.0;  // don't strip the belts when spinning up
+    public static final double shooterOpenLoopRampRate = 1.0;    // don't strip the belts when stopping flywheels
     public static Double shooterVelocityP;
     public static Double shooterVelocityI;
     public static Integer shooterVelocityIntegralZone;
@@ -136,11 +137,11 @@ public class Config {
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 1, 5000, 16250, 20000);
+            "Long Range", 90000, 5000, 16250, 20000);
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Mid Range", 1, 5000, 16250, 20000);
+            "Mid Range", 116000, 5000, 16250, 20000);
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Short Range", 1, 5000, 16250, 20000);
+            "Short Range", 134000, 5000, 16250, 20000);
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//

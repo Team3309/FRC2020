@@ -1,6 +1,8 @@
 package frc.robot.commands.arm;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Config;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -20,7 +22,11 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public void initialize() {
-        arm.moveToPosition(position);
+        if (position < Config.armPositionIntakeStowedLimit) {
+            DriverStation.reportError("Requested arm position of " + position + " would block intake", false);
+        } else {
+            arm.moveToPosition(position);
+        }
     }
 
     public boolean isFinished() {

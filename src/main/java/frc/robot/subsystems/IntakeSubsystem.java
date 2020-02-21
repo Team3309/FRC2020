@@ -39,6 +39,7 @@ public class IntakeSubsystem extends SubsystemBase {
             intakeMotor = new WPI_TalonSRX(Config.intakeMotorID);
             intakeMotor.configFactoryDefault();
             intakeMotor.setNeutralMode(NeutralMode.Coast);
+            intakeMotor.configOpenloopRamp(Config.intakeOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
             if (Config.isPcmInstalled) {
                 solenoid = new DoubleSolenoid(Config.intakeSolenoidChannel1, Config.intakeSolenoidChannel2);
             }
