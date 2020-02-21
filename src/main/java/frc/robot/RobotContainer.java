@@ -11,6 +11,7 @@ import frc.robot.commands.ctrlpanelturner.DeployTurner;
 import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.ctrlpanelturner.Rotate;
 import frc.robot.commands.drive.DriveManual;
+import frc.robot.commands.groups.DeployTurnerCommandGroup;
 import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.select.*;
 import frc.robot.subsystems.ArmSubsystem;
@@ -158,7 +159,7 @@ public class RobotContainer
                 .whenInactive(new SelectOuttakeToIntake(intake, shooter));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whenPressed(new DeployTurner(ctrlPanel))
+                .whenPressed(new DeployTurnerCommandGroup(arm, intake, ctrlPanel))
                 .whenReleased(new RetractTurner(ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
