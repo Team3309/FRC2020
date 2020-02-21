@@ -176,6 +176,7 @@ public class Config {
     public static Integer armPositionIntakeStowedLimit;
     public static Integer armPositionIntakeStowedTarget;
     public static Integer armPositionIntakeStowedUpperLimit;
+    public static Integer armControlPanelPosition;
 
     // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
@@ -303,6 +304,7 @@ public class Config {
                 armPositionIntakeStowedLimit = 45000;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
+                armControlPanelPosition = maxArmPosition; // TODO: give this a real value
 
                 break;
 
