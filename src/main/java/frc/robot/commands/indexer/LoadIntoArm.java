@@ -1,9 +1,10 @@
 package frc.robot.commands.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.IndexerSubsystem;
 
-public class LoadIntoArm extends CommandBase {
+public class LoadIntoArm extends InstantCommand {
 
     private IndexerSubsystem indexer;
 
@@ -13,18 +14,8 @@ public class LoadIntoArm extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-
-    }
-
-    @Override
     public void execute() {
         indexer.indexIn();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 
 }

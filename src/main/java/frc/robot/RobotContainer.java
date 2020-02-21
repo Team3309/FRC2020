@@ -13,6 +13,7 @@ import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.ctrlpanelturner.Rotate;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.groups.DeployTurnerCommandGroup;
+import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.select.*;
 import frc.robot.subsystems.ArmSubsystem;
@@ -137,9 +138,15 @@ public class RobotContainer
         //other cluster groups have identical functionality on the operator controller
         //so we give them their functionality during operator initialization
         //in order to 'or' the buttons together
+
+        // TODO: Fix binding to leftStickRightCluster for Single SHot
         new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
                 .whenHeld(new SelectToSingleShot(indexer, shooter))
                 .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
+
+        // TODO: Remove this after the indexer sensor is installed
+        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+                .whenPressed(new LoadIntoArm(indexer));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -154,10 +161,11 @@ public class RobotContainer
 
         //we need to 'or' these buttons together so we initialize a cluster group in the
         //operator buttons
-        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+        // TODO: enable once indexer sensor is installed
+        /*new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .or(OI.rightStickRightCluster)
                 .whenActive(new SelectIntakeToOuttake(intake, shooter))
-                .whenInactive(new SelectOuttakeToIntake(intake, shooter));
+                .whenInactive(new SelectOuttakeToIntake(intake, shooter));*/
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                 .whenPressed(new DeployTurnerCommandGroup(arm, intake, ctrlPanel))

@@ -30,7 +30,6 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new StopFlywheels(shooter),
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartIntakeMotor(intake, shooter),
-                new LoadIntoArm(indexer),
                 //TODO: Call indexer.resetEncoders().
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INTAKE)
         );
