@@ -49,13 +49,19 @@ public class IndexerSubsystem extends SubsystemBase {
         talon.setInverted(true);
         talon.setSensorPhase(true);
 
-        talon.configOpenloopRamp(Config.indexerOpenLoopRampRate);
+        talon.configOpenloopRamp(Config.indexerOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
         talon.configClosedloopRamp(Config.indexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
         talon.config_kP(0, Config.indexerP, Config.motorControllerConfigTimeoutMs);
         talon.config_kI(0, Config.indexerI, Config.motorControllerConfigTimeoutMs);
         talon.config_IntegralZone(0, Config.indexerIntegralZone, Config.motorControllerConfigTimeoutMs);
         talon.config_kD(0, Config.indexerD, Config.motorControllerConfigTimeoutMs);
         talon.config_kF(0, Config.indexerF, Config.motorControllerConfigTimeoutMs);
+
+        // Motion Magic parameters
+        talon.configMotionCruiseVelocity(Config.indexerCruiseVelocity, Config.motorControllerConfigTimeoutMs);
+        talon.configMotionAcceleration(Config.indexerAcceleration, Config.motorControllerConfigTimeoutMs);
+        talon.configPeakOutputForward(Config.indexerPeakOutputForward, Config.motorControllerConfigTimeoutMs);
+        talon.configPeakOutputReverse(Config.indexerPeakOutputReverse, Config.motorControllerConfigTimeoutMs);
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -66,9 +72,9 @@ public class IndexerSubsystem extends SubsystemBase {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0)
-                        - Config.powerCellDistanceInEncoderCounts;
+                        + Config.powerCellDistanceInEncoderCounts;
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0)
-                        - Config.powerCellDistanceInEncoderCounts;
+                        + Config.powerCellDistanceInEncoderCounts;
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 decrementIndexerCounter();
@@ -83,10 +89,10 @@ public class IndexerSubsystem extends SubsystemBase {
     public void indexIn() {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
-                UpperMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts -
-                        UpperIndexerMotor.getSelectedSensorPosition(0);
-                LowerMotorDesiredEncoderPosition = Config.powerCellDistanceInEncoderCounts
-                        - LowerIndexerMotor.getSelectedSensorPosition(0);
+                UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0) -
+                        Config.powerCellDistanceInEncoderCounts;
+                LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0) -
+                        Config.powerCellDistanceInEncoderCounts;
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 incrementIndexerCounter();

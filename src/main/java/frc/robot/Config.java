@@ -148,15 +148,20 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer upperIndexerMotorID;
     public static Integer lowerIndexerMotorID;
-    public static Integer upperIndexerMotorPdpChannel;
     public static Integer lowerIndexerMotorPdpChannel;
-    public static Double indexerOpenLoopRampRate;
-    public static Double indexerClosedLoopRampRate;
+    public static Integer upperIndexerMotorPdpChannel;
+    public static final double indexerOpenLoopRampRate = 1.0;
+    public static final double indexerClosedLoopRampRate = 1.0;
     public static Double indexerP;
     public static Double indexerI;
     public static Integer indexerIntegralZone;
     public static Double indexerD;
     public static Double indexerF;
+    //Positive power and positive encoder values are for indexing out; negative for indexing in.
+    public static final double indexerPeakOutputReverse = -1.0;
+    public static final double indexerPeakOutputForward = 1.0;
+    public static final int indexerAcceleration = 10000;
+    public static final int indexerCruiseVelocity = 6000;
     public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
@@ -290,15 +295,18 @@ public class Config {
 
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
-                indexerSensorID = 23;
-                indexerClosedLoopRampRate = 1.0;
-                indexerOpenLoopRampRate = 1.0;
+                indexerSensorID = 4;
+                upperIndexerMotorPdpChannel = 8;
+                lowerIndexerMotorPdpChannel = 9;
                 indexerP = 0.1;
                 indexerI = 0.0;
                 indexerD = 0.0;
                 indexerIntegralZone = 0;
                 indexerF = 0.0;
                 indexerPositioningTolerance = 20;
+                powerCellDistanceInEncoderCounts = 3000;
+
+
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
