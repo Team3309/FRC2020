@@ -158,7 +158,7 @@ public class Config {
     public static Double indexerD;
     public static Double indexerF;
     public static Integer powerCellDistanceInEncoderCounts;
-    public static final Integer indexerPositioningTolerance = 20;
+    public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
     public static int maxPowerCells = 5;
 
@@ -206,8 +206,8 @@ public class Config {
     public static Integer armIntegralZone;
     public static Double armD;
 
-    public static final double peakOutputReverse = -0.2;
-    public static final double peakOutputForward = 0.7;
+    public static final double armPeakOutputReverse = -0.2;
+    public static final double armPeakOutputForward = 0.7;
     public static final int armAcceleration = 10000;
     public static final int armCruiseVelocity = 6000;
 
@@ -246,7 +246,8 @@ public class Config {
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
-                isIndexerInstalled = false;
+                isIndexerInstalled = true;
+                isIndexerSensorInstalled = false;
                 isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
@@ -289,6 +290,15 @@ public class Config {
 
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
+                indexerSensorID = 23;
+                indexerClosedLoopRampRate = 1.0;
+                indexerOpenLoopRampRate = 1.0;
+                indexerP = 0.1;
+                indexerI = 0.0;
+                indexerD = 0.0;
+                indexerIntegralZone = 0;
+                indexerF = 0.0;
+                indexerPositioningTolerance = 20;
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
