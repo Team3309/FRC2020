@@ -239,11 +239,11 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
-                isArmInstalled = true;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
+                isArmInstalled = true;
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
-                isIndexerInstalled = true;
+                isIndexerInstalled = false;
                 isIntakeInstalled = true;
                 isShooterInstalled = true;
                 isVisionInstalled = false;
@@ -280,9 +280,12 @@ public class Config {
                 intakeMotorID = 20;
                 intakeMotorPdpChannel = 11;
                 intakeSolenoidChannel1 = 1;
-                intakeSolenoidChannel1 = 2;
+                intakeSolenoidChannel2 = 2;
                 intakePistonExtendDelaySeconds = 1.0;
                 intakePistonRetractDelaySeconds = 1.0;
+
+                upperIndexerMotorID = 21;
+                lowerIndexerMotorID = 22;
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
@@ -302,7 +305,7 @@ public class Config {
                 break;
 
             case Practice2017:
-                isArmInstalled = false;  //WARNING: MUST SET ARM POSITIONS BEFORE ENABLING ARM
+                isArmInstalled = false;
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;

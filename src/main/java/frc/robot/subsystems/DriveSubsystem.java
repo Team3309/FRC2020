@@ -31,8 +31,10 @@ public class DriveSubsystem extends SubsystemBase {
              driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
              driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
              driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
-             imu = new ADIS16470_IMU(Config.imuAxis, SPI.Port.kOnboardCS0, Config.imuCalibrationTime);
-             imu.calibrate();
+             if (Config.isIMUInstalled) {
+                 imu = new ADIS16470_IMU(Config.imuAxis, SPI.Port.kOnboardCS0, Config.imuCalibrationTime);
+                 imu.calibrate();
+             }
 
              configDriveMaster(driveMasterLeft);
              configDriveSlave(driveSlaveLeft, driveMasterLeft);

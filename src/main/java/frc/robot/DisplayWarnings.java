@@ -36,7 +36,7 @@ public class DisplayWarnings {
             conditionalMsg(!Config.isShooterInstalled, warnMsg, "Shooter");
             conditionalMsg(!Config.isVisionInstalled, warnMsg, "Vision");
             if (!warnMsg.toString().isEmpty()) {
-                DriverStation.reportError("Not installed: " + warnMsg, false);
+                DriverStation.reportWarning("Not installed: " + warnMsg, false);
             }
         }
     }

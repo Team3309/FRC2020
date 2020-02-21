@@ -43,6 +43,8 @@ public class IntakeSubsystem extends SubsystemBase {
                 solenoid = new DoubleSolenoid(Config.intakeSolenoidChannel1, Config.intakeSolenoidChannel2);
             }
             if (Config.armNoPositionSensors || Config.armPIDTuningMode) {
+                // We start with the arm down in these modes, so make sure the intake doesn't retract
+                // into the shooter as the air charges.
                 extend();
             }
         }
