@@ -20,11 +20,12 @@ public class SingleShot extends CommandBase {
     @Override
     public void initialize() {
         hasBeenShot = false;
+        indexer.resetEncoders();
     }
 
     @Override
     public void execute() {
-        if (shooter.areFlywheelsToSpeed()) {
+        if (!hasBeenShot && shooter.areFlywheelsToSpeed()) {
             indexer.indexOut();
             hasBeenShot = true;
         }

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -32,22 +33,26 @@ public class IndexerSubsystem extends SubsystemBase {
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
             UpperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
-            UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
             LowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
-            LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
             if (Config.isIndexerSensorInstalled) {
                 PowerCellSensor = new DigitalInput(Config.indexerSensorID);
             }
             configIndexerTalon(UpperIndexerMotor);
             configIndexerTalon(LowerIndexerMotor);
+
+            LowerIndexerMotor.setInverted(false);
+            UpperIndexerMotor.setInverted(true);
+
+            LowerIndexerMotor.setSensorPhase(true);
+            UpperIndexerMotor.setSensorPhase(false);
+
+            resetEncoders();
         }
     }
 
     private void configIndexerTalon(WPI_TalonSRX talon) {
 
         talon.configFactoryDefault();
-        talon.setInverted(true);
-        talon.setSensorPhase(true);
 
         talon.configOpenloopRamp(Config.indexerOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
         talon.configClosedloopRamp(Config.indexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
@@ -164,6 +169,11 @@ public class IndexerSubsystem extends SubsystemBase {
         return ((Math.abs(UpperMotorDesiredEncoderPosition - UpperIndexerMotor.getSelectedSensorPosition())
                 < Config.indexerPositioningTolerance)) && (Math.abs(LowerMotorDesiredEncoderPosition
                 - LowerIndexerMotor.getSelectedSensorPosition()) < Config.indexerPositioningTolerance);
+    }
+
+    public void resetEncoders() {
+        UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
+        LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

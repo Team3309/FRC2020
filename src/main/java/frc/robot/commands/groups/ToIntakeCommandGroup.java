@@ -19,6 +19,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 //2) Extend the Intake
 //3) Move Arm down
 //4) Engage the IIF
+
+
 public class ToIntakeCommandGroup extends SequentialCommandGroup {
 
     public ToIntakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
@@ -29,6 +31,7 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartIntakeMotor(intake, shooter),
                 new LoadIntoArm(indexer),
+                //TODO: Call indexer.resetEncoders().
                 new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INTAKE)
         );
     }

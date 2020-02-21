@@ -137,11 +137,11 @@ public class Config {
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 90000, 5000, 16250, 20000);
+            "Long Range", 90000, 5000, 4000, 4000);
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Mid Range", 116000, 5000, 16250, 20000);
+            "Mid Range", 116000, 5000, 4000, 4000);
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Short Range", 134000, 5000, 16250, 20000);
+            "Short Range", 134000, 5000, 4000, 4000);
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -160,8 +160,8 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final int indexerAcceleration = 10000;
-    public static final int indexerCruiseVelocity = 6000;
+    public static final int indexerAcceleration = 100000;
+    public static final int indexerCruiseVelocity = 1000;
     public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
@@ -257,7 +257,7 @@ public class Config {
                 isShooterInstalled = true;
                 isVisionInstalled = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isCompressorEnabled = false;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
@@ -303,8 +303,8 @@ public class Config {
                 indexerD = 0.0;
                 indexerIntegralZone = 0;
                 indexerF = 0.0;
-                indexerPositioningTolerance = 20;
-                powerCellDistanceInEncoderCounts = 3000;
+                indexerPositioningTolerance = 200;
+                powerCellDistanceInEncoderCounts = 5091;
 
 
 

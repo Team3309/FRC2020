@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -136,8 +137,8 @@ public class RobotContainer
         //other cluster groups have identical functionality on the operator controller
         //so we give them their functionality during operator initialization
         //in order to 'or' the buttons together
-        OI.leftStickRightCluster
-                .whenActive(new SelectToSingleShot(indexer, shooter))
+        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
+                .whenHeld(new SelectToSingleShot(indexer, shooter))
                 .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
     }
 
