@@ -137,11 +137,11 @@ public class Config {
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 90000, 5000, 4000, 4000);
+            "Long Range", 90000, 5000, 21300, 21300);
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Mid Range", 116000, 5000, 4000, 4000);
+            "Mid Range", 103000, 5000, 18000, 21300);
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Short Range", 134000, 5000, 4000, 4000);
+            "Short Range", 159447, 5000, 5000, 20000);
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -257,7 +257,7 @@ public class Config {
                 isShooterInstalled = true;
                 isVisionInstalled = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = false;
+                isCompressorEnabled = true;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
@@ -275,8 +275,8 @@ public class Config {
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
-                topShooterMotorID = 10;
-                bottomShooterMotorID = 2;
+                topShooterMotorID = 2;
+                bottomShooterMotorID = 10;
                 topShooterPdpChannel = 12;
                 bottomShooterPdpChannel = 13;
 
@@ -303,8 +303,8 @@ public class Config {
                 indexerD = 0.0;
                 indexerIntegralZone = 0;
                 indexerF = 0.0;
-                indexerPositioningTolerance = 2000;  // 200
-                powerCellDistanceInEncoderCounts = 10000; //5091;
+                indexerPositioningTolerance = 2000;  // kludge to test with slipping indexer, was 200
+                powerCellDistanceInEncoderCounts = 10000; // kludge to test with slipping indexer, was 5091
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
@@ -314,7 +314,7 @@ public class Config {
                 armIntegralZone = 3000;
                 armD = 15.0;
 
-                maxArmPosition = 157983;
+                maxArmPosition = 180000;  // physical max = 190000
                 trenchArmPosition = 45000;
                 minArmPosition = 3000;
                 armPositionIntakeStowedLimit = 45000;
