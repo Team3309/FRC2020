@@ -6,11 +6,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
+import frc.robot.util.IMU3309;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -18,21 +20,24 @@ public class DriveSubsystem extends SubsystemBase {
     private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
     private WPI_TalonFX driveSlaveRight;
-    private ADIS16470_IMU imu;
+    private IMU3309 imu;
+    private Timer ctrlTimer;
 
      /**----------------------------------------------------------------------------------------------------------------
      * Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
      *
      */
      public DriveSubsystem() {
-
          if (Config.isDriveInstalled) {
              driveMasterLeft = new WPI_TalonFX(Config.driveLeftMasterID);
              driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
              driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
              driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
+
+             ctrlTimer = new Timer();
+             ctrlTimer.start();
              if (Config.isIMUInstalled) {
-                 imu = new ADIS16470_IMU(Config.imuAxis, SPI.Port.kOnboardCS0, Config.imuCalibrationTime);
+                 imu = new IMU3309();
                  imu.calibrate();
              }
 
@@ -233,5 +238,7 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Drive right 2 current", Robot.pdp.getCurrent(Config.driveRightSlavePdpChannel));
         SmartDashboard.putNumber("Angular position", getAngularPosition());
         SmartDashboard.putNumber("Angular velocity", getAngularVelocity());
+        SmartDashboard.putNumber("Current DriveSubsystem Time", ctrlTimer.get());
+        SmartDashboard.putNumber("Drift in degs sec^-1", getAngularPosition()/ctrlTimer.get());
     }
 }

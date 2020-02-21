@@ -45,6 +45,7 @@ public class Config {
 
     public static ADIS16470_IMU.IMUAxis imuAxis = ADIS16470_IMU.IMUAxis.kZ;
     public static ADIS16470_IMU.ADIS16470CalibrationTime imuCalibrationTime = ADIS16470_IMU.ADIS16470CalibrationTime._4s;
+    public static double IMUDriftConstant = -0.158;
 
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
     public static Integer driveLeftMasterPdpChannel;
