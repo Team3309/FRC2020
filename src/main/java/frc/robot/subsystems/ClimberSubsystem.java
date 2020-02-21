@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,17 +18,17 @@ import frc.robot.Config;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-    private WPI_TalonSRX primaryClimberMotor, secondaryClimberMotor;
-    private Solenoid climberDeploy, hookDeploy, buddyClimbDeploy;
+    private WPI_TalonFX climberMotor;
+    //private WPI_TalonFX climberMotorSlave; //Uncomment this for a second motor
+    private Solenoid deployPiston;
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            primaryClimberMotor = new WPI_TalonSRX(Config.climbMotorOneId);
-            secondaryClimberMotor = new WPI_TalonSRX(Config.climbMotorTwoId);
+            climberMotor = new WPI_TalonFX(Config.climbMotorOneId);
+            //climberMotorSlave = new WPI_TalonFX(Config.climbMotorTwoId); //Uncomment these to initialize the second motor
+            //climberMotorSlave.follow(climberMotor);
             if (Config.isPcmInstalled) {
-                climberDeploy = new Solenoid(Config.climberDeploySolenoidId);
-                hookDeploy = new Solenoid(Config.hookDeploySolenoidId);
-                buddyClimbDeploy = new Solenoid(Config.buddyClimbDeploySolenoidId);
+                deployPiston = new Solenoid(Config.climberDeploySolenoidId);
             }
         }
     }
@@ -37,35 +38,7 @@ public class ClimberSubsystem extends SubsystemBase {
      */
     public void deployClimber() {
         if (Config.isClimberInstalled && Config.isPcmInstalled) {
-            climberDeploy.set(true);
-        }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Activates the piston for the climber hook.
-     */
-    public void deployHook() {
-        if (Config.isClimberInstalled && Config.isPcmInstalled) {
-            hookDeploy.set(true);
-        }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Activates the piston for the buddy climb mechanism.
-     */
-    public void deployBuddyClimb() {
-        if (Config.isClimberInstalled && Config.isPcmInstalled) {
-            buddyClimbDeploy.set(true);
-        }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Programs the balancer motor to move by @param amount.
-     */
-    public void balanceRobot(double amount) {
-        if(Config.isClimberInstalled) {
-            primaryClimberMotor.set(ControlMode.MotionMagic, amount);
-            secondaryClimberMotor.follow(primaryClimberMotor);
+            deployPiston.set(true);
         }
     }
 
@@ -75,5 +48,4 @@ public class ClimberSubsystem extends SubsystemBase {
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);
     }
-
 }
