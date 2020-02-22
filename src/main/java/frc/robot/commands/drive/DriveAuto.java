@@ -14,34 +14,34 @@ import frc.robot.util.Waypoint;
 public class DriveAuto extends CommandBase {
 
     private enum superState {
-        stopped(0),
-        drivingStraight(1),
-        spinTurning(2),
-        mobileTurning(3);
+        stopped("Stopped."),
+        drivingStraight("Driving Straight."),
+        spinTurning("Spin Turning."),
+        mobileTurning("Mobile Turning.");
 
-        int superVal;
-        superState(int val) {superVal = val;}
+        String name;
+        superState(String name) {this.name = name;}
     }
 
     private enum travelState {
-        stopped(0),
-        accelerating(1), //accelerating to cruise speed
-        cruising(2), //Moving at a set speed
-        decelerating(3); //decelerating to approach desired point
+        stopped("Stopped."),
+        accelerating("Accelerating."), //accelerating to cruise speed
+        cruising("Cruising."), //Moving at a set speed
+        decelerating("Decelerating."); //decelerating to approach desired point
 
-        int travelVal;
-        travelState(int val) {travelVal = val;}
+        String name;
+        travelState(String name) {this.name = name;}
     }
 
     private enum spinTurnState {
-        notStarted(0),
-        accelerating(1), //accelerating to angular cruise speed
-        cruising(2), //angular cruising speed
-        decelerating(3), //decelerating to approach tweak speed
-        tweaking(4); //speed at which final heading is corrected
+        notStarted("Not Started."),
+        accelerating("Accelerating."), //accelerating to angular cruise speed
+        cruising("Cruising."), //angular cruising speed
+        decelerating("Decelerating."), //decelerating to approach tweak speed
+        tweaking("Tweaking."); //speed at which final heading is corrected
 
-        int spinVal;
-        spinTurnState(int val) {spinVal = val;}
+        String name;
+        spinTurnState(String name) {this.name = name;}
     }
 
     double speed = 0;
@@ -55,7 +55,7 @@ public class DriveAuto extends CommandBase {
 
     public static Waypoint[] testPath = {
             new Waypoint(0, 0, 0, false),
-            new Waypoint(9, 9, 0, false)
+            new Waypoint(36, 36, 0, false)
     };
 
     final double kTurnCorrectionConstant = 0.1;
@@ -81,6 +81,7 @@ public class DriveAuto extends CommandBase {
         super.initialize();
         ControlTimer.reset();
         ControlTimer.start();
+        System.out.println("initialized");
     }
 
     @Override
@@ -95,7 +96,7 @@ public class DriveAuto extends CommandBase {
 
         //transforms nextPoint so that the code operates from the correct frame of reference.
         workingPath[0] = new Waypoint(currentPoint.xFieldInches-transformationVector[0],
-                currentPoint.downFieldInches -transformationVector[1],
+                currentPoint.downFieldInches - transformationVector[1],
                 currentPoint.turnRadiusInches,
                 currentPoint.reverse);
         workingPath[1] = new Waypoint(nextPoint.xFieldInches - transformationVector[0],
@@ -171,7 +172,7 @@ public class DriveAuto extends CommandBase {
                     left = nextPoint.angCreepSpeed;
                 }
                 //turn left if we overshot
-                else if (Util3309.getHeadingError(headingToNextPoint, drive) > 0){
+                else if (Util3309.getHeadingError(headingToNextPoint, drive) > 0) {
                     left = -nextPoint.angCreepSpeed;
                     DriverStation.reportError("Overshot.", false);
                 }
@@ -183,7 +184,7 @@ public class DriveAuto extends CommandBase {
             if (debugMode) {
                 SmartDashboard.putNumber("Single-motor velocity:", left);
                 SmartDashboard.putNumber("Heading error:", error);
-                SmartDashboard.putNumber("Spin turn state:", turnState.spinVal);
+                SmartDashboard.putString("Spin turn state:", turnState.name);
             }
 
         } else if (superStateMachine == superState.drivingStraight) {
@@ -285,6 +286,7 @@ public class DriveAuto extends CommandBase {
                 SmartDashboard.putString("State:", String.valueOf(state));
                 SmartDashboard.putNumber("Heading error:", Util3309.getHeadingError(headingToNextPoint, drive));
                 SmartDashboard.putNumber("Throttle:", speed);
+
             }
 
             //End of Drive straight code
@@ -309,6 +311,11 @@ public class DriveAuto extends CommandBase {
         // Example output of variables for debugging purposes - adapt as needed
 
         if (Config.isDebugMode) {
+            SmartDashboard.putString("Robot Super State:", superStateMachine.name);
+            SmartDashboard.putString("Straight Drive State:", state.name);
+            SmartDashboard.putString("Spin Turning State:", turnState.name);
+            SmartDashboard.putNumber("Previous velocity:", lastVelocity);
+            SmartDashboard.putNumber("Path Array Index:", nextWaypointIndex);
             DriverStation.reportWarning("Executed.", false);
         }
     }
@@ -317,4 +324,6 @@ public class DriveAuto extends CommandBase {
     public boolean isFinished() {
         return done;
     }
+
+    //TODO: Add debug output for DriveAuto.
 }
