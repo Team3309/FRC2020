@@ -94,7 +94,7 @@ public class Config {
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
     public static final double turnerRotationPower = 0.4;
-    public static final double turnerHoldPower = -0.1;
+    public static final double turnerDriveHoldPower = -0.1;
     public static final int rotationControlSlices = 32;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
@@ -419,6 +419,9 @@ public class Config {
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
                 armControlPanelPosition = 126000;
+
+                turnerMotorID = 13;
+                turnerMotorPdpChannel = 7;
 
                 break;
         }

@@ -12,12 +12,7 @@ public class Rotate extends CommandBase {
     }
 
     @Override
-    public void execute() {
-        manipulator.spin();
-    }
-
-    @Override
     public boolean isFinished() {
-        return false;
-    }  // DMK: what ends the command? Needs to be explained here
+        return manipulator.spin();
+    }
 }

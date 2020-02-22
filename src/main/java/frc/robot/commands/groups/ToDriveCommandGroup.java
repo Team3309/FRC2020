@@ -29,9 +29,7 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
                 position == null ? new DoNothing() : new MoveArmAndRetractIntake(position, intake, arm),
                 position != null && position.equals(Config.trenchArmPosition) ?
                         new UpdateHandlingState(RobotContainer.RobotState.TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.RobotState.ARM_UP_DRIVE),
-                new InstantCommand(manipulator::stop)
+                        new UpdateHandlingState(RobotContainer.RobotState.ARM_UP_DRIVE)
         );
-        addRequirements(drive);
     }
 }
