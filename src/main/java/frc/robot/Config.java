@@ -371,7 +371,7 @@ public class Config {
             case Comp2019:
                 isArmInstalled = false;
                 isClimberInstalled = false;
-                isCtrlPanelInstalled = false;
+                isCtrlPanelInstalled = true;
                 isDriveInstalled = true;
                 isIndexerInstalled = false;
                 isIntakeInstalled = false;
