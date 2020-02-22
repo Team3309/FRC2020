@@ -48,7 +48,7 @@ public class FiringSolution {
     }
 
     /**------------------------------------------------------------------------------------------------------------
-    Finds the closest value to a given
+    Finds the closest function value in y to a value to a given
      */
     private double findInterpolatedFunctionValue(double x0, double[] x, double[] y) {
         for (int i = 1; i < x.length; i++) {
