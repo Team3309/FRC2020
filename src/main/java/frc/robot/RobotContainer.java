@@ -139,8 +139,8 @@ public class RobotContainer
         //whileActiveOnce is the same as when held
 
         // TODO: Fix binding to leftStickRightCluster for Single SHot
-        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
-                .whenActive(new SelectToSingleShot(indexer, shooter))
+        OI.leftStickRightCluster
+                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
                 .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
         // TODO: Remove this after the indexer sensor is installed
