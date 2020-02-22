@@ -40,7 +40,6 @@ public class DriveSubsystem extends SubsystemBase {
              ctrlTimer.start();
              if (Config.isIMUInstalled) {
                  imu = new IMU3309();
-                 imu.calibrate();
              }
 
              configDriveMaster(driveMasterLeft);

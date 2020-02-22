@@ -19,9 +19,7 @@ public class IMU3309{
 
     public void reset() {
         adis.reset();
-        timer.stop();
         timer.reset();
-        timer.start();
     }
 
     public void close() {
@@ -30,6 +28,7 @@ public class IMU3309{
 
     public void calibrate() {
         adis.calibrate();
+        timer.reset();
     }
 
     public void configCalibrationTime(ADIS16470_IMU.ADIS16470CalibrationTime calTime) {
@@ -78,6 +77,7 @@ public class IMU3309{
     }
 
     public double getAngle() {
+        // TODO: subtract calibration time from the timer
         return adis.getAngle() - (timer.get() * Config.IMUDriftConstant);
     }
 
