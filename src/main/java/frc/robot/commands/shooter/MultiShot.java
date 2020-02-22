@@ -17,7 +17,7 @@ public class MultiShot extends CommandBase {
 
     @Override
     public void initialize() {
-        indexer.resetEncoders();
+        indexer.reset();
     }
 
     @Override
