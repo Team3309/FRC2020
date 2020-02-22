@@ -25,6 +25,28 @@ public class VisionSubsystem extends SubsystemBase {
         }
     }
 
+    public double getAngleToTarget() {
+        return limelight.getTx();
+    }
+
+    public boolean hasTarget() {
+        return limelight.hasTarget();
+    }
+
+    public double getDistanceToTarget() {
+        //following the documentation at https://readthedocs.org/projects/limelight/downloads/pdf/latest/
+        //in addition with a variant of a spherical coordiantes to obtain 3d cartesian coordinates.
+        //requires us to use vision from a static position
+        double distanceToVisionTarget =
+                (Config.fieldVisionTargetHeight-Config.limelightMountingHeight) /
+                Math.tan(limelight.getTy() + Config.limelightMountingAngle);
+
+
+        //now we can convert the new values into a new distance
+
+        return distanceToVisionTarget;
+    }
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends limelight data to SmartDashboard.
      */

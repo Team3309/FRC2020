@@ -243,6 +243,13 @@ public class Config {
     public static final double xBoxTriggerButtonThreshold = 0.5;
     public static final int motorControllerConfigTimeoutMs = 25;
 
+
+    public static Double limelightMountingAngle;
+    public static Double limelightMountingHeight;
+    public static Double fieldVisionTargetHeight;
+    public static Double fieldVisionDepthOfThreePointHoleFromVisionTarget;
+    public static Double fieldVisionHeightOfThreePointHoleFromVisionTarget;
+
     private static void frameSpecificConfig() {
 
         // Values specific to each physical robot
