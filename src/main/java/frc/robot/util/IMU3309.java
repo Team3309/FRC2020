@@ -35,6 +35,41 @@ public class IMU3309{
         adis.configCalTime(calTime);
     }
 
+    public double getCalibrationTime() {
+        double calTime;
+
+        switch (Config.imuCalibrationTime) {
+
+            case _32ms: calTime = 0.032;
+            break;
+            case _64ms: calTime =  0.064;
+            break;
+            case _128ms: calTime = 0.128;
+            break;
+            case _256ms: calTime = 0.256;
+            break;
+            case _512ms: calTime = 0.512;
+            break;
+            case _1s: calTime = 1.0;
+            break;
+            case _2s: calTime = 2.0;
+            break;
+            case _4s: calTime = 4.0;
+            break;
+            case _8s: calTime = 8.0;
+            break;
+            case _16s: calTime = 16.0;
+            break;
+            case _32s: calTime = 32.0;
+            break;
+            case _64s: calTime = 64.0;
+            break;
+
+            default: calTime = 4.0;
+            break;
+        }
+        return calTime;
+    }
     public double getInstantAccelerationX() {
         return adis.getAccelInstantX();
     }
@@ -65,7 +100,6 @@ public class IMU3309{
 
     public double getYComplementaryAngle() {
         return adis.getYComplementaryAngle();
-
     }
 
     public double getXFilteredAccelerationAngle() {
@@ -77,8 +111,7 @@ public class IMU3309{
     }
 
     public double getAngle() {
-        // TODO: subtract calibration time from the timer
-        return adis.getAngle() - (timer.get() * Config.IMUDriftConstant);
+        return adis.getAngle() - ((timer.get() - getCalibrationTime()) * Config.IMUDriftConstant);
     }
 
     public double getRate() {

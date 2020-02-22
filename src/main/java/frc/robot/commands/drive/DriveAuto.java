@@ -99,13 +99,6 @@ public class DriveAuto extends CommandBase {
         double headingToNextPoint = Util3309.getHeadingToPoint(workingPath[0], workingPath[1]);
         double error = Util3309.getHeadingError(headingToNextPoint);
 
-        if (headingToNextPoint < -180) {
-            headingToNextPoint += 360;
-        }
-        if (headingToNextPoint > 180) {
-            headingToNextPoint -= 360;
-        }
-
         double inchesBetweenWaypoints =
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
                         nextPoint.xFieldInches, nextPoint.downFieldInches);

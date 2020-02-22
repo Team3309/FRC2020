@@ -47,7 +47,7 @@ public class Config {
 
     public static ADIS16470_IMU.IMUAxis imuAxis = ADIS16470_IMU.IMUAxis.kZ;
     public static ADIS16470_IMU.ADIS16470CalibrationTime imuCalibrationTime = ADIS16470_IMU.ADIS16470CalibrationTime._4s;
-    public static double IMUDriftConstant = -0.158;
+    public static Double IMUDriftConstant;
 
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
     public static Integer driveLeftMasterPdpChannel;
@@ -65,12 +65,11 @@ public class Config {
     public static Double driveVelocityF;
 
     //Physical Constants for Drive--------------------------------------------------------------------------------------
-    public static final double driveWheelDiameterInInches = 6.0;
+    public static Double driveWheelDiameterInInches;
     public static final double encoderCountsPerDegree = 600;
-    public static final double driveWheelRadiusInInches = driveWheelDiameterInInches /2;
-    public static final double driveWheelInchesPerRevolution = driveWheelDiameterInInches * Math.PI;
-    public static final double driveWheelEncoderCountsPerRevolution = encoderCountsPerDegree *
-            360 * driveWheelRadiusInInches;
+    public static Double driveWheelRadiusInInches;
+    public static Double driveWheelInchesPerRevolution;
+    public static Double driveWheelEncoderCountsPerRevolution;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
@@ -269,6 +268,7 @@ public class Config {
                 isCompressorEnabled = true;
                 isIMUInstalled = true;
 
+                driveWheelDiameterInInches = 6.0;
                 driveLeftMasterID = 4;
                 driveLeftSlaveID = 16;
                 driveRightMasterID = 15;
@@ -346,6 +346,11 @@ public class Config {
                 isCompressorEnabled = false;
                 isIMUInstalled = true;
 
+                driveWheelDiameterInInches = 3.75;
+                driveWheelRadiusInInches = driveWheelDiameterInInches /2;
+                driveWheelInchesPerRevolution = driveWheelDiameterInInches * Math.PI;
+                driveWheelEncoderCountsPerRevolution = encoderCountsPerDegree *
+                        360 * driveWheelRadiusInInches;
                 driveLeftMasterID = 6;
                 driveLeftSlaveID = 8;
                 driveRightMasterID = 5;
@@ -360,6 +365,11 @@ public class Config {
                 driveVelocityIntegralZone = 1000;
                 driveVelocityD = 0.0;
                 driveVelocityF = 0.0;
+
+                maxArmPosition = 10000;
+                armControlPanelPosition = maxArmPosition;
+                IMUDriftConstant = -0.158;
+                isDebugMode = true;
                 break;
         }
     }
