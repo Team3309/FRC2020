@@ -225,10 +225,6 @@ public class DriveSubsystem extends SubsystemBase {
         }
     }
 
-    public boolean getDebugMode() {
-        return Config.isDebugMode;
-    }
-
     /**-----------------------------------------------------------------------------------------------------------------
      * Converts distance in encoder counts to distance in inches.
      *

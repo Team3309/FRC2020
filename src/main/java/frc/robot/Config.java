@@ -35,8 +35,6 @@ public class Config {
     public static Boolean isCompressorEnabled;
     public static Boolean isIMUInstalled;
 
-    public static Boolean isDebugMode;
-
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
     //------------------------------------------------------------------------------------------------------------------
@@ -377,7 +375,6 @@ public class Config {
                 maxArmPosition = 10000;
                 armControlPanelPosition = maxArmPosition;
                 IMUDriftConstant = -0.158;
-                isDebugMode = true;
                 break;
         }
     }

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Config;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.Util3309;
 import frc.robot.util.Waypoint;
@@ -87,8 +88,6 @@ public class DriveAuto extends CommandBase {
     public void execute() {
         if (done)
             return;
-
-        boolean debugMode = drive.getDebugMode();
 
         Waypoint currentPoint = path[nextWaypointIndex];
         Waypoint nextPoint = path[nextWaypointIndex + 1];
@@ -178,7 +177,7 @@ public class DriveAuto extends CommandBase {
             drive.setLeftRight(ControlMode.Velocity, currentAngularVelocity, -currentAngularVelocity);
 
 
-            if (debugMode) {
+            if (RobotContainer.getDriveDebug()) {
                 SmartDashboard.putNumber("Single-motor velocity:", currentAngularVelocity);
                 SmartDashboard.putNumber("Heading error:", error);
                 SmartDashboard.putString("Spin turn state:", turnState.name);
@@ -225,7 +224,7 @@ public class DriveAuto extends CommandBase {
              */
             double encoderTicks = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition())/2;
             double encoderTicksTraveled = encoderTicks - encoderZeroValue;
-            double inchesTraveled = drive.encoderCountsToInches((int) encoderTicksTraveled);
+            double inchesTraveled = DriveSubsystem.encoderCountsToInches((int) encoderTicksTraveled);
 
             double turnCorrection = Util3309.getHeadingError(headingToNextPoint, drive) * kTurnCorrectionConstant;
 
@@ -279,7 +278,7 @@ public class DriveAuto extends CommandBase {
                 drive.setArcade(ControlMode.PercentOutput, 0,0);
             }
 
-            if (debugMode) {
+            if (RobotContainer.getDriveDebug()) {
                 SmartDashboard.putString("State:", String.valueOf(state));
                 SmartDashboard.putNumber("Heading error:", Util3309.getHeadingError(headingToNextPoint, drive));
                 SmartDashboard.putNumber("Throttle:", speed);
@@ -305,9 +304,7 @@ public class DriveAuto extends CommandBase {
             done = true;
         }
 
-        // Example output of variables for debugging purposes - adapt as needed
-
-        if (Config.isDebugMode) {
+        if (RobotContainer.getDriveDebug()) {
             SmartDashboard.putString("Robot Super State:", superStateMachine.name);
             SmartDashboard.putString("Straight Drive State:", state.name);
             SmartDashboard.putString("Spin Turning State:", turnState.name);
