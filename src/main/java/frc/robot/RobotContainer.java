@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.ctrlpanelturner.Rotate;
+import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DrivePath;
 import frc.robot.commands.groups.PositionTurnerCommandGroup;
@@ -197,7 +198,7 @@ public class RobotContainer
                 );
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                .whenPressed(new DrivePath(drive, false));
+                .whenPressed(new DriveAuto(DriveAuto.testPath, false, drive));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

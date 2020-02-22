@@ -8,17 +8,11 @@ import frc.robot.util.Waypoint;
 
 public class DrivePath extends CommandBase{
 
-    private Waypoint[] path;
+    public Waypoint[] path;
     private DriveSubsystem drive;
     private boolean endRollout;
 
-    private Waypoint[] testPath = {
-            new Waypoint(0,0,0,false),
-            new Waypoint(9, 9, 0, false)
-    };
-
     public DrivePath(DriveSubsystem drive, boolean endRollout) {
-        path = testPath;
         this.drive = drive;
         this.endRollout = endRollout;
         addRequirements(drive);
@@ -34,7 +28,7 @@ public class DrivePath extends CommandBase{
 
     @Override
     public void initialize() {
-        new DriveAuto(path, endRollout, drive).execute();
+
         DriverStation.reportError("DrivePath executed.", false);
     }
 
