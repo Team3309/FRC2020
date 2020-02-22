@@ -212,7 +212,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Gets the current angular position away from its initialization position.
+     * Gets the current angular position away from its initialization position. Positive angle is counterclockwise.
      *
      * @return The current angle of the robot.
      *
@@ -224,7 +224,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Gets the current angular velocity of the robot.
+     * Gets the current angular velocity of the robot. Positive angular velocity is counterclockwise.
      *
      * @return The current angular velocity.
      *
@@ -366,6 +366,21 @@ public class DriveSubsystem extends SubsystemBase {
     public static double encoderVelocityToInchesPerSec(double encoderVelocity) {
         return (((encoderVelocity * 10.0) / Config.driveWheelEncoderCountsPerRevolution)
                 * (Math.PI * Config.driveWheelDiameterInInches));
+    }
+
+    public static double getHeadingError(double desiredHeading, DriveSubsystem drive) {
+
+        double heading = (((180-drive.getAngularPosition())) % 360) + 180;
+        double headingError = desiredHeading - heading;
+        if (headingError < -180) {
+            headingError += 360;
+
+        }
+        else if (headingError > 180) {
+            headingError -= 360;
+        }
+        return headingError;
+
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
