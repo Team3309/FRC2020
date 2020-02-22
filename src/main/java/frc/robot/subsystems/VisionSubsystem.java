@@ -53,4 +53,8 @@ public class VisionSubsystem extends SubsystemBase {
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);
     }
+
+    public double getHeightAngleToTarget() {
+        return limelight.getTy();
+    }
 }

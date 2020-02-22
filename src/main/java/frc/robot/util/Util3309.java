@@ -13,8 +13,6 @@ public class Util3309 {
      * Prevent this class from being instantiated.
      */
 
-    private static DriveSubsystem drive = new DriveSubsystem();
-
     private Util3309() {
     }
 
@@ -118,7 +116,7 @@ public class Util3309 {
         return Math.max(0, Math.min(max1, max2) - Math.max(min1, min2));
     }
 
-    public static double getHeadingError(double desiredHeading) {
+    public static double getHeadingError(double desiredHeading, DriveSubsystem drive) {
 
         double heading = (((drive.getAngularPosition()) + 180) % 360) - 180;
         double headingError = desiredHeading - heading;

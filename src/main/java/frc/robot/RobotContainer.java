@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.ctrlpanelturner.Rotate;
+import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.drive.DrivePath;
 import frc.robot.commands.groups.PositionTurnerCommandGroup;
@@ -140,8 +141,8 @@ public class RobotContainer
         //whileActiveOnce is the same as when held
 
         // TODO: Fix binding to leftStickRightCluster for Single SHot
-        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
-                .whenActive(new SelectToSingleShot(indexer, shooter))
+        OI.leftStickRightCluster
+                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
                 .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
         // TODO: Remove this after the indexer sensor is installed
@@ -197,7 +198,7 @@ public class RobotContainer
                 );
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                .whenPressed(new DrivePath(drive, false));
+                .whenPressed(new DriveAuto(DriveAuto.testPath, false, drive));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
