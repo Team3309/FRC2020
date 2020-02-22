@@ -105,6 +105,7 @@ public class Config {
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
     public static final double turnerRotationPower = 0.4;
+    public static final double turnerHoldPower = -0.1;
     public static final int rotationControlSlices = 32;
 
     public static final double deployDelayInSeconds = .5;
