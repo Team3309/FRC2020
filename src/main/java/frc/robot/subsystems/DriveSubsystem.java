@@ -1,11 +1,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.analog.adis16470.frc.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.SPI;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,28 +24,83 @@ public class DriveSubsystem extends SubsystemBase {
     private IMU3309 imu;
     private Timer ctrlTimer;
 
+    private WPI_TalonSRX driveMasterLeft2019, driveMasterRight2019;
+
      /**----------------------------------------------------------------------------------------------------------------
      * Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
      *
      */
      public DriveSubsystem() {
          if (Config.isDriveInstalled) {
-             driveMasterLeft = new WPI_TalonFX(Config.driveLeftMasterID);
-             driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
-             driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
-             driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
-
+             //non specific robot configuration
              ctrlTimer = new Timer();
              ctrlTimer.start();
              if (Config.isIMUInstalled) {
                  imu = new IMU3309();
              }
+             //2019 specific configuration
+             if (Config.currentRobot == Config.RobotModel.Practice2019) {
+                 driveMasterLeft2019 = new WPI_TalonSRX(Config.driveLeftMasterID);
+                 WPI_VictorSPX driveLeftSlave1 = new WPI_VictorSPX(Config.driveLeftSlaveID2019_1);
+                 WPI_VictorSPX driveLeftSlave2 = new WPI_VictorSPX(Config.driveLeftSlaveID2019_2);
+                 driveMasterRight2019 = new WPI_TalonSRX(Config.driveRightMasterID);
+                 WPI_VictorSPX driveRightSlave1 = new WPI_VictorSPX(Config.driveRightSlaveID2019_1);
+                 WPI_VictorSPX driveRightSlave2 = new WPI_VictorSPX(Config.driveRightSlaveID2019_2);
 
-             configDriveMaster(driveMasterLeft);
-             configDriveSlave(driveSlaveLeft, driveMasterLeft);
-             configDriveMaster(driveMasterRight);
-             configDriveSlave(driveSlaveRight, driveMasterRight);
+                 //Configure Left Side of Drive
+                 configMaster2019(driveMasterLeft2019);
+                 configSlave2019(driveLeftSlave1, driveMasterLeft2019);
+                 configSlave2019(driveLeftSlave2, driveMasterLeft2019);
+
+                 //Configure Right Side of Drive
+                 configMaster2019(driveMasterRight2019);
+                 configSlave2019(driveRightSlave1, driveMasterRight2019);
+                 configSlave2019(driveRightSlave2, driveMasterRight2019);
+             } else {
+                 driveMasterLeft = new WPI_TalonFX(Config.driveLeftMasterID);
+                 driveSlaveLeft = new WPI_TalonFX(Config.driveLeftSlaveID);
+                 driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
+                 driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
+
+
+
+                 configDriveMaster(driveMasterLeft);
+                 configDriveSlave(driveSlaveLeft, driveMasterLeft);
+                 configDriveMaster(driveMasterRight);
+                 configDriveSlave(driveSlaveRight, driveMasterRight);
+
+
+             }
          }
+    }
+
+
+    private void configMaster2019(WPI_TalonSRX talon) {
+
+
+        talon.configFactoryDefault();
+        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+
+        talon.configClosedloopRamp(Config.driveClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
+        talon.configOpenloopRamp(Config.driveOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
+        talon.config_kP(0, Config.driveVelocityP, Config.motorControllerConfigTimeoutMs);
+        talon.config_IntegralZone(0, Config.driveVelocityIntegralZone, Config.motorControllerConfigTimeoutMs);
+        talon.config_kD(0, Config.driveVelocityD, Config.motorControllerConfigTimeoutMs);
+        talon.config_kF(0, Config.driveVelocityF, Config.motorControllerConfigTimeoutMs);
+
+
+        talon.setNeutralMode(NeutralMode.Brake);
+        talon.setInverted(true);
+        talon.setSensorPhase(false);
+    }
+
+
+
+    private void configSlave2019(WPI_VictorSPX slave, WPI_TalonSRX master) {
+        slave.configFactoryDefault();
+        slave.follow(master);
+        slave.setNeutralMode(NeutralMode.Brake);
+        slave.setInverted(InvertType.FollowMaster);
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -93,7 +149,11 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getLeftEncoderPosition() {
         if (Config.isDriveInstalled) {
-            return driveMasterLeft.getSelectedSensorPosition(0);
+            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+                return driveMasterLeft2019.getSelectedSensorPosition(0);
+            } else {
+                return driveMasterLeft.getSelectedSensorPosition(0);
+            }
         }
         return 0;
     }
@@ -106,7 +166,12 @@ public class DriveSubsystem extends SubsystemBase {
     */
     public double getRightEncoderPosition() {
         if (Config.isDriveInstalled) {
-            return -driveMasterRight.getSelectedSensorPosition(0);
+            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+                return -driveMasterRight2019.getSelectedSensorPosition(0 );
+            } else {
+                return -driveMasterRight.getSelectedSensorPosition(0);
+            }
+
         }
         return 0;
     }
@@ -119,7 +184,12 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getLeftEncoderVelocity() {
         if (Config.isDriveInstalled) {
-            return driveMasterLeft.getSelectedSensorVelocity(0);
+            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+                return driveMasterLeft2019.getSelectedSensorVelocity(0);
+            } else {
+                return driveMasterLeft.getSelectedSensorVelocity(0);
+            }
+
         }
         return 0;
     }
@@ -132,7 +202,11 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getRightEncoderVelocity() {
         if (Config.isDriveInstalled) {
-            return -driveMasterRight.getSelectedSensorVelocity(0);
+            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+                return -driveMasterRight2019.getSelectedSensorVelocity();
+            } else {
+                return -driveMasterRight.getSelectedSensorVelocity(0);
+            }
         }
         return 0;
     }
@@ -192,8 +266,15 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public void setLeftRight(ControlMode mode, double left, double right) {
         if (Config.isDriveInstalled) {
-            driveMasterLeft.set(mode, left);
-            driveMasterRight.set(mode, -right);
+
+            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+                driveMasterLeft2019.set(mode, left);
+                driveMasterRight2019.set(mode, -right);
+            } else {
+                driveMasterLeft.set(mode, left);
+                driveMasterRight.set(mode, -right);
+            }
+
         }
     }
 
@@ -296,8 +377,15 @@ public class DriveSubsystem extends SubsystemBase {
      * Sends motor data to SmartDashboard
      */
     public void outputToDashboard() {
-        SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
-        SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());
+        if(Config.currentRobot == Config.RobotModel.Practice2019) {
+
+            SmartDashboard.putNumber("Drive left power", driveMasterLeft2019.getMotorOutputPercent());
+            SmartDashboard.putNumber("Drive right power", -driveMasterRight2019.getMotorOutputPercent());
+        } else {
+            SmartDashboard.putNumber("Drive left power", driveMasterLeft.getMotorOutputPercent());
+            SmartDashboard.putNumber("Drive right power", -driveMasterRight.getMotorOutputPercent());
+        }
+
         SmartDashboard.putNumber("Drive left position", getLeftEncoderPosition());
         SmartDashboard.putNumber("Drive right position", getRightEncoderPosition());
         SmartDashboard.putNumber("Drive left velocity", getLeftEncoderVelocity());
