@@ -55,7 +55,7 @@ public class RobotContainer
     public enum RobotState {
         ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
         INIT_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
-        INIT_READY_TO_SHOOT, INIT_POSITION_TURNER, TURNER_IN_POSITION, INIT_SPIN_TURNER, SPIN_TURNER
+        INIT_READY_TO_SHOOT, INIT_POSITION_TURNER, TURNER_IN_POSITION, SPIN_TURNER
     }
 
     private static RobotState state = RobotState.ARM_UP_DRIVE;
@@ -157,6 +157,9 @@ public class RobotContainer
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                 .whenPressed(new SelectPositionTurner(arm, intake));
+
+        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
+                .whenPressed(new SelectSpinTurner(drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
