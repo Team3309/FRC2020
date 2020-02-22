@@ -20,7 +20,7 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                                       IntakeSubsystem intake, IndexerSubsystem indexer,
                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_READY_TO_SHOOT),
                 /*we only want to stop the flywheels if we are moving the arm. because of the shooter shaking the system*/
                 firingSolution == null ? new DoNothing() : new StopFlywheels(shooter),
                 new StopIntake(intake),
@@ -29,7 +29,7 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                 firingSolution == null ? new DoNothing() :
                         new SetFlywheelsSpeed(shooter, firingSolution.getTopFlywheelSpeed(), firingSolution.getBottomFlywheelSpeed()),
                 new StartFlywheels(shooter),
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
+                new UpdateHandlingState(RobotContainer.RobotState.READY_TO_SHOOT)
         );
     }
 }

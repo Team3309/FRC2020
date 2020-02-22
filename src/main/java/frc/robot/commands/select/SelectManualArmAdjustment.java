@@ -13,7 +13,7 @@ public class SelectManualArmAdjustment extends SelectCommand3309 {
     public SelectManualArmAdjustment(IntakeSubsystem intake, IndexerSubsystem indexer,
                                      ShooterSubsystem shooter, ArmSubsystem arm, XboxController controller) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT) {
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT) {
                 return new ManualArmAdjustment(arm, controller); //Change to Command Group 6
             } else {
                 return new DoNothing(); //

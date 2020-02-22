@@ -12,8 +12,8 @@ public class SelectReadyToShootToDriving extends SelectCommand3309 {
 
     public SelectReadyToShootToDriving(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT
             ) {
                 return new ToDriveCommandGroup(null, intake, indexer, shooter, arm);
             } else {

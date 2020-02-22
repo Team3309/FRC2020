@@ -29,9 +29,9 @@ public class ManualArmAdjustment extends CommandBase {
     public void execute() {
         //normally Select commands handle the PowerCellHandler MegaSubsystem, but because this is a default command we
         //have to check here instead.
-        if(RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
-                RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.MULTI_SHOT ||
-                RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SINGLE_SHOT) {
+        if(RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
+                RobotContainer.getRobotState() == RobotContainer.RobotState.MULTI_SHOT ||
+                RobotContainer.getRobotState() == RobotContainer.RobotState.SINGLE_SHOT) {
             double yRaw = controller.getY(GenericHID.Hand.kRight);
             if (yRaw > DEAD_ZONE) {
                 arm.adjustArm(yRaw * yRaw * yRaw);

@@ -152,7 +152,7 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void autoIndexIn() {
         if (Config.isIndexerInstalled && Config.isIndexerSensorInstalled) {
-            if (isSensorBlocked() && RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE) {
+            if (isSensorBlocked() && RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE) {
                 indexIn();
             }
         }

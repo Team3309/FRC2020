@@ -10,7 +10,7 @@ public class SelectIntakeToOuttake extends SelectCommand3309 {
 
     public SelectIntakeToOuttake(IntakeSubsystem intake, ShooterSubsystem shooter) {
         super(() -> {
-            if (RobotContainer.PowerCellHandlingState.INTAKE == RobotContainer.getPowerCellHandlingState()) {
+            if (RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState()) {
                 return new SwitchToOuttake(intake, shooter);
             } else {
                 return new DoNothing();

@@ -6,16 +6,19 @@ import frc.robot.commands.groups.PositionTurnerCommandGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class SelectDeployTurner extends SelectCommand3309 {
+public class SelectPositionTurner extends SelectCommand3309 {
 
-    public SelectDeployTurner(ArmSubsystem arm, IntakeSubsystem intake) {
+    public SelectPositionTurner(ArmSubsystem arm, IntakeSubsystem intake) {
         super(() -> {
-            if (RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT) {
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE
+            ) {
                 return new PositionTurnerCommandGroup(arm, intake);
             } else {
+                //do nothing
                 return new DoNothing();
             }
         });
     }
+
 }

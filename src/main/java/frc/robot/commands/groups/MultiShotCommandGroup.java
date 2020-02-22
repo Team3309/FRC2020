@@ -12,9 +12,9 @@ public class MultiShotCommandGroup extends SequentialCommandGroup {
 
     public MultiShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         addCommands(
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_MULTI_SHOT),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_MULTI_SHOT),
                 new StartFlywheels(shooter),
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.MULTI_SHOT),
+                new UpdateHandlingState(RobotContainer.RobotState.MULTI_SHOT),
                 new MultiShot(indexer, shooter)
         );
 
