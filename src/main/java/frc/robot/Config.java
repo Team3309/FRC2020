@@ -162,8 +162,8 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final int indexerAcceleration = 100000;
-    public static final int indexerCruiseVelocity = 4000;
+    public static final int indexerAcceleration = 20000;
+    public static final int indexerCruiseVelocity = 1000;
     public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
@@ -305,8 +305,8 @@ public class Config {
                 indexerD = 0.0;
                 indexerIntegralZone = 0;
                 indexerF = 0.0;
-                indexerPositioningTolerance = 2000;  // kludge to test with slipping indexer, was 200
-                powerCellDistanceInEncoderCounts = 10000; // kludge to test with slipping indexer, was 5091
+                indexerPositioningTolerance = 200;
+                powerCellDistanceInEncoderCounts = 5091;
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
