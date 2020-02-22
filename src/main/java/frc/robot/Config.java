@@ -401,6 +401,25 @@ public class Config {
 
                 IMUDriftConstant = -0.158;
 
+                driveWheelDiameterInInches = 6.0;
+                driveWheelEncoderCountsPerRevolution = (int) (4096 * 9.6);  // Falcon 500 internal encoder
+                driveSpinTurnEncoderCountsPerDegree = 600;
+
+                limelightMountingAngle = 0.0;
+                limelightMountingHeight = 33.0; //inches
+                fieldVisionTargetHeight = 78.0 + 9.0; //inches
+                fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
+                fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
+
+                armPositionVision = 150000;
+                maxArmPosition = 180000;  // physical max = 190000
+                trenchArmPosition = 45000;
+                minArmPosition = 3000;
+                armPositionIntakeStowedLimit = 45000;
+                armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
+                armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
+                armControlPanelPosition = 126000;
+
                 break;
         }
     }

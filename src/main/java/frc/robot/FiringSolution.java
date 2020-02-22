@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 /**---------------------------------------------------------------------------------------------------------------------
  * Manage the parameters needed for shooting from a given location
  */
@@ -44,6 +46,8 @@ public class FiringSolution {
                 Config.threePointHoleDistances, Config.threePointHoleTopSpeeds);
         bottomFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
                 Config.threePointHoleDistances, Config.threePointHoleBottomSpeeds);
+
+        System.out.println("threePointHoleDistance: " + threePointHoleDistance / 12 + " feet.");
         solutionName = "Calculated";
     }
 

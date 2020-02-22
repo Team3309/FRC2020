@@ -36,6 +36,9 @@ public class CreateFiringSolution extends CommandBase {
                                     vision.getDistanceToTarget(),
                                     vision.getAngleToTarget(),
                                     vision.getHeightAngleToTarget()), intake, indexer, shooter, arm));
+
+        } else {
+            //System.out.println("No target found");
         }
         return hasTarget;
     }
