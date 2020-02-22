@@ -11,11 +11,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SingleShotCommandGroup extends SequentialCommandGroup {
     public SingleShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         addCommands(
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_SINGLE_SHOT),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_SINGLE_SHOT),
                 new StartFlywheels(shooter),
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.SINGLE_SHOT),
+                new UpdateHandlingState(RobotContainer.RobotState.SINGLE_SHOT),
                 new SingleShot(indexer, shooter),
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)
+                new UpdateHandlingState(RobotContainer.RobotState.READY_TO_SHOOT)
         );
 
     }

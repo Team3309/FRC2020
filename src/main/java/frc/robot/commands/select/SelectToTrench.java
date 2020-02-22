@@ -12,12 +12,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SelectToTrench extends SelectCommand3309 {
     public SelectToTrench(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_INTAKE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INTAKE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_READY_TO_SHOOT
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
                 return new ToDriveCommandGroup(Config.trenchArmPosition, intake, indexer, shooter, arm);
             } else {

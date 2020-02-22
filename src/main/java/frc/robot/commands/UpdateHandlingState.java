@@ -5,9 +5,9 @@ import frc.robot.RobotContainer;
 
 public class UpdateHandlingState extends InstantCommand {
 
-    private final RobotContainer.PowerCellHandlingState savedState;
+    private final RobotContainer.RobotState savedState;
 
-    public UpdateHandlingState(RobotContainer.PowerCellHandlingState stateToUpdateTo) {
+    public UpdateHandlingState(RobotContainer.RobotState stateToUpdateTo) {
         savedState = stateToUpdateTo;
     }
 
@@ -19,7 +19,7 @@ public class UpdateHandlingState extends InstantCommand {
     @Override
     public void execute() {
         System.out.println(savedState.name());
-        RobotContainer.setPowerCellHandlingState(savedState);
+        RobotContainer.setRobotState(savedState);
     }
 
 

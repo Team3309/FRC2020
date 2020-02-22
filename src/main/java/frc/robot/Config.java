@@ -329,7 +329,7 @@ public class Config {
                 armPositionIntakeStowedLimit = 45000;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = maxArmPosition; // TODO: give this a real value
+                armControlPanelPosition = 126000;
 
                 break;
 

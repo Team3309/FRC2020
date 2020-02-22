@@ -12,8 +12,8 @@ public class SelectMultishotToReadyToShoot extends SelectCommand3309 {
     public SelectMultishotToReadyToShoot(IntakeSubsystem intake, IndexerSubsystem indexer,
                                          ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.INIT_MULTI_SHOT ||
-                    RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.MULTI_SHOT
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_MULTI_SHOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.MULTI_SHOT
             ) {
                 return new ToReadyToShootCommandGroup(null, intake, indexer, shooter, arm);
             } else {

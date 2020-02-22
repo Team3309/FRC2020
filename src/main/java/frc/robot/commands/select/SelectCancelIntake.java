@@ -12,8 +12,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SelectCancelIntake extends SelectCommand3309 {
     public SelectCancelIntake(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
-            if (RobotContainer.PowerCellHandlingState.INIT_INTAKE == RobotContainer.getPowerCellHandlingState() ||
-                RobotContainer.PowerCellHandlingState.INTAKE == RobotContainer.getPowerCellHandlingState()) {
+            if (RobotContainer.RobotState.INIT_INTAKE == RobotContainer.getRobotState() ||
+                RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState()) {
                 return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();

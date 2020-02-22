@@ -12,7 +12,7 @@ public class SelectSingleShotToReadyToShoot extends SelectCommand3309{
     public SelectSingleShotToReadyToShoot(IntakeSubsystem intake, IndexerSubsystem indexer,
                                           ShooterSubsystem shooter, ArmSubsystem arm) {
         super (() -> {
-            if (RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.SINGLE_SHOT
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.SINGLE_SHOT
             ) {
                 return new ToReadyToShootCommandGroup(null, intake, indexer, shooter, arm);
             } else {

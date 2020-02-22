@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndExtendIntake;
-import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.intake.StartIntakeMotor;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.StopFlywheels;
@@ -25,13 +24,13 @@ public class ToIntakeCommandGroup extends SequentialCommandGroup {
 
     public ToIntakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_INTAKE),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_INTAKE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartIntakeMotor(intake, shooter),
                 //TODO: Call indexer.resetEncoders().
-                new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INTAKE)
+                new UpdateHandlingState(RobotContainer.RobotState.INTAKE)
         );
     }
 

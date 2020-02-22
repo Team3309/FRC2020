@@ -27,10 +27,10 @@ public class SelectToSingleShot extends SelectCommand3309 {
      */
     public SelectToSingleShot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         super(() -> {
-            if (((RobotContainer.getPowerCellHandlingState() == RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE
+            if (((RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE
                     && shooter.hasPresetSpeeds())
-                    || RobotContainer.getPowerCellHandlingState()
-                        == RobotContainer.PowerCellHandlingState.READY_TO_SHOOT)) {
+                    || RobotContainer.getRobotState()
+                        == RobotContainer.RobotState.READY_TO_SHOOT)) {
                 return new SingleShotCommandGroup(shooter, indexer); //Change to Command Group 5
             } else {
                 return new DoNothing(); //

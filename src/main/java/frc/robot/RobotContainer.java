@@ -7,10 +7,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
-import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.ctrlpanelturner.Rotate;
 import frc.robot.commands.drive.DriveManual;
-import frc.robot.commands.groups.DeployTurnerCommandGroup;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.select.*;
@@ -37,27 +35,27 @@ public class RobotContainer
      * @param newState new state for the robot, this doesn't actually cause state transitions,
      *                 but instead is how state transitions mark where the robot is at
      */
-    public static void setPowerCellHandlingState(PowerCellHandlingState newState) {
+    public static void setRobotState(RobotState newState) {
         RobotContainer.state = newState;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * @return Current robot state machine state
      */
-    public static PowerCellHandlingState getPowerCellHandlingState() {
+    public static RobotState getRobotState() {
         return state;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * All states for the robot finite state machine
      */
-    public enum PowerCellHandlingState {
+    public enum RobotState {
         ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
         INIT_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
-        INIT_READY_TO_SHOOT
+        INIT_READY_TO_SHOOT, INIT_POSITION_TURNER, TURNER_IN_POSITION, INIT_SPIN_TURNER, SPIN_TURNER
     }
 
-    private static PowerCellHandlingState state = PowerCellHandlingState.ARM_UP_DRIVE;
+    private static RobotState state = RobotState.ARM_UP_DRIVE;
 
     private final String armDashboardKey = "Display Arm Values";
     private final String climberDashboardKey = "Display Climber Values";
@@ -155,8 +153,7 @@ public class RobotContainer
                 .whenInactive(new SelectOuttakeToIntake(intake, shooter));*/
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whenPressed(new DeployTurnerCommandGroup(arm, intake, ctrlPanel))
-                .whenReleased(new RetractTurner(ctrlPanel));
+                .whenPressed(new SelectPositionTurner(arm, intake));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
@@ -171,7 +168,7 @@ public class RobotContainer
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToScan(intake, indexer, shooter));
+                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision));
 
         //D-pad Left
         new POVButton(OI.OperatorController, 270)

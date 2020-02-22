@@ -19,8 +19,8 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
     public ToDriveCommandGroup(Integer position, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(
                 position != null && position.equals(Config.trenchArmPosition) ?
-                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.INIT_ARM_UP_DRIVE),
+                        new UpdateHandlingState(RobotContainer.RobotState.INIT_TRENCH_DRIVE) :
+                        new UpdateHandlingState(RobotContainer.RobotState.INIT_ARM_UP_DRIVE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 position != null && position.equals(Config.trenchArmPosition) ?
@@ -28,7 +28,7 @@ public class ToDriveCommandGroup extends SequentialCommandGroup {
                         new DoNothing(),
                 position == null ? new DoNothing() : new MoveArmAndRetractIntake(position, intake, arm),
                 position != null && position.equals(Config.trenchArmPosition) ?
-                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.PowerCellHandlingState.ARM_UP_DRIVE));
+                        new UpdateHandlingState(RobotContainer.RobotState.TRENCH_DRIVE) :
+                        new UpdateHandlingState(RobotContainer.RobotState.ARM_UP_DRIVE));
     }
 }
