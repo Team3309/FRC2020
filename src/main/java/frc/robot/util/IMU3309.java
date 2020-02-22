@@ -48,6 +48,35 @@ public class IMU3309{
         return adis.getAccelInstantZ();
     }
 
+    public double getInstantGyroX() {
+        return adis.getGyroInstantX();
+    }
+
+    public double getInstantGyroY() {
+        return adis.getGyroInstantY();
+    }
+
+    public double getInstantGyroZ() {
+        return adis.getGyroInstantZ();
+    }
+
+    public double getXComplementaryAngle() {
+        return adis.getXComplementaryAngle();
+    }
+
+    public double getYComplementaryAngle() {
+        return adis.getYComplementaryAngle();
+
+    }
+
+    public double getXFilteredAccelerationAngle() {
+        return adis.GetXFilteredAccelAngle();
+    }
+
+    public double getYFilteredAccelerationAngle() {
+        return adis.GetYFilteredAccelAngle();
+    }
+
     public double getAngle() {
         return adis.getAngle() - (timer.get() * Config.IMUDriftConstant);
     }
@@ -64,6 +93,4 @@ public class IMU3309{
         return adis.getYawAxis();
     }
 
-
-    //TODO: all other methods
 }

@@ -128,7 +128,7 @@ public class DriveAuto extends CommandBase {
 
             if (turnState == spinTurnState.accelerating)   {
 
-                left = nextPoint.angAccelerationDegsPer100ms2 * timerValue;
+                left = nextPoint.angAccelerationInDegsPer100ms2 * timerValue;
 
             }
             //checks whether we should start cruising; we should have finished our acceleration phase
@@ -152,7 +152,7 @@ public class DriveAuto extends CommandBase {
             //
             if (turnState == spinTurnState.decelerating) {
 
-                left = lastVelocity - (nextPoint.angDecelerationDegsPer100ms2 * timerValue);
+                left = lastVelocity - (nextPoint.angDecelerationInDegsPer100ms2 * timerValue);
 
             }
             //checks that we have completed deceleration phase and are approaching our tweaking speed
@@ -256,7 +256,7 @@ public class DriveAuto extends CommandBase {
             }
             if (state == travelState.decelerating){
 
-                if (inchesTraveled < inchesBetweenWaypoints - nextPoint.linToleranceInches) {
+                if (inchesTraveled < inchesBetweenWaypoints - nextPoint.linToleranceInInches) {
                     speed = nextPoint.linAccelerationEncoderCtsPer100ms2 * ControlTimer.get();
                     if (speed < nextPoint.linCreepSpeedEncoderCtsPer100ms) {
                         speed = nextPoint.linCreepSpeed;
@@ -268,7 +268,7 @@ public class DriveAuto extends CommandBase {
                         //Stop the robot
                         speed = 0;
                     }
-                    if (inchesTraveled > inchesBetweenWaypoints + nextPoint.linToleranceInches) {
+                    if (inchesTraveled > inchesBetweenWaypoints + nextPoint.linToleranceInInches) {
                         DriverStation.reportError("Traveled too far", true);
                     }
                     nextWaypointIndex++;
