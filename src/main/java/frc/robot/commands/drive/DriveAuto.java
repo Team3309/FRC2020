@@ -139,7 +139,8 @@ public class DriveAuto extends CommandBase {
             if (timerValue * nextPoint.maxAngularSpeedInDegsPerSec > error) {
                 turnState = spinTurnState.decelerating;
                 //separate timer to help us decelerate down from a fixed velocity
-                lastVelocity = (drive.getLeftEncoderVelocity() + drive.getRightEncoderVelocity())/2;
+                lastVelocity = DriveSubsystem.encoderVelocityToDegsPerSec(drive.getLeftEncoderVelocity() +
+                        drive.getRightEncoderVelocity())/2;
                 ControlTimer.reset();
                 timerValue = 0;
             }
@@ -174,7 +175,8 @@ public class DriveAuto extends CommandBase {
                 }
             }
 
-            drive.setLeftRight(ControlMode.Velocity, currentAngularVelocity, -currentAngularVelocity);
+            double right = drive.degreesPerSecToEncoderVelocity(currentAngularVelocity);
+            drive.setLeftRight(ControlMode.Velocity, right, -right);
 
 
             if (RobotContainer.getDriveDebug()) {
@@ -234,7 +236,7 @@ public class DriveAuto extends CommandBase {
                 encoderZeroValue = encoderTicks;
             }
             if (state == travelState.accelerating) {
-                speed = nextPoint.linAccelerationEncoderCtsPer100ms2 * ControlTimer.get();
+                speed = DriveSubsystem.encoderVelocityToInchesPerSec(nextPoint.linAccelerationEncoderCtsPer100ms2 * ControlTimer.get());
                 if (speed > nextPoint.maxLinSpeedEncoderCtsPer100ms) {
 
 
@@ -253,7 +255,7 @@ public class DriveAuto extends CommandBase {
 
                 if (inchesTraveled < inchesBetweenWaypoints - nextPoint.linToleranceInInches) {
                     speed = nextPoint.linAccelerationEncoderCtsPer100ms2 * ControlTimer.get();
-                    if (speed < nextPoint.linCreepSpeedEncoderCtsPer100ms) {
+                    if (speed < DriveSubsystem.encoderVelocityToDegsPerSec(nextPoint.linCreepSpeedEncoderCtsPer100ms)) {
                         speed = nextPoint.linCreepSpeed;
 
                     }
@@ -272,7 +274,7 @@ public class DriveAuto extends CommandBase {
             }
 
             if (speed != 0 ) {
-                drive.setArcade(ControlMode.Velocity, speed, turnCorrection);
+                drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecondToEncoderVelocity(speed), turnCorrection);
             } else {
                 //If speed is zero, then use PercentOutput so we don't apply brakes
                 drive.setArcade(ControlMode.PercentOutput, 0,0);
