@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.Util3309;
@@ -65,8 +64,6 @@ public class DriveAuto extends CommandBase {
     private Waypoint[] path;
     private int nextWaypointIndex = 0;
     private boolean endRollout;
-    private double[] transformationVector = new double[2];
-    private Waypoint[] workingPath = new Waypoint[2];
     private DriveSubsystem drive;
     // for autonomous path following
     public DriveAuto(Waypoint[] path, boolean endRollOut, DriveSubsystem drive) {
@@ -104,8 +101,6 @@ public class DriveAuto extends CommandBase {
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
                         nextPoint.xFieldInches, nextPoint.downFieldInches);
 
-        transformationVector[0] = nextPoint.xFieldInches - currentPoint.xFieldInches;
-        transformationVector[1] = nextPoint.downFieldInches - currentPoint.downFieldInches;
         if (superStateMachine == superState.spinTurning) {
 
             final double kTweakThreshold = 2.0;
@@ -159,11 +154,11 @@ public class DriveAuto extends CommandBase {
                 }
                 //turn right if we undershot
 
-                else if (DriveSubsystem.getHeadingError(headingToNextPoint, drive) < 0) {
+                else if (degsLeftToTurn < 0) {
                     currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
                 }
                 //turn left if we overshot
-                else if (DriveSubsystem.getHeadingError(headingToNextPoint, drive) > 0) {
+                else if (degsLeftToTurn > 0) {
                     currentAngularVelocity = -nextPoint.angCreepSpeedInDegsPerSec;
                     DriverStation.reportError("Overshot.", false);
                 }
@@ -218,27 +213,25 @@ public class DriveAuto extends CommandBase {
              *     else
              *         stop the robot and increment nextWaypointIndex
              */
-            double encoderTicks = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition())/2;
-            double encoderTicksTraveled = encoderTicks - encoderZeroValue;
+            double encoderTicksLinear = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition())/2;
+            double encoderTicksTraveled = encoderTicksLinear - encoderZeroValue;
             double inchesTraveled = DriveSubsystem.encoderCountsToInches((int) encoderTicksTraveled);
 
-            double turnCorrection = DriveSubsystem.getHeadingError(headingToNextPoint, drive) * kTurnCorrectionConstant;
+            double turnCorrection = degsLeftToTurn * kTurnCorrectionConstant;
 
             if (state == travelState.stopped) {
                 ControlTimer.reset();
                 state = travelState.accelerating;
-                encoderZeroValue = encoderTicks;
+                encoderZeroValue = encoderTicksLinear;
             }
             if (state == travelState.accelerating) {
-                speed = DriveSubsystem.encoderVelocityToInchesPerSec(nextPoint.linAccelerationEncoderCtsPer100ms2 * ControlTimer.get());
-                if (speed > nextPoint.maxLinSpeedEncoderCtsPer100ms) {
-
-
+                speed = nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
+                if (speed > nextPoint.maxLinearSpeed) {
                     state = travelState.cruising;
                 }
             }
             if (state == travelState.cruising){
-                if (inchesBetweenWaypoints - inchesTraveled < speed * kDecelerationConstant) {
+                if (inchesBetweenWaypoints - inchesTraveled < speed * ControlTimer.get()) {
                     speed = nextPoint.maxLinearSpeed;
                 } else {
                     state = travelState.decelerating;
@@ -247,11 +240,10 @@ public class DriveAuto extends CommandBase {
             }
             if (state == travelState.decelerating){
 
-                if (inchesTraveled < inchesBetweenWaypoints - nextPoint.linToleranceInInches) {
-                    speed = nextPoint.linAccelerationEncoderCtsPer100ms2 * ControlTimer.get();
-                    if (speed < DriveSubsystem.encoderVelocityToDegsPerSec(nextPoint.linCreepSpeedEncoderCtsPer100ms)) {
+                speed = lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get();
+                if (inchesBetweenWaypoints - inchesTraveled < nextPoint.linToleranceInInches) {
+                    if (speed < nextPoint.linCreepSpeed) {
                         speed = nextPoint.linCreepSpeed;
-
                     }
                 } else {
                     if (nextWaypointIndex == path.length - 1 && !endRollout) {
@@ -275,8 +267,8 @@ public class DriveAuto extends CommandBase {
             }
 
             if (RobotContainer.getDriveDebug()) {
-                SmartDashboard.putString("State:", String.valueOf(state));
-                SmartDashboard.putNumber("Heading degsLeftToTurn:", DriveSubsystem.getHeadingError(headingToNextPoint, drive));
+                SmartDashboard.putString("State:", state.name);
+                SmartDashboard.putNumber("Heading error:", degsLeftToTurn);
                 SmartDashboard.putNumber("Throttle:", speed);
 
             }
