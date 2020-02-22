@@ -1,6 +1,5 @@
 package frc.robot.commands.groups;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
@@ -14,8 +13,9 @@ public class SpinTurnerCommandGroup extends SequentialCommandGroup {
     public SpinTurnerCommandGroup(DriveSubsystem drive, CtrlPanelSubsystem ctrlPanel) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.SPIN_TURNER),
-                new DriveApplyPower(Config.turnerHoldPower, drive),
-                new Rotate(ctrlPanel) //TODO: Make it complete when spin is done
+                new DriveApplyPower(Config.turnerDriveHoldPower, drive),
+                new Rotate(ctrlPanel),
+                new UpdateHandlingState(RobotContainer.RobotState.TURNER_IN_POSITION)
         );
     }
 }

@@ -147,12 +147,11 @@ public class RobotContainer
                 .whenInactive(new SelectOuttakeToIntake(intake, shooter));*/
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whenPressed(new SelectPositionTurner(arm, intake))
-                .whenReleased(new SelectCtrlPanelToDrive(arm, drive, intake));
+                .whenPressed(new SelectPositionTurner(arm, intake));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
                 .whenPressed(new SelectSpinTurner(drive, ctrlPanel))
-                .whenReleased(new SelectStopCtrlPanelSpinning(ctrlPanel));
+                .whenReleased(new SelectStopCtrlPanelSpinning(ctrlPanel, drive));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm, drive, ctrlPanel));

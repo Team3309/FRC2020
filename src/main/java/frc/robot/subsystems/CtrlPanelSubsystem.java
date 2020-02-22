@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
@@ -22,7 +23,7 @@ import frc.robot.util.PanelColor;
 
 public class CtrlPanelSubsystem extends SubsystemBase {
 
-    private WPI_TalonSRX ctrlPanelMotor;
+    private WPI_VictorSPX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
     //Used for rotation control
@@ -32,7 +33,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-            ctrlPanelMotor = new WPI_TalonSRX(Config.turnerMotorID);
+            ctrlPanelMotor = new WPI_VictorSPX(Config.turnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
             ctrlPanelMotor.setNeutralMode(NeutralMode.Brake);
         }

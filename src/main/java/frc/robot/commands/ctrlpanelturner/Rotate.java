@@ -12,11 +12,6 @@ public class Rotate extends CommandBase {
     }
 
     @Override
-    public void execute() {
-
-    }
-
-    @Override
     public boolean isFinished() {
         return manipulator.spin();
     }
