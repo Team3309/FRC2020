@@ -1,6 +1,7 @@
 package frc.robot.commands.vision;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.FiringSolution;
@@ -11,7 +12,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class CreateFiringSolution extends InstantCommand {
+public class CreateFiringSolution extends CommandBase {
     private final VisionSubsystem vision;
     private final IntakeSubsystem intake;
     private final IndexerSubsystem indexer;
@@ -26,13 +27,16 @@ public class CreateFiringSolution extends InstantCommand {
         this.arm = arm;
     }
 
-    public void execute() {
-        CommandScheduler.getInstance().schedule(
-                new ToReadyToShootCommandGroup(
-                        new FiringSolution(
-                                vision.getDistanceToTarget(),
-                                vision.getAngleToTarget(),
-                                vision.getHeightAngleToTarget()), intake, indexer, shooter, arm));
-        ;
+    public boolean isFinished() {
+        boolean hasTarget = vision.hasTarget();
+        if (hasTarget) {
+            CommandScheduler.getInstance().schedule(
+                    new ToReadyToShootCommandGroup(
+                            new FiringSolution(
+                                    vision.getDistanceToTarget(),
+                                    vision.getAngleToTarget(),
+                                    vision.getHeightAngleToTarget()), intake, indexer, shooter, arm));
+        }
+        return hasTarget;
     }
 }
