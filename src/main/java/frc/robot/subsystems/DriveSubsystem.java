@@ -253,7 +253,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
-        return degreesPerSecond * Config.encoderCountsPerDegree;
+        return degreesPerSecond * Config.driveSpinTurnEncoderCountsPerDegree;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -345,7 +345,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double degreesPerSecondToEncoderVelocity(double degreesPerSecond) {
-        return degreesPerSecond * Config.encoderCountsPerDegree / 10.0;
+        return degreesPerSecond * Config.driveSpinTurnEncoderCountsPerDegree / 10.0;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -354,7 +354,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param encoderVelocity The velocity in encoder counts per second.
      */
     public static double encoderVelocityToDegsPerSec(double encoderVelocity) {
-        return (encoderVelocity * 10) / Config.encoderCountsPerDegree;
+        return (encoderVelocity * 10) / Config.driveSpinTurnEncoderCountsPerDegree;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------

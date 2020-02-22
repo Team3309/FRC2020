@@ -65,7 +65,7 @@ public class Config {
     //Physical Constants for Drive--------------------------------------------------------------------------------------
     public static Double driveWheelDiameterInInches;
     public static Integer driveWheelEncoderCountsPerRevolution;
-    public static Integer encoderCountsPerDegree;
+    public static Integer driveSpinTurnEncoderCountsPerDegree;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
@@ -273,7 +273,7 @@ public class Config {
 
                 driveWheelDiameterInInches = 6.0;
                 driveWheelEncoderCountsPerRevolution = 2048;  // Falcon 500 internal encoder
-                encoderCountsPerDegree = 600;
+                driveSpinTurnEncoderCountsPerDegree = 600;
 
                 driveVelocityP = 0.02;
                 driveVelocityI = 0.00015;
@@ -356,7 +356,7 @@ public class Config {
 
                 driveWheelDiameterInInches = 3.75;
                 driveWheelEncoderCountsPerRevolution = 2048;  // Falcon 500 internal encoder
-                encoderCountsPerDegree = 600;
+                driveSpinTurnEncoderCountsPerDegree = 600;
 
                 driveVelocityP = 0.1;
                 driveVelocityI = 0.0;
