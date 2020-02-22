@@ -34,6 +34,8 @@ public class Config {
     public static Boolean isCompressorEnabled;
     public static Boolean isIMUInstalled;
 
+    public static Boolean isDebugMode;
+
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
     //------------------------------------------------------------------------------------------------------------------

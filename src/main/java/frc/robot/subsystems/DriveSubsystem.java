@@ -14,6 +14,8 @@ import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
 
+import static frc.robot.util.UnitConversions.inchesToEncoderCounts;
+
 public class DriveSubsystem extends SubsystemBase {
 
     private WPI_TalonFX driveMasterLeft;
@@ -183,6 +185,10 @@ public class DriveSubsystem extends SubsystemBase {
         return degreesPerSecond * Config.encoderCountsPerDegree;
     }
 
+    public double inchesPerSecondToEncoderVelocity(double inchesPerSecond) {
+        return inchesToEncoderCounts(inchesPerSecond / 10.0 * 4096.0 / (Math.PI * Config.driveWheelDiameterInInches));
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      * Programs both motors simultaneously to move.
      *
@@ -209,6 +215,10 @@ public class DriveSubsystem extends SubsystemBase {
         setLeftRight(mode, signal.GetLeft(), signal.GetRight());
     }
 
+    public void setArcade(ControlMode mode, double speed, double turn) {
+        setLeftRight(mode, speed + turn, speed - turn);
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      * Clears all drive encoder and PID data from before the method was called.
      *
@@ -220,6 +230,10 @@ public class DriveSubsystem extends SubsystemBase {
             driveMasterRight.setSelectedSensorPosition(0, 0, 0);
             driveMasterRight.setSelectedSensorPosition(0, 0, 0);
         }
+    }
+
+    public boolean getDebugMode() {
+        return Config.isDebugMode;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 package frc.robot.util;
 
 import java.util.List;
-
+import frc.robot.subsystems.DriveSubsystem;
 /**
  * Contains basic functions that are used often.
  */
@@ -12,6 +12,9 @@ public class Util3309 {
     /**
      * Prevent this class from being instantiated.
      */
+
+    private static DriveSubsystem drive = new DriveSubsystem();
+
     private Util3309() {
     }
 
@@ -115,4 +118,27 @@ public class Util3309 {
         return Math.max(0, Math.min(max1, max2) - Math.max(min1, min2));
     }
 
+    public static double getHeadingError(double desiredHeading) {
+
+        double heading = (((drive.getAngularPosition()) + 180) % 360) - 180;
+        double headingError = desiredHeading - heading;
+        if (headingError < -180) {
+            headingError += 360;
+
+        }
+        else if (headingError > 180) {
+            headingError -= 360;
+        }
+        return headingError;
+
+    }
+
+    public static double distanceFormula(double x1, double y1, double x2, double y2) {
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    }
+
+    public static double getHeadingToPoint (Waypoint priorPoint, Waypoint nextPoint) {
+        return Math.toDegrees(Math.atan2(nextPoint.downFieldInches - priorPoint.downFieldInches,
+                nextPoint.xFieldInches - priorPoint.xFieldInches)) - 90;
+    }
 }
