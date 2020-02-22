@@ -10,13 +10,13 @@ public class Waypoint {
 
     //TODO: Tune these
     public double linCreepSpeed = 5; //Inches per second
-    public double angCreepSpeed = 23;
+    public double angCreepSpeedInDegsPerSec = 2;
     public double maxLinearSpeed = 40; //Inches per 100 milliseconds
-    public double maxAngularSpeed = 50; //Degrees per 100 milliseconds
+    public double maxAngularSpeedInDegsPerSec = 50;
     public double linAccelerationInInchesPer100ms2 = 80; //Inches per 100 milliseconds^2
     public double linDecelerationInInchesPer100ms2 = 160; //Also in inches per 100 milliseconds^2
-    public double angAccelerationInDegsPer100ms2 = 70;
-    public double angDecelerationInDegsPer100ms2 = 70;
+    public double angAccelerationInDegsPerSec2 = 100;
+    public double angDecelerationInDegsPerSec2 = 100;
     public double angToleranceInEncoderCounts;
     public double angToleranceInInches;
     public double linToleranceInEncoderCounts;
@@ -53,7 +53,7 @@ public class Waypoint {
                     double xFieldInches,
                     double turnRadiusInches,
                     double maxLinearSpeed,
-                    double maxAngularSpeed,
+                    double maxAngularSpeedInDegsPerSec,
                     double linCreepSpeed,
                     double angularCreepSpeed,
                     boolean reverse) {
@@ -61,22 +61,22 @@ public class Waypoint {
         this.xFieldInches = xFieldInches;
         this.turnRadiusInches = turnRadiusInches;
         this.maxLinearSpeed = maxLinearSpeed;
-        this.maxAngularSpeed = maxAngularSpeed;
+        this.maxAngularSpeedInDegsPerSec = maxAngularSpeedInDegsPerSec;
         this.linCreepSpeed = linCreepSpeed;
-        this.angCreepSpeed = angularCreepSpeed;
+        this.angCreepSpeedInDegsPerSec = angularCreepSpeed;
         this.reverse = reverse;
 
         initialize();
     }
 
     private void initialize () {
-        maxLinSpeedEncoderCtsPer100ms = UnitConversions.inchesPerSecondToEncoderVelocity(maxLinearSpeed);
-        linAccelerationEncoderCtsPer100ms2 = UnitConversions.inchesPerSecondToEncoderVelocity(linAccelerationInInchesPer100ms2);
-        linDecelerationEncoderCtsPer100ms2 = UnitConversions.inchesPerSecondToEncoderVelocity(linDecelerationInInchesPer100ms2);
-        linCreepSpeedEncoderCtsPer100ms = UnitConversions.inchesPerSecondToEncoderVelocity(linCreepSpeed);
-        maxAngSpeedEncoderCtsPer100ms = UnitConversions.degreesPerSecondToEncoderVelocity(maxAngularSpeed);
-        angAccelerationEncoderCtsPer100ms2 = UnitConversions.degreesPerSecondToEncoderVelocity(angAccelerationInDegsPer100ms2);
-        angDecelerationEncoderCtsPer100ms2 = UnitConversions.degreesPerSecondToEncoderVelocity(angDecelerationInDegsPer100ms2);
-        angCreepSpeedEncoderCtsPer100ms = UnitConversions.degreesPerSecondToEncoderVelocity(angCreepSpeed);
+        maxLinSpeedEncoderCtsPer100ms = DriveSubsystem.inchesPerSecondToEncoderVelocity(maxLinearSpeed);
+        linAccelerationEncoderCtsPer100ms2 = DriveSubsystem.inchesPerSecondToEncoderVelocity(linAccelerationInInchesPer100ms2);
+        linDecelerationEncoderCtsPer100ms2 = DriveSubsystem.inchesPerSecondToEncoderVelocity(linDecelerationInInchesPer100ms2);
+        linCreepSpeedEncoderCtsPer100ms = DriveSubsystem.inchesPerSecondToEncoderVelocity(linCreepSpeed);
+        maxAngSpeedEncoderCtsPer100ms = DriveSubsystem.degreesPerSecondToEncoderVelocity(maxAngularSpeedInDegsPerSec);
+        angAccelerationEncoderCtsPer100ms2 = DriveSubsystem.degreesPerSecondToEncoderVelocity(angAccelerationInDegsPerSec2);
+        angDecelerationEncoderCtsPer100ms2 = DriveSubsystem.degreesPerSecondToEncoderVelocity(angDecelerationInDegsPerSec2);
+        angCreepSpeedEncoderCtsPer100ms = DriveSubsystem.degreesPerSecondToEncoderVelocity(angCreepSpeedInDegsPerSec);
     }
 }

@@ -35,8 +35,6 @@ public class Config {
     public static Boolean isCompressorEnabled;
     public static Boolean isIMUInstalled;
 
-    public static Boolean isDebugMode;
-
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
     //------------------------------------------------------------------------------------------------------------------
@@ -106,12 +104,13 @@ public class Config {
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
     public static final double turnerRotationPower = 0.4;
+    public static final double turnerHoldPower = -0.1;
     public static final int rotationControlSlices = 32;
 
     public static final double deployDelayInSeconds = .5;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
-    public static final int colorThreshold = 127; //Color value must be above this to be recognized
+    public static final int colorThreshold = 235; //Color value must be above this to be recognized
     public static final int colorEpsilon = 50; //Threshold for deciding which color is in front of the sensor
 
     //------------------------------------------------------------------------------------------------------------------
@@ -381,7 +380,6 @@ public class Config {
                 maxArmPosition = 10000;
                 armControlPanelPosition = maxArmPosition;
                 IMUDriftConstant = -0.158;
-                isDebugMode = true;
                 break;
 
             case Practice2019:

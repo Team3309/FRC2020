@@ -73,7 +73,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
     /**-----------------------------------------------------------------------------------------------------------------
      -----------------------------------------------------------------------------------------------------------------*/
-    public void spin() {
+    public boolean spin() {
         if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
             if (isDeployed()) {
                 if (hasSensorColor()) {
@@ -108,13 +108,15 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                                 break;
                             case unknown:
                             case noValue:
-                                return;
+                                return true;
                         }
 
                         if (sensorColor == TargetColor) {
-                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
+                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes\
+                            return true;
                         } else {
                             ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
+                            return false;
                         }
                     } //End of position control
                     else {
@@ -130,20 +132,23 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
                         PanelColor sensorColor = getColor();
 
-                        if (slicesTurned <= Config.rotationControlSlices) {
-                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
-                        } else {
-                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
-                        }
-
                         if (sensorColor != lastColor) {
                             slicesTurned++;
                         }
                         lastColor = sensorColor;
+
+                        if (slicesTurned <= Config.rotationControlSlices) {
+                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
+                            return false;
+                        } else {
+                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
+                            return true;
+                        }
                     } //End of rotation control
                 }
             }
         }
+        return false;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -159,18 +164,22 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             int g = color.green;
             int b = color.blue;
 
-            if (Util3309.epsilonEquals(b, g, Config.colorEpsilon) && b > Config.colorThreshold) {
+            boolean rActive = r > Config.colorThreshold;
+            boolean gActive = g > Config.colorThreshold;
+            boolean bActive = b > Config.colorThreshold;
+
+            if (!rActive && !gActive && bActive) {
                 return PanelColor.cyan;
             }
             //
-            else if (Util3309.epsilonEquals(r, g, Config.colorEpsilon) && (r + g) / 2 > Config.colorThreshold) {
+            else if (rActive && gActive && !bActive) {
                 return PanelColor.yellow;
             }
-            else if (r > Config.colorThreshold) {
+            else if (rActive && !gActive && !bActive) {
                 return PanelColor.red;
             }
             // danger of erroneously detecting yellow if we failed to detect a true yellow above?
-            else if (g > Config.colorThreshold) {
+            else if (!rActive && gActive && !bActive) {
                 return PanelColor.green;
             }
             else {
@@ -248,5 +257,9 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public void outputToDashboard() {
         SmartDashboard.putNumber("Turner motor current", Robot.pdp.getCurrent(Config.turnerMotorPdpChannel));
         SmartDashboard.putBoolean("Turner extended", isDeployed());
+    }
+
+    public void stop() {
+        ctrlPanelMotor.stopMotor();
     }
 }

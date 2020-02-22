@@ -163,7 +163,7 @@ public class RobotContainer
                 .whenPressed(new SelectSpinTurner(drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
+                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
@@ -172,7 +172,7 @@ public class RobotContainer
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
-                ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm)
+                ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision));
@@ -194,7 +194,7 @@ public class RobotContainer
 
         //D-pad Down
         new POVButton(OI.OperatorController, 180)
-                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm)
+                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel)
                 );
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)

@@ -4,13 +4,10 @@ import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.ToDriveCommandGroup;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.IndexerSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.*;
 
 public class SelectToTrench extends SelectCommand3309 {
-    public SelectToTrench(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectToTrench(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
         super(() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||
@@ -21,7 +18,7 @@ public class SelectToTrench extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToDriveCommandGroup(Config.trenchArmPosition, intake, indexer, shooter, arm);
+                return new ToDriveCommandGroup(Config.trenchArmPosition, intake, indexer, shooter, arm, drive, manipulator);
             } else {
                 //do nothing
                 return new DoNothing();
