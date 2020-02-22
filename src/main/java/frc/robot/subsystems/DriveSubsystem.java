@@ -14,8 +14,6 @@ import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
 
-import static frc.robot.util.UnitConversions.inchesToEncoderCounts;
-
 public class DriveSubsystem extends SubsystemBase {
 
     private WPI_TalonFX driveMasterLeft;
@@ -184,10 +182,6 @@ public class DriveSubsystem extends SubsystemBase {
         return degreesPerSecond * Config.encoderCountsPerDegree;
     }
 
-    public double inchesPerSecondToEncoderVelocity(double inchesPerSecond) {
-        return inchesToEncoderCounts(inchesPerSecond / 10.0 * 4096.0 / (Math.PI * Config.driveWheelDiameterInInches));
-    }
-
     /**-----------------------------------------------------------------------------------------------------------------
      * Programs both motors simultaneously to move.
      *
@@ -233,6 +227,77 @@ public class DriveSubsystem extends SubsystemBase {
 
     public boolean getDebugMode() {
         return Config.isDebugMode;
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts distance in encoder counts to distance in inches.
+     *
+     * @param counts The distance in encoder counts.
+     *
+     */
+    public static double encoderCountsToInches(int counts) {
+        return counts / Config.driveWheelEncoderCountsPerRevolution *
+                (Math.PI*Config.driveWheelDiameterInInches);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts distance in inches to distance in encoder counts.
+     *
+     * @param inches The distance in inches.
+     *
+     */
+    public static double inchesToEncoderCounts(double inches) {
+        return inches * (Config.driveWheelEncoderCountsPerRevolution /
+                (Math.PI * Config.driveWheelDiameterInInches));
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts linear encoder velocity in encoder counts per second to linear velocity in inches per second.
+     *
+     * @param encoderVelocity The velocity in encoder counts per second.
+     *
+     */
+    public static double encoderVelocityToInchesPerSecond(double encoderVelocity) {
+        return encoderCountsToInches((int) (encoderVelocity / 10.0 * Config.driveWheelEncoderCountsPerRevolution * (Math.PI * Config.driveWheelDiameterInInches)));
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts linear velocity in inches per second to encoder velocity in encoder counts per 100 milliseconds.
+     *
+     * @param inchesPerSecond The velocity in inches per second.
+     *
+     */
+    public static double inchesPerSecondToEncoderVelocity(double inchesPerSecond) {
+        return inchesToEncoderCounts(inchesPerSecond * 10.0 * Config.driveWheelEncoderCountsPerRevolution / (Math.PI * Config.driveWheelDiameterInInches));
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts angular velocity in degrees per second to angular velocity in encoder counts per 100 milliseconds.
+     *
+     * @param degreesPerSecond The velocity in degrees per second.
+     *
+     */
+    public static double degreesPerSecondToEncoderVelocity(double degreesPerSecond) {
+        return degreesPerSecond * Config.encoderCountsPerDegree / 10.0;
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts encoder velocity to angular velocity in degrees per second.
+     *
+     * @param encoderVelocity The velocity in encoder counts per second.
+     */
+    public static double encoderVelocityToDegsPerSec(double encoderVelocity) {
+        return encoderVelocity / Config.encoderCountsPerDegree;
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Converts encoder velocity to linear velocity in inches per second.
+     *
+     * @param encoderVelocity The velocity in encoder counts per second.
+     *
+     */
+    public static double encoderVelocityToInchesPerSec(double encoderVelocity) {
+        return encoderCountsToInches((int) (encoderVelocity * 10.0 / 4096 * Math.PI / Config.driveWheelDiameterInInches));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

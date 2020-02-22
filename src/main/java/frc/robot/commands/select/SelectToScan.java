@@ -16,7 +16,7 @@ public class SelectToScan extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToScanCommandGroup(intake, indexer, arm, vision);
+                return new ToScanCommandGroup(intake, indexer, shooter, arm, vision);
             } else {
                 //do nothing
                 return new DoNothing();
