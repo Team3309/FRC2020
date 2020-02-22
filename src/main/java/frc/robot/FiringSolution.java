@@ -32,11 +32,35 @@ public class FiringSolution {
         double lengthToThreePointGoal = lengthToTarget;
         double heightToThreePointGoal = heightToTarget + Config.fieldVisionHeightOfThreePointHoleFromVisionTarget;
 
+        //
         double threePointHoleDistance = Math.sqrt(depthToThreePointGoal * depthToThreePointGoal + lengthToThreePointGoal * lengthToThreePointGoal + heightToThreePointGoal * heightToThreePointGoal);
+        //WE'LL NEED THESE LATER HOLD ON TO THE FORMULAE FOR NOW
         double threePointHoleTx = Math.toDegrees(Math.asin(heightToThreePointGoal / threePointHoleDistance)); //aka adjusted phi, aka the angle we need to rotate by to be facing the 3 point goal
         double threePointHoleTy = Math.toDegrees(Math.atan2(lengthToThreePointGoal, depthToThreePointGoal)); //this and distance become the arm angle and power.
+
+        armPosition = (int) findInterpolatedFunctionValue(threePointHoleDistance,
+                Config.threePointHoleDistances, Config.threePointHoleAngles);
+        topFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
+                Config.threePointHoleDistances, Config.threePointHoleTopSpeeds);
+        bottomFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
+                Config.threePointHoleDistances, Config.threePointHoleBottomSpeeds);
         solutionName = "Calculated";
     }
+
+    /**------------------------------------------------------------------------------------------------------------
+    Finds the closest value to a given
+     */
+    private double findInterpolatedFunctionValue(double x0, double[] x, double[] y) {
+        for (int i = 1; i < x.length; i++) {
+            if (x[i] >= x0) {
+                double d = (x0 - x[i - 1]) / (x[i] - x[i - 1]);
+                return y[i] * d + y[i - 1] * (1 - d);
+            }
+        }
+        return -1;
+    }
+
+
 
     public int getArmPosition() { return armPosition; }
     public double getIndexerSpeed() { return indexerSpeed; }

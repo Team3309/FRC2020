@@ -3,6 +3,7 @@ package frc.robot;
 import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
 
+import java.io.OptionalDataException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Arrays;
@@ -248,6 +249,10 @@ public class Config {
     public static Double fieldVisionTargetHeight;
     public static Double fieldVisionDepthOfThreePointHoleFromVisionTarget;
     public static Double fieldVisionHeightOfThreePointHoleFromVisionTarget;
+    public static double[] threePointHoleDistances;
+    public static double[] threePointHoleAngles;
+    public static double[] threePointHoleTopSpeeds;
+    public static double[] threePointHoleBottomSpeeds;
 
     private static void frameSpecificConfig() {
 
