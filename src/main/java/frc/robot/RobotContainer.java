@@ -101,9 +101,6 @@ public class RobotContainer
         if (Config.isIndexerInstalled) {
             indexer.setDefaultCommand(new ManageIndexer(indexer));
         }
-        if (Config.isCtrlPanelInstalled) {
-            ctrlPanel.setDefaultCommand(new Rotate(ctrlPanel));
-        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
