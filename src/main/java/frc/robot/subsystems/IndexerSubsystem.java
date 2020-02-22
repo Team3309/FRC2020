@@ -171,13 +171,15 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     public void reset() {
-        // stop motors and cancel any pending motion magic movement demand if we are disabled
-        UpperIndexerMotor.set(ControlMode.PercentOutput, 0);
-        LowerIndexerMotor.set(ControlMode.PercentOutput, 0);
+        if (Config.isIndexerInstalled) {
+            // stop motors and cancel any pending motion magic movement demand if we are disabled
+            UpperIndexerMotor.set(ControlMode.PercentOutput, 0);
+            LowerIndexerMotor.set(ControlMode.PercentOutput, 0);
 
-        // reset desired encoder positions so there won't be any pending movement for the next index in/out operation
-        UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
-        LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
+            // reset desired encoder positions so there won't be any pending movement for the next index in/out operation
+            UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
+            LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

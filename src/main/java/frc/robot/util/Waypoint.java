@@ -3,7 +3,6 @@ package frc.robot.util;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class Waypoint {
-    private DriveSubsystem drive;
     public double downFieldInches = 0; //how far the waypoint is from the driver station
     public double xFieldInches = 0; //lateral position of the waypoint
     public double turnRadiusInches = 0; //centered on the vertices of the straight-line path, not the guide circles
@@ -42,7 +41,6 @@ public class Waypoint {
                     double xFieldInches,
                     double turnRadiusInches,
                     boolean reverse) {
-        drive = new DriveSubsystem();
         this.downFieldInches = downFieldInches;
         this.xFieldInches = xFieldInches;
         this.turnRadiusInches = turnRadiusInches;
@@ -72,13 +70,13 @@ public class Waypoint {
     }
 
     private void initialize () {
-        maxLinSpeedEncoderCtsPer100ms = drive.inchesPerSecondToEncoderVelocity(maxLinearSpeed);
-        linAccelerationEncoderCtsPer100ms2 = drive.inchesPerSecondToEncoderVelocity(linAccelerationInInchesPer100ms2);
-        linDecelerationEncoderCtsPer100ms2 = drive.inchesPerSecondToEncoderVelocity(linDecelerationInInchesPer100ms2);
-        linCreepSpeedEncoderCtsPer100ms = drive.inchesPerSecondToEncoderVelocity(linCreepSpeed);
-        maxAngSpeedEncoderCtsPer100ms = drive.degreesPerSecToEncoderVelocity(maxAngularSpeed);
-        angAccelerationEncoderCtsPer100ms2 = drive.degreesPerSecToEncoderVelocity(angAccelerationInDegsPer100ms2);
-        angDecelerationEncoderCtsPer100ms2 = drive.degreesPerSecToEncoderVelocity(angDecelerationInDegsPer100ms2);
-        angCreepSpeedEncoderCtsPer100ms = drive.degreesPerSecToEncoderVelocity(angCreepSpeed);
+        maxLinSpeedEncoderCtsPer100ms = UnitConversions.inchesPerSecondToEncoderVelocity(maxLinearSpeed);
+        linAccelerationEncoderCtsPer100ms2 = UnitConversions.inchesPerSecondToEncoderVelocity(linAccelerationInInchesPer100ms2);
+        linDecelerationEncoderCtsPer100ms2 = UnitConversions.inchesPerSecondToEncoderVelocity(linDecelerationInInchesPer100ms2);
+        linCreepSpeedEncoderCtsPer100ms = UnitConversions.inchesPerSecondToEncoderVelocity(linCreepSpeed);
+        maxAngSpeedEncoderCtsPer100ms = UnitConversions.degreesPerSecondToEncoderVelocity(maxAngularSpeed);
+        angAccelerationEncoderCtsPer100ms2 = UnitConversions.degreesPerSecondToEncoderVelocity(angAccelerationInDegsPer100ms2);
+        angDecelerationEncoderCtsPer100ms2 = UnitConversions.degreesPerSecondToEncoderVelocity(angDecelerationInDegsPer100ms2);
+        angCreepSpeedEncoderCtsPer100ms = UnitConversions.degreesPerSecondToEncoderVelocity(angCreepSpeed);
     }
 }
