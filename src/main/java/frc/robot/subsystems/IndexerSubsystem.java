@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -46,7 +45,7 @@ public class IndexerSubsystem extends SubsystemBase {
             LowerIndexerMotor.setSensorPhase(true);
             UpperIndexerMotor.setSensorPhase(false);
 
-            resetEncoders();
+            reset();
         }
     }
 
@@ -171,7 +170,12 @@ public class IndexerSubsystem extends SubsystemBase {
                 - LowerIndexerMotor.getSelectedSensorPosition()) < Config.indexerPositioningTolerance);
     }
 
-    public void resetEncoders() {
+    public void reset() {
+        // stop motors and cancel any pending motion magic movement demand if we are disabled
+        UpperIndexerMotor.set(ControlMode.PercentOutput, 0);
+        LowerIndexerMotor.set(ControlMode.PercentOutput, 0);
+
+        // reset desired encoder positions so there won't be any pending movement for the next index in/out operation
         UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0);
         LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0);
     }

@@ -20,7 +20,7 @@ public class SingleShot extends CommandBase {
     @Override
     public void initialize() {
         hasBeenShot = false;
-        indexer.resetEncoders();
+        indexer.reset();
     }
 
     @Override

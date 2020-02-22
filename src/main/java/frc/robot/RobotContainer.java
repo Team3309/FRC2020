@@ -229,12 +229,20 @@ public class RobotContainer
 
         // Cancel previous goal position so arm doesn't snap back to where it had been when re-enabled
         arm.stopMotor();
+
+        // Clear a pending X button press so we don't accidentally release the arm brake the instant we are disabled
+        OI.OperatorController.getXButtonPressed();
     }
 
     /**
-     * Allow arm to be moved when disabled
+     * Continuously called while we are disabled
      */
     public void disabledPeriodic() {
+
+        // Don't allow indexer to move when re-enabled if it is manually moved while disabled
+        indexer.reset();
+
+        // Allow arm to be moved when disabled
         if (OI.OperatorController.getXButtonPressed()) {
             arm.setCoastMode();
         }
