@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
-import frc.robot.commands.ctrlpanelturner.DeployTurner;
 import frc.robot.commands.ctrlpanelturner.RetractTurner;
 import frc.robot.commands.ctrlpanelturner.Rotate;
 import frc.robot.commands.drive.DriveManual;
@@ -92,8 +90,7 @@ public class RobotContainer
      */
     public RobotContainer() {
         // -- Bindings
-        configureButtonBindings_Driver();
-        configureButtonBindings_Operator();
+        configureButtonBindings();
         setDefaultCommands();
         setAutoOptions();
         displaySubsystemToggles();
@@ -131,36 +128,26 @@ public class RobotContainer
         SmartDashboard.putBoolean(visionDashboardKey, false);
     }
 
-    /** ----------------------------------------------------------------------------------------------------------------
-     * Configure the bindings for the Driver controllers (Dual flight sticks)
-     */
-    private void configureButtonBindings_Driver() {
-        //other cluster groups have identical functionality on the operator controller
-        //so we give them their functionality during operator initialization
-        //in order to 'or' the buttons together
-
-        // TODO: Fix binding to leftStickRightCluster for Single SHot
-        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
-                .whenHeld(new SelectToSingleShot(indexer, shooter))
-                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
-
-        // TODO: Remove this after the indexer sensor is installed
-        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenPressed(new LoadIntoArm(indexer));
-    }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Configure the bindings for the operator controller (Xbox Controller)
      */
-    private void configureButtonBindings_Operator() {
+    private void configureButtonBindings() {
 
         //when active is the same as when pressed
         //when inactive is the same as when released
         //whileActiveOnce is the same as when held
 
+        // TODO: Fix binding to leftStickRightCluster for Single SHot
+        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
+                .whenActive(new SelectToSingleShot(indexer, shooter))
+                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
-        //we need to 'or' these buttons together so we initialize a cluster group in the
-        //operator buttons
+        // TODO: Remove this after the indexer sensor is installed
+        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+                .whenPressed(new LoadIntoArm(indexer));
+
+
         // TODO: enable once indexer sensor is installed
         /*new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .or(OI.rightStickRightCluster)
@@ -174,8 +161,6 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
-        //we need to 'or' these buttons together so we initialize a cluster group in the
-        //operator buttons
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
                 .whenActive(new SelectToMultishot(indexer, shooter))
