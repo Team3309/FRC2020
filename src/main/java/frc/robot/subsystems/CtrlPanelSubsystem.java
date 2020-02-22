@@ -1,12 +1,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -35,6 +34,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
             ctrlPanelMotor = new WPI_TalonSRX(Config.turnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
+            ctrlPanelMotor.setNeutralMode(NeutralMode.Brake);
         }
     }
 
