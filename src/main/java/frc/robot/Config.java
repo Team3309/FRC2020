@@ -3,7 +3,6 @@ package frc.robot;
 import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import java.io.OptionalDataException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Arrays;
@@ -65,10 +64,8 @@ public class Config {
 
     //Physical Constants for Drive--------------------------------------------------------------------------------------
     public static Double driveWheelDiameterInInches;
-    public static final double encoderCountsPerDegree = 600;
-    public static Double driveWheelRadiusInInches;
-    public static Double driveWheelInchesPerRevolution;
-    public static Double driveWheelEncoderCountsPerRevolution;
+    public static Integer driveWheelEncoderCountsPerRevolution;
+    public static Integer encoderCountsPerDegree;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
@@ -91,23 +88,14 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Manipulator Actuator IDs------------------------------------------------------------------------------------------
     public static Integer turnerMotorID;
-    public static Integer turnerTractorPistonID; //Tractor: (retract = draw back, protract = draw forward, ergo tract=draw
-    public static Integer turnerHeightAdjustmentPistonID;
 
     //Manipulator Actuator PDP Channels---------------------------------------------------------------------------------
     public static Integer turnerMotorPdpChannel;
-
-    //Manipulator Physical Constants------------------------------------------------------------------------------------
-    public static final double turnerWheelRadiusInInches = 4.0;  //  value?
-    public static final double turnerWheelDiameterInInches = turnerWheelRadiusInInches *2;
-    public static final double turnerWheelInchesPerRevolution = turnerWheelDiameterInInches * Math.PI;
 
     //Manipulator Control Constants-------------------------------------------------------------------------------------
     public static final double turnerRotationPower = 0.4;
     public static final double turnerHoldPower = -0.1;
     public static final int rotationControlSlices = 32;
-
-    public static final double deployDelayInSeconds = .5;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
     public static final int colorThreshold = 235; //Color value must be above this to be recognized
@@ -158,6 +146,7 @@ public class Config {
     public static Integer indexerIntegralZone;
     public static Double indexerD;
     public static Double indexerF;
+
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
@@ -183,7 +172,6 @@ public class Config {
     public static Integer armPositionIntakeStowedTarget;
     public static Integer armPositionIntakeStowedUpperLimit;
     public static Integer armControlPanelPosition;
-
     public static Integer armPositionVision;
 
     // BEFORE setting armPIDTestMode to true:
@@ -235,15 +223,11 @@ public class Config {
     //
 
     public static Integer climbMotorOneId;
-    public static Integer climbMotorTwoId;
     public static Integer climberDeploySolenoidId;
-    public static Integer hookDeploySolenoidId;
     public static Integer buddyClimbDeploySolenoidId;
-
 
     public static final double xBoxTriggerButtonThreshold = 0.5;
     public static final int motorControllerConfigTimeoutMs = 25;
-
 
     public static Double limelightMountingAngle;
     public static Double limelightMountingHeight;
@@ -278,7 +262,6 @@ public class Config {
                 isCompressorEnabled = true;
                 isIMUInstalled = true;
 
-                driveWheelDiameterInInches = 6.0;
                 driveLeftMasterID = 4;
                 driveLeftSlaveID = 16;
                 driveRightMasterID = 15;
@@ -287,6 +270,10 @@ public class Config {
                 driveLeftSlavePdpChannel = 14;
                 driveRightMasterPdpChannel = 15;
                 driveRightSlavePdpChannel = 0;
+
+                driveWheelDiameterInInches = 6.0;
+                driveWheelEncoderCountsPerRevolution = 2048;  // Falcon 500 internal encoder
+                encoderCountsPerDegree = 600;
 
                 driveVelocityP = 0.02;
                 driveVelocityI = 0.00015;
@@ -341,6 +328,8 @@ public class Config {
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
                 armControlPanelPosition = 126000;
 
+                IMUDriftConstant = -0.158;
+
                 break;
 
             case Practice2017:
@@ -356,12 +345,6 @@ public class Config {
                 isCompressorEnabled = false;
                 isIMUInstalled = true;
 
-                driveWheelDiameterInInches = 3.75;
-                driveWheelRadiusInInches = driveWheelDiameterInInches /2;
-                driveWheelInchesPerRevolution = driveWheelDiameterInInches * Math.PI;
-                driveWheelEncoderCountsPerRevolution = encoderCountsPerDegree *
-                        360 * driveWheelRadiusInInches;
-
                 driveLeftMasterID = 6;
                 driveLeftSlaveID = 8;
                 driveRightMasterID = 5;
@@ -371,18 +354,21 @@ public class Config {
                 driveRightMasterPdpChannel = 1;
                 driveRightSlavePdpChannel = 2;
 
+                driveWheelDiameterInInches = 3.75;
+                driveWheelEncoderCountsPerRevolution = 2048;  // Falcon 500 internal encoder
+                encoderCountsPerDegree = 600;
+
                 driveVelocityP = 0.1;
                 driveVelocityI = 0.0;
                 driveVelocityIntegralZone = 1000;
                 driveVelocityD = 0.0;
                 driveVelocityF = 0.0;
 
-                maxArmPosition = 10000;
-                armControlPanelPosition = maxArmPosition;
                 IMUDriftConstant = -0.158;
+
                 break;
 
-            case Practice2019:
+            case Comp2019:
                 isArmInstalled = false;
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
@@ -394,12 +380,6 @@ public class Config {
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
                 isIMUInstalled = false;
-
-                driveWheelDiameterInInches = 6.00;
-                driveWheelRadiusInInches = driveWheelDiameterInInches /2;
-                driveWheelInchesPerRevolution = driveWheelDiameterInInches * Math.PI;
-                driveWheelEncoderCountsPerRevolution = encoderCountsPerDegree *
-                        360 * driveWheelRadiusInInches;
 
                 driveRightMasterID = 1;
                 driveRightSlaveID2019_1 = 2;
@@ -413,18 +393,15 @@ public class Config {
                 driveRightMasterPdpChannel = 15;
                 driveRightSlavePdpChannel = 14;
 
-
-
                 driveVelocityP = 0.019;
                 driveVelocityI = 0.00015;
                 driveVelocityIntegralZone = 250;
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
-
                 IMUDriftConstant = -0.158;
 
-
+                break;
         }
     }
 
@@ -445,7 +422,7 @@ public class Config {
     public enum RobotModel {
         Alpha2020,
         Practice2017,
-        Practice2019
+        Comp2019
     }
 
     /*
@@ -463,7 +440,7 @@ public class Config {
             } else if (Arrays.equals(rioMAC, Practice2017_MAC)) {
                 currentRobot = RobotModel.Practice2017;
             } else if (Arrays.equals(rioMAC, Practice2019_MAC)) {
-                currentRobot = RobotModel.Practice2019;
+                currentRobot = RobotModel.Comp2019;
             } else {
                 StringBuilder foundMAC = new StringBuilder();
                 for (byte macOctet: rioMAC) {

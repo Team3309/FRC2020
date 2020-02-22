@@ -39,7 +39,7 @@ public class DriveSubsystem extends SubsystemBase {
                  imu = new IMU3309();
              }
              //2019 specific configuration
-             if (Config.currentRobot == Config.RobotModel.Practice2019) {
+             if (Config.currentRobot == Config.RobotModel.Comp2019) {
                  driveMasterLeft2019 = new WPI_TalonSRX(Config.driveLeftMasterID);
                  WPI_VictorSPX driveLeftSlave1 = new WPI_VictorSPX(Config.driveLeftSlaveID2019_1);
                  WPI_VictorSPX driveLeftSlave2 = new WPI_VictorSPX(Config.driveLeftSlaveID2019_2);
@@ -149,7 +149,7 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getLeftEncoderPosition() {
         if (Config.isDriveInstalled) {
-            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+            if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return driveMasterLeft2019.getSelectedSensorPosition(0);
             } else {
                 return driveMasterLeft.getSelectedSensorPosition(0);
@@ -166,7 +166,7 @@ public class DriveSubsystem extends SubsystemBase {
     */
     public double getRightEncoderPosition() {
         if (Config.isDriveInstalled) {
-            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+            if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return -driveMasterRight2019.getSelectedSensorPosition(0 );
             } else {
                 return -driveMasterRight.getSelectedSensorPosition(0);
@@ -184,7 +184,7 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getLeftEncoderVelocity() {
         if (Config.isDriveInstalled) {
-            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+            if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return driveMasterLeft2019.getSelectedSensorVelocity(0);
             } else {
                 return driveMasterLeft.getSelectedSensorVelocity(0);
@@ -202,7 +202,7 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getRightEncoderVelocity() {
         if (Config.isDriveInstalled) {
-            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+            if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return -driveMasterRight2019.getSelectedSensorVelocity();
             } else {
                 return -driveMasterRight.getSelectedSensorVelocity(0);
@@ -267,7 +267,7 @@ public class DriveSubsystem extends SubsystemBase {
     public void setLeftRight(ControlMode mode, double left, double right) {
         if (Config.isDriveInstalled) {
 
-            if (Config.currentRobot == Config.RobotModel.Practice2019) {
+            if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 driveMasterLeft2019.set(mode, left);
                 driveMasterRight2019.set(mode, -right);
             } else {
@@ -372,7 +372,7 @@ public class DriveSubsystem extends SubsystemBase {
      * Sends motor data to SmartDashboard
      */
     public void outputToDashboard() {
-        if(Config.currentRobot == Config.RobotModel.Practice2019) {
+        if(Config.currentRobot == Config.RobotModel.Comp2019) {
 
             SmartDashboard.putNumber("Drive left power", driveMasterLeft2019.getMotorOutputPercent());
             SmartDashboard.putNumber("Drive right power", -driveMasterRight2019.getMotorOutputPercent());
