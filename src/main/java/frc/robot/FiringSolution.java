@@ -19,7 +19,7 @@ public class FiringSolution {
         this.bottomFlywheelSpeed = bottomFlywheelSpeed;
     }
 
-    FiringSolution(double rangeInches, double tx, double ty) {
+    public FiringSolution(double rangeInches, double tx, double ty) {
         // amazing algorithm to come that will calculate the perfect solution for the given range!
         double theta = Math.toRadians(tx); // we rename these for sake of sanity with the math
         double phi = Math.toRadians(ty);

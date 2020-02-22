@@ -185,6 +185,8 @@ public class Config {
     public static Integer armPositionIntakeStowedUpperLimit;
     public static Integer armControlPanelPosition;
 
+    public static Integer armPositionVision;
+
     // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
     //   Manually extend the intake.
