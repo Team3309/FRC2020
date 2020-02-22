@@ -16,20 +16,11 @@ public class DriveApplyPower extends CommandBase {
 
     @Override
     public void initialize() {
-
-    }
-
-    @Override
-    public void execute() {
         drive.setArcade(ControlMode.PercentOutput, throttle, 0);
-    }
-
-    public void end() {
-
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

@@ -112,7 +112,7 @@ public class Config {
     public static final double deployDelayInSeconds = .5;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
-    public static final int colorThreshold = 127; //Color value must be above this to be recognized
+    public static final int colorThreshold = 235; //Color value must be above this to be recognized
     public static final int colorEpsilon = 50; //Threshold for deciding which color is in front of the sensor
 
     //------------------------------------------------------------------------------------------------------------------
