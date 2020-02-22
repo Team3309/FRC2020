@@ -58,7 +58,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     /**-----------------------------------------------------------------------------------------------------------------
      -----------------------------------------------------------------------------------------------------------------*/
     public boolean spin() {
-        if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
+        if (Config.isCtrlPanelInstalled) {
             if (hasSensorColor()) {
                 if (isFMSColorAvailable()) {
                     /*
@@ -129,7 +129,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                 } //End of rotation control
             }
         }
-        return false;
+        return true;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
