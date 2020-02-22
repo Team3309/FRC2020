@@ -254,10 +254,10 @@ public class Config {
     public static double[] threePointHoleAngles;
     public static double[] threePointHoleTopSpeeds;
     public static double[] threePointHoleBottomSpeeds;
-    public static int driveLeftSlaveID2019_1;
-    public static int driveLeftSlaveID2019_2;
-    public static int driveRightSlaveID2019_1;
-    public static int driveRightSlaveID2019_2;
+    public static Integer driveLeftSlaveID2019_1;
+    public static Integer driveLeftSlaveID2019_2;
+    public static Integer driveRightSlaveID2019_1;
+    public static Integer driveRightSlaveID2019_2;
 
     private static void frameSpecificConfig() {
 
@@ -393,7 +393,7 @@ public class Config {
                 isVisionInstalled = false;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
-                isIMUInstalled = true;
+                isIMUInstalled = false;
 
                 driveWheelDiameterInInches = 6.00;
                 driveWheelRadiusInInches = driveWheelDiameterInInches /2;
@@ -405,8 +405,8 @@ public class Config {
                 driveRightSlaveID2019_1 = 2;
                 driveRightSlaveID2019_2 = 3;
                 driveLeftMasterID = 7;
-                driveRightSlaveID2019_1 = 8;
-                driveRightSlaveID2019_2 = 9;
+                driveLeftSlaveID2019_1 = 8;
+                driveLeftSlaveID2019_2 = 9;
 
                 driveLeftMasterPdpChannel = 0;
                 driveLeftSlavePdpChannel = 1;
@@ -424,7 +424,7 @@ public class Config {
 
                 IMUDriftConstant = -0.158;
 
-                isDebugMode = true;
+
         }
     }
 
@@ -438,7 +438,7 @@ public class Config {
     private static final byte[] Practice2017_MAC = {
             (byte) 0x00, (byte) 0x80, (byte) 0x2F, (byte) 0x25, (byte) 0x13, (byte) 0x96};
 
-    private static final byte[] Practice2019 =
+    private static final byte[] Practice2019_MAC =
             {0x00, (byte) 0x80, 0x2F, 0x22, (byte) 0xB0, (byte) 0x6C};
 
 
@@ -462,7 +462,7 @@ public class Config {
                 currentRobot = RobotModel.Alpha2020;
             } else if (Arrays.equals(rioMAC, Practice2017_MAC)) {
                 currentRobot = RobotModel.Practice2017;
-            } else if (Arrays.equals(rioMAC, Practice2019)) {
+            } else if (Arrays.equals(rioMAC, Practice2019_MAC)) {
                 currentRobot = RobotModel.Practice2019;
             } else {
                 StringBuilder foundMAC = new StringBuilder();
