@@ -53,6 +53,11 @@ public class DriveAuto extends CommandBase {
     private spinTurnState turnState = spinTurnState.notStarted;
     double encoderZeroValue;
 
+    public static Waypoint[] testPath = {
+            new Waypoint(0, 0, 0, false),
+            new Waypoint(9, 9, 0, false)
+    };
+
     final double kTurnCorrectionConstant = 0.1;
     final double kDecelerationConstant = 0.1;
 
@@ -97,7 +102,7 @@ public class DriveAuto extends CommandBase {
                 nextPoint.downFieldInches -transformationVector[1], nextPoint.turnRadiusInches,
                 nextPoint.reverse);
         double headingToNextPoint = Util3309.getHeadingToPoint(workingPath[0], workingPath[1]);
-        double error = Util3309.getHeadingError(headingToNextPoint);
+        double error = Util3309.getHeadingError(headingToNextPoint, drive);
 
         double inchesBetweenWaypoints =
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
@@ -162,11 +167,11 @@ public class DriveAuto extends CommandBase {
                 }
                 //turn right if we undershot
 
-                else if (Util3309.getHeadingError(headingToNextPoint) < 0) {
+                else if (Util3309.getHeadingError(headingToNextPoint, drive) < 0) {
                     left = nextPoint.angCreepSpeed;
                 }
                 //turn left if we overshot
-                else if (Util3309.getHeadingError(headingToNextPoint) > 0){
+                else if (Util3309.getHeadingError(headingToNextPoint, drive) > 0){
                     left = -nextPoint.angCreepSpeed;
                     DriverStation.reportError("Overshot.", false);
                 }
@@ -224,7 +229,7 @@ public class DriveAuto extends CommandBase {
             double encoderTicksTraveled = encoderTicks - encoderZeroValue;
             double inchesTraveled = UnitConversions.encoderCountsToInches(encoderTicksTraveled);
 
-            double turnCorrection = Util3309.getHeadingError(headingToNextPoint) * kTurnCorrectionConstant;
+            double turnCorrection = Util3309.getHeadingError(headingToNextPoint, drive) * kTurnCorrectionConstant;
 
             if (state == travelState.stopped) {
                 ControlTimer.reset();
@@ -278,7 +283,7 @@ public class DriveAuto extends CommandBase {
 
             if (debugMode) {
                 SmartDashboard.putString("State:", String.valueOf(state));
-                SmartDashboard.putNumber("Heading error:", Util3309.getHeadingError(headingToNextPoint));
+                SmartDashboard.putNumber("Heading error:", Util3309.getHeadingError(headingToNextPoint, drive));
                 SmartDashboard.putNumber("Throttle:", speed);
             }
 
@@ -303,6 +308,9 @@ public class DriveAuto extends CommandBase {
 
         // Example output of variables for debugging purposes - adapt as needed
 
+        if (Config.isDebugMode) {
+            DriverStation.reportWarning("Executed.", false);
+        }
     }
 
     @Override
