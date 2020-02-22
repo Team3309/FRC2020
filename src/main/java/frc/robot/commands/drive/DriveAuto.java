@@ -131,25 +131,24 @@ public class DriveAuto extends CommandBase {
             if (turnState == spinTurnState.accelerating &&
                     currentAngularVelocity > nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
-            }
-            if (turnState == spinTurnState.cruising) {
                 currentAngularVelocity = nextPoint.maxAngularSpeedInDegsPerSec;
             }
-            //checks whether we should start decelerating; we should have completed cruising phase
-            if (timerValue * nextPoint.maxAngularSpeedInDegsPerSec > error) {
-                turnState = spinTurnState.decelerating;
-                //separate timer to help us decelerate down from a fixed velocity
-                lastVelocity = DriveSubsystem.encoderVelocityToDegsPerSec(drive.getLeftEncoderVelocity() +
-                        drive.getRightEncoderVelocity())/2;
-                ControlTimer.reset();
-                timerValue = 0;
+            if (turnState == spinTurnState.accelerating || turnState == spinTurnState.cruising) {
+                //calculate how far we would continue to turn at current acceleration.
+                double timeToDecelerate = currentAngularVelocity / nextPoint.angDecelerationInDegsPerSec2;
+                double degreesToDecelerate = 0.5 * nextPoint.angDecelerationInDegsPerSec2 * timeToDecelerate * timeToDecelerate;
+                //checks whether we should start decelerating; we should have completed cruising phase
+                if (degreesToDecelerate > error) {
+                    turnState = spinTurnState.decelerating;
+                    lastVelocity = DriveSubsystem.encoderVelocityToDegsPerSec(drive.getLeftEncoderVelocity() +
+                            drive.getRightEncoderVelocity())/2;
+                    ControlTimer.reset();
+                    timerValue = 0;
+                }
             }
 
-            //
             if (turnState == spinTurnState.decelerating) {
-
                 currentAngularVelocity = lastVelocity - (nextPoint.angDecelerationInDegsPerSec2 * timerValue);
-
             }
             //checks that we have completed deceleration phase and are approaching our tweaking speed
             if (turnState == spinTurnState.decelerating && currentAngularVelocity < nextPoint.angCreepSpeedInDegsPerSec) {
