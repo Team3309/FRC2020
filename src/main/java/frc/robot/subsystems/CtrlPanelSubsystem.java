@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.util.PanelColor;
-import frc.robot.util.Util3309;
 
 /**
  * @author Joshua Badzey & Mark Ghebrial
@@ -24,7 +23,6 @@ import frc.robot.util.Util3309;
 
 public class CtrlPanelSubsystem extends SubsystemBase {
 
-    private Solenoid deployerPiston;
     private WPI_TalonSRX ctrlPanelMotor;
     private ColorSensorV3 colorSensor;
 
@@ -32,30 +30,16 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private int slicesTurned = 0;
     private PanelColor lastColor = PanelColor.noValue;
 
-    private Timer deployTimer = new Timer();
-
     public CtrlPanelSubsystem() {
         if (Config.isCtrlPanelInstalled) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
             ctrlPanelMotor = new WPI_TalonSRX(Config.turnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
-            if (Config.isPcmInstalled) {
-                deployerPiston = new Solenoid(Config.turnerTractorPistonID);
-            }
-            deployTimer.start();
         }
     }
 
     private boolean hasSensorColor () {
         return getColor() != PanelColor.unknown;
-    }
-
-    private boolean isDeployed () {
-        if(Config.isPcmInstalled) {
-            return deployerPiston.get() && deployTimer.get() >= Config.deployDelayInSeconds;
-        } else {
-            return false;
-        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -75,20 +59,18 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      -----------------------------------------------------------------------------------------------------------------*/
     public boolean spin() {
         if (Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
-            if (isDeployed()) {
-                if (hasSensorColor()) {
-                    if (isFMSColorAvailable()) {
-                        /*
-                         * Position control
-                         *
-                         * Tell the motor to spin until the color sensor sees the correct color.
-                         */
+            if (hasSensorColor()) {
+                if (isFMSColorAvailable()) {
+                    /*
+                    * Position control
+                    *
+                    * Tell the motor to spin until the color sensor sees the correct color.
+                    */
+                    PanelColor sensorColor = getColor();
 
-                        PanelColor sensorColor = getColor();
-
-                        // Get the desired color from the FMS and change it to the corresponding color that the sensor
-                        // needs to be seeing
-                        PanelColor TargetColor = getFMSColor();
+                    // Get the desired color from the FMS and change it to the corresponding color that the sensor
+                    // needs to be seeing
+                    PanelColor TargetColor = getFMSColor();
                         switch (TargetColor) {
                             case red :
                                 //Red corresponds to cyan...
@@ -111,41 +93,40 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                                 return true;
                         }
 
-                        if (sensorColor == TargetColor) {
-                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes\
-                            return true;
-                        } else {
-                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
-                            return false;
-                        }
-                    } //End of position control
-                    else {
-                        /*
-                         * Rotation Control
-                         *
-                         * Spin the motor until the correct amount of rotations has been reached. If the color from the
-                         * sensor is different from the last color detected, then increment slicesTurned
-                         *
-                         * slicesTurned and lastColor are class member variables. They are reset whenever the
-                         * manipulator is deployed.
-                         */
+                    if (sensorColor == TargetColor) {
+                        ctrlPanelMotor.stopMotor(); //We are done, so apply brakes\
+                        return true;
+                    } else {
+                        ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
+                        return false;
+                    }
+                } //End of position control
+                else {
+                    /*
+                     * Rotation Control
+                     *
+                     * Spin the motor until the correct amount of rotations has been reached. If the color from the
+                     * sensor is different from the last color detected, then increment slicesTurned
+                     *
+                     * slicesTurned and lastColor are class member variables. They are reset whenever the
+                     * manipulator is deployed.
+                     */
 
-                        PanelColor sensorColor = getColor();
+                    PanelColor sensorColor = getColor();
 
-                        if (sensorColor != lastColor) {
-                            slicesTurned++;
-                        }
-                        lastColor = sensorColor;
+                    if (sensorColor != lastColor) {
+                        slicesTurned++;
+                    }
+                    lastColor = sensorColor;
 
-                        if (slicesTurned <= Config.rotationControlSlices) {
-                            ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
-                            return false;
-                        } else {
-                            ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
-                            return true;
-                        }
-                    } //End of rotation control
-                }
+                    if (slicesTurned <= Config.rotationControlSlices) {
+                        ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
+                        return false;
+                    } else {
+                        ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
+                        return true;
+                    }
+                } //End of rotation control
             }
         }
         return false;
@@ -158,7 +139,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @return PanelColor.[color] - the color which the color sensor is currently on.
      -----------------------------------------------------------------------------------------------------------------*/
     private PanelColor getColor() {
-        if (isDeployed() && Config.isCtrlPanelInstalled) {
+        if (Config.isCtrlPanelInstalled) {
             ColorSensorV3.RawColor color = colorSensor.getRawColor();
             int r = color.red;
             int g = color.green;
@@ -187,25 +168,6 @@ public class CtrlPanelSubsystem extends SubsystemBase {
             }
         } else {
             return PanelColor.noValue;
-        }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Flips the manipulator up out of the trench run configuration
-     -----------------------------------------------------------------------------------------------------------------*/
-    public void deploy() {
-        if(Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
-            deployTimer.reset();
-            deployerPiston.set(true);
-        }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Pulls the manipulator into the trench run configuration
-     -----------------------------------------------------------------------------------------------------------------*/
-    public void retract() {
-        if(Config.isCtrlPanelInstalled && Config.isPcmInstalled) {
-            deployerPiston.set(false);
         }
     }
 
@@ -251,15 +213,14 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         return getFMSColor() != PanelColor.noValue;
     }
 
+    public void stop() {
+        ctrlPanelMotor.stopMotor();
+    }
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends motor data to SmartDashboard
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Turner motor current", Robot.pdp.getCurrent(Config.turnerMotorPdpChannel));
-        SmartDashboard.putBoolean("Turner extended", isDeployed());
-    }
-
-    public void stop() {
-        ctrlPanelMotor.stopMotor();
     }
 }
