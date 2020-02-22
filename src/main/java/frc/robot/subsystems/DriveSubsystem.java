@@ -232,8 +232,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double encoderCountsToInches(int counts) {
-        return counts / Config.driveWheelEncoderCountsPerRevolution *
-                (Math.PI*Config.driveWheelDiameterInInches);
+        return (counts * Math.PI * Config.driveWheelDiameterInInches) / Config.driveWheelEncoderCountsPerRevolution;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -253,9 +252,6 @@ public class DriveSubsystem extends SubsystemBase {
      * @param encoderVelocity The velocity in encoder counts per second.
      *
      */
-    public static double encoderVelocityToInchesPerSecond(double encoderVelocity) {
-        return encoderCountsToInches((int) (encoderVelocity / 10.0 * Config.driveWheelEncoderCountsPerRevolution * (Math.PI * Config.driveWheelDiameterInInches)));
-    }
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Converts linear velocity in inches per second to encoder velocity in encoder counts per 100 milliseconds.
@@ -264,7 +260,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double inchesPerSecondToEncoderVelocity(double inchesPerSecond) {
-        return inchesToEncoderCounts(inchesPerSecond * 10.0 * Config.driveWheelEncoderCountsPerRevolution / (Math.PI * Config.driveWheelDiameterInInches));
+        return (((inchesPerSecond / 10.0)/(Math.PI*Config.driveWheelDiameterInInches)) * Config.driveWheelEncoderCountsPerRevolution);
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -274,7 +270,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double degreesPerSecondToEncoderVelocity(double degreesPerSecond) {
-        return degreesPerSecond * Config.encoderCountsPerDegree / 10.0;
+        return degreesPerSecond * Config.encoderCountsPerDegree * 10.0;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -283,7 +279,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param encoderVelocity The velocity in encoder counts per second.
      */
     public static double encoderVelocityToDegsPerSec(double encoderVelocity) {
-        return encoderVelocity / Config.encoderCountsPerDegree;
+        return encoderVelocity * 10 / Config.encoderCountsPerDegree;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -293,7 +289,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double encoderVelocityToInchesPerSec(double encoderVelocity) {
-        return encoderCountsToInches((int) (encoderVelocity * 10.0 / 4096 * Math.PI / Config.driveWheelDiameterInInches));
+        return (encoderVelocity * 10.0 / Config.driveWheelEncoderCountsPerRevolution * Math.PI / Config.driveWheelDiameterInInches);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
