@@ -163,7 +163,7 @@ public class RobotContainer
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision))
+                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
                 .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         //D-pad Left
