@@ -89,7 +89,6 @@ public class DriveAuto extends CommandBase {
         Waypoint currentPoint = path[nextWaypointIndex];
         Waypoint nextPoint = path[nextWaypointIndex + 1];
 
-        //transforms nextPoint so that the code operates from the correct frame of reference.
 
         double headingToNextPoint = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
                     nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90;
@@ -116,14 +115,23 @@ public class DriveAuto extends CommandBase {
             double timerValue = ControlTimer.get();
 
             if (turnState == spinTurnState.accelerating)   {
-                currentAngularVelocity = nextPoint.angAccelerationInDegsPerSec2 * timerValue;
+                if (degsLeftToTurn > 180) {
+                    currentAngularVelocity = -(nextPoint.angAccelerationInDegsPerSec2 * timerValue);
+                } else if (degsLeftToTurn < 180) {
+                    currentAngularVelocity = nextPoint.angAccelerationInDegsPerSec2 * timerValue;
+                }
+
             }
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
             if (turnState == spinTurnState.accelerating &&
                     currentAngularVelocity > nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
-                currentAngularVelocity = nextPoint.maxAngularSpeedInDegsPerSec;
+                if (degsLeftToTurn > 180) {
+                    currentAngularVelocity = -nextPoint.maxAngularSpeedInDegsPerSec;
+                } else if (degsLeftToTurn < 180) {
+                    currentAngularVelocity = nextPoint.maxAngularSpeedInDegsPerSec;
+                }
             }
             if (turnState == spinTurnState.accelerating || turnState == spinTurnState.cruising) {
                 //calculate how far we would continue to turn at current acceleration.
@@ -269,10 +277,11 @@ public class DriveAuto extends CommandBase {
             }
 
             if (RobotContainer.getDriveDebug()) {
-                SmartDashboard.putString("State:", state.name);
+                SmartDashboard.putString("Straight Line State:", state.name);
+                SmartDashboard.putNumber("Path Correction:", turnCorrection);
                 SmartDashboard.putNumber("Heading error:", degsLeftToTurn);
                 SmartDashboard.putNumber("Throttle:", speed);
-
+                SmartDashboard.putNumber("Distance to next waypoint:", inchesBetweenWaypoints);
             }
 
             //End of Drive straight code
