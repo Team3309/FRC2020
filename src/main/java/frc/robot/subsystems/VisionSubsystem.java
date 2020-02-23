@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.util.Limelight;
@@ -20,7 +21,7 @@ public class VisionSubsystem extends SubsystemBase {
 
     public VisionSubsystem() {
         if (Config.isVisionInstalled) {
-            limelight = new Limelight("Shooter Limelight",
+            limelight = new Limelight("limelight",
                     0, 0, 0);
         }
     }
@@ -48,8 +49,8 @@ public class VisionSubsystem extends SubsystemBase {
             return 0;
         }
         double distanceToVisionTarget =
-                (Config.fieldVisionTargetHeight-Config.limelightMountingHeight) /
-                Math.tan(limelight.getTy() + Config.limelightMountingAngle);
+                Config.visionDistanceConstant * (Config.fieldVisionTargetHeight-Config.limelightMountingHeight) /
+                Math.tan(Math.toRadians(limelight.getTy() + Config.limelightMountingAngle));
 
 
         //now we can convert the new values into a new distance
@@ -62,6 +63,31 @@ public class VisionSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         //SmartDashboard.putNumber("Key", value);
+
+        double theta = Math.toRadians(getAngleToTarget()); // we rename these for sake of sanity with the math
+        double phi = Math.toRadians(getHeightAngleToTarget());
+        double depthToTarget = getDistanceToTarget() * Math.cos(phi) * Math.cos(theta);
+        double lengthToTarget = getDistanceToTarget() * Math.cos(phi) * Math.sin(theta);
+        double heightToTarget = getDistanceToTarget() * Math.sin(phi);
+
+        //from here we can add value to depth height and length easily because we are relative to the back hole in its basis.
+        double depthToThreePointGoal = depthToTarget + Config.fieldVisionDepthOfThreePointHoleFromVisionTarget;
+        double lengthToThreePointGoal = lengthToTarget;
+        double heightToThreePointGoal = heightToTarget + Config.fieldVisionHeightOfThreePointHoleFromVisionTarget;
+
+        //
+        double threePointHoleDistance = Math.sqrt(depthToThreePointGoal * depthToThreePointGoal + lengthToThreePointGoal * lengthToThreePointGoal + heightToThreePointGoal * heightToThreePointGoal);
+        //WE'LL NEED THESE LATER HOLD ON TO THE FORMULAE FOR NOW
+        double threePointHoleTx = Math.toDegrees(Math.asin(heightToThreePointGoal / threePointHoleDistance)); //aka adjusted phi, aka the angle we need to rotate by to be facing the 3 point goal
+        double threePointHoleTy = Math.toDegrees(Math.atan2(lengthToThreePointGoal, depthToThreePointGoal)); //this and distance become the arm angle and power.
+
+        SmartDashboard.putNumber("Three Point Hole Distance", threePointHoleDistance);
+        SmartDashboard.putNumber("Tx (Adjusted)", threePointHoleTx);
+        SmartDashboard.putNumber("Ty (Adjusted)", threePointHoleTy);
+        SmartDashboard.putNumber("Vision Distance", getDistanceToTarget());
+
+        SmartDashboard.putNumber("Distance to Alliance Wall (Depth)", depthToTarget);
+
     }
 
     public double getHeightAngleToTarget() {

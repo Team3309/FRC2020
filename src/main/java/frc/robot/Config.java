@@ -242,6 +242,7 @@ public class Config {
     public static Integer driveLeftSlaveID2019_2;
     public static Integer driveRightSlaveID2019_1;
     public static Integer driveRightSlaveID2019_2;
+    public static final double visionDistanceConstant = Math.sqrt(2);
 
     private static void frameSpecificConfig() {
 
@@ -376,7 +377,7 @@ public class Config {
                 isIndexerInstalled = false;
                 isIntakeInstalled = false;
                 isShooterInstalled = false;
-                isVisionInstalled = false;
+                isVisionInstalled = true;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
                 isIMUInstalled = false;
@@ -405,9 +406,9 @@ public class Config {
                 driveWheelEncoderCountsPerRevolution = (int) (4096 * 9.6);  // Falcon 500 internal encoder
                 driveSpinTurnEncoderCountsPerDegree = 600;
 
-                limelightMountingAngle = 0.0;
+                limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
-                fieldVisionTargetHeight = 78.0 + 9.0; //inches
+                fieldVisionTargetHeight = 78.0 + 14.375; //inches
                 fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
                 fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
 
