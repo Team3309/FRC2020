@@ -48,7 +48,7 @@ public class DriveAuto extends CommandBase {
     Timer ControlTimer = new Timer();
 
     private superState superStateMachine = superState.spinTurning;
-    private travelState state = travelState.stopped;
+    private travelState driveState = travelState.stopped;
     private spinTurnState turnState = spinTurnState.notStarted;
     double encoderZeroValue;
 
@@ -94,7 +94,12 @@ public class DriveAuto extends CommandBase {
                     nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90;
 
         //Positive = counterclockwise;
-        double degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive);
+        double degsLeftToTurn = 0;
+        if (nextPoint.reverse) {
+            degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive) + 180;
+        } else if (!nextPoint.reverse) {
+            degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive);
+        }
 
         double inchesBetweenWaypoints =
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
@@ -120,7 +125,6 @@ public class DriveAuto extends CommandBase {
                 } else if (degsLeftToTurn < 180) {
                     currentAngularVelocity = nextPoint.angAccelerationInDegsPerSec2 * timerValue;
                 }
-
             }
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
@@ -229,31 +233,53 @@ public class DriveAuto extends CommandBase {
 
             double turnCorrection = degsLeftToTurn * kTurnCorrectionConstant;
 
-            if (state == travelState.stopped) {
+            if (driveState == travelState.stopped) {
                 ControlTimer.reset();
-                state = travelState.accelerating;
+                driveState = travelState.accelerating;
                 encoderZeroValue = encoderTicksLinear;
             }
-            if (state == travelState.accelerating) {
-                speed = nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
-                if (speed > nextPoint.maxLinearSpeed) {
-                    state = travelState.cruising;
+            if (driveState == travelState.accelerating) {
+                if (nextPoint.reverse) {
+                    speed = -nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
+                    if (speed < -nextPoint.maxLinearSpeed) {
+                        driveState = travelState.cruising;
+                    }
+                } else if (!nextPoint.reverse){
+                    speed = nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
+                    if (speed > nextPoint.maxLinearSpeed) {
+                        driveState = travelState.cruising;
+                        }
                 }
             }
-            if (state == travelState.cruising){
-                if (inchesBetweenWaypoints - inchesTraveled < speed * ControlTimer.get()) {
-                    speed = nextPoint.maxLinearSpeed;
+            if (driveState == travelState.cruising){
+                if (nextPoint.reverse) {
+                    if (inchesTraveled - inchesBetweenWaypoints < -speed * ControlTimer.get()) {
+                        speed = nextPoint.maxLinearSpeed;
+                    }
+                } else if (!nextPoint.reverse) {
+                    if (inchesBetweenWaypoints - inchesTraveled < speed * ControlTimer.get()) {
+                        speed = nextPoint.maxLinearSpeed;
+                    }
                 } else {
-                    state = travelState.decelerating;
+                    driveState = travelState.decelerating;
                     ControlTimer.reset();
                 }
             }
-            if (state == travelState.decelerating){
+            if (driveState == travelState.decelerating){
 
-                speed = lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get();
-                if (inchesBetweenWaypoints - inchesTraveled < nextPoint.linToleranceInInches) {
-                    if (speed < nextPoint.linCreepSpeed) {
-                        speed = nextPoint.linCreepSpeed;
+                if(nextPoint.reverse) {
+                    speed = (nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get()) - lastVelocity;
+                        if (inchesTraveled - inchesBetweenWaypoints < -nextPoint.linToleranceInInches) {
+                            if (speed > -nextPoint.linCreepSpeed) {
+                                speed = -nextPoint.linCreepSpeed;
+                            }
+                        }
+                } else if (!nextPoint.reverse) {
+                    speed = lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get();
+                        if (inchesBetweenWaypoints - inchesTraveled < nextPoint.linToleranceInInches) {
+                            if (speed < nextPoint.linCreepSpeed) {
+                                speed = nextPoint.linCreepSpeed;
+                        }
                     }
                 } else {
                     if (nextWaypointIndex == path.length - 1 && !endRollout) {
@@ -277,7 +303,7 @@ public class DriveAuto extends CommandBase {
             }
 
             if (RobotContainer.getDriveDebug()) {
-                SmartDashboard.putString("Straight Line State:", state.name);
+                SmartDashboard.putString("Straight Line State:", driveState.name);
                 SmartDashboard.putNumber("Path Correction:", turnCorrection);
                 SmartDashboard.putNumber("Heading error:", degsLeftToTurn);
                 SmartDashboard.putNumber("Throttle:", speed);
@@ -305,7 +331,7 @@ public class DriveAuto extends CommandBase {
 
         if (RobotContainer.getDriveDebug()) {
             SmartDashboard.putString("Robot Super State:", superStateMachine.name);
-            SmartDashboard.putString("Straight Drive State:", state.name);
+            SmartDashboard.putString("Straight Drive State:", driveState.name);
             SmartDashboard.putString("Spin Turning State:", turnState.name);
             SmartDashboard.putNumber("Previous velocity:", lastVelocity);
             SmartDashboard.putNumber("Path Array Index:", nextWaypointIndex);
