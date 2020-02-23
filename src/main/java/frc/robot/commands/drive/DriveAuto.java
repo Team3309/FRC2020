@@ -104,7 +104,6 @@ public class DriveAuto extends CommandBase {
         if (superStateMachine == superState.spinTurning) {
 
             final double kTweakThreshold = 2.0;
-            double timerValue = ControlTimer.get();
             double currentAngularVelocity = 0; //negative = clockwise, positive = counterclockwise
             //checks that this is the start of auto; timer should be started and robot should not have
             //been previously started
@@ -112,6 +111,9 @@ public class DriveAuto extends CommandBase {
                 ControlTimer.reset();
                 turnState = spinTurnState.accelerating;
             }
+
+            // cache timer value so we use the same value in all of the following logic
+            double timerValue = ControlTimer.get();
 
             if (turnState == spinTurnState.accelerating)   {
                 currentAngularVelocity = nextPoint.angAccelerationInDegsPerSec2 * timerValue;
@@ -131,7 +133,7 @@ public class DriveAuto extends CommandBase {
                 if (degreesToDecelerate > degsLeftToTurn) {
                     turnState = spinTurnState.decelerating;
                     lastVelocity = DriveSubsystem.encoderVelocityToDegsPerSec(drive.getLeftEncoderVelocity() +
-                            drive.getRightEncoderVelocity())/2;
+                            drive.getRightEncoderVelocity()) / 2;
                     ControlTimer.reset();
                     timerValue = 0;
                 }
@@ -152,25 +154,25 @@ public class DriveAuto extends CommandBase {
                     superStateMachine = superState.drivingStraight;
                     turnState = spinTurnState.notStarted;
                 }
-                //turn right if we undershot
+                //turn left if we undershot
 
-                else if (degsLeftToTurn < 0) {
+                else if (degsLeftToTurn > 0) {
                     currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
                 }
-                //turn left if we overshot
-                else if (degsLeftToTurn > 0) {
+                //turn right if we overshot
+                else if (degsLeftToTurn < 0) {
                     currentAngularVelocity = -nextPoint.angCreepSpeedInDegsPerSec;
-                    DriverStation.reportError("Overshot.", false);
                 }
             }
 
             double right = drive.degreesPerSecToEncoderVelocity(currentAngularVelocity);
             drive.setLeftRight(ControlMode.Velocity, right, -right);
 
-
             if (RobotContainer.getDriveDebug()) {
-                SmartDashboard.putNumber("Single-motor velocity:", currentAngularVelocity);
-                SmartDashboard.putNumber("Heading degsLeftToTurn:", degsLeftToTurn);
+                SmartDashboard.putNumber("headingToNextPoint:", headingToNextPoint);
+                SmartDashboard.putNumber("currentAngularVelocity:", currentAngularVelocity);
+                SmartDashboard.putNumber("Commanded right velocity:", right);
+                SmartDashboard.putNumber("degsLeftToTurn:", degsLeftToTurn);
                 SmartDashboard.putString("Spin turn state:", turnState.name);
             }
 
