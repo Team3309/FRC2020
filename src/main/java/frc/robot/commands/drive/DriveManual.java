@@ -7,8 +7,7 @@ import frc.robot.Config;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.CheesyDriveHelper;
 
-public class DriveManual extends CommandBase
-{
+public class DriveManual extends CommandBase {
     private DriveSubsystem Drive;
     private Joystick LeftStick;
     private Joystick RightStick;

@@ -368,9 +368,9 @@ public class DriveSubsystem extends SubsystemBase {
                 * (Math.PI * Config.driveWheelDiameterInInches));
     }
 
-    public static double getHeadingError(double desiredHeading, DriveSubsystem drive) {
+    public double getHeadingError(double desiredHeading) {
 
-        double heading = (((180-drive.getAngularPosition())) % 360) + 180;
+        double heading = (((180-getAngularPosition())) % 360) + 180;
         double headingError = desiredHeading - heading;
         if (headingError < -180) {
             headingError += 360;
