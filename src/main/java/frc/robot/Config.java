@@ -66,6 +66,7 @@ public class Config {
     public static Double driveWheelDiameterInInches;
     public static Integer driveWheelEncoderCountsPerRevolution;
     public static Integer driveSpinTurnEncoderCountsPerDegree;
+    public static Double driveGearRatio;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
@@ -335,6 +336,7 @@ public class Config {
                 fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
                 fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
 
+                driveGearRatio = 17.05; //different for 2020 comp bot
 
                 IMUDriftConstant = -0.158;
 

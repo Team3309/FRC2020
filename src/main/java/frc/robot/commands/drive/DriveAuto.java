@@ -94,8 +94,8 @@ public class DriveAuto extends CommandBase {
                     nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90;
 
         double signum = 1;
-        boolean turningLeft = 360 % headingToNextPoint < 0;
-        boolean turningRight = 360 % headingToNextPoint > 0;
+        boolean turningLeft = headingToNextPoint < 0;
+        boolean turningRight = headingToNextPoint > 0;
 
         if (nextPoint.reverse) {
             signum = -1;
