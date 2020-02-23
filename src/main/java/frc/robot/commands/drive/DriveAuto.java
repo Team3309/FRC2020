@@ -94,11 +94,12 @@ public class DriveAuto extends CommandBase {
                     nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90;
 
         //Positive = counterclockwise;
-        double degsLeftToTurn = 0;
+        double degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive);
+
+        double signum = 1;
+
         if (nextPoint.reverse) {
-            degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive) + 180;
-        } else if (!nextPoint.reverse) {
-            degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive);
+            signum = -1;
         }
 
         double inchesBetweenWaypoints =
@@ -120,27 +121,19 @@ public class DriveAuto extends CommandBase {
             double timerValue = ControlTimer.get();
 
             if (turnState == spinTurnState.accelerating)   {
-                if (degsLeftToTurn > 180) {
-                    currentAngularVelocity = -(nextPoint.angAccelerationInDegsPerSec2 * timerValue);
-                } else if (degsLeftToTurn < 180) {
-                    currentAngularVelocity = nextPoint.angAccelerationInDegsPerSec2 * timerValue;
-                }
+                    currentAngularVelocity = signum * nextPoint.angAccelerationInDegsPerSec2 * timerValue;
             }
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
             if (turnState == spinTurnState.accelerating &&
-                    currentAngularVelocity > nextPoint.maxAngularSpeedInDegsPerSec) {
+                    signum * currentAngularVelocity > signum * nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
-                if (degsLeftToTurn > 180) {
-                    currentAngularVelocity = -nextPoint.maxAngularSpeedInDegsPerSec;
-                } else if (degsLeftToTurn < 180) {
-                    currentAngularVelocity = nextPoint.maxAngularSpeedInDegsPerSec;
-                }
+                currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
             }
             if (turnState == spinTurnState.accelerating || turnState == spinTurnState.cruising) {
                 //calculate how far we would continue to turn at current acceleration.
                 double timeToDecelerate = currentAngularVelocity / nextPoint.angDecelerationInDegsPerSec2;
-                double degreesToDecelerate = 0.5 * nextPoint.angDecelerationInDegsPerSec2 * timeToDecelerate * timeToDecelerate;
+                double degreesToDecelerate = signum * 0.5 * nextPoint.angDecelerationInDegsPerSec2 * timeToDecelerate * timeToDecelerate;
                 //checks whether we should start decelerating; we should have completed cruising phase
                 if (degreesToDecelerate > degsLeftToTurn) {
                     turnState = spinTurnState.decelerating;
@@ -152,10 +145,10 @@ public class DriveAuto extends CommandBase {
             }
 
             if (turnState == spinTurnState.decelerating) {
-                currentAngularVelocity = lastVelocity - (nextPoint.angDecelerationInDegsPerSec2 * timerValue);
+                currentAngularVelocity = signum * (lastVelocity - (nextPoint.angDecelerationInDegsPerSec2 * timerValue));
             }
             //checks that we have completed deceleration phase and are approaching our tweaking speed
-            if (turnState == spinTurnState.decelerating && currentAngularVelocity < nextPoint.angCreepSpeedInDegsPerSec) {
+            if (turnState == spinTurnState.decelerating && signum * currentAngularVelocity < signum * nextPoint.angCreepSpeedInDegsPerSec) {
                 turnState = spinTurnState.tweaking;
             }
             if (turnState == spinTurnState.tweaking) {
@@ -168,12 +161,12 @@ public class DriveAuto extends CommandBase {
                 }
                 //turn left if we undershot
 
-                else if (degsLeftToTurn > 0) {
-                    currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
+                else if (signum * degsLeftToTurn > 0) {
+                    currentAngularVelocity = signum * nextPoint.angCreepSpeedInDegsPerSec;
                 }
                 //turn right if we overshot
-                else if (degsLeftToTurn < 0) {
-                    currentAngularVelocity = -nextPoint.angCreepSpeedInDegsPerSec;
+                else if (signum * degsLeftToTurn < 0) {
+                    currentAngularVelocity = -signum * nextPoint.angCreepSpeedInDegsPerSec;
                 }
             }
 
@@ -239,27 +232,14 @@ public class DriveAuto extends CommandBase {
                 encoderZeroValue = encoderTicksLinear;
             }
             if (driveState == travelState.accelerating) {
-                if (nextPoint.reverse) {
-                    speed = -nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
-                    if (speed < -nextPoint.maxLinearSpeed) {
-                        driveState = travelState.cruising;
-                    }
-                } else if (!nextPoint.reverse){
-                    speed = nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
-                    if (speed > nextPoint.maxLinearSpeed) {
-                        driveState = travelState.cruising;
-                        }
+                speed = signum * nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
+                if (signum * speed > signum * nextPoint.maxLinearSpeed) {
+                    driveState = travelState.cruising;
                 }
             }
             if (driveState == travelState.cruising){
-                if (nextPoint.reverse) {
-                    if (inchesTraveled - inchesBetweenWaypoints < -speed * ControlTimer.get()) {
-                        speed = nextPoint.maxLinearSpeed;
-                    }
-                } else if (!nextPoint.reverse) {
-                    if (inchesBetweenWaypoints - inchesTraveled < speed * ControlTimer.get()) {
-                        speed = nextPoint.maxLinearSpeed;
-                    }
+                if (signum * (inchesBetweenWaypoints - inchesTraveled) < signum * speed * ControlTimer.get()) {
+                    speed = signum * nextPoint.maxLinearSpeed;
                 } else {
                     driveState = travelState.decelerating;
                     ControlTimer.reset();
@@ -267,19 +247,10 @@ public class DriveAuto extends CommandBase {
             }
             if (driveState == travelState.decelerating){
 
-                if(nextPoint.reverse) {
-                    speed = (nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get()) - lastVelocity;
-                        if (inchesTraveled - inchesBetweenWaypoints < -nextPoint.linToleranceInInches) {
-                            if (speed > -nextPoint.linCreepSpeed) {
-                                speed = -nextPoint.linCreepSpeed;
-                            }
-                        }
-                } else if (!nextPoint.reverse) {
-                    speed = lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get();
-                        if (inchesBetweenWaypoints - inchesTraveled < nextPoint.linToleranceInInches) {
-                            if (speed < nextPoint.linCreepSpeed) {
-                                speed = nextPoint.linCreepSpeed;
-                        }
+                speed = signum * (lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get());
+                if (signum *(inchesBetweenWaypoints - inchesTraveled) < signum * nextPoint.linToleranceInInches) {
+                    if (speed < nextPoint.linCreepSpeed) {
+                        speed = signum * nextPoint.linCreepSpeed;
                     }
                 } else {
                     if (nextWaypointIndex == path.length - 1 && !endRollout) {
