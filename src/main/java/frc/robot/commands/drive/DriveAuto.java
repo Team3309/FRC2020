@@ -167,7 +167,12 @@ public class DriveAuto extends CommandBase {
                 if (Math.abs(degsLeftToTurn) < kTweakThreshold) {
                     //spin Turn complete
                     drive.setLeftRight(ControlMode.PercentOutput, 0, 0);
-                    superStateMachine = superState.drivingStraight;
+                    if (this.path[nextWaypointIndex].finalHeading) {
+                        superStateMachine = superState.stopped;
+                        done = true;
+                    } else {
+                        superStateMachine = superState.drivingStraight;
+                    }
                     turnState = spinTurnState.notStarted;
                 }
                 //turn left if we undershot

@@ -44,7 +44,7 @@ public class CreateFiringSolution extends CommandBase {
                                     new Waypoint(0.01 * Math.cos(Math.toRadians(vision.getDistanceToTarget())),
                                             0.01 * Math.sin(Math.toRadians(vision.getDistanceToTarget())),
                                             0,
-                                            false)};
+                                            false, true)};
             CommandScheduler.getInstance().schedule(
                     new SequentialCommandGroup(
                             new DriveAuto(waypoints, false, drive),

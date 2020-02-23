@@ -321,6 +321,7 @@ public class Config {
                 armIntegralZone = 3000;
                 armD = 15.0;
 
+                armPositionVision = 150000; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 180000;  // physical max = 190000
                 trenchArmPosition = 45000;
                 minArmPosition = 3000;
@@ -328,6 +329,12 @@ public class Config {
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
                 armControlPanelPosition = 126000;
+                limelightMountingAngle = -5.0;
+                limelightMountingHeight = 33.0; //inches
+                fieldVisionTargetHeight = 78.0 + 14.375; //inches
+                fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
+                fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
+
 
                 IMUDriftConstant = -0.158;
 
@@ -402,7 +409,7 @@ public class Config {
 
                 IMUDriftConstant = -0.158;
 
-                driveWheelDiameterInInches = 6.0;
+                driveWheelDiameterInInches = 4.0;
                 driveWheelEncoderCountsPerRevolution = (int) (4096 * 9.6);  // Falcon 500 internal encoder
                 driveSpinTurnEncoderCountsPerDegree = 600;
 
@@ -412,7 +419,7 @@ public class Config {
                 fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
                 fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
 
-                armPositionVision = 150000;
+                armPositionVision = 150000; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 180000;  // physical max = 190000
                 trenchArmPosition = 45000;
                 minArmPosition = 3000;
