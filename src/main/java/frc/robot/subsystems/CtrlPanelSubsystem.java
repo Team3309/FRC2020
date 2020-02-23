@@ -90,12 +90,13 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                                 TargetColor = PanelColor.yellow;
                                 break;
                             case unknown:
+                                return false;
                             case noValue:
                                 return true;
                         }
 
                     if (sensorColor == TargetColor) {
-                        ctrlPanelMotor.stopMotor(); //We are done, so apply brakes\
+                        ctrlPanelMotor.stopMotor(); //We are done, so apply brakes
                         return true;
                     } else {
                         ctrlPanelMotor.set(ControlMode.PercentOutput, Config.turnerRotationPower);
@@ -115,7 +116,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
 
                     PanelColor sensorColor = getColor();
 
-                    if (sensorColor != lastColor) {
+                    if (sensorColor != lastColor && lastColor != PanelColor.unknown && lastColor != PanelColor.noValue) {
                         slicesTurned++;
                     }
                     lastColor = sensorColor;
@@ -128,6 +129,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
                         return true;
                     }
                 } //End of rotation control
+            } else {
+                return false;
             }
         }
         return true;
@@ -142,15 +145,19 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private PanelColor getColor() {
         if (Config.isCtrlPanelInstalled) {
             ColorSensorV3.RawColor color = colorSensor.getRawColor();
-            int r = color.red;
-            int g = color.green;
-            int b = color.blue;
+            double r = color.red;
+            double g = color.green;
+            double b = color.blue;
+            double colorMagnitude = Math.sqrt(r*r + g*g + b*b);
+            r /= colorMagnitude;
+            g /= colorMagnitude;
+            b /= colorMagnitude;
 
             boolean rActive = r > Config.colorThreshold;
             boolean gActive = g > Config.colorThreshold;
             boolean bActive = b > Config.colorThreshold;
 
-            if (!rActive && !gActive && bActive) {
+            if (!rActive && gActive && bActive) {
                 return PanelColor.cyan;
             }
             //
@@ -223,5 +230,13 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Turner motor current", Robot.pdp.getCurrent(Config.turnerMotorPdpChannel));
+        SmartDashboard.putString("Sensor color ", getColor().name());
+        SmartDashboard.putString("FMS color ", getFMSColor().name());
+        SmartDashboard.putString("Last color", lastColor.name());
+        SmartDashboard.putNumber("Slices turned ", slicesTurned);
+
+        SmartDashboard.putNumber("R ", colorSensor.getRawColor().red);
+        SmartDashboard.putNumber("G ", colorSensor.getRawColor().green);
+        SmartDashboard.putNumber("B ", colorSensor.getRawColor().blue);
     }
 }
