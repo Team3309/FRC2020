@@ -13,8 +13,8 @@ public class Waypoint {
     public double angCreepSpeedInDegsPerSec = 2;
     public double maxLinearSpeed = 40; //Inches per 100 milliseconds
     public double maxAngularSpeedInDegsPerSec = 50;
-    public double linAccelerationInInchesPer100ms2 = 80; //Inches per 100 milliseconds^2
-    public double linDecelerationInInchesPer100ms2 = 160; //Also in inches per 100 milliseconds^2
+    public double linAccelerationInInchesPerSec2 = 80; //Inches per 100 milliseconds^2
+    public double linDecelerationInInchesPerSec2 = 160; //Also in inches per 100 milliseconds^2
     public double angAccelerationInDegsPerSec2 = 100;
     public double angDecelerationInDegsPerSec2 = 100;
     public double angToleranceInEncoderCounts;
@@ -71,8 +71,8 @@ public class Waypoint {
 
     private void initialize () {
         maxLinSpeedEncoderCtsPer100ms = DriveSubsystem.inchesPerSecondToEncoderVelocity(maxLinearSpeed);
-        linAccelerationEncoderCtsPer100ms2 = DriveSubsystem.inchesPerSecondToEncoderVelocity(linAccelerationInInchesPer100ms2);
-        linDecelerationEncoderCtsPer100ms2 = DriveSubsystem.inchesPerSecondToEncoderVelocity(linDecelerationInInchesPer100ms2);
+        linAccelerationEncoderCtsPer100ms2 = DriveSubsystem.inchesPerSecondToEncoderVelocity(linAccelerationInInchesPerSec2);
+        linDecelerationEncoderCtsPer100ms2 = DriveSubsystem.inchesPerSecondToEncoderVelocity(linDecelerationInInchesPerSec2);
         linCreepSpeedEncoderCtsPer100ms = DriveSubsystem.inchesPerSecondToEncoderVelocity(linCreepSpeed);
         maxAngSpeedEncoderCtsPer100ms = DriveSubsystem.degreesPerSecondToEncoderVelocity(maxAngularSpeedInDegsPerSec);
         angAccelerationEncoderCtsPer100ms2 = DriveSubsystem.degreesPerSecondToEncoderVelocity(angAccelerationInDegsPerSec2);
