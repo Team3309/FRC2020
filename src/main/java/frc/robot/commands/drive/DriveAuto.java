@@ -93,14 +93,16 @@ public class DriveAuto extends CommandBase {
         double headingToNextPoint = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
                     nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90;
 
-        //Positive = counterclockwise;
-        double degsLeftToTurn = DriveSubsystem.getHeadingError(headingToNextPoint, drive);
-
         double signum = 1;
+        boolean turningLeft = 360 % headingToNextPoint < 0;
+        boolean turningRight = 360 % headingToNextPoint > 0;
 
         if (nextPoint.reverse) {
             signum = -1;
         }
+
+        //Positive = counterclockwise;
+        double degsLeftToTurn = signum * drive.getHeadingError(headingToNextPoint);
 
         double inchesBetweenWaypoints =
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
@@ -108,6 +110,9 @@ public class DriveAuto extends CommandBase {
 
         if (superStateMachine == superState.spinTurning) {
 
+            if (nextPoint.reverse) {
+                headingToNextPoint += 180;
+            }
             final double kTweakThreshold = 2.0;
             double currentAngularVelocity = 0; //negative = clockwise, positive = counterclockwise
             //checks that this is the start of auto; timer should be started and robot should not have
@@ -121,21 +126,27 @@ public class DriveAuto extends CommandBase {
             double timerValue = ControlTimer.get();
 
             if (turnState == spinTurnState.accelerating)   {
+                if (turningLeft) {
                     currentAngularVelocity = signum * nextPoint.angAccelerationInDegsPerSec2 * timerValue;
+                } else if (turningRight) {
+                    currentAngularVelocity = -signum * nextPoint.angAccelerationInDegsPerSec2 * timerValue;
+                }
+
             }
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
             if (turnState == spinTurnState.accelerating &&
-                    signum * currentAngularVelocity > signum * nextPoint.maxAngularSpeedInDegsPerSec) {
+                    currentAngularVelocity > nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
+
                 currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
             }
             if (turnState == spinTurnState.accelerating || turnState == spinTurnState.cruising) {
                 //calculate how far we would continue to turn at current acceleration.
-                double timeToDecelerate = currentAngularVelocity / nextPoint.angDecelerationInDegsPerSec2;
+                double timeToDecelerate = (signum * currentAngularVelocity) / nextPoint.angDecelerationInDegsPerSec2;
                 double degreesToDecelerate = signum * 0.5 * nextPoint.angDecelerationInDegsPerSec2 * timeToDecelerate * timeToDecelerate;
                 //checks whether we should start decelerating; we should have completed cruising phase
-                if (degreesToDecelerate > degsLeftToTurn) {
+                if (Math.abs(degreesToDecelerate) > Math.abs(degsLeftToTurn)) {
                     turnState = spinTurnState.decelerating;
                     lastVelocity = DriveSubsystem.encoderVelocityToDegsPerSec(drive.getLeftEncoderVelocity() +
                             drive.getRightEncoderVelocity()) / 2;
@@ -145,10 +156,10 @@ public class DriveAuto extends CommandBase {
             }
 
             if (turnState == spinTurnState.decelerating) {
-                currentAngularVelocity = signum * (lastVelocity - (nextPoint.angDecelerationInDegsPerSec2 * timerValue));
+                currentAngularVelocity = (lastVelocity - (signum * nextPoint.angDecelerationInDegsPerSec2 * timerValue));
             }
             //checks that we have completed deceleration phase and are approaching our tweaking speed
-            if (turnState == spinTurnState.decelerating && signum * currentAngularVelocity < signum * nextPoint.angCreepSpeedInDegsPerSec) {
+            if (turnState == spinTurnState.decelerating && currentAngularVelocity < nextPoint.angCreepSpeedInDegsPerSec) {
                 turnState = spinTurnState.tweaking;
             }
             if (turnState == spinTurnState.tweaking) {
@@ -161,12 +172,12 @@ public class DriveAuto extends CommandBase {
                 }
                 //turn left if we undershot
 
-                else if (signum * degsLeftToTurn > 0) {
-                    currentAngularVelocity = signum * nextPoint.angCreepSpeedInDegsPerSec;
+                else if (degsLeftToTurn > 0) {
+                    currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
                 }
                 //turn right if we overshot
-                else if (signum * degsLeftToTurn < 0) {
-                    currentAngularVelocity = -signum * nextPoint.angCreepSpeedInDegsPerSec;
+                else if (degsLeftToTurn < 0) {
+                    currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
                 }
             }
 
