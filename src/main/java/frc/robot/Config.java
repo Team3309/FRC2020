@@ -127,11 +127,11 @@ public class Config {
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 90000, 5000, 21300, 21300);
+            "Long Range", 42900, 5000, 21300, 21300);
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Mid Range", 103000, 5000, 18000, 21300);
+            "Mid Range", 50200, 5000, 18000, 21300);
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Short Range", 159447, 5000, 5000, 20000);
+            "Short Range", 65900, 5000, 5000, 20000);
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -251,17 +251,17 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
-                isArmInstalled = true;
+                isArmInstalled = false;
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
-                isIndexerInstalled = true;
+                isIndexerInstalled = false;
                 isIndexerSensorInstalled = false;
-                isIntakeInstalled = true;
-                isShooterInstalled = true;
+                isIntakeInstalled = false;
+                isShooterInstalled = false;
                 isVisionInstalled = false;
-                isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isPcmInstalled = false;
+                isCompressorEnabled = false;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
@@ -321,15 +321,22 @@ public class Config {
                 armI = 3.54972071e-05;
                 armIntegralZone = 3000;
                 armD = 15.0;
+                /*
+                alpha: 1145
+                beta: -736
+                gamma: -2839
 
-                armPositionVision = 150000; //if you update this then you also need to update the limelightMountingAngle
-                maxArmPosition = 180000;  // physical max = 190000
+                alpha - gamma = chain slack taut to taut = 3984
+                alpha - beta = run out after hitting battery case = 1881
+                 */
+                armPositionVision = 42900; //if you update this then you also need to update the limelightMountingAngle
+                maxArmPosition = 83400;  // physical max = 190000
                 trenchArmPosition = 45000;
                 minArmPosition = 3000;
-                armPositionIntakeStowedLimit = 45000;
+                armPositionIntakeStowedLimit = 16700;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = 126000;
+                armControlPanelPosition = 74000;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
                 fieldVisionTargetHeight = 78.0 + 14.375; //inches
@@ -338,7 +345,7 @@ public class Config {
 
                 driveGearRatio = 17.05; //different for 2020 comp bot
 
-                IMUDriftConstant = -0.158;
+                IMUDriftConstant = 0.0045;
 
                 break;
 
@@ -389,7 +396,7 @@ public class Config {
                 isVisionInstalled = true;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
-                isIMUInstalled = false;
+                isIMUInstalled = true;
 
                 driveRightMasterID = 1;
                 driveRightSlaveID2019_1 = 2;
@@ -411,8 +418,9 @@ public class Config {
 
                 IMUDriftConstant = -0.158;
 
+                driveGearRatio = 9.6;
                 driveWheelDiameterInInches = 4.0;
-                driveWheelEncoderCountsPerRevolution = (int) (4096 * 9.6);  // Falcon 500 internal encoder
+                driveWheelEncoderCountsPerRevolution = 4096;
                 driveSpinTurnEncoderCountsPerDegree = 600;
 
                 limelightMountingAngle = -5.0;
@@ -423,12 +431,12 @@ public class Config {
 
                 armPositionVision = 150000; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 180000;  // physical max = 190000
-                trenchArmPosition = 45000;
+                trenchArmPosition = 6288; //exactly 28 inches
                 minArmPosition = 3000;
                 armPositionIntakeStowedLimit = 45000;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = 126000;
+                armControlPanelPosition = 74000;
 
                 turnerMotorID = 13;
                 turnerMotorPdpChannel = 7;

@@ -40,11 +40,11 @@ public class FiringSolution {
         double threePointHoleTx = Math.toDegrees(Math.asin(heightToThreePointGoal / threePointHoleDistance)); //aka adjusted phi, aka the angle we need to rotate by to be facing the 3 point goal
         double threePointHoleTy = Math.toDegrees(Math.atan2(lengthToThreePointGoal, depthToThreePointGoal)); //this and distance become the arm angle and power.
 
-        armPosition = (int) Config.trenchArmPosition;
-        topFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
+        armPosition = (int) Config.shooterLongRangeSolution.armPosition;
+        /*topFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
                 Config.threePointHoleDistances, Config.threePointHoleTopSpeeds);
         bottomFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
-                Config.threePointHoleDistances, Config.threePointHoleBottomSpeeds);
+                Config.threePointHoleDistances, Config.threePointHoleBottomSpeeds);*/
 
         System.out.println("threePointHoleDistance: " + threePointHoleDistance / 12 + " feet.");
         solutionName = "Calculated";

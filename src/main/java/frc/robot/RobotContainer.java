@@ -14,6 +14,7 @@ import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.select.*;
 import frc.robot.subsystems.*;
+import frc.robot.util.Waypoint;
 import frc.robot.util.XBoxControllerAxisButton;
 
 /** --------------------------------------------------------------------------------------------------------------------
@@ -131,10 +132,14 @@ public class RobotContainer
         OI.leftStickRightCluster
                 .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
                 .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
-
+        Waypoint[] waypoints = {new Waypoint(0, 0, 0, false),
+                new Waypoint(Math.cos(Math.toRadians(90)),
+                        Math.sin(Math.toRadians(90)),
+                        0,
+                        false, true)};
         // TODO: Remove this after the indexer sensor is installed
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenPressed(new LoadIntoArm(indexer));
+                .whenPressed(new DriveAuto(waypoints, false, drive));
 
 
         // TODO: enable once indexer sensor is installed

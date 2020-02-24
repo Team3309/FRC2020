@@ -12,6 +12,9 @@ import frc.robot.util.Waypoint;
 
 public class DriveAuto extends CommandBase {
 
+    private int initialBranch; //initial branch of the complex logarithm
+    private double previousHeading;
+
     private enum superState {
         stopped("Stopped."),
         drivingStraight("Driving Straight."),
@@ -78,6 +81,15 @@ public class DriveAuto extends CommandBase {
         super.initialize();
         ControlTimer.reset();
         ControlTimer.start();
+        done = false;
+        nextWaypointIndex = 0;
+        speed = 0;
+        superStateMachine = superState.spinTurning;
+        driveState = travelState.stopped;
+        turnState = spinTurnState.notStarted;
+        encoderZeroValue = drive.getLeftEncoderPosition() /2  + drive.getRightEncoderPosition() / 2;
+        lastVelocity = 0;
+        initialBranch = ((int) (drive.getAngularPosition() + 180)) / 360;
         System.out.println("initialized");
     }
 
@@ -86,16 +98,27 @@ public class DriveAuto extends CommandBase {
         if (done)
             return;
 
+
+
         Waypoint currentPoint = path[nextWaypointIndex];
         Waypoint nextPoint = path[nextWaypointIndex + 1];
 
 
         double headingToNextPoint = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
-                    nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90;
+                nextPoint.xFieldInches - currentPoint.xFieldInches)); //this is a constant between waypoints
+        headingToNextPoint += initialBranch * 360;
+        //we add this in instead of trying any modulus math
+        //because if we don't we can end up crossing the 180 or -180 line, causing it to spin the wrong way
+        //mathematically this happens because there are infinitely many points that are identical
+        //in atan2.
+
+        //The intuition to solve this problem comes from the nature of the complex
+        //logarithm (which for x and y sufficiently big looks like a helix if you need some intuition here),
+        //where the same problem occurs for similar reasons. In this math, we call each a segment of 2 pi
+        //a branch of the complex logarithm, hence the naming convention.
+        //by storing the initial branch we know how many 2 pi we are off by.
 
         double signum = 1;
-        boolean turningLeft = headingToNextPoint < 0;
-        boolean turningRight = headingToNextPoint > 0;
 
         if (nextPoint.reverse) {
             signum = -1;
@@ -103,6 +126,14 @@ public class DriveAuto extends CommandBase {
 
         //Positive = counterclockwise;
         double degsLeftToTurn = signum * drive.getHeadingError(headingToNextPoint);
+
+        SmartDashboard.putNumber("degsLeftToTurn", degsLeftToTurn);
+        SmartDashboard.putNumber("headingToNextPoint", headingToNextPoint);
+
+
+        boolean turningLeft = degsLeftToTurn < 0;
+        boolean turningRight = degsLeftToTurn > 0;
+
 
         double inchesBetweenWaypoints =
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
@@ -136,9 +167,12 @@ public class DriveAuto extends CommandBase {
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
             if (turnState == spinTurnState.accelerating &&
-                    currentAngularVelocity > nextPoint.maxAngularSpeedInDegsPerSec) {
+                    currentAngularVelocity >= nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
 
+                currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
+            }
+            if (turnState == spinTurnState.cruising) {
                 currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
             }
             if (turnState == spinTurnState.accelerating || turnState == spinTurnState.cruising) {
@@ -167,9 +201,9 @@ public class DriveAuto extends CommandBase {
                 if (Math.abs(degsLeftToTurn) < kTweakThreshold) {
                     //spin Turn complete
                     drive.setLeftRight(ControlMode.PercentOutput, 0, 0);
-                    if (this.path[nextWaypointIndex].finalHeading) {
-                        superStateMachine = superState.stopped;
+                    if (nextPoint.finalHeading) {
                         done = true;
+                        return;
                     } else {
                         superStateMachine = superState.drivingStraight;
                     }
@@ -322,6 +356,7 @@ public class DriveAuto extends CommandBase {
             SmartDashboard.putString("Spin Turning State:", turnState.name);
             SmartDashboard.putNumber("Previous velocity:", lastVelocity);
             SmartDashboard.putNumber("Path Array Index:", nextWaypointIndex);
+
             DriverStation.reportWarning("Executed.", false);
         }
     }

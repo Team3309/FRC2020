@@ -122,5 +122,18 @@ public class Util3309 {
         return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
+    public static double angleInMinus180To180(double angleInDegrees) {
+        if (angleInDegrees > 180) {
+            while (angleInDegrees > 180) {
+                angleInDegrees -=360;
+            }
+        } else if (angleInDegrees < 180) {
+            while (angleInDegrees < 180) {
+                angleInDegrees +=360;
+            }
+        }
+        return angleInDegrees;
+    }
+
 
 }
