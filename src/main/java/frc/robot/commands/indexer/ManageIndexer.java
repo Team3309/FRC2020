@@ -28,6 +28,8 @@ public class ManageIndexer extends CommandBase {
         //we aren't being given any sensor in the subsystem to determine
         //if there is a ball in the way so we need to figure
         //that out here using the shooter wheel now
+        //basically if the flywheel average speed is below a threshold, index in.
+        //use average to avoid errors as we use power output mode on shooter intaking.
         if (wasToSpeed && (shooter.getTopMotorVelocity() + shooter.getBottomMotorVelocity()) / 2 < flywheelSpeedAverage * Config.indexerPowerCellNeedsIndexingThreshold) {
             wasToSpeed = false; //reset this so we don't repeatedly index in.
             Indexer.indexIn();
