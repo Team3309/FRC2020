@@ -42,12 +42,11 @@ public class FiringSolution {
 
         armPosition = (int) findInterpolatedFunctionValue(threePointHoleDistance,
                 Config.threePointHoleDistances, Config.threePointHoleDistances);
-        topFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
+        topFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleTx,
                 Config.threePointHoleDistances, Config.threePointHoleTopSpeeds);
-        bottomFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleDistance,
+        bottomFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleTy,
                 Config.threePointHoleDistances, Config.threePointHoleBottomSpeeds);
 
-        System.out.println("threePointHoleDistance: " + threePointHoleDistance / 12 + " feet.");
         solutionName = "Calculated";
     }
 
