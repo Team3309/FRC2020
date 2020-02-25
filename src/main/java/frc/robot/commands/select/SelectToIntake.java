@@ -18,7 +18,10 @@ public class SelectToIntake extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE) ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_OUTTAKE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.OUTTAKE
+
             ) {
                 return new ToIntakeCommandGroup(intake, indexer, shooter, arm); //aka command group 1 (See Slack for details)
             }  else {

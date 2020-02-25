@@ -341,12 +341,13 @@ public class Config {
                  */
                 armPositionVision = 42900; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 83400;
-                trenchArmPosition = 45000;
+                trenchArmPosition = 6288;
                 minArmPosition = 3000;
                 armPositionIntakeStowedLimit = 16700;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = 74000;
+                armControlPanelPosition = 74500; //this needs to be bigger than the hard stop
+                armPositionHardStop = 74000;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
                 fieldVisionTargetHeight = 78.0 + 14.375; //inches
