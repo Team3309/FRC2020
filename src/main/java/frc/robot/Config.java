@@ -150,6 +150,9 @@ public class Config {
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
 
+
+    public static final double indexerPowerCellNeedsIndexingThreshold = 0.6;
+
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
