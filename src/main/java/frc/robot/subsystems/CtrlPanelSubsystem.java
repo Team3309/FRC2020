@@ -4,10 +4,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
@@ -142,36 +145,27 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      *
      * @return PanelColor.[color] - the color which the color sensor is currently on.
      -----------------------------------------------------------------------------------------------------------------*/
+    double confidence = 0;
     private PanelColor getColor() {
         if (Config.isCtrlPanelInstalled) {
-            ColorSensorV3.RawColor color = colorSensor.getRawColor();
-            double r = color.red;
-            double g = color.green;
-            double b = color.blue;
-            double colorMagnitude = Math.sqrt(r*r + g*g + b*b);
-            r /= colorMagnitude;
-            g /= colorMagnitude;
-            b /= colorMagnitude;
+            ColorMatch colorMatcher = new ColorMatch();
+            colorMatcher.addColorMatch(Color.kRed);
+            colorMatcher.addColorMatch(Color.kGreen);
+            colorMatcher.addColorMatch(Color.kYellow);
+            colorMatcher.addColorMatch(Color.kCyan);
+            colorMatcher.setConfidenceThreshold(Config.colorConfidenceThreshold);
 
-            boolean rActive = r > Config.colorThreshold;
-            boolean gActive = g > Config.colorThreshold;
-            boolean bActive = b > Config.colorThreshold;
-
-            if (!rActive && gActive && bActive) {
-                return PanelColor.cyan;
-            }
-            //
-            else if (rActive && gActive && !bActive) {
-                return PanelColor.yellow;
-            }
-            else if (rActive && !gActive && !bActive) {
+            ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
+            confidence = match.confidence;
+            if (match.color == Color.kRed) {
                 return PanelColor.red;
-            }
-            // danger of erroneously detecting yellow if we failed to detect a true yellow above?
-            else if (!rActive && gActive && !bActive) {
+            } else if (match.color == Color.kGreen) {
                 return PanelColor.green;
-            }
-            else {
+            } else if (match.color == Color.kYellow) {
+                return PanelColor.yellow;
+            } else if (match.color == Color.kCyan) {
+                return PanelColor.cyan;
+            } else {
                 return PanelColor.unknown;
             }
         } else {
@@ -231,12 +225,13 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     public void outputToDashboard() {
         SmartDashboard.putNumber("Turner motor current", Robot.pdp.getCurrent(Config.turnerMotorPdpChannel));
         SmartDashboard.putString("Sensor color ", getColor().name());
+        SmartDashboard.putNumber("Confidence ", confidence);
         SmartDashboard.putString("FMS color ", getFMSColor().name());
         SmartDashboard.putString("Last color", lastColor.name());
         SmartDashboard.putNumber("Slices turned ", slicesTurned);
 
-        SmartDashboard.putNumber("R ", colorSensor.getRawColor().red);
-        SmartDashboard.putNumber("G ", colorSensor.getRawColor().green);
-        SmartDashboard.putNumber("B ", colorSensor.getRawColor().blue);
+        SmartDashboard.putNumber("R ", colorSensor.getColor().red);
+        SmartDashboard.putNumber("G ", colorSensor.getColor().green);
+        SmartDashboard.putNumber("B ", colorSensor.getColor().blue);
     }
 }
