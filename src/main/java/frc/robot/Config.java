@@ -127,7 +127,7 @@ public class Config {
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 42900, 5000, 3000, 3000);
+            "Long Range", 42900, 5000, 5000, 5000);
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
             "Mid Range", 50200, 5000, 18000, 21300);
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
@@ -147,12 +147,14 @@ public class Config {
     public static Integer indexerIntegralZone;
     public static Double indexerD;
     public static Double indexerF;
+    public static int[] indexInEncoderCounts;
+    public static int[] indexOutEncoderCounts;
 
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final int indexerAcceleration = 40000;
-    public static final int indexerCruiseVelocity = 4000;
+    public static final int indexerAcceleration = 80000;
+    public static final int indexerCruiseVelocity = 8000;
     public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
@@ -315,10 +317,11 @@ public class Config {
                 indexerF = 0.0;
                 indexerPositioningTolerance = 900;
 
-                // Actual distance is 5091, but we need to fight gravity both ways.
+                // We need to fight gravity both ways.
                 // There is more slippage at the start of movement as the belts tighten up.
                 // Therefore, longer movements have less encoder loss.
-                powerCellDistanceInEncoderCounts = 9900;
+                indexInEncoderCounts = new int[] { 7600, 8200, 9200, 1000, 10000, 10000 };
+                indexOutEncoderCounts = new int[] { 9000, 9300, 10300, 11400, 13000, 13000 };
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
