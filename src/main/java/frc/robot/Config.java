@@ -358,6 +358,27 @@ public class Config {
 
                 IMUDriftConstant = 0.0045;
 
+                threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
+                threePointHoleAngles = new double[] {
+                        Config.armPositionHardStop,
+                        shooterShortRangeSolution.getArmPosition(),
+                        shooterMidRangeSolution.getArmPosition(),
+                        shooterLongRangeSolution.getArmPosition(),
+                        shooterLongRangeSolution.getArmPosition()}; //in encoder positions
+                threePointHoleBottomSpeeds = new double[] {
+                        0.0,
+                        shooterShortRangeSolution.getBottomFlywheelSpeed(),
+                        shooterMidRangeSolution.getBottomFlywheelSpeed(),
+                        shooterLongRangeSolution.getBottomFlywheelSpeed(),
+                        shooterLongRangeSolution.getBottomFlywheelSpeed()};
+                threePointHoleTopSpeeds = new double[] {
+                        0.0,
+                        shooterShortRangeSolution.getTopFlywheelSpeed(),
+                        shooterMidRangeSolution.getTopFlywheelSpeed(),
+                        shooterLongRangeSolution.getTopFlywheelSpeed(),
+                        shooterLongRangeSolution.getTopFlywheelSpeed()};
+
+
                 break;
 
             case Practice2017:
@@ -454,6 +475,26 @@ public class Config {
 
                 turnerMotorID = 13;
                 turnerMotorPdpChannel = 7;
+
+                threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
+                threePointHoleAngles = new double[] {
+                        Config.armPositionHardStop,
+                        shooterShortRangeSolution.getArmPosition(),
+                        shooterMidRangeSolution.getArmPosition(),
+                        shooterLongRangeSolution.getArmPosition(),
+                        shooterLongRangeSolution.getArmPosition()}; //in encoder positions
+                threePointHoleBottomSpeeds = new double[] {
+                        0.0,
+                        shooterShortRangeSolution.getBottomFlywheelSpeed(),
+                        shooterMidRangeSolution.getBottomFlywheelSpeed(),
+                        shooterLongRangeSolution.getBottomFlywheelSpeed(),
+                        shooterLongRangeSolution.getBottomFlywheelSpeed()};
+                threePointHoleTopSpeeds = new double[] {
+                        0.0,
+                        shooterShortRangeSolution.getTopFlywheelSpeed(),
+                        shooterMidRangeSolution.getTopFlywheelSpeed(),
+                        shooterLongRangeSolution.getTopFlywheelSpeed(),
+                        shooterLongRangeSolution.getTopFlywheelSpeed()};
 
                 break;
         }
