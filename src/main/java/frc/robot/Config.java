@@ -98,7 +98,7 @@ public class Config {
     public static final int rotationControlSlices = 32;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
-    public static final double colorThreshold = .4; //Color value must be above this to be recognized
+    public static final double colorConfidenceThreshold = .75;
     public static final int colorEpsilon = 50; //Threshold for deciding which color is in front of the sensor
 
     //------------------------------------------------------------------------------------------------------------------
@@ -379,7 +379,7 @@ public class Config {
                 isVisionInstalled = false;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
-                isIMUInstalled = false;
+                isIMUInstalled = true;
 
                 driveRightMasterID = 1;
                 driveRightSlaveID2019_1 = 2;
@@ -399,7 +399,7 @@ public class Config {
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
-                IMUDriftConstant = -0.158;
+                IMUDriftConstant = -0.158 +0.65;
 
                 driveWheelDiameterInInches = 6.0;
                 driveWheelEncoderCountsPerRevolution = (int) (4096 * 9.6);  // Falcon 500 internal encoder
