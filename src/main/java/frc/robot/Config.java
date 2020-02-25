@@ -176,6 +176,7 @@ public class Config {
     public static Integer armPositionIntakeStowedUpperLimit;
     public static Integer armControlPanelPosition;
     public static Integer armPositionVision;
+    public static Integer armPositionHardStop;
 
     // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
@@ -448,6 +449,7 @@ public class Config {
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
                 armControlPanelPosition = 74000;
+                armPositionHardStop = 74000;
 
                 turnerMotorID = 13;
                 turnerMotorPdpChannel = 7;

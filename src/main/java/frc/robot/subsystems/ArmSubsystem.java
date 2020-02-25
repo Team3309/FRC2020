@@ -177,7 +177,7 @@ public class ArmSubsystem extends SubsystemBase {
     private void calibrate() {
         if (Config.isArmInstalled) {
             if (Config.armPIDTuningMode || Config.armNoPositionSensors) {
-                initialEncoderCount = 0; // Arm was required to be all the way down at power-up
+                initialEncoderCount = Config.armPositionHardStop; // Arm was required to be at the hard stop at start up.
                 initialCalibration = false;
                 calibrated = true;
                 if (calibrationStoredPosition != null) {
