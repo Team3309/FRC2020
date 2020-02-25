@@ -54,8 +54,6 @@ public class IMU3309{
             break;
             case _2s: calTime = 2.0;
             break;
-            case _4s: calTime = 4.0;
-            break;
             case _8s: calTime = 8.0;
             break;
             case _16s: calTime = 16.0;

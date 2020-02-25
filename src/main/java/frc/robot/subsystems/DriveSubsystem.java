@@ -14,7 +14,6 @@ import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
-import frc.robot.util.Util3309;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -372,9 +371,7 @@ public class DriveSubsystem extends SubsystemBase {
     public double getHeadingError(double desiredHeading) {
 
         double heading = getAngularPosition();
-        double headingError = desiredHeading - heading;
-
-        return headingError;
+        return desiredHeading - heading;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

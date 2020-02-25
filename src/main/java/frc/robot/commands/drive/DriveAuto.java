@@ -1,6 +1,5 @@
 package frc.robot.commands.drive;
 
-import com.ctre.phoenix.Util;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -92,12 +91,8 @@ public class DriveAuto extends CommandBase {
         lastVelocity = 0;
         initialBranch = ((int) (180 + drive.getAngularPosition())) / 360;
         double branch = drive.getAngularPosition();
-        if (branch > 0) {
+        if (branch > 0 || branch <= 0) {
             initialBranch = ((int) (drive.getAngularPosition())) / 360;
-
-        } else {
-            initialBranch = ((int) (drive.getAngularPosition())) / 360;
-
         }
         System.out.println("initialized");
     }
@@ -313,8 +308,8 @@ public class DriveAuto extends CommandBase {
                     speed = signum * nextPoint.maxLinearSpeed;
                 } else {
                     driveState = travelState.decelerating;
-                    lastVelocity = drive.encoderVelocityToInchesPerSec(drive.getLeftEncoderVelocity())/2 +
-                            drive.encoderVelocityToInchesPerSec(drive.getRightEncoderVelocity())/2;
+                    lastVelocity = (DriveSubsystem.encoderVelocityToInchesPerSec(drive.getLeftEncoderVelocity())/2) +
+                            (DriveSubsystem.encoderVelocityToInchesPerSec(drive.getRightEncoderVelocity())/2);
                     ControlTimer.reset();
                 }
             }
