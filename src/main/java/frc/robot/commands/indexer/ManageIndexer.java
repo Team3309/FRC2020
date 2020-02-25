@@ -19,6 +19,10 @@ public class ManageIndexer extends CommandBase {
         addRequirements(indexer);
     }
 
+    public void initialize() {
+        wasToSpeed = false;
+    }
+
     @Override
     public void execute() {
         if (shooter.areFlywheelsToSpeed()) {
