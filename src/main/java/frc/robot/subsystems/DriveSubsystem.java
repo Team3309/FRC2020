@@ -375,7 +375,6 @@ public class DriveSubsystem extends SubsystemBase {
         double headingError = desiredHeading - heading;
 
         return headingError;
-
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
