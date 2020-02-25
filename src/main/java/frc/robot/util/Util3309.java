@@ -123,6 +123,7 @@ public class Util3309 {
     }
 
     public static double angleInMinus180To180(double angleInDegrees) {
+        if (angleInDegrees < 180 && angleInDegrees > -180) return angleInDegrees;
         if (angleInDegrees > 180) {
             while (angleInDegrees > 180) {
                 angleInDegrees -=360;

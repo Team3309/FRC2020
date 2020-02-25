@@ -9,7 +9,7 @@ public class Waypoint {
     public boolean reverse;  // robot backs into waypoint
 
     public double linCreepSpeed = 5; //Inches per second
-    public double angCreepSpeedInDegsPerSec = 2;
+    public double angCreepSpeedInDegsPerSec = 10;
     public double maxLinearSpeed = 40; //Inches per 100 milliseconds
     public double maxAngularSpeedInDegsPerSec = 50;
     public double linAccelerationInInchesPerSec2 = 80; //Inches per 100 milliseconds^2

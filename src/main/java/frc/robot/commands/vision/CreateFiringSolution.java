@@ -41,8 +41,8 @@ public class CreateFiringSolution extends CommandBase {
                     vision.getAngleToTarget(),
                     vision.getHeightAngleToTarget());
             Waypoint[] waypoints = {new Waypoint(0, 0, 0, false),
-                                    new Waypoint(Math.cos(Math.toRadians(45 + drive.getAngularPosition())),
-                                            Math.sin(Math.toRadians(45 + drive.getAngularPosition())),
+                                    new Waypoint(Math.cos(Math.toRadians(vision.getAngleToTarget() - drive.getAngularPosition())),
+                                            Math.sin(Math.toRadians(vision.getAngleToTarget() - drive.getAngularPosition())),
                                             0,
                                             false, true)};
             CommandScheduler.getInstance().schedule(

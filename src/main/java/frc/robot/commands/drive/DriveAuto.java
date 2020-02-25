@@ -1,5 +1,6 @@
 package frc.robot.commands.drive;
 
+import com.ctre.phoenix.Util;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -89,7 +90,15 @@ public class DriveAuto extends CommandBase {
         turnState = spinTurnState.notStarted;
         encoderZeroValue = drive.getLeftEncoderPosition() /2  + drive.getRightEncoderPosition() / 2;
         lastVelocity = 0;
-        initialBranch = ((int) (drive.getAngularPosition() + 180)) / 360;
+        initialBranch = ((int) (180 + drive.getAngularPosition())) / 360;
+        double branch = drive.getAngularPosition();
+        if (branch> 0) {
+            initialBranch = ((int) (drive.getAngularPosition())) / 360;
+
+        } else {
+            initialBranch = ((int) (drive.getAngularPosition())) / 360;
+
+        }
         System.out.println("initialized");
     }
 
@@ -105,18 +114,9 @@ public class DriveAuto extends CommandBase {
 
 
         double headingToNextPoint = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
-                nextPoint.xFieldInches - currentPoint.xFieldInches)); //this is a constant between waypoints
-        headingToNextPoint += initialBranch * 360;
-        //we add this in instead of trying any modulus math
-        //because if we don't we can end up crossing the 180 or -180 line, causing it to spin the wrong way
-        //mathematically this happens because there are infinitely many points that are identical
-        //in atan2.
+                nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90; //this is a constant between waypoints
 
-        //The intuition to solve this problem comes from the nature of the complex
-        //logarithm (which for x and y sufficiently big looks like a helix if you need some intuition here),
-        //where the same problem occurs for similar reasons. In this math, we call each a segment of 2 pi
-        //a branch of the complex logarithm, hence the naming convention.
-        //by storing the initial branch we know how many 2 pi we are off by.
+
 
         double signum = 1;
 
@@ -124,15 +124,17 @@ public class DriveAuto extends CommandBase {
             signum = -1;
         }
 
-        //Positive = counterclockwise;
-        double degsLeftToTurn = signum * drive.getHeadingError(headingToNextPoint);
+        //Positive = clockwise;
+        double degsLeftToTurn = Util3309.angleInMinus180To180(signum * drive.getHeadingError(headingToNextPoint));
+
+
 
         SmartDashboard.putNumber("degsLeftToTurn", degsLeftToTurn);
         SmartDashboard.putNumber("headingToNextPoint", headingToNextPoint);
 
 
-        boolean turningLeft = degsLeftToTurn < 0;
-        boolean turningRight = degsLeftToTurn > 0;
+        boolean turningLeft = degsLeftToTurn > 0;
+        boolean turningRight = degsLeftToTurn < 0;
 
 
         double inchesBetweenWaypoints =
@@ -169,11 +171,22 @@ public class DriveAuto extends CommandBase {
             if (turnState == spinTurnState.accelerating &&
                     currentAngularVelocity >= nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
+                if (turningLeft) {
 
-                currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
+                    currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
+                } else if (turningRight) {
+
+                    currentAngularVelocity = - signum * nextPoint.maxAngularSpeedInDegsPerSec;
+                }
             }
             if (turnState == spinTurnState.cruising) {
-                currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
+                if (turningLeft) {
+
+                    currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
+                } else if (turningRight) {
+
+                    currentAngularVelocity = - signum * nextPoint.maxAngularSpeedInDegsPerSec;
+                }
             }
             if (turnState == spinTurnState.accelerating || turnState == spinTurnState.cruising) {
                 //calculate how far we would continue to turn at current acceleration.
@@ -190,7 +203,13 @@ public class DriveAuto extends CommandBase {
             }
 
             if (turnState == spinTurnState.decelerating) {
-                currentAngularVelocity = (lastVelocity - (signum * nextPoint.angDecelerationInDegsPerSec2 * timerValue));
+                if (turningLeft) {
+
+                    currentAngularVelocity = (lastVelocity - (signum * nextPoint.angDecelerationInDegsPerSec2 * timerValue));
+                } else if (turningRight) {
+
+                    currentAngularVelocity = - (lastVelocity - (signum * nextPoint.angDecelerationInDegsPerSec2 * timerValue));
+                }
             }
             //checks that we have completed deceleration phase and are approaching our tweaking speed
             if (turnState == spinTurnState.decelerating && currentAngularVelocity < nextPoint.angCreepSpeedInDegsPerSec) {
@@ -205,9 +224,11 @@ public class DriveAuto extends CommandBase {
                         done = true;
                         return;
                     } else {
+                        done = true;
                         superStateMachine = superState.drivingStraight;
+                        return;
                     }
-                    turnState = spinTurnState.notStarted;
+                    //turnState = spinTurnState.notStarted;
                 }
                 //turn left if we undershot
 
@@ -216,12 +237,12 @@ public class DriveAuto extends CommandBase {
                 }
                 //turn right if we overshot
                 else if (degsLeftToTurn < 0) {
-                    currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
+                    currentAngularVelocity = - nextPoint.angCreepSpeedInDegsPerSec;
                 }
             }
 
             double right = drive.degreesPerSecToEncoderVelocity(currentAngularVelocity);
-            drive.setLeftRight(ControlMode.Velocity, right, -right);
+            drive.setLeftRight(ControlMode.Velocity, -right, right);
 
             if (RobotContainer.getDriveDebug()) {
                 SmartDashboard.putNumber("headingToNextPoint:", headingToNextPoint);

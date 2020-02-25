@@ -416,7 +416,7 @@ public class Config {
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
-                IMUDriftConstant = -0.158;
+                IMUDriftConstant = -0.12;
 
                 driveGearRatio = 9.6;
                 driveWheelDiameterInInches = 4.0;
