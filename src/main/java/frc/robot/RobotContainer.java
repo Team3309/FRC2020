@@ -47,7 +47,7 @@ public class RobotContainer
     public enum RobotState {
         ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
         INIT_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
-        INIT_READY_TO_SHOOT, INIT_POSITION_TURNER, TURNER_IN_POSITION, SPIN_TURNER
+        INIT_READY_TO_SHOOT, INIT_POSITION_TURNER, TURNER_IN_POSITION, SPIN_TURNER, INIT_OUTTAKE, OUTTAKE;
     }
 
     private static RobotState state = RobotState.ARM_UP_DRIVE;
@@ -143,10 +143,10 @@ public class RobotContainer
 
 
         // TODO: enable once indexer sensor is installed
-        /*new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .or(OI.rightStickRightCluster)
                 .whenActive(new SelectIntakeToOuttake(intake, shooter))
-                .whenInactive(new SelectOuttakeToIntake(intake, shooter));*/
+                .whenInactive(new SelectOuttakeToIntake(intake, shooter));
 
                 new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
                 .or(OI.rightStickRightCluster)

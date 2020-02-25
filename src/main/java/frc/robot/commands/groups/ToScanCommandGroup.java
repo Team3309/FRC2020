@@ -3,6 +3,8 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Config;
 import frc.robot.FiringSolution;
+import frc.robot.RobotContainer;
+import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.intake.StopIntake;
@@ -20,9 +22,11 @@ public class ToScanCommandGroup extends SequentialCommandGroup {
     public ToScanCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, VisionSubsystem vision, DriveSubsystem drive) {
         addCommands(
                 //give drive angle to change by to aim at target
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_SCAN),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new MoveArmAndRetractIntake(Config.armPositionVision, intake, arm),
+                new UpdateHandlingState(RobotContainer.RobotState.SCAN),
                 new CreateFiringSolution(vision, intake, indexer, shooter, arm, drive));
 
     }
