@@ -35,6 +35,8 @@ public class DisplayWarnings {
             conditionalMsg(!Config.isIntakeInstalled, warnMsg, "Intake");
             conditionalMsg(!Config.isShooterInstalled, warnMsg, "Shooter");
             conditionalMsg(!Config.isVisionInstalled, warnMsg, "Vision");
+            conditionalMsg(!Config.isLimelightOn, warnMsg, "Limelight LED");
+            conditionalMsg(!Config.isIMUInstalled, warnMsg, "IMU");
             if (!warnMsg.toString().isEmpty()) {
                 DriverStation.reportWarning("Not installed: " + warnMsg, false);
             }

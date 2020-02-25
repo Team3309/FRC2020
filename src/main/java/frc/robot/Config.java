@@ -121,13 +121,13 @@ public class Config {
     public static Integer shooterVelocityIntegralZone;
     public static Double shooterVelocityD;
     public static Double shooterVelocityF;
-    public static final double shooterIntakePowerTopMotor = 0.4;
-    public static final double shooterIntakePowerBottomMotor = 0.4;
+    public static final double shooterIntakePowerTopMotor = 0.3;
+    public static final double shooterIntakePowerBottomMotor = 0.3;
 
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 42900, 5000, 21300, 21300);
+            "Long Range", 42900, 5000, 3000, 3000);
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
             "Mid Range", 50200, 5000, 18000, 21300);
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
@@ -151,8 +151,8 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final int indexerAcceleration = 20000;
-    public static final int indexerCruiseVelocity = 1000;
+    public static final int indexerAcceleration = 40000;
+    public static final int indexerCruiseVelocity = 4000;
     public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
@@ -244,6 +244,7 @@ public class Config {
     public static Integer driveRightSlaveID2019_1;
     public static Integer driveRightSlaveID2019_2;
     public static final double visionDistanceConstant = Math.sqrt(2);
+    public static Boolean isLimelightOn;
 
     private static void frameSpecificConfig() {
 
@@ -255,11 +256,12 @@ public class Config {
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
-                isIndexerInstalled = false;
+                isIndexerInstalled = true;
                 isIndexerSensorInstalled = false;
-                isIntakeInstalled = false;
-                isShooterInstalled = false;
-                isVisionInstalled = false;
+                isIntakeInstalled = true;
+                isShooterInstalled = true;
+                isVisionInstalled = true;
+                isLimelightOn = false;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
                 isIMUInstalled = true;
@@ -306,13 +308,17 @@ public class Config {
                 indexerSensorID = 4;
                 upperIndexerMotorPdpChannel = 8;
                 lowerIndexerMotorPdpChannel = 9;
-                indexerP = 0.1;
+                indexerP = 0.2;
                 indexerI = 0.0;
-                indexerD = 0.0;
+                indexerD = 20.0;
                 indexerIntegralZone = 0;
                 indexerF = 0.0;
-                indexerPositioningTolerance = 200;
-                powerCellDistanceInEncoderCounts = 5091;
+                indexerPositioningTolerance = 900;
+
+                // Actual distance is 5091, but we need to fight gravity both ways.
+                // There is more slippage at the start of movement as the belts tighten up.
+                // Therefore, longer movements have less encoder loss.
+                powerCellDistanceInEncoderCounts = 9900;
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
@@ -330,7 +336,7 @@ public class Config {
                 alpha - beta = run out after hitting battery case = 1881
                  */
                 armPositionVision = 42900; //if you update this then you also need to update the limelightMountingAngle
-                maxArmPosition = 83400;  // physical max = 190000
+                maxArmPosition = 83400;
                 trenchArmPosition = 45000;
                 minArmPosition = 3000;
                 armPositionIntakeStowedLimit = 16700;
@@ -358,6 +364,7 @@ public class Config {
                 isIntakeInstalled = false;
                 isShooterInstalled = false;
                 isVisionInstalled = false;
+                isLimelightOn = false;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
                 isIMUInstalled = true;
@@ -394,6 +401,7 @@ public class Config {
                 isIntakeInstalled = false;
                 isShooterInstalled = false;
                 isVisionInstalled = true;
+                isLimelightOn = true;
                 isPcmInstalled = false;
                 isCompressorEnabled = false;
                 isIMUInstalled = true;

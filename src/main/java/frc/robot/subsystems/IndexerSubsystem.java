@@ -94,9 +94,9 @@ public class IndexerSubsystem extends SubsystemBase {
         if (Config.isIndexerInstalled) {
             if (isInPosition()) {
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0) -
-                        Config.powerCellDistanceInEncoderCounts;
+                        (int)(Config.powerCellDistanceInEncoderCounts * 0.8);
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0) -
-                        Config.powerCellDistanceInEncoderCounts;
+                        (int)(Config.powerCellDistanceInEncoderCounts * 0.8);
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 incrementIndexerCounter();

@@ -23,6 +23,9 @@ public class VisionSubsystem extends SubsystemBase {
         if (Config.isVisionInstalled) {
             limelight = new Limelight("limelight",
                     0, 0, 0);
+            if (!Config.isLimelightOn) {
+                limelight.setLed(Limelight.LEDMode.Off);
+            }
         }
     }
 
