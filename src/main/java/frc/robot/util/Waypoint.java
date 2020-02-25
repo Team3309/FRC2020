@@ -1,6 +1,8 @@
 package frc.robot.util;
 
 public class Waypoint {
+
+    public boolean finalHeading;
     public double downFieldInches; //how far the waypoint is from the driver station
     public double xFieldInches; //lateral position of the waypoint
     public double turnRadiusInches; //centered on the vertices of the straight-line path, not the guide circles
@@ -42,5 +44,17 @@ public class Waypoint {
         this.linCreepSpeed = linCreepSpeed;
         this.angCreepSpeedInDegsPerSec = angularCreepSpeed;
         this.reverse = reverse;
+    }
+
+    public Waypoint(double downFieldInches,
+                    double xFieldInches,
+                    double turnRadiusInches,
+                    boolean reverse,
+                    boolean finalHeading) {
+        this.downFieldInches = downFieldInches;
+        this.xFieldInches = xFieldInches;
+        this.turnRadiusInches = turnRadiusInches;
+        this.reverse = reverse;
+        this.finalHeading = finalHeading;
     }
 }

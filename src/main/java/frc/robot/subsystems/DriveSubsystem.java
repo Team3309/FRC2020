@@ -14,6 +14,7 @@ import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
+import frc.robot.util.Util3309;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -313,7 +314,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double encoderCountsToInches(int counts) {
-        return (counts * Math.PI * Config.driveWheelDiameterInInches) / Config.driveWheelEncoderCountsPerRevolution;
+        return (counts * Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio) / Config.driveWheelEncoderCountsPerRevolution;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -324,7 +325,7 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public static double inchesToEncoderCounts(double inches) {
         return inches * (Config.driveWheelEncoderCountsPerRevolution /
-                (Math.PI * Config.driveWheelDiameterInInches));
+                (Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio));
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -334,7 +335,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double inchesPerSecondToEncoderVelocity(double inchesPerSecond) {
-        return (((inchesPerSecond / 10.0) / (Math.PI * Config.driveWheelDiameterInInches))
+        return (((inchesPerSecond / 10.0) / (Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio))
                 * Config.driveWheelEncoderCountsPerRevolution);
     }
 
@@ -365,20 +366,14 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public static double encoderVelocityToInchesPerSec(double encoderVelocity) {
         return (((encoderVelocity * 10.0) / Config.driveWheelEncoderCountsPerRevolution)
-                * (Math.PI * Config.driveWheelDiameterInInches));
+                * (Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio));
     }
 
-    public static double getHeadingError(double desiredHeading, DriveSubsystem drive) {
+    public double getHeadingError(double desiredHeading) {
 
-        double heading = (((180-drive.getAngularPosition())) % 360) + 180;
+        double heading = getAngularPosition();
         double headingError = desiredHeading - heading;
-        if (headingError < -180) {
-            headingError += 360;
 
-        }
-        else if (headingError > 180) {
-            headingError -= 360;
-        }
         return headingError;
 
     }

@@ -7,7 +7,8 @@ import frc.robot.subsystems.*;
 
 public class SelectToScan extends SelectCommand3309 {
 
-    public SelectToScan(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, VisionSubsystem vision) {
+    public SelectToScan(IntakeSubsystem intake, IndexerSubsystem indexer,
+                        ShooterSubsystem shooter, ArmSubsystem arm, VisionSubsystem vision, DriveSubsystem drive) {
         super(() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||
@@ -16,7 +17,7 @@ public class SelectToScan extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToScanCommandGroup(intake, indexer, shooter, arm, vision);
+                return new ToScanCommandGroup(intake, indexer, shooter, arm, vision, drive);
             } else {
                 //do nothing
                 return new DoNothing();
