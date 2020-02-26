@@ -19,7 +19,7 @@ public class SelectToTrench extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToOuttakeCommandGroup(Config.trenchArmPosition, intake, indexer, shooter, arm, drive, manipulator);
+                return new ToOuttakeCommandGroup(intake, indexer, shooter, arm, drive, manipulator);
             } else {
                 //do nothing
                 return new DoNothing();

@@ -428,10 +428,10 @@ public class Config {
             case Comp2019:
                 isArmInstalled = false;
                 isClimberInstalled = false;
-                isCtrlPanelInstalled = true;
+                isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = false;
-                isIntakeInstalled = false;
+                isIntakeInstalled = true;
                 isShooterInstalled = false;
                 isVisionInstalled = true;
                 isLimelightOn = true;
@@ -481,7 +481,7 @@ public class Config {
                 armControlPanelPosition = 74000;
                 armPositionHardStop = 74000;
 
-                turnerMotorID = 13;
+                intakeMotorID = 13;
                 turnerMotorPdpChannel = 7;
 
                 threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches

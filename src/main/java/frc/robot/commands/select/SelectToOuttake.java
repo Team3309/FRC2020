@@ -22,7 +22,7 @@ public class SelectToOuttake extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE
             ) {
-                return new ToOuttakeCommandGroup(0, intake, indexer, shooter, arm, drive, manipulator);
+                return new ToOuttakeCommandGroup(intake, indexer, shooter, arm, drive, manipulator);
             } else {
                 return new DoNothing();
             }});

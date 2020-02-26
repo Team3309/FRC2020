@@ -16,18 +16,14 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToOuttakeCommandGroup extends SequentialCommandGroup {
-    public ToOuttakeCommandGroup(Integer position, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
+    public ToOuttakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
         addCommands(
-                position != null && position.equals(Config.trenchArmPosition) ?
-                        new UpdateHandlingState(RobotContainer.RobotState.INIT_TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.RobotState.INIT_OUTTAKE),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_OUTTAKE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartOuttakeMotor(intake, shooter),
                 //TODO: Call indexer.resetEncoders().
-                position != null && position.equals(Config.trenchArmPosition) ?
-                        new UpdateHandlingState(RobotContainer.RobotState.TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.RobotState.OUTTAKE));
+                new UpdateHandlingState(RobotContainer.RobotState.OUTTAKE));
     }
 }
