@@ -101,8 +101,7 @@ public class Config {
     public static final int rotationControlSlices = 32;
 
     //Color Sensor thresholds-------------------------------------------------------------------------------------------
-    public static final double colorConfidenceThreshold = .75;
-    public static final int colorEpsilon = 50; //Threshold for deciding which color is in front of the sensor
+    public static final double colorMin = 400;
 
     //------------------------------------------------------------------------------------------------------------------
     //Shooter Constants//
