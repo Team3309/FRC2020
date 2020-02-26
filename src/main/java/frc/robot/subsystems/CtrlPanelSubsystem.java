@@ -148,23 +148,33 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     double confidence = 0;
     private PanelColor getColor() {
         if (Config.isCtrlPanelInstalled) {
+
+            double r = colorSensor.getRawColor().red;
+            double g = colorSensor.getRawColor().green;
+            double b = colorSensor.getRawColor().blue;
+            double colorValue = Math.sqrt(r*r + g*g + b*b);
+            if (colorValue <= Config.colorMin) return PanelColor.noValue;
+
             ColorMatch colorMatcher = new ColorMatch();
-            colorMatcher.addColorMatch(Color.kRed);
-            colorMatcher.addColorMatch(Color.kGreen);
-            colorMatcher.addColorMatch(Color.kYellow);
-            colorMatcher.addColorMatch(Color.kCyan);
-            colorMatcher.setConfidenceThreshold(Config.colorConfidenceThreshold);
+            Color cyanTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+            Color greenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+            Color redTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+            Color yellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+            colorMatcher.addColorMatch(cyanTarget);
+            colorMatcher.addColorMatch(greenTarget);
+            colorMatcher.addColorMatch(redTarget);
+            colorMatcher.addColorMatch(yellowTarget);
 
             ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
             confidence = match.confidence;
-            if (match.color == Color.kRed) {
-                return PanelColor.red;
-            } else if (match.color == Color.kGreen) {
-                return PanelColor.green;
-            } else if (match.color == Color.kYellow) {
-                return PanelColor.yellow;
-            } else if (match.color == Color.kCyan) {
+            if (match.color == cyanTarget) {
                 return PanelColor.cyan;
+            } else if (match.color == greenTarget) {
+                return PanelColor.green;
+            } else if (match.color == redTarget) {
+                return PanelColor.red;
+            } else if (match.color == yellowTarget) {
+                return PanelColor.yellow;
             } else {
                 return PanelColor.unknown;
             }
@@ -230,8 +240,8 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         SmartDashboard.putString("Last color", lastColor.name());
         SmartDashboard.putNumber("Slices turned ", slicesTurned);
 
-        SmartDashboard.putNumber("R ", colorSensor.getColor().red);
-        SmartDashboard.putNumber("G ", colorSensor.getColor().green);
-        SmartDashboard.putNumber("B ", colorSensor.getColor().blue);
+        SmartDashboard.putNumber("R ", colorSensor.getRawColor().red);
+        SmartDashboard.putNumber("G ", colorSensor.getRawColor().green);
+        SmartDashboard.putNumber("B ", colorSensor.getRawColor().blue);
     }
 }
