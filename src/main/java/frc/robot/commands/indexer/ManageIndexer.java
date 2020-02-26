@@ -39,5 +39,4 @@ public class ManageIndexer extends CommandBase {
             Indexer.indexIn();
         }
     }
-
 }

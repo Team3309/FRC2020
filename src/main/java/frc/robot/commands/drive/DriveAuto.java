@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.Util3309;
@@ -109,7 +110,7 @@ public class DriveAuto extends CommandBase {
 
 
         double headingToNextPoint = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
-                nextPoint.xFieldInches - currentPoint.xFieldInches)) - 90; //this is a constant between waypoints
+                nextPoint.xFieldInches - currentPoint.xFieldInches)) + Config.IMUMountingAngle; //this is a constant between waypoints
 
 
 

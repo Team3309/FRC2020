@@ -62,14 +62,10 @@ public class DriveSubsystem extends SubsystemBase {
                  driveMasterRight = new WPI_TalonFX(Config.driveRightMasterID);
                  driveSlaveRight = new WPI_TalonFX(Config.driveRightSlaveID);
 
-
-
                  configDriveMaster(driveMasterLeft);
                  configDriveSlave(driveSlaveLeft, driveMasterLeft);
                  configDriveMaster(driveMasterRight);
                  configDriveSlave(driveSlaveRight, driveMasterRight);
-
-
              }
          }
     }

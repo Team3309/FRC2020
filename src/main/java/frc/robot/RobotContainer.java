@@ -45,9 +45,25 @@ public class RobotContainer
      * All states for the robot finite state machine
      */
     public enum RobotState {
-        ARM_UP_DRIVE, SCAN, SINGLE_SHOT, MULTI_SHOT, TRENCH_DRIVE, INTAKE, READY_TO_SHOOT,
-        INIT_ARM_UP_DRIVE, INIT_SCAN, INIT_SINGLE_SHOT, INIT_MULTI_SHOT, INIT_TRENCH_DRIVE, INIT_INTAKE,
-        INIT_READY_TO_SHOOT, INIT_POSITION_TURNER, TURNER_IN_POSITION, SPIN_TURNER, INIT_OUTTAKE, OUTTAKE;
+        ARM_UP_DRIVE,
+        SCAN,
+        SINGLE_SHOT,
+        MULTI_SHOT,
+        TRENCH_DRIVE,
+        INTAKE,
+        READY_TO_SHOOT,
+        INIT_ARM_UP_DRIVE,
+        INIT_SCAN,
+        INIT_SINGLE_SHOT,
+        INIT_MULTI_SHOT,
+        INIT_TRENCH_DRIVE,
+        INIT_INTAKE,
+        INIT_READY_TO_SHOOT,
+        INIT_POSITION_TURNER,
+        TURNER_IN_POSITION,
+        SPIN_TURNER,
+        INIT_OUTTAKE,
+        OUTTAKE
     }
 
     private static RobotState state = RobotState.ARM_UP_DRIVE;
@@ -100,7 +116,7 @@ public class RobotContainer
             arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
         }
         if (Config.isIndexerInstalled) {
-            indexer.setDefaultCommand(new ManageIndexer(indexer));
+            indexer.setDefaultCommand(new ManageIndexer(indexer, shooter));
         }
     }
 
@@ -172,8 +188,8 @@ public class RobotContainer
                 ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
-                .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
+                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel))
+                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         //D-pad Left
         new POVButton(OI.OperatorController, 270)
@@ -192,8 +208,8 @@ public class RobotContainer
 
         //D-pad Down
         new POVButton(OI.OperatorController, 180)
-                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel)
-                );
+                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
+                .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
                 .whenPressed(new DriveAuto(DriveAuto.testPath, false, drive));

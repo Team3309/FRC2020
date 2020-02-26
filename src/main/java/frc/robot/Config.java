@@ -34,6 +34,7 @@ public class Config {
     public static Boolean isCompressorEnabled;
     public static Boolean isIMUInstalled;
 
+
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
     //------------------------------------------------------------------------------------------------------------------
@@ -46,6 +47,7 @@ public class Config {
     public static ADIS16470_IMU.IMUAxis imuAxis = ADIS16470_IMU.IMUAxis.kZ;
     public static ADIS16470_IMU.ADIS16470CalibrationTime imuCalibrationTime = ADIS16470_IMU.ADIS16470CalibrationTime._4s;
     public static Double IMUDriftConstant;
+    public static Double IMUMountingAngle;
 
     //Drive Motor PDP Channels------------------------------------------------------------------------------------------
     public static Integer driveLeftMasterPdpChannel;
@@ -360,6 +362,7 @@ public class Config {
                 driveGearRatio = 17.05; //different for 2020 comp bot
 
                 IMUDriftConstant = 0.0045;
+                IMUMountingAngle = 0.0;
 
                 threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
                 threePointHoleAngles = new double[] {
@@ -380,6 +383,7 @@ public class Config {
                         shooterMidRangeSolution.getTopFlywheelSpeed(),
                         shooterLongRangeSolution.getTopFlywheelSpeed(),
                         shooterLongRangeSolution.getTopFlywheelSpeed()};
+
 
 
                 break;
@@ -454,6 +458,7 @@ public class Config {
                 driveVelocityF = 0.002;
 
                 IMUDriftConstant = -0.12;
+                IMUMountingAngle = -90.0;
 
                 driveGearRatio = 9.6;
                 driveWheelDiameterInInches = 4.0;
