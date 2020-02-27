@@ -182,16 +182,13 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void moveToPosition(int position) {
         System.out.println("moveToPosition: " + position);
+
         if (Config.isArmInstalled) {
-            System.out.println("arm is installed");
             if (calibrated) {
-                System.out.println("calibrated!");
-
                 desiredPosition = armPositionToEncoderPosition(position);
-
-                System.out.println("Desired Position: " + desiredPosition);
-
                 armMotor.set(ControlMode.MotionMagic, desiredPosition);
+            } else {
+                DriverStation.reportWarning("ArmSubsystem: Attempt to move while uncalibrated!", false);
             }
         }
     }
