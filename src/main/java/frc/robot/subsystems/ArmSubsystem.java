@@ -19,12 +19,8 @@ public class ArmSubsystem extends SubsystemBase {
     //Arm calibration variables//
     //------------------------------------------------------------------------------------------------------------------
 
-    private boolean initialCalibration; //we can't initialize certain states during the constructor because we really want to initialize them on first enable instead
-    private boolean hallEffectCalibrate; //aka "quick calibrate" mode.
     private boolean calibrated; //whether or not the arm encoder is finished calibrating
-    private int initialEncoderCount; //the encoder count at time of calibration finalization, relative to its initialization position.
-    private int desiredCalibrationPosition;
-    private Integer calibrationStoredPosition;
+    private int calibrationZeroCount; //the encoder count at time of calibration
 
     //------------------------------------------------------------------------------------------------------------------
     //Other arm variables//
@@ -49,11 +45,11 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public ArmSubsystem() {
         calibrated = false;
-        initialCalibration = true;
+
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.armMotorId);
             configTalon(armMotor);
-            //initialEncoderCount = armMotor.getSelectedSensorPosition(0);
+
             try {
                 //we try to enable, in case there is no hall effect currently installed.
                 hallEffectLimitSwitch = new DigitalInput(Config.armHallEffectLimitSwitchId);
@@ -172,18 +168,10 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void calibrate() {
-        if (Config.isArmInstalled && !calibrated) {
-            initialEncoderCount = armMotor.getSelectedSensorPosition(0);
-
-            // TODO: set calibrated to true, and initialCalibration to false when we know this is working correctly.
+        if (Config.isArmInstalled) {
+            calibrationZeroCount = armMotor.getSelectedSensorPosition(0);
+            calibrated = true;
         }
-    }
-
-    /** ----------------------------------------------------------------------------------------------------------------
-     * @return If the Arm Subsystem has been calibrated
-     */
-    public boolean getIsCalibrated() {
-        return calibrated;
     }
 
     /**---------------------------------------------------------------------------------------------------------------\
@@ -208,7 +196,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     private int armPositionToEncoderPosition(int position) {
-        return position + initialEncoderCount;
+        return position + calibrationZeroCount;
     }
 
     /**---------------------------------------------------------------------------------------------------------------
@@ -226,7 +214,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Arm encoder position", armMotor.getSelectedSensorPosition(0));
-        SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - initialEncoderCount);
+        SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - calibrationZeroCount);
         SmartDashboard.putNumber("Arm desired encoder position", desiredPosition);
         SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));

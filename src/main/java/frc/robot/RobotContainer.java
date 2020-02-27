@@ -4,9 +4,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
+import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.commands.ctrlpanelturner.Rotate;
 import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
@@ -196,9 +198,12 @@ public class RobotContainer
                 .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         //D-pad Left
+//        new POVButton(OI.OperatorController, 270)
+//                .whenPressed(new SelectToReadyToShoot(Config.shooterLongRangeSolution, intake, indexer, shooter, arm)
+//                );
+        // Testing new simpler logic without firing solutions.
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new SelectToReadyToShoot(Config.shooterLongRangeSolution, intake, indexer, shooter, arm)
-                );
+                .whenPressed(new MoveArmAndRetractIntake(2000, intake, arm));
 
         //D-pad Up
         new POVButton(OI.OperatorController, 0)
@@ -296,12 +301,10 @@ public class RobotContainer
             vision.outputToDashboard();
         }
 
-        if (!arm.getIsCalibrated()) {
-            boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
-            if (setCalibration) {
-                SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
-                arm.calibrate();
-            }
+        boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
+        if (setCalibration) {
+            SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
+            arm.calibrate();
         }
     }
 
