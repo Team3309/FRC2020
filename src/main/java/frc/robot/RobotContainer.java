@@ -299,6 +299,7 @@ public class RobotContainer
         if (!arm.getIsCalibrated()) {
             boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
             if (setCalibration) {
+                SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
                 arm.calibrate();
             }
         }
