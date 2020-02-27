@@ -22,6 +22,7 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public void initialize() {
+        System.out.println("initialize MoveArmAndRetractIntake: " + position);
         if (position < Config.armPositionIntakeStowedLimit) {
             DriverStation.reportError("Requested arm position of " + position + " would block intake", false);
         } else {
@@ -30,6 +31,7 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public boolean isFinished() {
+        System.out.println("initialize MoveArmAndRetractIntake - Finished ");
         boolean isInPosition = arm.isInPosition(); //do this here to stop rare race condition
         if (arm.isArmAboveIntakeMinimum()) intake.retract();
         return isInPosition;
