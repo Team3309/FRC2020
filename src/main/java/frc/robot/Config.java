@@ -343,15 +343,15 @@ public class Config {
                 alpha - gamma = chain slack taut to taut = 3984
                 alpha - beta = run out after hitting battery case = 1881
                  */
-                armPositionVision = 42900; //if you update this then you also need to update the limelightMountingAngle
-                maxArmPosition = 83400;
-                trenchArmPosition = 6288;
-                minArmPosition = 3000;
-                armPositionIntakeStowedLimit = 16700;
+                //armPositionVision = 42900; //if you update this then you also need to update the limelightMountingAngle
+                maxArmPosition = 0;
+                //trenchArmPosition = 6288;
+                minArmPosition = -69000;
+                armPositionIntakeStowedLimit = -52500;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = 74500; //this needs to be bigger than the hard stop
-                armPositionHardStop = 74000;
+                //armControlPanelPosition = 74500; //this needs to be bigger than the hard stop
+                //armPositionHardStop = 74000;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
                 fieldVisionTargetHeight = 78.0 + 14.375; //inches

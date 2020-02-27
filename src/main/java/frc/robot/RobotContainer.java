@@ -203,7 +203,7 @@ public class RobotContainer
 //                );
         // Testing new simpler logic without firing solutions.
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new MoveArmAndRetractIntake(-30000, intake, arm));
+                .whenPressed(new MoveArmAndRetractIntake(-25000, intake, arm));
 
 //        //D-pad Up
 //        new POVButton(OI.OperatorController, 0)
