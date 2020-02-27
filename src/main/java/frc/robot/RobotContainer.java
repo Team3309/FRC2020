@@ -76,6 +76,7 @@ public class RobotContainer
     private final String intakeDashboardKey = "Display Intake Values";
     private final String shooterDashboardKey = "Display Shooter Values";
     private final String visionDashboardKey = "Display Vision Values";
+    private final String ArmSetManualCalibrationDashboardKey = "Arm - Set Manual Calibration Now";
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
@@ -132,6 +133,9 @@ public class RobotContainer
         SmartDashboard.putBoolean(intakeDashboardKey, false);
         SmartDashboard.putBoolean(shooterDashboardKey, false);
         SmartDashboard.putBoolean(visionDashboardKey, false);
+
+        // Technically not a display toggle, but the button that lets you manually calibrate
+        SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
     }
 
 
@@ -293,7 +297,7 @@ public class RobotContainer
         }
 
         if (!arm.getIsCalibrated()) {
-            boolean setCalibration = SmartDashboard.getBoolean("Set Calibration", false);
+            boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
             if (setCalibration) {
                 arm.calibrate();
             }
