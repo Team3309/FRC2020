@@ -257,7 +257,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (Config.isArmInstalled) {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
-                armMotor.set(ControlMode.MotionMagic, armPositionToEncoderPosition(position));
+                armMotor.set(ControlMode.MotionMagic, desiredPosition);
             } else {
                 calibrationStoredPosition = position;
                 calibrate();

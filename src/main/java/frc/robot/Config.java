@@ -259,7 +259,7 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
-                isArmInstalled = false;
+                isArmInstalled = true;
                 isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
