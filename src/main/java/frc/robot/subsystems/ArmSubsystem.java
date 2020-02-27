@@ -53,7 +53,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.armMotorId);
             configTalon(armMotor);
-            initialEncoderCount = armMotor.getSelectedSensorPosition(0);
+            //initialEncoderCount = armMotor.getSelectedSensorPosition(0);
             try {
                 //we try to enable, in case there is no hall effect currently installed.
                 hallEffectLimitSwitch = new DigitalInput(Config.armHallEffectLimitSwitchId);
@@ -142,8 +142,6 @@ public class ArmSubsystem extends SubsystemBase {
                     desiredPosition = newDesiredPosition;
                     armMotor.set(ControlMode.Position, newDesiredPosition);
                 }
-            } else {
-                calibrate();
             }
         }
     }
@@ -163,7 +161,6 @@ public class ArmSubsystem extends SubsystemBase {
             return true;
         }
         if (!calibrated) {
-            calibrate();
             return false;
         }
         return (Math.abs(armMotor.getSelectedSensorPosition(0) - desiredPosition) < Config.armPositioningTolerance);
@@ -174,77 +171,19 @@ public class ArmSubsystem extends SubsystemBase {
      * moving to an arm position.
      *
      */
-    private void calibrate() {
-        if (Config.isArmInstalled) {
-            if (Config.armPIDTuningMode || Config.armNoPositionSensors) {
-                initialEncoderCount = Config.armPositionHardStop; // Arm was required to be at the hard stop at start up.
-                initialCalibration = false;
-                calibrated = true;
-                if (calibrationStoredPosition != null) {
-                    moveToPosition(calibrationStoredPosition);
-                }
-                return;
-            }
-            //we want to have a one time only cycle because this stuff cannot be done before enable
-            if(initialCalibration) {
-                initialCalibration = false;
-                //in case the hall effect is not installed, just use the top limit switch.
-                //we check for switch engagement and not counterweight installation in case of slippage during coast or brake mode.
-                //if there was slippage we want to not use the hall effect calibration
-                if (hallEffectLimitSwitch != null) {
-                    hallEffectCalibrate = hallEffectLimitSwitch.get();
-                } else {
-                    hallEffectCalibrate = false;
-                }
-                desiredCalibrationPosition = armMotor.getSelectedSensorPosition(0) +
-                        Config.armCalibrationMotionIncrement;
-                armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
-            }
-            if (hallEffectCalibrate) {
-                if (!hallEffectLimitSwitch.get()) {
-                    armMotor.set(ControlMode.PercentOutput, 0);
-                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - Config.armPositionHallEffectTop;
-                    calibrated = true;
-                    if (calibrationStoredPosition != null) {
-                        this.moveToPosition(calibrationStoredPosition);
-                    }
-                }
+    public void calibrate() {
+        if (Config.isArmInstalled && !calibrated) {
+            initialEncoderCount = armMotor.getSelectedSensorPosition(0);
 
-            } else {
-                //an optimization. This assumes that the hall effect limit switch is engaged at a range of encoder positions, and not just one encoder position.
-                //this optimization should still work on just one encoder position engaging the hall effect switch, but has a very low likelihood of working.
-                if (hallEffectLimitSwitch != null) {
-                    //in the case we have a hall effect limit switch but no engagement at initialization, and obtain
-                    //engagement in the middle of calibration (ie the arm slipped down and outside hall effect range),
-                    //we can swap to hall effect initialization
-                    //this is guaranteed to result in a faster calibration of the encoder than going all the way to the top
-                    if (hallEffectLimitSwitch.get()) {
-                        //in this case we have triggered the lower threshold of the hall effect limit switch
-                        //switch to hall effect calibration
-                        hallEffectCalibrate = true;
-                        return; //we can immediately return because the hall effect switch will need at least another cycle to complete.
-                        //Although in theory we can record this position (assuming we know what it translates to in an arm position (READ: Extra tuning and work))
-                        //We'd have to redo a large portion of the code to note three calibration final states to do so.
-                    }
-                }
-                //of course if there is no hall effect limit switch or the counterweight is not installed or the arm slipped up,
-                //we need to just go to the top limit switch and start from there.
-                if (isArmAtUpperLimit()) {
-                    armMotor.set(ControlMode.PercentOutput, 0);
-                    initialEncoderCount = armMotor.getSelectedSensorPosition(0) - Config.maxArmPosition;
-                    calibrated = true;
-                    if (calibrationStoredPosition != null) {
-                        moveToPosition(calibrationStoredPosition);
-                    }
-                }
-            }
-            //if we're close enough to the target point, set a new one.
-            if ((Math.abs(armMotor.getSelectedSensorPosition(0) - desiredCalibrationPosition) <
-                    Config.armPositioningTolerance)) {
-                desiredCalibrationPosition += Config.armCalibrationMotionIncrement;
-                armMotor.set(ControlMode.MotionMagic, desiredCalibrationPosition);
-            }
+            // TODO: set calibrated to true, and initialCalibration to false when we know this is working correctly.
         }
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return If the Arm Subsystem has been calibrated
+     */
+    public boolean getIsCalibrated() {
+        return calibrated;
     }
 
     /**---------------------------------------------------------------------------------------------------------------\
@@ -258,9 +197,6 @@ public class ArmSubsystem extends SubsystemBase {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
                 armMotor.set(ControlMode.MotionMagic, desiredPosition);
-            } else {
-                calibrationStoredPosition = position;
-                calibrate();
             }
         }
     }
@@ -290,6 +226,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         SmartDashboard.putNumber("Arm encoder position", armMotor.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - initialEncoderCount);
         SmartDashboard.putNumber("Arm desired encoder position", desiredPosition);
         SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));

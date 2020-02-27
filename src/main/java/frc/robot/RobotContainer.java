@@ -291,6 +291,13 @@ public class RobotContainer
         if (SmartDashboard.getBoolean(visionDashboardKey, false) && Config.isVisionInstalled) {
             vision.outputToDashboard();
         }
+
+        if (!arm.getIsCalibrated()) {
+            boolean setCalibration = SmartDashboard.getBoolean("Set Calibration", false);
+            if (setCalibration) {
+                arm.calibrate();
+            }
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
