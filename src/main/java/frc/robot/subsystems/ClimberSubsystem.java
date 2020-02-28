@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
-
 /**
- * @author Joshua Badzey
+ * @author Mark Ghebrial
  *
  * The climber class for the climber subsystem, which will grab the shield generator switch and pull the robot up.
  * Will work with drive to determine whether it should begin climbing.
@@ -18,15 +17,15 @@ import frc.robot.Config;
 
 public class ClimberSubsystem extends SubsystemBase {
 
-    private WPI_TalonFX climberMotor;
-    //private WPI_TalonFX climberMotorSlave; //Uncomment this for a second motor
+    private WPI_TalonFX winchMotor;
+    //private WPI_TalonFX winchMotorSlave; //Uncomment this for a second motor
     private Solenoid deployPiston;
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            climberMotor = new WPI_TalonFX(Config.climbMotorOneId);
-            //climberMotorSlave = new WPI_TalonFX(Config.climbMotorTwoId); //Uncomment these to initialize the second motor
-            //climberMotorSlave.follow(climberMotor);
+            winchMotor = new WPI_TalonFX(Config.climbMotorOneId);
+            //winchMotorSlave = new WPI_TalonFX(Config.climbMotorTwoId); //Uncomment these to initialize the second motor
+            //winchMotorSlave.follow(climberMotor);
             if (Config.isPcmInstalled) {
                 deployPiston = new Solenoid(Config.climberDeploySolenoidId);
             }
@@ -39,6 +38,15 @@ public class ClimberSubsystem extends SubsystemBase {
     public void deployClimber() {
         if (Config.isClimberInstalled && Config.isPcmInstalled) {
             deployPiston.set(true);
+        }
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Activates the winch
+     */
+    public void moveWinch (double power) {
+        if (Config.isClimberInstalled) {
+            winchMotor.set(ControlMode.PercentOutput, power);
         }
     }
 
