@@ -156,14 +156,16 @@ public class Config {
     public static int[] indexOutEncoderCounts;
 
 
-    public static final double indexerPowerCellNeedsIndexingThreshold = 0.6;
+    // we don't know what the nominal flywheel speed is when intaking because we use voltage control for intake
+    public static final double autoIndexerMinFlywheelSpeed = 2000;  // ignore bounces before power is applied
+    public static final double autoIndexerMaxFlywheelSpeedTolerance = 20;  // ignore small speed changes when at full intake speed
+    public static final double autoIndexerFlywheelSpeedDropDetectThreshold = 1000;  // require sizable drop to activate indexer
 
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
     public static final int indexerAcceleration = 40000;
     public static final int indexerCruiseVelocity = 4000;
-    public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
     public static int maxPowerCells = 5;
