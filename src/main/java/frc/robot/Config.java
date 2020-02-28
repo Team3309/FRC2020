@@ -215,9 +215,9 @@ public class Config {
     public static Double armD;
 
     public static final double armPeakOutputReverse = -0.2;
-    public static final double armPeakOutputForward = 0.7;
-    public static final int armAcceleration = 10000;
-    public static final int armCruiseVelocity = 6000;
+    public static final double armPeakOutputForward = 0.5;
+    public static final int armAcceleration = 75000; // Ticks per 100ms^2
+    public static final int armCruiseVelocity = 7500; // Ticks per 100ms
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
     public static final double armJoystickTiltToPositionFactor = 250;
@@ -335,10 +335,10 @@ public class Config {
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
 
-                armP = 0.1;
-                armI = 3.54972071e-05;
-                armIntegralZone = 3000;
-                armD = 15.0;
+                armP = 0.1; // core power (start at .1)
+                armI = 3.54972071e-05; // maintain goal position
+                armIntegralZone = 5000; // disable I outside of this range
+                armD = 0.0; // increase to lower overshoot (start at 0)
                 /*
                 alpha: 1145
                 beta: -736
@@ -350,13 +350,13 @@ public class Config {
                 //54000 = target shot at max target zone
 
                 armPositionVision = 52500; //if you update this then you also need to update the limelightMountingAngle
-                maxArmPosition = 57000;
+                maxArmPosition = 74500;
                 trenchArmPosition = 21500; // ? this currently a random value that has been unmeasured
                 minArmPosition = 1000;
                 armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = 0; //this needs to be bigger than the hard stop
+                armControlPanelPosition = maxArmPosition + 1500; //this needs to be bigger than the hard stop
                 armPositionHardStop = 0;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches

@@ -201,30 +201,31 @@ public class RobotContainer
                 .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         //D-pad Left
-//        new POVButton(OI.OperatorController, 270)
-//                .whenPressed(new SelectToReadyToShoot(Config.shooterLongRangeSolution, intake, indexer, shooter, arm)
-//                );
-        // Testing new simpler logic without firing solutions.
         new POVButton(OI.OperatorController, 270)
-                .whenPressed(new MoveArmAndRetractIntake(-25000, intake, arm));
+                .whenPressed(new SelectToReadyToShoot(Config.shooterLongRangeSolution, intake, indexer, shooter, arm)
+                );
 
-//        //D-pad Up
-//        new POVButton(OI.OperatorController, 0)
-//                .whenPressed(new SelectToReadyToShoot(Config.shooterMidRangeSolution, intake, indexer, shooter, arm)
-//                );
-//
-//        //D-pad Right
-//        new POVButton(OI.OperatorController, 90)
-//                .whenPressed(new SelectToReadyToShoot(Config.shooterShortRangeSolution, intake, indexer, shooter, arm)
-//                );
-//
-//        //D-pad Down
-//        new POVButton(OI.OperatorController, 180)
-//                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
-//                .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
-//
-//        new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-//                .whenPressed(new DriveAuto(DriveAuto.testPath, false, drive));
+         //Testing new simpler logic without firing solutions.
+        //new POVButton(OI.OperatorController, 270)
+                //.whenPressed(new MoveArmAndRetractIntake(-25000, intake, arm));
+
+        //D-pad Up
+        new POVButton(OI.OperatorController, 0)
+                .whenPressed(new SelectToReadyToShoot(Config.shooterMidRangeSolution, intake, indexer, shooter, arm)
+                );
+
+        //D-pad Right
+        new POVButton(OI.OperatorController, 90)
+                .whenPressed(new SelectToReadyToShoot(Config.shooterShortRangeSolution, intake, indexer, shooter, arm)
+                );
+
+        //D-pad Down
+        new POVButton(OI.OperatorController, 180)
+                .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
+                .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
+
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
+                .whenPressed(new DriveAuto(DriveAuto.testPath, false, drive));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
