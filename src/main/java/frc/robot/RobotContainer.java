@@ -283,17 +283,23 @@ public class RobotContainer
         // Clear a pending X button press so we don't accidentally release the arm brake the instant we are disabled
         OI.OperatorController.getXButtonPressed();
 
-        resetToggles();
+        resetDashboardToggles();
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Called once when the robot enables.
      */
     public void onEnabled() {
-        resetToggles();
+        resetDashboardToggles();
     }
 
-    private void resetToggles() {
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Reset the state of the Dashboard toggles, and their coresponding states
+     * TODO: we probably want to make the default state a config value, and have a way to ask a system to reset itself
+     *  so we're not duplicating logic here.
+     */
+    private void resetDashboardToggles() {
         // Set the arm and drive to brake mode whenever the robot is disabled.
         arm.setBrakeMode();
         drive.setCoastMode(false);
@@ -301,6 +307,15 @@ public class RobotContainer
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Passthrough of robotPeriodic
+     */
+    public void robotPeriodic() {
+        outputToDashboard();
+        updateDashboardToggles();
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -327,7 +342,7 @@ public class RobotContainer
     /** ----------------------------------------------------------------------------------------------------------------
      * Send debug values to SmartDashboard
      */
-    public void outputToDashboard() {
+    private void outputToDashboard() {
 
         // TODO: Jleyshock - delete values when a bool is unchecked
 
@@ -362,6 +377,9 @@ public class RobotContainer
         }
     }
 
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Read values that are toggleable on the dashboard and update state as appropriate
+     */
     private void updateDashboardToggles() {
         // Manual calibration is currently disabled, instead we calibrate via turning no the robot in the correct state
 //        boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);

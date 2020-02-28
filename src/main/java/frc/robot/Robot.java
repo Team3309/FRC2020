@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-        container.outputToDashboard();
+        container.robotPeriodic();
         displayWarnings.execute();
 
         if (wasDisabled && DriverStation.getInstance().isEnabled()) {
@@ -134,9 +134,12 @@ public class Robot extends TimedRobot {
         }
     }
 
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     *
+     */
     @Override
     public void disabledPeriodic() {
-        // TODO: JLEYSHOCK - add smart dashboard buttons for break mode toggles for drive and arm.
         //   Make sure they are enabled when the robot is enabled (related to above todo)
         container.disabledPeriodic();
     }

@@ -137,6 +137,10 @@ public class DriveSubsystem extends SubsystemBase {
         slave.setInverted(InvertType.FollowMaster);
     }
 
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @param coast true = Coast, false = Break
+     */
     public void setCoastMode(boolean coast) {
         NeutralMode mode = coast ? NeutralMode.Coast : NeutralMode.Brake;
 
