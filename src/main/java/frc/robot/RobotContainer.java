@@ -125,6 +125,7 @@ public class RobotContainer
     // -- Auto
     SendableChooser<Command> Chooser = new SendableChooser<>();
 
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
      */
@@ -149,28 +150,6 @@ public class RobotContainer
         if (Config.isIndexerInstalled) {
             indexer.setDefaultCommand(new AutoIndexIn(indexer, shooter));
         }
-    }
-
-    /** ----------------------------------------------------------------------------------------------------------------
-     * Initialize smart dashboard with toggles to show and hide subsystem outputs
-     */
-    private void displaySubsystemToggles() {
-        SmartDashboard.putBoolean(armDashboardKey, false);
-        SmartDashboard.putBoolean(climberDashboardKey, false);
-        SmartDashboard.putBoolean(ctrlPanelDashboardKey, false);
-        SmartDashboard.putBoolean(driveDashboardKey, false);
-        SmartDashboard.putBoolean(indexerDashboardKey, false);
-        SmartDashboard.putBoolean(intakeDashboardKey, false);
-        SmartDashboard.putBoolean(shooterDashboardKey, false);
-        SmartDashboard.putBoolean(visionDashboardKey, false);
-
-        // Toggles for systems while disabled.
-        SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
-        SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
-        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
-
-        // Technically not a display toggle, but the button that lets you manually calibrate
-        //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
     }
 
 
@@ -266,7 +245,25 @@ public class RobotContainer
         //Chooser.addOption("Simple Auto", new SimpleAutoCommand());
     }
 
-    /**
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Passthrough of robotPeriodic
+     */
+    public void robotPeriodic() {
+        outputToDashboard();
+        updateDashboardToggles();
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Called once when the robot enables.
+     */
+    public void onEnabled() {
+        resetDashboardToggles();
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
      * Avoid surprises for safety when re-enabling
      */
     public void disabledInit() {
@@ -286,11 +283,42 @@ public class RobotContainer
         resetDashboardToggles();
     }
 
+
     /** ----------------------------------------------------------------------------------------------------------------
-     * Called once when the robot enables.
+     * Continuously called while we are disabled
      */
-    public void onEnabled() {
-        resetDashboardToggles();
+    public void disabledPeriodic() {
+
+        // Don't allow indexer to move when re-enabled if it is manually moved while disabled
+        indexer.reset();
+
+        // Allow arm to be moved when disabled
+        if (OI.OperatorController.getXButtonPressed()) {
+            arm.setCoastMode();
+        }
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Initialize smart dashboard with toggles to show and hide subsystem outputs
+     */
+    private void displaySubsystemToggles() {
+        SmartDashboard.putBoolean(armDashboardKey, false);
+        SmartDashboard.putBoolean(climberDashboardKey, false);
+        SmartDashboard.putBoolean(ctrlPanelDashboardKey, false);
+        SmartDashboard.putBoolean(driveDashboardKey, false);
+        SmartDashboard.putBoolean(indexerDashboardKey, false);
+        SmartDashboard.putBoolean(intakeDashboardKey, false);
+        SmartDashboard.putBoolean(shooterDashboardKey, false);
+        SmartDashboard.putBoolean(visionDashboardKey, false);
+
+        // Toggles for systems while disabled.
+        SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
+        SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
+        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
+
+        // Technically not a display toggle, but the button that lets you manually calibrate
+        //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
     }
 
 
@@ -311,33 +339,12 @@ public class RobotContainer
 
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Passthrough of robotPeriodic
-     */
-    public void robotPeriodic() {
-        outputToDashboard();
-        updateDashboardToggles();
-    }
-
-    /** ----------------------------------------------------------------------------------------------------------------
-     * Continuously called while we are disabled
-     */
-    public void disabledPeriodic() {
-
-        // Don't allow indexer to move when re-enabled if it is manually moved while disabled
-        indexer.reset();
-
-        // Allow arm to be moved when disabled
-        if (OI.OperatorController.getXButtonPressed()) {
-            arm.setCoastMode();
-        }
-    }
-
-    /** ----------------------------------------------------------------------------------------------------------------
      * @return the command chosen by the smartdashboard to run in auto
      */
     public Command getAutonomousCommand() {
         return Chooser.getSelected();
     }
+
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Send debug values to SmartDashboard
@@ -377,6 +384,7 @@ public class RobotContainer
         }
     }
 
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Read values that are toggleable on the dashboard and update state as appropriate
      */
@@ -399,6 +407,7 @@ public class RobotContainer
             drive.setCoastMode(SmartDashboard.getBoolean(DriveCoastModeDashboardKey, false));
         }
     }
+
 
     /** ----------------------------------------------------------------------------------------------------------------
      * @return boolean indicating if drive values display is enabled

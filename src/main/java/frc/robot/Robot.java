@@ -48,6 +48,22 @@ public class Robot extends TimedRobot {
 
 
     /** ----------------------------------------------------------------------------------------------------------------
+     * This function always runs, regardless of mode.
+     */
+    @Override
+    public void robotPeriodic() {
+        CommandScheduler.getInstance().run();
+        container.robotPeriodic();
+        displayWarnings.execute();
+
+        if (wasDisabled && DriverStation.getInstance().isEnabled()) {
+            wasDisabled = false;
+            container.onEnabled();
+        }
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
      * This function is called when the Robot enters disabled.
      * It should be used to shut down processes that should only run when the bot is sendIsEnabled.
      */
@@ -55,6 +71,16 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
         container.disabledInit();
         wasDisabled = true;
+    }
+
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     *
+     */
+    @Override
+    public void disabledPeriodic() {
+        //   Make sure they are enabled when the robot is enabled (related to above todo)
+        container.disabledPeriodic();
     }
 
 
@@ -118,29 +144,4 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {
     }
 
-
-    /** ----------------------------------------------------------------------------------------------------------------
-     * This function always runs, regardless of mode.
-     */
-    @Override
-    public void robotPeriodic() {
-        CommandScheduler.getInstance().run();
-        container.robotPeriodic();
-        displayWarnings.execute();
-
-        if (wasDisabled && DriverStation.getInstance().isEnabled()) {
-            wasDisabled = false;
-            container.onEnabled();
-        }
-    }
-
-
-    /** ----------------------------------------------------------------------------------------------------------------
-     *
-     */
-    @Override
-    public void disabledPeriodic() {
-        //   Make sure they are enabled when the robot is enabled (related to above todo)
-        container.disabledPeriodic();
-    }
 }
