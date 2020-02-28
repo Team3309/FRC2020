@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         container.disabledInit();
+        wasDisabled = true;
     }
 
 
@@ -135,7 +136,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
-        wasDisabled = true;
         // TODO: JLEYSHOCK - add smart dashboard buttons for break mode toggles for drive and arm.
         //   Make sure they are enabled when the robot is enabled (related to above todo)
         container.disabledPeriodic();

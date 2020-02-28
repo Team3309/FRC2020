@@ -282,14 +282,25 @@ public class RobotContainer
 
         // Clear a pending X button press so we don't accidentally release the arm brake the instant we are disabled
         OI.OperatorController.getXButtonPressed();
+
+        resetToggles();
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Called once when the robot enables.
      */
     public void onEnabled() {
+        resetToggles();
+    }
+
+    private void resetToggles() {
+        // Set the arm and drive to brake mode whenever the robot is disabled.
         arm.setBrakeMode();
         drive.setCoastMode(false);
+
+        SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
+        SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
+        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
