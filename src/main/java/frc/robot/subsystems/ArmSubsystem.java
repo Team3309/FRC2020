@@ -44,7 +44,8 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public ArmSubsystem() {
-        calibrated = false;
+        // For week one, the requirement is for the robot to start up with the arm at the low hard stop.
+        calibrated = true;
 
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.armMotorId);

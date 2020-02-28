@@ -127,12 +127,16 @@ public class Config {
 
     public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
 
+    // Un-tuned values
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Long Range", 42900, 5000, 5000, 5000);
+            "Behind Control Panel", 42900, 5000, 5000, 5000);
+
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Mid Range", 50200, 5000, 18000, 21300);
+            "Starting Line", 47700, 5000, 18000, 21300);
+
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Short Range", 65900, 5000, 5000, 20000);
+            "Alliance Wall", 52500, 5000, 5000, 20000);
+
 
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
@@ -266,11 +270,11 @@ public class Config {
                 isIndexerInstalled = true;
                 isIndexerSensorInstalled = false;
                 isIntakeInstalled = true;
-                isShooterInstalled = true;
+                isShooterInstalled = false;
                 isVisionInstalled = true;
                 isLimelightOn = false;
-                isPcmInstalled = false;
-                isCompressorEnabled = false;
+                isPcmInstalled = true;
+                isCompressorEnabled = true;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
@@ -343,11 +347,13 @@ public class Config {
                 alpha - gamma = chain slack taut to taut = 3984
                 alpha - beta = run out after hitting battery case = 1881
                  */
-                armPositionVision = -20000; //if you update this then you also need to update the limelightMountingAngle
-                maxArmPosition = 0;
-                trenchArmPosition = -50000;
-                minArmPosition = -69000;
-                armPositionIntakeStowedLimit = -52500;
+                //54000 = target shot at max target zone
+
+                armPositionVision = 52500; //if you update this then you also need to update the limelightMountingAngle
+                maxArmPosition = 57000;
+                trenchArmPosition = 21500; // ? this currently a random value that has been unmeasured
+                minArmPosition = 1000;
+                armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
                 armControlPanelPosition = 0; //this needs to be bigger than the hard stop

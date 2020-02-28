@@ -30,6 +30,9 @@ public class MoveArmAndRetractIntake extends CommandBase {
     }
 
     public boolean isFinished() {
+
+
+
         boolean isInPosition = arm.isInPosition(); //do this here to stop rare race condition
         if (arm.isArmAboveIntakeMinimum()) intake.retract();
         return isInPosition;

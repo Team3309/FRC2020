@@ -79,6 +79,9 @@ public class RobotContainer
     private final String shooterDashboardKey = "Display Shooter Values";
     private final String visionDashboardKey = "Display Vision Values";
     private final String ArmSetManualCalibrationDashboardKey = "Arm - Set Manual Calibration Now";
+    private final String ArmCoastModeDashboardKey = "Arm - Coast Mode";
+    private final String DriveCoastModeDashboardKey = "Drive - Coast Mode";
+    private final String VisionEnableLEDsDashboardKey = "Vision - Enable LEDs";
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
