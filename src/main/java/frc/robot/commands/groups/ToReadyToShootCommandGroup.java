@@ -1,11 +1,13 @@
 package frc.robot.commands.groups;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FiringSolution;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndRetractIntake;
+import frc.robot.commands.indexer.SetIndexerSpeed;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.SetFlywheelsSpeed;
 import frc.robot.commands.shooter.StartFlywheels;
@@ -28,6 +30,8 @@ public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
                         new MoveArmAndRetractIntake(firingSolution.getArmPosition(), intake, arm),
                 firingSolution == null ? new DoNothing() :
                         new SetFlywheelsSpeed(shooter, firingSolution.getTopFlywheelSpeed(), firingSolution.getBottomFlywheelSpeed()),
+                firingSolution == null ? new DoNothing() :
+                        new SetIndexerSpeed(indexer, firingSolution.getIndexerSpeed()),
                 new StartFlywheels(shooter),
                 new UpdateHandlingState(RobotContainer.RobotState.READY_TO_SHOOT)
         );

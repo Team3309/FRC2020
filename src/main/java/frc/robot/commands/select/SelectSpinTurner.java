@@ -18,5 +18,4 @@ public class SelectSpinTurner extends SelectCommand3309 {
             }
         });
     }
-
 }

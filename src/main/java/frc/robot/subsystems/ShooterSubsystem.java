@@ -18,8 +18,8 @@ public class ShooterSubsystem extends SubsystemBase {
      /**
       * Flywheel
       */
-    private Double flywheelSpeedTop;
-    private Double flywheelSpeedBottom;
+    private Integer flywheelSpeedTop;
+    private Integer flywheelSpeedBottom;
 
      public boolean areFlywheelsToSpeed() {
          if (!Config.isShooterInstalled) return true;
@@ -108,7 +108,7 @@ public class ShooterSubsystem extends SubsystemBase {
       * @param speedTop - stores speed for for later engagement
       * @param speedBottom - stores speed for bottom motor for later engagement
       */
-     public void setDesiredSpeed(Double speedTop, Double speedBottom) {
+     public void setDesiredSpeed(Integer speedTop, Integer speedBottom) {
          flywheelSpeedTop = speedTop;
          flywheelSpeedBottom = speedBottom;
      }

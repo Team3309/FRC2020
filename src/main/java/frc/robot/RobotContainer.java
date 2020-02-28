@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,27 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.arm.ManualArmAdjustment;
+import frc.robot.commands.climber.LiftRobot;
 import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.AutoIndexIn;
-import frc.robot.commands.select.SelectCancelIntake;
-import frc.robot.commands.select.SelectCancelOuttake;
-import frc.robot.commands.select.SelectCancelScan;
-import frc.robot.commands.select.SelectIntakeToOuttake;
-import frc.robot.commands.select.SelectMultishotToReadyToShoot;
-import frc.robot.commands.select.SelectOuttakeToIntake;
-import frc.robot.commands.select.SelectPositionTurner;
-import frc.robot.commands.select.SelectReadyToShootToDriving;
-import frc.robot.commands.select.SelectSingleShotToReadyToShoot;
-import frc.robot.commands.select.SelectSpinTurner;
-import frc.robot.commands.select.SelectStopCtrlPanelSpinning;
-import frc.robot.commands.select.SelectToIntake;
-import frc.robot.commands.select.SelectToMultishot;
-import frc.robot.commands.select.SelectToReadyToShoot;
-import frc.robot.commands.select.SelectToScan;
-import frc.robot.commands.select.SelectToSingleShot;
-import frc.robot.commands.select.SelectToTrench;
+import frc.robot.commands.select.*;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
@@ -235,7 +221,11 @@ public class RobotContainer
                 .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                .whenPressed(new DriveAuto(DriveAuto.testPath, false, drive));
+                //.whenPressed(new DriveAuto(DriveAuto.testPath, false, drive)
+                .whenPressed(new SelectPrepareToClimb(climber));
+
+        new JoystickButton(OI.OperatorController, XboxController.Button.kStickRight.value)
+                .whileHeld(new SelectLiftRobot(climber, OI.OperatorController.getTriggerAxis(GenericHID.Hand.kRight)));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

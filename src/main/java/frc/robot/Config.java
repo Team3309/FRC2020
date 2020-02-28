@@ -129,13 +129,13 @@ public class Config {
 
     // Un-tuned values
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Behind Control Panel", 42900, 5000, 16000, 20000);
+            "Behind Control Panel", 42900, 4000, 16000, 20000);
 
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Starting Line", 47700, 5000, 10000, 20000);
+            "Starting Line", 47700, 4000, 10000, 20000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 69000, 8000, 5000, 20000);
+            "Alliance Wall", 69000, 4000, 5000, 20000);
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ public class Config {
     public static Double indexerF;
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
-
+    public static final int indexInSpeed = 4000; // encoder counts per 100ms
 
     // we don't know what the nominal flywheel speed is when intaking because we use voltage control for intake
     public static final double autoIndexInMinFlywheelSpeed = 2000;  // ignore bounces before power is applied
@@ -164,8 +164,6 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final int indexerAcceleration = 40000;
-    public static final int indexerCruiseVelocity = 4000;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
     public static int maxPowerCells = 5;
