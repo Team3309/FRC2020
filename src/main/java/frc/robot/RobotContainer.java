@@ -285,6 +285,7 @@ public class RobotContainer
         // Allow arm to be moved when disabled
         if (OI.OperatorController.getXButtonPressed()) {
             arm.setCoastMode();
+            SmartDashboard.putBoolean(ArmCoastModeDashboardKey, true);
         }
     }
 
