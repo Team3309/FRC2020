@@ -88,24 +88,13 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
-     * Sets the neutral mode for the arm motor to Brake (immediate stop).
+     * Sets the neutral mode for the arm motor
      *
      */
-    public void setBrakeMode() {
-        if (Config.isArmInstalled) {
-            armMotor.setNeutralMode(NeutralMode.Brake);
-        }
+    public void setCoastMode(boolean coast) {
+        armMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
     }
 
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Sets the neutral mode for the arm motor to Coast (gradual stop).
-     *
-     */
-    public void setCoastMode() {
-        if (Config.isArmInstalled) {
-            armMotor.setNeutralMode(NeutralMode.Coast);
-        }
-    }
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Only for use when disabled to cancel previous goal position.

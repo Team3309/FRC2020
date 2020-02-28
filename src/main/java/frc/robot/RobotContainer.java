@@ -262,7 +262,7 @@ public class RobotContainer
         //TODO: Add a test mode only button that lets us have the robot send itself to starting configuration.
 
         // let arm drop slowly
-        arm.setBrakeMode();
+        arm.setCoastMode(false);
 
         // Cancel previous goal position so arm doesn't snap back to where it had been when re-enabled
         arm.stopMotor();
@@ -284,7 +284,7 @@ public class RobotContainer
 
         // Allow arm to be moved when disabled
         if (OI.OperatorController.getXButtonPressed()) {
-            arm.setCoastMode();
+            arm.setCoastMode(true);
             SmartDashboard.putBoolean(ArmCoastModeDashboardKey, true);
         }
     }
@@ -320,7 +320,7 @@ public class RobotContainer
      */
     private void resetDashboardToggles() {
         // Set the arm and drive to brake mode whenever the robot is disabled.
-        arm.setBrakeMode();
+        arm.setCoastMode(false);
         drive.setCoastMode(false);
 
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
@@ -389,12 +389,7 @@ public class RobotContainer
 
         // These toggles should only be usable while disabled.
         if (DriverStation.getInstance().isDisabled()) {
-            if (SmartDashboard.getBoolean(ArmCoastModeDashboardKey, false)) {
-                arm.setCoastMode();
-            } else {
-                arm.setBrakeMode();
-            }
-
+            arm.setCoastMode(SmartDashboard.getBoolean(ArmCoastModeDashboardKey, false));
             drive.setCoastMode(SmartDashboard.getBoolean(DriveCoastModeDashboardKey, false));
         }
     }
