@@ -170,6 +170,7 @@ public class RobotContainer
         // TODO: enable once indexer sensor is installed
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .or(OI.rightStickRightCluster)
+                // TODO BUG: hold one trigger a, add trigger b, release b, intake is canceled instead of going back to a
                 .whenActive(new SelectIntakeToOuttake(intake, shooter))
                 .whenInactive(new SelectOuttakeToIntake(intake, indexer, shooter, arm));
 

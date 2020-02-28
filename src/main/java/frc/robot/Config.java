@@ -135,7 +135,7 @@ public class Config {
             "Starting Line", 47700, 5000, 18000, 21300);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 52500, 5000, 5000, 20000);
+            "Alliance Wall", 69000, 8000, 5000, 20000);
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -270,11 +270,11 @@ public class Config {
                 isIndexerInstalled = true;
                 isIndexerSensorInstalled = false;
                 isIntakeInstalled = true;
-                isShooterInstalled = false;
+                isShooterInstalled = true;
                 isVisionInstalled = true;
                 isLimelightOn = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isCompressorEnabled = false;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
@@ -335,7 +335,7 @@ public class Config {
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
 
-                armP = 0.1; // core power (start at .1)
+                armP = 0.04; // core power (start at .1)
                 armI = 3.54972071e-05; // maintain goal position
                 armIntegralZone = 5000; // disable I outside of this range
                 armD = 0.0; // increase to lower overshoot (start at 0)
@@ -356,7 +356,7 @@ public class Config {
                 armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = maxArmPosition + 1500; //this needs to be bigger than the hard stop
+                armControlPanelPosition = maxArmPosition + 0; //this might need to be bigger than the hard stop
                 armPositionHardStop = 0;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches

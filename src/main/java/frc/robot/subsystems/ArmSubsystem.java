@@ -71,7 +71,7 @@ public class ArmSubsystem extends SubsystemBase {
         talon.configFactoryDefault();
         talon.setSensorPhase(false);
         talon.setInverted(true);
-        talon.configForwardLimitSwitchSource(FeedbackConnector, NormallyClosed, Config.motorControllerConfigTimeoutMs);
+        //talon.configForwardLimitSwitchSource(FeedbackConnector, NormallyClosed, Config.motorControllerConfigTimeoutMs);
         talon.setNeutralMode(NeutralMode.Brake);
 
         // Position control PID parameters
@@ -182,8 +182,6 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void moveToPosition(int position) {
-        System.out.println("moveToPosition: " + position);
-
         if (Config.isArmInstalled) {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
