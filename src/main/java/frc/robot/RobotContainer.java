@@ -65,7 +65,11 @@ public class RobotContainer
         TURNER_IN_POSITION,
         SPIN_TURNER,
         INIT_OUTTAKE,
-        OUTTAKE
+        OUTTAKE,
+        INIT_READY_TO_CLIMB,
+        READY_TO_CLIMB,
+        CLIMBING,
+        CLIMBED
     }
 
     private static RobotState state = RobotState.ARM_UP_DRIVE;

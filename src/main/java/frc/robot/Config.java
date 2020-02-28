@@ -237,6 +237,7 @@ public class Config {
     public static Integer climbMotorOneId;
     public static Integer climberDeploySolenoidId;
     public static Integer buddyClimbDeploySolenoidId;
+    public static final double climberDeployTime = .7; //Seconds
 
     public static final double xBoxTriggerButtonThreshold = 0.5;
     public static final int motorControllerConfigTimeoutMs = 25;
