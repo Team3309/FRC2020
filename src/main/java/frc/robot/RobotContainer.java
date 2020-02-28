@@ -199,11 +199,11 @@ public class RobotContainer
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
-                ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel)
+                ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController)
                 );
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel))
-                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel));
+                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
 
         //D-pad Left
         new POVButton(OI.OperatorController, 270)
