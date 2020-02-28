@@ -6,7 +6,8 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.ctrlpanelturner.Rotate;
 import frc.robot.commands.drive.DriveApplyPower;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.CtrlPanelSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class SpinTurnerCommandGroup extends SequentialCommandGroup {
 

@@ -1,7 +1,6 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Config;
 import frc.robot.subsystems.ClimberSubsystem;

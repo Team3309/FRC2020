@@ -1,6 +1,5 @@
 package frc.robot.commands.groups;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
@@ -10,7 +9,12 @@ import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.ClearFlywheelsSpeeds;
 import frc.robot.commands.shooter.StopFlywheels;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.CtrlPanelSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToDriveCommandGroup extends SequentialCommandGroup {
 

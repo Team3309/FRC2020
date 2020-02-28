@@ -2,11 +2,9 @@ package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Config;
-import frc.robot.FiringSolution;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndRetractIntake;
-import frc.robot.commands.indexer.ManageIndexer;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.StopFlywheels;
 import frc.robot.commands.vision.CreateFiringSolution;

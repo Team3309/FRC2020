@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.CtrlPanelSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class StopCtrlPanelSpinningCommandGroup extends SequentialCommandGroup {
 

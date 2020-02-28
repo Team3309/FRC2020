@@ -3,7 +3,8 @@ package frc.robot.commands.select;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.StopCtrlPanelSpinningCommandGroup;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.CtrlPanelSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class SelectStopCtrlPanelSpinning extends SelectCommand3309 {
 

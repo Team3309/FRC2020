@@ -1,7 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 /**---------------------------------------------------------------------------------------------------------------------
  * Manage the parameters needed for shooting from a given location
  */

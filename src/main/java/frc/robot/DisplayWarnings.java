@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Config;
 
 public class DisplayWarnings {
     private Timer warningsTimer = new Timer();

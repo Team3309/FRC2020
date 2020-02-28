@@ -1,12 +1,8 @@
 package frc.robot.commands.select;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.groups.ToIntakeCommandGroup;
-import frc.robot.commands.intake.StartIntakeMotor;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;

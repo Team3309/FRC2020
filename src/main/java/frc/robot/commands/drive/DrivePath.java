@@ -2,7 +2,6 @@ package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.select.SelectCommand3309;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.Waypoint;
 

@@ -10,9 +10,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
 
-import static com.ctre.phoenix.motorcontrol.LimitSwitchNormal.NormallyClosed;
-import static com.ctre.phoenix.motorcontrol.LimitSwitchSource.FeedbackConnector;
-
 public class ArmSubsystem extends SubsystemBase {
 
     //------------------------------------------------------------------------------------------------------------------
