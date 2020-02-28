@@ -75,11 +75,13 @@ public class IndexerSubsystem extends SubsystemBase {
      * @param cruiseVelocity encoder counts per 100ms
      */
     public void setIndexerSpeed(int cruiseVelocity) {
-        UpperIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
-        LowerIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
+        if (Config.isIndexerInstalled) {
+            UpperIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
 
-        UpperIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
-        LowerIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
