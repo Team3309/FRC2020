@@ -20,6 +20,7 @@ public class Robot extends TimedRobot {
     private Command autonomousCommand;
     private DisplayWarnings displayWarnings = new DisplayWarnings();
     public static final PowerDistributionPanel pdp = new PowerDistributionPanel();
+    private boolean wasDisabled = true;
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
@@ -122,24 +123,21 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        // TODO: JLEYSHOCK - enable break mode when the robot is enabled,
-        //  probably want to track state so we're not slamming the CAN bus while we're enabled
-
-
         CommandScheduler.getInstance().run();
         container.outputToDashboard();
         displayWarnings.execute();
 
-        // TODO: move to disabled periodic
-        if (DriverStation.getInstance().isDisabled()) {
-            container.disabledPeriodic();
+        if (wasDisabled && DriverStation.getInstance().isEnabled()) {
+            wasDisabled = false;
+            container.onEnabled();
         }
     }
 
     @Override
     public void disabledPeriodic() {
+        wasDisabled = true;
         // TODO: JLEYSHOCK - add smart dashboard buttons for break mode toggles for drive and arm.
         //   Make sure they are enabled when the robot is enabled (related to above todo)
-        super.disabledPeriodic();
+        container.disabledPeriodic();
     }
 }

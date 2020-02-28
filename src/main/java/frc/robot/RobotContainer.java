@@ -278,7 +278,14 @@ public class RobotContainer
         OI.OperatorController.getXButtonPressed();
     }
 
-    /**
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Called once when the robot enables.
+     */
+    public void onEnabled() {
+        arm.setBrakeMode();
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
      * Continuously called while we are disabled
      */
     public void disabledPeriodic() {
