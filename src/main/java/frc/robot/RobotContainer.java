@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -288,6 +289,7 @@ public class RobotContainer
      */
     public void onEnabled() {
         arm.setBrakeMode();
+        drive.setCoastMode(false);
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -356,6 +358,17 @@ public class RobotContainer
 //            SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
 //            arm.calibrate();
 //        }
+
+        // These toggles should only be usable while disabled.
+        if (DriverStation.getInstance().isDisabled()) {
+            if (SmartDashboard.getBoolean(ArmCoastModeDashboardKey, false)) {
+                arm.setCoastMode();
+            } else {
+                arm.setBrakeMode();
+            }
+
+            drive.setCoastMode(SmartDashboard.getBoolean(DriveCoastModeDashboardKey, false));
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

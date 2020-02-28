@@ -137,6 +137,13 @@ public class DriveSubsystem extends SubsystemBase {
         slave.setInverted(InvertType.FollowMaster);
     }
 
+    public void setCoastMode(boolean coast) {
+        NeutralMode mode = coast ? NeutralMode.Coast : NeutralMode.Brake;
+
+        driveMasterLeft.setNeutralMode(mode);
+        driveMasterRight.setNeutralMode(mode);
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      * Finds the current position of the left master encoder.
      *
