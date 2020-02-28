@@ -8,7 +8,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 //default command of indexer
-public class ManageIndexer extends CommandBase {
+public class AutoIndexIn extends CommandBase {
 
     private final ShooterSubsystem shooter;
     private IndexerSubsystem Indexer;
@@ -17,7 +17,7 @@ public class ManageIndexer extends CommandBase {
     private double maxFlywheelSpeed;
     private double lastFlywheelSpeed;
 
-    public ManageIndexer(IndexerSubsystem indexer, ShooterSubsystem shooter) {
+    public AutoIndexIn(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         this.shooter = shooter;
         this.Indexer = indexer;
         addRequirements(indexer);

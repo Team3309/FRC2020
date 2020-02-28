@@ -10,7 +10,7 @@ import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.indexer.LoadIntoArm;
-import frc.robot.commands.indexer.ManageIndexer;
+import frc.robot.commands.indexer.AutoIndexIn;
 import frc.robot.commands.select.SelectCancelIntake;
 import frc.robot.commands.select.SelectCancelOuttake;
 import frc.robot.commands.select.SelectCancelScan;
@@ -146,7 +146,7 @@ public class RobotContainer
             arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
         }
         if (Config.isIndexerInstalled) {
-            indexer.setDefaultCommand(new ManageIndexer(indexer, shooter));
+            indexer.setDefaultCommand(new AutoIndexIn(indexer, shooter));
         }
     }
 
