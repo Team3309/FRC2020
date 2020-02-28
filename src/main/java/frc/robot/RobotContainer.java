@@ -163,8 +163,13 @@ public class RobotContainer
         SmartDashboard.putBoolean(shooterDashboardKey, false);
         SmartDashboard.putBoolean(visionDashboardKey, false);
 
+        // Toggles for systems while disabled.
+        SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
+        SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
+        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
+
         // Technically not a display toggle, but the button that lets you manually calibrate
-        SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
+        //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
     }
 
 
@@ -314,8 +319,12 @@ public class RobotContainer
         // TODO: Jleyshock - delete values when a bool is unchecked
 
         SmartDashboard.putString("PC Handling State", state.name());
-        if (SmartDashboard.getBoolean(armDashboardKey, false) && Config.isArmInstalled) {
-            arm.outputToDashboard();
+        if (Config.isArmInstalled) {
+            if (SmartDashboard.getBoolean(armDashboardKey, false)) {
+                arm.outputToDashboard();
+            } else {
+                arm.outputArmPositionToDashboard();
+            }
         }
         if (SmartDashboard.getBoolean(climberDashboardKey, false) && Config.isClimberInstalled) {
             climber.outputToDashboard();
@@ -338,12 +347,15 @@ public class RobotContainer
         if (SmartDashboard.getBoolean(visionDashboardKey, false) && Config.isVisionInstalled) {
             vision.outputToDashboard();
         }
+    }
 
-        boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
-        if (setCalibration) {
-            SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
-            arm.calibrate();
-        }
+    private void updateDashboardToggles() {
+        // Manual calibration is currently disabled, instead we calibrate via turning no the robot in the correct state
+//        boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
+//        if (setCalibration) {
+//            SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
+//            arm.calibrate();
+//        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
