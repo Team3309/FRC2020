@@ -129,10 +129,10 @@ public class Config {
 
     // Un-tuned values
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Behind Control Panel", 42900, 5000, 5000, 5000);
+            "Behind Control Panel", 42900, 5000, 16000, 20000);
 
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Starting Line", 47700, 5000, 18000, 21300);
+            "Starting Line", 47700, 5000, 10000, 20000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
             "Alliance Wall", 69000, 8000, 5000, 20000);
@@ -161,8 +161,8 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final int indexerAcceleration = 80000;
-    public static final int indexerCruiseVelocity = 8000;
+    public static final int indexerAcceleration = 40000;
+    public static final int indexerCruiseVelocity = 4000;
     public static Integer powerCellDistanceInEncoderCounts;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;

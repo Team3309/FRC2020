@@ -280,6 +280,8 @@ public class RobotContainer
      */
     public void outputToDashboard() {
 
+        // TODO: Jleyshock - delete values when a bool is unchecked
+
         SmartDashboard.putString("PC Handling State", state.name());
         if (SmartDashboard.getBoolean(armDashboardKey, false) && Config.isArmInstalled) {
             arm.outputToDashboard();

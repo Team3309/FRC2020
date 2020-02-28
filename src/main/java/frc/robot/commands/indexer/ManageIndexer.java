@@ -37,7 +37,7 @@ public class ManageIndexer extends CommandBase {
         if (Indexer.getCount() <= Config.maxPowerCells)  {
             if (wasToSpeed && (shooter.getTopMotorVelocity() + shooter.getBottomMotorVelocity()) / 2 < flywheelSpeedAverage * Config.indexerPowerCellNeedsIndexingThreshold) {
                 wasToSpeed = false; //reset this so we don't repeatedly index in.
-                Indexer.indexIn();
+                //Indexer.indexIn(); // TODO BUG: this keeps going once detected without stopping
             }
         }
     }
