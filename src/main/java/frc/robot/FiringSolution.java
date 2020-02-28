@@ -6,12 +6,12 @@ package frc.robot;
 public class FiringSolution {
     private String solutionName;
     private int armPosition;  // encoder count
-    private double indexerSpeed;  // encoder counts per 100 ms
-    private double topFlywheelSpeed;  // encoder counts per 100 ms
-    private double bottomFlywheelSpeed;  // encoder counts per 100 ms
+    private int indexerSpeed;  // encoder counts per 100 ms
+    private int topFlywheelSpeed;  // encoder counts per 100 ms
+    private int bottomFlywheelSpeed;  // encoder counts per 100 ms
 
     FiringSolution(String solutionName, int armPosition,
-                   double indexerSpeed, double topFlywheelSpeed, double bottomFlywheelSpeed) {
+                   int indexerSpeed, int topFlywheelSpeed, int bottomFlywheelSpeed) {
         this.solutionName = solutionName;
         this.armPosition = armPosition;
         this.indexerSpeed = indexerSpeed;
@@ -40,9 +40,9 @@ public class FiringSolution {
 
         armPosition = (int) findInterpolatedFunctionValue(threePointHoleDistance,
                 Config.threePointHoleDistances, Config.threePointHoleDistances);
-        topFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleTx,
+        topFlywheelSpeed =(int) findInterpolatedFunctionValue(threePointHoleTx,
                 Config.threePointHoleDistances, Config.threePointHoleTopSpeeds);
-        bottomFlywheelSpeed = findInterpolatedFunctionValue(threePointHoleTy,
+        bottomFlywheelSpeed = (int) findInterpolatedFunctionValue(threePointHoleTy,
                 Config.threePointHoleDistances, Config.threePointHoleBottomSpeeds);
 
         solutionName = "Calculated";
@@ -64,7 +64,7 @@ public class FiringSolution {
 
 
     public int getArmPosition() { return armPosition; }
-    public double getIndexerSpeed() { return indexerSpeed; }
-    public double getTopFlywheelSpeed() { return topFlywheelSpeed; }
-    public double getBottomFlywheelSpeed() { return bottomFlywheelSpeed; }
+    public int getIndexerSpeed() { return indexerSpeed; }
+    public int getTopFlywheelSpeed() { return topFlywheelSpeed; }
+    public int getBottomFlywheelSpeed() { return bottomFlywheelSpeed; }
 }

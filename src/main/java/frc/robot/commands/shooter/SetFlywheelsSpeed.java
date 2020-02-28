@@ -6,10 +6,10 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SetFlywheelsSpeed extends InstantCommand {
 
     private final ShooterSubsystem shooter;
-    private Double speedTop;
-    private Double speedBottom;
+    private Integer speedTop;
+    private Integer speedBottom;
 
-    public SetFlywheelsSpeed(ShooterSubsystem shooter, Double speedTop, Double speedBottom) {
+    public SetFlywheelsSpeed(ShooterSubsystem shooter, Integer speedTop, Integer speedBottom) {
         this.shooter = shooter;
         this.speedTop = speedTop;
         this.speedBottom = speedBottom;

@@ -38,6 +38,7 @@ public class IndexerSubsystem extends SubsystemBase {
             }
             configIndexerTalon(UpperIndexerMotor);
             configIndexerTalon(LowerIndexerMotor);
+            setIndexerSpeed(Config.indexInSpeed);
 
             LowerIndexerMotor.setInverted(false);
             UpperIndexerMotor.setInverted(true);
@@ -62,10 +63,23 @@ public class IndexerSubsystem extends SubsystemBase {
         talon.config_kF(0, Config.indexerF, Config.motorControllerConfigTimeoutMs);
 
         // Motion Magic parameters
-        talon.configMotionCruiseVelocity(Config.indexerCruiseVelocity, Config.motorControllerConfigTimeoutMs);
-        talon.configMotionAcceleration(Config.indexerAcceleration, Config.motorControllerConfigTimeoutMs);
         talon.configPeakOutputForward(Config.indexerPeakOutputForward, Config.motorControllerConfigTimeoutMs);
         talon.configPeakOutputReverse(Config.indexerPeakOutputReverse, Config.motorControllerConfigTimeoutMs);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
+     * Change the max speed for the indexer motors to allow for the speed to vary for each firing solution.
+     * The speed for intaking needs to be restored after firing. These settings are used for subsequent
+     * MotionMagic commands sent to the motor controllers.
+     *
+     * @param cruiseVelocity encoder counts per 100ms
+     */
+    public void setIndexerSpeed(int cruiseVelocity) {
+        UpperIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
+        LowerIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
+
+        UpperIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
+        LowerIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
