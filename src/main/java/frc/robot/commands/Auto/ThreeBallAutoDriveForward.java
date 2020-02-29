@@ -27,7 +27,7 @@ public class ThreeBallAutoDriveForward extends SequentialCommandGroup {
 
                 // Super cheesy way to get across the line because DriveStraight isn't working right yet.
                 new DriveApplyPower(0.2, drive),  // will be cancelled by DriveManual resuming at end of command group
-                new Sleep(1.0)
+                new Sleep(2.0)
         );
     }
 }

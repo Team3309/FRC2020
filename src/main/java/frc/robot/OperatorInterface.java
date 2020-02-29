@@ -18,18 +18,18 @@ public class OperatorInterface
     public ClusterGroup rightStickRightCluster = new ClusterGroup(DriverRight, GenericHID.Hand.kRight);
 
 
-    public static final int LEFT_CLUSTER_1_ID = 5;
-    public static final int LEFT_CLUSTER_2_ID = 6;
-    public static final int LEFT_CLUSTER_3_ID = 7;
-    public static final int LEFT_CLUSTER_4_ID = 8;
-    public static final int LEFT_CLUSTER_5_ID = 9;
-    public static final int LEFT_CLUSTER_6_ID = 10;
-    public static final int RIGHT_CLUSTER_1_ID = 11;
-    public static final int RIGHT_CLUSTER_2_ID = 12;
-    public static final int RIGHT_CLUSTER_3_ID = 13;
-    public static final int RIGHT_CLUSTER_4_ID = 14;
-    public static final int RIGHT_CLUSTER_5_ID = 15;
-    public static final int RIGHT_CLUSTER_6_ID = 16;
+    public static final int LEFT_CLUSTER_1_ID = 11;
+    public static final int LEFT_CLUSTER_2_ID = 12;
+    public static final int LEFT_CLUSTER_3_ID = 13;
+    public static final int LEFT_CLUSTER_4_ID = 14;
+    public static final int LEFT_CLUSTER_5_ID = 15;
+    public static final int LEFT_CLUSTER_6_ID = 16;
+    public static final int RIGHT_CLUSTER_1_ID = 5;
+    public static final int RIGHT_CLUSTER_2_ID = 6;
+    public static final int RIGHT_CLUSTER_3_ID = 7;
+    public static final int RIGHT_CLUSTER_4_ID = 8;
+    public static final int RIGHT_CLUSTER_5_ID = 9;
+    public static final int RIGHT_CLUSTER_6_ID = 10;
 
     // -- Operator
     public XboxController OperatorController = new XboxController(2);
