@@ -1,13 +1,19 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Config;
 import frc.robot.commands.Sleep;
 import frc.robot.commands.drive.DriveApplyPower;
 import frc.robot.commands.drive.DriveStraight;
+import frc.robot.commands.groups.ContinuousShotCommandGroup;
 import frc.robot.commands.groups.ToReadyToShootCommandGroup;
 import frc.robot.commands.indexer.SetNumPowerCells;
+import frc.robot.commands.select.SelectContinuousShotToReadyToShoot;
+import frc.robot.commands.select.SelectToContinuousShot;
 import frc.robot.commands.shooter.SingleShot;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -19,11 +25,11 @@ public class ThreeBallAutoDriveForward extends SequentialCommandGroup {
     public ThreeBallAutoDriveForward(IndexerSubsystem indexer, ShooterSubsystem shooter, DriveSubsystem drive, IntakeSubsystem intake, ArmSubsystem arm) {
         addCommands(
                 new ToReadyToShootCommandGroup(Config.shooterMidRangeSolution, intake, indexer, shooter, arm),
-                new SetNumPowerCells(indexer, 3), // indexer tuning varies by count of power cells loaded
-                new SingleShot(indexer, shooter),
-                new SingleShot(indexer, shooter),
-                new SingleShot(indexer, shooter),
-                new SingleShot(indexer, shooter),
+                new ParallelCommandGroup(
+                        new Sleep(3.0),
+                        new InstantCommand(() -> indexer.setVelocity(4000), indexer)
+                ),
+                new InstantCommand(() -> indexer.setVelocity(0), indexer),
 
                 // Super cheesy way to get across the line because DriveStraight isn't working right yet.
                 new DriveApplyPower(0.2, drive),  // will be cancelled by DriveManual resuming at end of command group
