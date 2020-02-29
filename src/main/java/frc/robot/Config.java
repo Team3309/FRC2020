@@ -270,7 +270,7 @@ public class Config {
         switch (currentRobot) {
             case Alpha2020:
                 isArmInstalled = true;
-                isClimberInstalled = false;
+                isClimberInstalled = true;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = true;
@@ -306,6 +306,9 @@ public class Config {
                 bottomShooterMotorID = 10;
                 topShooterPdpChannel = 12;
                 bottomShooterPdpChannel = 13;
+
+                climberDeploySolenoidId = 3;
+                climbMotorOneId = 13;
 
                 shooterVelocityP = 0.04;
                 shooterVelocityI = 0.0002;
