@@ -28,6 +28,7 @@ public class IndexerSubsystem extends SubsystemBase {
     private int LowerMotorDesiredEncoderPosition;
     private DigitalInput PowerCellSensor;
     private int PowerCells;
+    private int lastIndexerSpeed = 0;
 
     public IndexerSubsystem() {
         if (Config.isIndexerInstalled) {
@@ -75,12 +76,15 @@ public class IndexerSubsystem extends SubsystemBase {
      * @param cruiseVelocity encoder counts per 100ms
      */
     public void setIndexerSpeed(int cruiseVelocity) {
-        if (Config.isIndexerInstalled) {
+        if (Config.isIndexerInstalled && cruiseVelocity != lastIndexerSpeed) {
             UpperIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
             LowerIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
 
-            UpperIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
-            LowerIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.configMotionAcceleration(
+                    (int) (cruiseVelocity / Config.indexerRampSeconds), Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.configMotionAcceleration(
+                    (int) (cruiseVelocity / Config.indexerRampSeconds), Config.motorControllerConfigTimeoutMs);
+            lastIndexerSpeed = cruiseVelocity;
         }
     }
 

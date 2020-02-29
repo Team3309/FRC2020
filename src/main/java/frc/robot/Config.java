@@ -168,6 +168,7 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
+    public static final double indexerRampSeconds = 0.1;  // time for indexer to switch between stopped and full-speed
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
     public static int maxPowerCells = 5;
@@ -220,7 +221,7 @@ public class Config {
 
     public static final double armPeakOutputReverse = -0.2;
     public static final double armPeakOutputForward = 0.5;
-    public static final int armAcceleration = 75000; // Ticks per 100ms^2
+    public static final int armAcceleration = 75000; // Ticks per 100ms per sec
     public static final int armCruiseVelocity = 7500; // Ticks per 100ms
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
@@ -365,7 +366,11 @@ public class Config {
                 armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = maxArmPosition + 0; //this might need to be bigger than the hard stop
+
+                // Don't exceed max for the control panel position to avoid stalling the motor.
+                // Just let the system stabilize between drive pressure and arm repositioning power applied by
+                // the arm motor controller in attempting to maintain the last set position.
+                armControlPanelPosition = maxArmPosition;
                 armPositionHardStop = 0;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
