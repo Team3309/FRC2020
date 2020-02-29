@@ -144,10 +144,11 @@ public class DriveSubsystem extends SubsystemBase {
      * @param coast true = Coast, false = Break
      */
     public void setCoastMode(boolean coast) {
-        NeutralMode mode = coast ? NeutralMode.Coast : NeutralMode.Brake;
-
-        driveMasterLeft.setNeutralMode(mode);
-        driveMasterRight.setNeutralMode(mode);
+        if (Config.isDriveInstalled) {
+            NeutralMode mode = coast ? NeutralMode.Coast : NeutralMode.Brake;
+            driveMasterLeft.setNeutralMode(mode);
+            driveMasterRight.setNeutralMode(mode);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------

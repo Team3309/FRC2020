@@ -39,7 +39,9 @@ public class ClimberSubsystem extends SubsystemBase {
      *
      */
     public void setCoastMode(boolean coast) {
-        winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+        if (Config.isClimberInstalled) {
+            winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
