@@ -75,8 +75,7 @@ public class RobotContainer
         INIT_READY_TO_CLIMB,
         READY_TO_CLIMB,
         INIT_CLIMBING,
-        CLIMBING,
-        CLIMBED
+        CLIMBING
     }
 
     private static RobotState state = RobotState.ARM_UP_DRIVE;
@@ -320,10 +319,6 @@ public class RobotContainer
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
         SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
-
-        // Technically not a display toggle, but the button that lets you manually calibrate
-        //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
-        SmartDashboard.putBoolean("test", true);
     }
 
 
