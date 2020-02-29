@@ -34,6 +34,10 @@ public class Config {
     public static Boolean isCompressorEnabled;
     public static Boolean isIMUInstalled;
 
+    //------------------------------------------------------------------------------------------------------------------
+    //Driver Station
+    //------------------------------------------------------------------------------------------------------------------
+    public static double operatorControllerDeadzoneRightStick = 0.03;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//
@@ -236,6 +240,7 @@ public class Config {
 
     public static Integer climbMotorOneId;
     public static Integer climberDeploySolenoidId;
+    public static final double climberMaxPower = 0.5;
     public static Integer buddyClimbDeploySolenoidId;
     public static final double climberDeployTime = .7; //Seconds
 
@@ -275,7 +280,7 @@ public class Config {
                 isVisionInstalled = true;
                 isLimelightOn = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = false;
+                isCompressorEnabled = true;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;

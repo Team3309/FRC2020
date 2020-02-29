@@ -1,17 +1,21 @@
 package frc.robot.commands.climber;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Config;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class LiftRobot extends CommandBase {
 
     ClimberSubsystem climber;
-    double power;
+    XboxController controller;
 
-    public LiftRobot (ClimberSubsystem climber, double power) {
+    public LiftRobot (ClimberSubsystem climber, XboxController controller) {
         this.climber = climber;
-        this.power = power;
+        this.controller = controller;
+        addRequirements(climber);
     }
 
     @Override
@@ -21,7 +25,12 @@ public class LiftRobot extends CommandBase {
 
     @Override
     public void execute() {
-        climber.moveWinch(power);
+        if(RobotContainer.getRobotState() == RobotContainer.RobotState.CLIMBING) {
+            double yRaw = controller.getY(GenericHID.Hand.kRight);
+            if (yRaw > Config.operatorControllerDeadzoneRightStick) {
+                climber.moveWinch(yRaw * Config.climberMaxPower);
+            }
+        }
     }
 
     public void end() {
@@ -30,6 +39,6 @@ public class LiftRobot extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

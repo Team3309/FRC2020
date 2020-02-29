@@ -138,6 +138,10 @@ public class RobotContainer
         }
     }
 
+    // TODO BUG: left stick, right cluster is mulshot (should be left cluster)
+    // TODO BUG: Right stick, right cluster is single shot (should be left stick, right cluster)
+
+    // TODO: verify clusters have intake (right stick, right cluster)
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Configure the bindings for the operator controller (Xbox Controller)
@@ -165,7 +169,6 @@ public class RobotContainer
         // TODO: enable once indexer sensor is installed
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .or(OI.rightStickRightCluster)
-                // TODO BUG: hold one trigger a, add trigger b, release b, intake is canceled instead of going back to a
                 .whenActive(new SelectIntakeToOuttake(intake, shooter))
                 .whenInactive(new SelectOuttakeToIntake(intake, indexer, shooter, arm));
 
@@ -221,11 +224,7 @@ public class RobotContainer
                 .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                //.whenPressed(new DriveAuto(DriveAuto.testPath, false, drive)
-                .whenPressed(new SelectPrepareToClimb(climber));
-
-        new JoystickButton(OI.OperatorController, XboxController.Button.kStickRight.value)
-                .whileHeld(new SelectLiftRobot(climber, OI.OperatorController.getTriggerAxis(GenericHID.Hand.kRight)));
+                .whenPressed(new SelectPrepareToClimb(climber, OI.OperatorController));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -389,6 +388,9 @@ public class RobotContainer
 
         // These toggles should only be usable while disabled.
         if (DriverStation.getInstance().isDisabled()) {
+            // TODO: if these are set while the robot is enabled, we should zero them back out so the dashboard doesn't
+            //  show an incorrect value (again, like the other comment, we should just set these in the actual system code
+            //  so they are always in the correct state.
             arm.setCoastMode(SmartDashboard.getBoolean(ArmCoastModeDashboardKey, false));
             drive.setCoastMode(SmartDashboard.getBoolean(DriveCoastModeDashboardKey, false));
         }
