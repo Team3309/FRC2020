@@ -181,7 +181,6 @@ public class Config {
     public static Integer armMotorPdpChannel;
 
     public static Integer maxArmPosition;
-    public static Integer trenchArmPosition;
     public static Integer minArmPosition;
     public static Integer armPositionIntakeStowedLimit;
     public static Integer armPositionIntakeStowedTarget;
@@ -342,7 +341,6 @@ public class Config {
 
                 armPositionVision = 52500; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 74500;
-                trenchArmPosition = 21500; // ? this currently a random value that has been unmeasured
                 minArmPosition = 1000;
                 armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
@@ -471,7 +469,6 @@ public class Config {
 
                 armPositionVision = 150000; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 180000;  // physical max = 190000
-                trenchArmPosition = 6288; //exactly 28 inches
                 minArmPosition = 3000;
                 armPositionIntakeStowedLimit = 45000;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;

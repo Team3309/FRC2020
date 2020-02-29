@@ -57,14 +57,12 @@ public class RobotContainer
         SCAN,
         SINGLE_SHOT,
         MULTI_SHOT,
-        TRENCH_DRIVE,
         INTAKE,
         READY_TO_SHOOT,
         INIT_ARM_UP_DRIVE,
         INIT_SCAN,
         INIT_SINGLE_SHOT,
         INIT_MULTI_SHOT,
-        INIT_TRENCH_DRIVE,
         INIT_INTAKE,
         INIT_READY_TO_SHOOT,
         INIT_POSITION_TURNER,
@@ -179,7 +177,7 @@ public class RobotContainer
                 .whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
 
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel))
+                .whenPressed(new SelectToOuttake(intake, indexer, shooter, arm, drive, ctrlPanel))
                 .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
 
         // Manual index load

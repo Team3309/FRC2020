@@ -18,7 +18,6 @@ public class SelectToScan extends SelectCommand3309 {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
