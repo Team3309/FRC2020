@@ -23,9 +23,9 @@ public class MultiShot extends CommandBase {
     @Override
     public void execute() {
         //only shoot if flywheel is up to speed
-        if (shooter.areFlywheelsToSpeed()) {
+        //if (shooter.areFlywheelsToSpeed()) {
             indexer.indexOut();
-        }
+        //}
     }
 
 
