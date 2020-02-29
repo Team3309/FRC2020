@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.Auto.ThreeBallAutoDriveForward;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.climber.LiftRobot;
 import frc.robot.commands.drive.DriveAuto;
@@ -231,7 +232,7 @@ public class RobotContainer
      * Push all the auto commands to the smart dashboard for easy choosing
      */
     private void setAutoOptions() {
-        //Chooser.addOption("Simple Auto", new SimpleAutoCommand());
+        Chooser.addOption("Simple Auto", new ThreeBallAutoDriveForward(indexer, shooter, drive));
     }
 
 

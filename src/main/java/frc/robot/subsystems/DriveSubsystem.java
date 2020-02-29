@@ -15,6 +15,8 @@ import frc.robot.Robot;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
 
+import java.io.ObjectInputFilter;
+
 public class DriveSubsystem extends SubsystemBase {
 
     private WPI_TalonFX driveMasterLeft;
@@ -214,6 +216,26 @@ public class DriveSubsystem extends SubsystemBase {
             } else {
                 return -driveMasterRight.getSelectedSensorVelocity(0);
             }
+        }
+        return 0;
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return The closed loop error for the left master motor
+     */
+    public double GetLeftClosedLoopError() {
+        if ( Config.isDriveInstalled) {
+            return driveMasterLeft.getClosedLoopError();
+        }
+        return 0;
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return The closed loop error for the left master motor
+     */
+    public double GetRightClosedLoopError() {
+        if ( Config.isDriveInstalled) {
+            return driveMasterRight.getClosedLoopError();
         }
         return 0;
     }
