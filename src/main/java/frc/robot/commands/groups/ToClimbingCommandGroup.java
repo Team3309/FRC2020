@@ -14,7 +14,8 @@ public class ToClimbingCommandGroup extends SequentialCommandGroup {
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_CLIMBING),
                 new ExtendRetractClimber(false, climber),
                 new UpdateHandlingState(RobotContainer.RobotState.CLIMBING),
-                new LiftRobot(climber, controller)
+                new LiftRobot(climber, controller),
+                new UpdateHandlingState(RobotContainer.RobotState.ARM_UP_DRIVE)
         );
     }
 }
