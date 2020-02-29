@@ -92,6 +92,7 @@ public class RobotContainer
     private final String ArmSetManualCalibrationDashboardKey = "Arm - Set Manual Calibration Now";
     private final String ArmCoastModeDashboardKey = "Arm - Coast Mode";
     private final String DriveCoastModeDashboardKey = "Drive - Coast Mode";
+    private final String ClimberCoastModeDashboardKey = "Climber - Coast Mode";
     private final String VisionEnableLEDsDashboardKey = "Vision - Enable LEDs";
 
     // --------------------------------------------------------------------------------------------
@@ -306,6 +307,7 @@ public class RobotContainer
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
+        SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
 
         // Technically not a display toggle, but the button that lets you manually calibrate
         //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
@@ -321,10 +323,12 @@ public class RobotContainer
         // Set the arm and drive to brake mode whenever the robot is disabled.
         arm.setCoastMode(false);
         drive.setCoastMode(false);
+        climber.setCoastMode(false);
 
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
+        SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
     }
 
 
@@ -393,6 +397,7 @@ public class RobotContainer
             //  so they are always in the correct state.
             arm.setCoastMode(SmartDashboard.getBoolean(ArmCoastModeDashboardKey, false));
             drive.setCoastMode(SmartDashboard.getBoolean(DriveCoastModeDashboardKey, false));
+            climber.setCoastMode(SmartDashboard.getBoolean(ClimberCoastModeDashboardKey, false));
         }
     }
 

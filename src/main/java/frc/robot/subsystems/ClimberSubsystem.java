@@ -36,6 +36,13 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
+     *
+     */
+    public void setCoastMode(boolean coast) {
+        winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
      * Activates the piston for the climber.
      */
     public void deployClimber() {
