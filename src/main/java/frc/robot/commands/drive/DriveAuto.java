@@ -136,27 +136,23 @@ public class DriveAuto extends CommandBase {
                 } else if (turningRight) {
                     currentAngularVelocity = -signum * nextPoint.angAccelerationInDegsPerSec2 * timerValue;
                 }
-
             }
+
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
             if (turnState == spinTurnState.accelerating &&
                     currentAngularVelocity >= nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
                 if (turningLeft) {
-
                     currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 } else if (turningRight) {
-
                     currentAngularVelocity = - signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 }
             }
             if (turnState == spinTurnState.cruising) {
                 if (turningLeft) {
-
                     currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 } else if (turningRight) {
-
                     currentAngularVelocity = - signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 }
             }
@@ -191,18 +187,14 @@ public class DriveAuto extends CommandBase {
                 if (Math.abs(degsLeftToTurn) < kTweakThreshold) {
                     //spin Turn complete
                     drive.setLeftRight(ControlMode.PercentOutput, 0, 0);
-                    if (nextPoint.finalHeading) {
-                        done = true;
-                        return;
-                    } else {
-                        done = true;
-                        superStateMachine = superState.drivingStraight;
-                        return;
-                    }
-                    //turnState = spinTurnState.notStarted;
+                    turnState = spinTurnState.notStarted;
+                    superStateMachine = superState.drivingStraight;
+
+                    // TODO: continue with path here instead of bailing after first spin turn
+                    done = true;
+                    return;
                 }
                 //turn left if we undershot
-
                 else if (degsLeftToTurn > 0) {
                     currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
                 }
