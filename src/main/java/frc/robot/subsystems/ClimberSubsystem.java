@@ -4,8 +4,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.Robot;
 
 /**
  * @author Mark Ghebrial
@@ -22,7 +24,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            winchMotor = new WPI_TalonFX(Config.climbMotorOneId);
+            winchMotor = new WPI_TalonFX(Config.climbMotorId);
             winchMotor.setNeutralMode(NeutralMode.Brake);
             winchMotor.setInverted(true);
 
@@ -72,6 +74,6 @@ public class ClimberSubsystem extends SubsystemBase {
      * Sends motor data to SmartDashboard
      */
     public void outputToDashboard() {
-        //SmartDashboard.putNumber("Key", value);
+        SmartDashboard.putNumber("Climber current", Robot.pdp.getCurrent(Config.climbPdpChannel));
     }
 }
