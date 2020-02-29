@@ -157,6 +157,18 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
+     * Set the number of powercells externally to this subsystem, such as a known number of powercells preloaded
+     * at the start of a match.
+     *
+     * @param powerCells Number of powercells currently loaded into the indexer
+     */
+    public void setNumPowerCells(int powerCells) {
+        if (powerCells >= 0 && powerCells <= Config.maxPowerCells) {
+            this.PowerCells = powerCells;
+        }
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
      * Gets the number of power cells currently in the indexer.
      *
      * @return How many power cells are in the indexer.

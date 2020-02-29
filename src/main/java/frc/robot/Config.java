@@ -183,7 +183,6 @@ public class Config {
     public static Integer maxArmPosition;
     public static Integer trenchArmPosition;
     public static Integer minArmPosition;
-    public static Integer armPositionHallEffectTop;
     public static Integer armPositionIntakeStowedLimit;
     public static Integer armPositionIntakeStowedTarget;
     public static Integer armPositionIntakeStowedUpperLimit;
@@ -204,16 +203,6 @@ public class Config {
     // in tuning mode.
     public static final boolean armPIDTuningMode = false;
 
-    // The procedure for running the arm without position sensors is similar to armPIDTestMode
-    // and just as dangerous, but we suppress warnings in this mode because we're willing to
-    // play with fire to make progress.
-    //
-    // BEFORE setting armNoPositionSensors to true:
-    //   Inform all operators that ***BEFORE*** every power up of the robot, the following MUST be done:
-    //     Manually extend the intake.
-    //     Put the arm in the lowest physical position against the battery case.
-    public static final boolean armNoPositionSensors = true;
-
     public static Double armP;
     public static Double armI;
     public static Integer armIntegralZone;
@@ -225,8 +214,7 @@ public class Config {
     public static final int armCruiseVelocity = 7500; // Ticks per 100ms
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
-    public static final double armJoystickTiltToPositionFactor = 250;
-    public static final int armCalibrationMotionIncrement = 300;
+    public static final double armJoystickTiltToPositionFactor = 100;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
@@ -239,11 +227,12 @@ public class Config {
     //Climber Constants//
     //
 
-    public static Integer climbMotorOneId;
+    public static Integer climbMotorId;
+    public static Integer climbPdpChannel;
     public static Integer climberDeploySolenoidId;
     public static final double climberMaxPower = 0.2;
     public static Integer buddyClimbDeploySolenoidId;
-    public static final double climberDeployTime = .7; //Seconds
+    public static final double climberDeployTime = 0.7; //Seconds
 
     public static final double xBoxTriggerButtonThreshold = 0.5;
     public static final int motorControllerConfigTimeoutMs = 25;
@@ -309,7 +298,8 @@ public class Config {
                 bottomShooterPdpChannel = 13;
 
                 climberDeploySolenoidId = 3;
-                climbMotorOneId = 13;
+                climbMotorId = 13;
+                climbPdpChannel = 0; // TODO: Get the right channel
 
                 shooterVelocityP = 0.04;
                 shooterVelocityI = 0.0002;
@@ -349,15 +339,6 @@ public class Config {
                 armI = 3.54972071e-05; // maintain goal position
                 armIntegralZone = 5000; // disable I outside of this range
                 armD = 0.0; // increase to lower overshoot (start at 0)
-                /*
-                alpha: 1145
-                beta: -736
-                gamma: -2839
-
-                alpha - gamma = chain slack taut to taut = 3984
-                alpha - beta = run out after hitting battery case = 1881
-                 */
-                //54000 = target shot at max target zone
 
                 armPositionVision = 52500; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 74500;
@@ -402,8 +383,6 @@ public class Config {
                         shooterMidRangeSolution.getTopFlywheelSpeed(),
                         shooterLongRangeSolution.getTopFlywheelSpeed(),
                         shooterLongRangeSolution.getTopFlywheelSpeed()};
-
-
 
                 break;
 

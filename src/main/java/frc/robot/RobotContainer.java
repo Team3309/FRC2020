@@ -75,8 +75,7 @@ public class RobotContainer
         INIT_READY_TO_CLIMB,
         READY_TO_CLIMB,
         INIT_CLIMBING,
-        CLIMBING,
-        CLIMBED
+        CLIMBING
     }
 
     private static RobotState state = RobotState.ARM_UP_DRIVE;
@@ -158,15 +157,9 @@ public class RobotContainer
                         0,
                         false, true)};
 
-        // TODO: Remove this after the indexer sensor is installed
+        // TODO: Remove after spin turn testing is complete
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new DriveAuto(waypoints, false, drive));
-
-        // TODO: enable once indexer sensor is installed
-        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .or(OI.rightStickRightCluster)
-                .whenActive(new SelectIntakeToOuttake(intake, shooter))
-                .whenInactive(new SelectOuttakeToIntake(intake, indexer, shooter, arm));
 
         // -------------------------------------------------------------------------------------------------------------
         // Control Panel
@@ -320,10 +313,6 @@ public class RobotContainer
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
         SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
-
-        // Technically not a display toggle, but the button that lets you manually calibrate
-        //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
-        SmartDashboard.putBoolean("test", true);
     }
 
 

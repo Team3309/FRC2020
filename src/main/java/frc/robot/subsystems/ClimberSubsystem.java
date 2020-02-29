@@ -4,9 +4,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
+import frc.robot.Robot;
 
 /**
  * @author Mark Ghebrial
@@ -19,7 +21,6 @@ import frc.robot.Config;
 public class ClimberSubsystem extends SubsystemBase {
 
     private WPI_TalonFX winchMotor;
-    //private WPI_TalonFX winchMotorSlave; //Uncomment this for a second motor
     private Solenoid deployPiston;
 
     private boolean defaultCoastMode = false;
@@ -27,12 +28,10 @@ public class ClimberSubsystem extends SubsystemBase {
 
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
-            winchMotor = new WPI_TalonFX(Config.climbMotorOneId);
+            winchMotor = new WPI_TalonFX(Config.climbMotorId);
             setCoastMode(defaultCoastMode);
-            winchMotor.setInverted(true); // TODO: Move this to config
+            winchMotor.setInverted(true);
 
-            //winchMotorSlave = new WPI_TalonFX(Config.climbMotorTwoId); //Uncomment these to initialize the second motor
-            //winchMotorSlave.follow(climberMotor);
             if (Config.isPcmInstalled) {
                 deployPiston = new Solenoid(Config.climberDeploySolenoidId);
             }
@@ -53,8 +52,9 @@ public class ClimberSubsystem extends SubsystemBase {
      *
      */
     public void setCoastMode(boolean coast) {
-        coastMode = coast;
-        winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+        if (Config.isClimberInstalled) {
+            winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+        }
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -88,6 +88,6 @@ public class ClimberSubsystem extends SubsystemBase {
      * Sends motor data to SmartDashboard
      */
     public void outputToDashboard() {
-        //SmartDashboard.putNumber("Key", value);
+        SmartDashboard.putNumber("Climber current", Robot.pdp.getCurrent(Config.climbPdpChannel));
     }
 }
