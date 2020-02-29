@@ -18,7 +18,6 @@ import frc.robot.Config;
 public class ClimberSubsystem extends SubsystemBase {
 
     private WPI_TalonFX winchMotor;
-    //private WPI_TalonFX winchMotorSlave; //Uncomment this for a second motor
     private Solenoid deployPiston;
 
     public ClimberSubsystem() {
@@ -27,8 +26,6 @@ public class ClimberSubsystem extends SubsystemBase {
             winchMotor.setNeutralMode(NeutralMode.Brake);
             winchMotor.setInverted(true); // TODO: Move this to config
 
-            //winchMotorSlave = new WPI_TalonFX(Config.climbMotorTwoId); //Uncomment these to initialize the second motor
-            //winchMotorSlave.follow(climberMotor);
             if (Config.isPcmInstalled) {
                 deployPiston = new Solenoid(Config.climberDeploySolenoidId);
             }
