@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 
@@ -21,10 +22,13 @@ public class ClimberSubsystem extends SubsystemBase {
     //private WPI_TalonFX winchMotorSlave; //Uncomment this for a second motor
     private Solenoid deployPiston;
 
+    private boolean defaultCoastMode = false;
+    private boolean coastMode = defaultCoastMode;
+
     public ClimberSubsystem() {
         if (Config.isClimberInstalled) {
             winchMotor = new WPI_TalonFX(Config.climbMotorOneId);
-            winchMotor.setNeutralMode(NeutralMode.Brake);
+            setCoastMode(defaultCoastMode);
             winchMotor.setInverted(true); // TODO: Move this to config
 
             //winchMotorSlave = new WPI_TalonFX(Config.climbMotorTwoId); //Uncomment these to initialize the second motor
@@ -35,10 +39,21 @@ public class ClimberSubsystem extends SubsystemBase {
         }
     }
 
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+
+        builder.addBooleanProperty(
+                "test coast mode",
+                () -> coastMode,
+                (boolean bool) -> setCoastMode(bool));
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      *
      */
     public void setCoastMode(boolean coast) {
+        coastMode = coast;
         winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
     }
 
