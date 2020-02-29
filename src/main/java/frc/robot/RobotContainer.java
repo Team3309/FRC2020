@@ -232,7 +232,7 @@ public class RobotContainer
      * Push all the auto commands to the smart dashboard for easy choosing
      */
     private void setAutoOptions() {
-        Chooser.addOption("Simple Auto", new ThreeBallAutoDriveForward(indexer, shooter, drive));
+        Chooser.addOption("Simple Auto", new ThreeBallAutoDriveForward(indexer, shooter, drive, intake, arm));
     }
 
 
