@@ -26,10 +26,12 @@ public class LiftRobot extends CommandBase {
     @Override
     public void execute() {
         if(RobotContainer.getRobotState() == RobotContainer.RobotState.CLIMBING) {
-            double yRaw = controller.getY(GenericHID.Hand.kRight);
-            if (yRaw > Config.operatorControllerDeadzoneRightStick) {
-                climber.moveWinch(yRaw * Config.climberMaxPower);
+            double yRaw = Math.max(controller.getY(GenericHID.Hand.kRight), 0);
+
+            if (yRaw < Config.operatorControllerDeadzoneRightStick) {
+                yRaw = 0;
             }
+            climber.moveWinch(yRaw * Config.climberMaxPower);
         }
     }
 

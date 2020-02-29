@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Auto.ThreeBallAutoDriveForward;
 import frc.robot.commands.arm.ManualArmAdjustment;
-import frc.robot.commands.climber.LiftRobot;
 import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.indexer.LoadIntoArm;
@@ -76,6 +74,7 @@ public class RobotContainer
         OUTTAKE,
         INIT_READY_TO_CLIMB,
         READY_TO_CLIMB,
+        INIT_CLIMBING,
         CLIMBING,
         CLIMBED
     }
@@ -225,7 +224,7 @@ public class RobotContainer
                 .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                .whenPressed(new SelectPrepareToClimb(climber, OI.OperatorController));
+                .whenPressed(new SelectClimbing(climber, OI.OperatorController));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

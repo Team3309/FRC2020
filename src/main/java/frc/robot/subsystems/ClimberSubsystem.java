@@ -45,6 +45,15 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
+     * Activates the piston for the climber.
+     */
+    public void retractClimber() {
+        if (Config.isClimberInstalled && Config.isPcmInstalled) {
+            deployPiston.set(false);
+        }
+    }
+
+    /**-----------------------------------------------------------------------------------------------------------------
      * Activates the winch
      */
     public void moveWinch (double power) {
