@@ -80,7 +80,7 @@ public class DriveAuto extends CommandBase {
         superStateMachine = superState.spinTurning;
         driveState = travelState.stopped;
         turnState = spinTurnState.notStarted;
-        encoderZeroValue = drive.getLeftEncoderPosition() /2  + drive.getRightEncoderPosition() / 2;
+        encoderZeroValue = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
         lastVelocity = 0;
     }
 
@@ -204,7 +204,7 @@ public class DriveAuto extends CommandBase {
                 }
             }
 
-            double right = drive.degreesPerSecToEncoderVelocity(currentAngularVelocity);
+            double right = DriveSubsystem.degreesPerSecToEncoderVelocity(currentAngularVelocity);
             drive.setLeftRight(ControlMode.Velocity, -right, right);
 
             if (RobotContainer.getDriveDebug()) {
@@ -254,7 +254,7 @@ public class DriveAuto extends CommandBase {
              *     else
              *         stop the robot and increment nextWaypointIndex
              */
-            double encoderTicksLinear = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition())/2;
+            double encoderTicksLinear = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
             double encoderTicksTraveled = encoderTicksLinear - encoderZeroValue;
             double inchesTraveled = DriveSubsystem.encoderCountsToInches((int) encoderTicksTraveled);
 
@@ -276,8 +276,8 @@ public class DriveAuto extends CommandBase {
                     speed = signum * nextPoint.maxLinearSpeed;
                 } else {
                     driveState = travelState.decelerating;
-                    lastVelocity = (DriveSubsystem.encoderVelocityToInchesPerSec(drive.getLeftEncoderVelocity())/2) +
-                            (DriveSubsystem.encoderVelocityToInchesPerSec(drive.getRightEncoderVelocity())/2);
+                    lastVelocity = DriveSubsystem.encoderVelocityToInchesPerSec(
+                            (drive.getLeftEncoderVelocity() + drive.getRightEncoderVelocity()) / 2);
                     ControlTimer.reset();
                 }
             }
@@ -303,7 +303,7 @@ public class DriveAuto extends CommandBase {
             }
 
             if (speed != 0 ) {
-                drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecondToEncoderVelocity(speed), turnCorrection);
+                drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecToEncoderVelocity(speed), turnCorrection);
             } else {
                 //If speed is zero, then use PercentOutput so we don't apply brakes
                 drive.setArcade(ControlMode.PercentOutput, 0,0);
