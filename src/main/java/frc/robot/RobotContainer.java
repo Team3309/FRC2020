@@ -148,24 +148,19 @@ public class RobotContainer
      * Configure the bindings for the operator controller (Xbox Controller)
      */
     private void configureButtonBindings() {
-
         //when active is the same as when pressed
         //when inactive is the same as when released
         //whileActiveOnce is the same as when held
 
-        // TODO: Fix binding to leftStickRightCluster for Single SHot
-        OI.leftStickRightCluster
-                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
-                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
         Waypoint[] waypoints = {new Waypoint(0, 0, 0, false),
                 new Waypoint(Math.cos(Math.toRadians(90)),
                         Math.sin(Math.toRadians(90)),
                         0,
                         false, true)};
+
         // TODO: Remove this after the indexer sensor is installed
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new DriveAuto(waypoints, false, drive));
-
 
         // TODO: enable once indexer sensor is installed
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
@@ -173,10 +168,9 @@ public class RobotContainer
                 .whenActive(new SelectIntakeToOuttake(intake, shooter))
                 .whenInactive(new SelectOuttakeToIntake(intake, indexer, shooter, arm));
 
-                new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
-                .or(OI.rightStickRightCluster)
-                .whenActive(new LoadIntoArm(indexer));
-
+        // -------------------------------------------------------------------------------------------------------------
+        // Control Panel
+        // -------------------------------------------------------------------------------------------------------------
         new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                 .whenPressed(new SelectPositionTurner(arm, intake));
 
@@ -184,48 +178,66 @@ public class RobotContainer
                 .whenPressed(new SelectSpinTurner(drive, ctrlPanel))
                 .whenReleased(new SelectStopCtrlPanelSpinning(ctrlPanel, drive));
 
+        // -------------------------------------------------------------------------------------------------------------
+        // Intake / outtake
+        // -------------------------------------------------------------------------------------------------------------
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
+                .whenPressed(new SelectToIntake(intake, indexer, shooter, arm))
+                .whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
+
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
+                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel))
+                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
+
+        // Manual index load
+        new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
+                .or(OI.rightStickRightCluster)
+                .whenActive(new LoadIntoArm(indexer));
+
+        // -------------------------------------------------------------------------------------------------------------
+        // Climb
+        // -------------------------------------------------------------------------------------------------------------
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
+                .whenPressed(new SelectClimbing(climber, OI.OperatorController));
+
+        // -------------------------------------------------------------------------------------------------------------
+        // Shooting
+        // -------------------------------------------------------------------------------------------------------------
+
+        // Cancel Shooting
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm, drive, ctrlPanel));
 
+        // TODO: Fix binding to leftStickRightCluster for Single SHot
+        OI.leftStickRightCluster
+                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
+                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
+
+        // Multi-shot
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
                 .whenActive(new SelectToMultishot(indexer, shooter))
                 .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
-        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToIntake(intake, indexer, shooter, arm)
-                ).whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController)
-                );
-        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToTrench(intake, indexer, shooter, arm, drive, ctrlPanel))
-                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
-
-        //D-pad Left
+        //D-pad Left - Long
         new POVButton(OI.OperatorController, 270)
                 .whenPressed(new SelectToReadyToShoot(Config.shooterLongRangeSolution, intake, indexer, shooter, arm)
                 );
 
-         //Testing new simpler logic without firing solutions.
-        //new POVButton(OI.OperatorController, 270)
-                //.whenPressed(new MoveArmAndRetractIntake(-25000, intake, arm));
-
-        //D-pad Up
+        //D-pad Up - Line
         new POVButton(OI.OperatorController, 0)
                 .whenPressed(new SelectToReadyToShoot(Config.shooterMidRangeSolution, intake, indexer, shooter, arm)
                 );
 
-        //D-pad Right
+        //D-pad Right - Wall
         new POVButton(OI.OperatorController, 90)
                 .whenPressed(new SelectToReadyToShoot(Config.shooterShortRangeSolution, intake, indexer, shooter, arm)
                 );
 
-        //D-pad Down
+        //D-pad Down - Smart
         new POVButton(OI.OperatorController, 180)
                 .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
                 .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
-
-        new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                .whenPressed(new SelectClimbing(climber, OI.OperatorController));
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
