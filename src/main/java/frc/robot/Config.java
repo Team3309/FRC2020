@@ -164,6 +164,7 @@ public class Config {
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
+    public static final double indexerRampSeconds = 0.1;  // time for indexer to switch between stopped and full-speed
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
     public static int maxPowerCells = 5;
@@ -216,7 +217,7 @@ public class Config {
 
     public static final double armPeakOutputReverse = -0.2;
     public static final double armPeakOutputForward = 0.5;
-    public static final int armAcceleration = 75000; // Ticks per 100ms^2
+    public static final int armAcceleration = 75000; // Ticks per 100ms per sec
     public static final int armCruiseVelocity = 7500; // Ticks per 100ms
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position

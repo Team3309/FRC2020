@@ -80,8 +80,10 @@ public class IndexerSubsystem extends SubsystemBase {
             UpperIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
             LowerIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
 
-            UpperIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
-            LowerIndexerMotor.configMotionAcceleration(cruiseVelocity * 10, Config.motorControllerConfigTimeoutMs);
+            UpperIndexerMotor.configMotionAcceleration(
+                    (int) (cruiseVelocity / Config.indexerRampSeconds), Config.motorControllerConfigTimeoutMs);
+            LowerIndexerMotor.configMotionAcceleration(
+                    (int) (cruiseVelocity / Config.indexerRampSeconds), Config.motorControllerConfigTimeoutMs);
             lastIndexerSpeed = cruiseVelocity;
         }
     }
