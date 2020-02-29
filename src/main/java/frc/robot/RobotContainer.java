@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -64,6 +65,7 @@ public class RobotContainer
         SCAN,
         SINGLE_SHOT,
         MULTI_SHOT,
+        CONTINUOUS_SHOT,
         TRENCH_DRIVE,
         INTAKE,
         READY_TO_SHOOT,
@@ -208,16 +210,22 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm, drive, ctrlPanel));
 
-        // TODO: Fix binding to leftStickRightCluster for Single SHot
-        OI.leftStickRightCluster
-                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
-                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
+        // TODO BUG: Having this binding active will cause the Continuous-shot binding to put the robot into
+        //  INIT_SINGLE_SHOT when pressed when not in READY_TO_SHOOT, but ONLY AFTER the robot has entered READY_TO_SHOOT
+        //  and then goes back to ARM_UP_DRIVE.  Invoking the continuous-shot bind BEFORE the robot has entered READY_TO_SHOOT
+        //  correctly does nothing.
+        //  Since we're not using single-shot, we're just commenting this out for now.
+//        OI.leftStickRightCluster
+//                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
+//                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
-        // Multi-shot
+        // Continuous-shot
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
-                .whenActive(new SelectToMultishot(indexer, shooter))
-                .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
+                .whenActive(new SelectToContinuousShot(indexer))
+                .whenInactive(new SequentialCommandGroup(
+                        new InstantCommand(() -> indexer.setVelocity(0), indexer),
+                        new SelectContinuousShotToReadyToShoot(intake, indexer, shooter, arm)));
 
         //D-pad Left - Long
         new POVButton(OI.OperatorController, 270)

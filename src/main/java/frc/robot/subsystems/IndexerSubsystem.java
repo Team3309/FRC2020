@@ -106,6 +106,13 @@ public class IndexerSubsystem extends SubsystemBase {
         }
     }
 
+    public void setVelocity(double velocity) {
+        if (Config.isIndexerInstalled) {
+            UpperIndexerMotor.set(ControlMode.Velocity, velocity);
+            LowerIndexerMotor.set(ControlMode.Velocity, velocity);
+        }
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      * Programs the indexer motor to pulse the belt backward by one power cell.
      *
