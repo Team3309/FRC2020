@@ -157,15 +157,9 @@ public class RobotContainer
                         0,
                         false, true)};
 
-        // TODO: Remove this after the indexer sensor is installed
+        // TODO: Remove after spin turn testing is complete
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new DriveAuto(waypoints, false, drive));
-
-        // TODO: enable once indexer sensor is installed
-        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .or(OI.rightStickRightCluster)
-                .whenActive(new SelectIntakeToOuttake(intake, shooter))
-                .whenInactive(new SelectOuttakeToIntake(intake, indexer, shooter, arm));
 
         // -------------------------------------------------------------------------------------------------------------
         // Control Panel

@@ -22,7 +22,6 @@ public class ToOuttakeCommandGroup extends SequentialCommandGroup {
                 new StopFlywheels(shooter),
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartOuttakeMotor(intake, shooter),
-                //TODO: Call indexer.resetEncoders().
                 new UpdateHandlingState(RobotContainer.RobotState.OUTTAKE));
     }
 }
