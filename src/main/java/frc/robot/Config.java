@@ -358,7 +358,11 @@ public class Config {
                 armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
-                armControlPanelPosition = maxArmPosition + 0; //this might need to be bigger than the hard stop
+
+                // Don't exceed max for the control panel position to avoid stalling the motor.
+                // Just let the system stabilize between drive pressure and arm repositioning power applied by
+                // the arm motor controller in attempting to maintain the last set position.
+                armControlPanelPosition = maxArmPosition;
                 armPositionHardStop = 0;
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
