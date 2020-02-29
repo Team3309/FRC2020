@@ -44,9 +44,6 @@ public class CreateFiringSolution extends CommandBase {
             CommandScheduler.getInstance().schedule(
                     new DriveAuto(waypoints, false, drive)
                     );
-
-        } else {
-            //System.out.println("No target found");
         }
         return hasTarget;
     }
