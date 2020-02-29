@@ -338,7 +338,9 @@ public class RobotContainer
      * @return the command chosen by the smartdashboard to run in auto
      */
     public Command getAutonomousCommand() {
-        return Chooser.getSelected();
+
+        //return Chooser.getSelected();
+        return new ThreeBallAutoDriveForward(indexer, shooter, drive, intake, arm);
     }
 
 
