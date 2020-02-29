@@ -214,7 +214,7 @@ public class Config {
     public static final int armCruiseVelocity = 7500; // Ticks per 100ms
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
-    public static final double armJoystickTiltToPositionFactor = 250;
+    public static final double armJoystickTiltToPositionFactor = 100;
 
     //------------------------------------------------------------------------------------------------------------------
     //Aiming PID Constants for Vision Controlled Turning//
