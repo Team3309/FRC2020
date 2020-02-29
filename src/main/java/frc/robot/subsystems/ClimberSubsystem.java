@@ -24,7 +24,7 @@ public class ClimberSubsystem extends SubsystemBase {
         if (Config.isClimberInstalled) {
             winchMotor = new WPI_TalonFX(Config.climbMotorOneId);
             winchMotor.setNeutralMode(NeutralMode.Brake);
-            winchMotor.setInverted(true); // TODO: Move this to config
+            winchMotor.setInverted(true);
 
             if (Config.isPcmInstalled) {
                 deployPiston = new Solenoid(Config.climberDeploySolenoidId);
