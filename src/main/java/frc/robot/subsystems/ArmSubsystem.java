@@ -92,7 +92,9 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void setCoastMode(boolean coast) {
-        armMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+        if (Config.isArmInstalled) {
+            armMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
+        }
     }
 
 

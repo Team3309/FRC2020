@@ -227,7 +227,8 @@ public class Config {
     //Climber Constants//
     //
 
-    public static Integer climbMotorOneId;
+    public static Integer climbMotorId;
+    public static Integer climbPdpChannel;
     public static Integer climberDeploySolenoidId;
     public static final double climberMaxPower = 0.2;
     public static Integer buddyClimbDeploySolenoidId;
@@ -297,7 +298,8 @@ public class Config {
                 bottomShooterPdpChannel = 13;
 
                 climberDeploySolenoidId = 3;
-                climbMotorOneId = 13;
+                climbMotorId = 13;
+                climbPdpChannel = 0; // TODO: Get the right channel
 
                 shooterVelocityP = 0.04;
                 shooterVelocityI = 0.0002;
