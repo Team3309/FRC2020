@@ -198,7 +198,7 @@ public class RobotContainer
         // Climb
         // -------------------------------------------------------------------------------------------------------------
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
-                .whenPressed(new SelectClimbing(climber, OI.OperatorController));
+                .whenPressed(new SelectClimbing(climber, intake, arm, OI.OperatorController));
 
         // -------------------------------------------------------------------------------------------------------------
         // Shooting
@@ -323,6 +323,7 @@ public class RobotContainer
 
         // Technically not a display toggle, but the button that lets you manually calibrate
         //SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
+        SmartDashboard.putBoolean("test", true);
     }
 
 
