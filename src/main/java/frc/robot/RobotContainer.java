@@ -167,6 +167,7 @@ public class RobotContainer
                         false, true)};
 
         // TODO: Remove after spin turn testing is complete
+        // TODO: Simplify the process of command selection.
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whenPressed(new DriveAuto(waypoints, false, drive));
 

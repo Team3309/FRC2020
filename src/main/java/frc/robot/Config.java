@@ -139,7 +139,7 @@ public class Config {
             "Starting Line", 47700, 4000, 10000, 20000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 69000, 4000, 5000, 15000);
+            "Alliance Wall", 72500, 4000, 5000, 15000);
 
 
     //------------------------------------------------------------------------------------------------------------------

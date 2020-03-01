@@ -11,6 +11,7 @@ public class StopCtrlPanelSpinningCommandGroup extends SequentialCommandGroup {
 
     public StopCtrlPanelSpinningCommandGroup(CtrlPanelSubsystem manipulator, DriveSubsystem drive) {
         addCommands(
+                //Why does this have to be an instant command?
                 new InstantCommand(manipulator::stop),
                 new UpdateHandlingState(RobotContainer.RobotState.TURNER_IN_POSITION)
         );
