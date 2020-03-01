@@ -230,7 +230,7 @@ public class Config {
     public static Integer climbMotorId;
     public static Integer climbPdpChannel;
     public static Integer climberDeploySolenoidId;
-    public static final double climberMaxPower = 0.2;
+    public static final double climberMaxPower = 0.35;
     public static Integer buddyClimbDeploySolenoidId;
     public static final double climberDeployTime = 0.7; //Seconds
 
