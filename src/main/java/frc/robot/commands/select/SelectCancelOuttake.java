@@ -30,6 +30,10 @@ public class SelectCancelOuttake extends SelectCommand3309 {
                     return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
 
                 }
+            }else if (RobotContainer.getRobotState() == RobotContainer.RobotState.EMERGENCY_OUTTAKE
+                    || RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_EMERGENCY_OUTTAKE
+            ) {
+                return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
             } else {
                 return new DoNothing();
             }

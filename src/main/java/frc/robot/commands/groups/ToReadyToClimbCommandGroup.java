@@ -14,7 +14,7 @@ public class ToReadyToClimbCommandGroup extends SequentialCommandGroup {
     public ToReadyToClimbCommandGroup(ClimberSubsystem climber, IntakeSubsystem intake, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_READY_TO_CLIMB),
-                new MoveArmAndExtendIntake(intake, arm),
+                new MoveArmAndExtendIntake(intake, arm, false),
                 new ExtendRetractClimber(true, climber),
                 new UpdateHandlingState(RobotContainer.RobotState.READY_TO_CLIMB)
         );

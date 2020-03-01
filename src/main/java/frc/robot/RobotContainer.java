@@ -80,6 +80,8 @@ public class RobotContainer
         TURNER_IN_POSITION,
         SPIN_TURNER,
         INIT_OUTTAKE,
+        INIT_EMERGENCY_OUTTAKE,
+        EMERGENCY_OUTTAKE,
         OUTTAKE,
         INIT_READY_TO_CLIMB,
         READY_TO_CLIMB,
@@ -195,6 +197,11 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
                 .or(OI.rightStickRightCluster)
                 .whenActive(new LoadIntoArm(indexer));
+
+        // TODO: Fix this later
+        new JoystickButton(OI.OperatorController, XboxController.Button.kStart.value)
+                .whileHeld(new SelectToEmergencyOuttake(intake, indexer, shooter, arm, drive, ctrlPanel))
+                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
 
         // -------------------------------------------------------------------------------------------------------------
         // Climb

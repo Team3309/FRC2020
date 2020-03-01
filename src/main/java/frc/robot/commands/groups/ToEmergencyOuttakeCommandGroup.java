@@ -14,14 +14,14 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToOuttakeCommandGroup extends SequentialCommandGroup {
-    public ToOuttakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
+public class ToEmergencyOuttakeCommandGroup extends SequentialCommandGroup {
+    public ToEmergencyOuttakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
         addCommands(
-                new UpdateHandlingState(RobotContainer.RobotState.INIT_OUTTAKE),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_EMERGENCY_OUTTAKE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
-                new MoveArmAndExtendIntake(intake, arm, false),
+                new MoveArmAndExtendIntake(intake, arm, true),
                 new StartOuttakeMotor(intake, shooter),
-                new UpdateHandlingState(RobotContainer.RobotState.OUTTAKE));
+                new UpdateHandlingState(RobotContainer.RobotState.EMERGENCY_OUTTAKE));
     }
 }
