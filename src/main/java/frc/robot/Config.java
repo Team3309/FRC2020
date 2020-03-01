@@ -311,8 +311,8 @@ public class Config {
                 intakeMotorPdpChannel = 11;
                 intakeSolenoidChannel1 = 1;
                 intakeSolenoidChannel2 = 2;
-                intakePistonExtendDelaySeconds = 1.0;
-                intakePistonRetractDelaySeconds = 1.0;
+                intakePistonExtendDelaySeconds = 0.5;
+                intakePistonRetractDelaySeconds = 0.5;
 
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
