@@ -200,7 +200,7 @@ public class RobotContainer
                 .whenActive(new LoadIntoArm(indexer));
 
         // TODO: Fix this later
-        new JoystickButton(OI.OperatorController, XboxController.Button.kStart.value)
+        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
                 .whileHeld(new SelectToEmergencyOuttake(intake, indexer, shooter, arm, drive, ctrlPanel))
                 .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
 
