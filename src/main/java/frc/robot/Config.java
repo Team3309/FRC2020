@@ -88,7 +88,7 @@ public class Config {
     public static Double intakePistonRetractDelaySeconds;
 
     public static final double intakeInwardPower = 0.6;
-    public static final double intakeOutwardPower = 0.3;
+    public static final double intakeOutwardPower = 0.6;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
