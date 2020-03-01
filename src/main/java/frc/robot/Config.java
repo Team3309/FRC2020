@@ -79,7 +79,7 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer intakeMotorID;
     public static Integer intakeMotorPdpChannel;
-    public static final double intakeOpenLoopRampRate = 1.0;  // don't strip the belt
+    public static final double intakeOpenLoopRampRate = 0.5;  // don't strip the belt
 
     public static Integer intakeSolenoidChannel1;
     public static Integer intakeSolenoidChannel2;
