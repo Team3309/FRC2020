@@ -14,7 +14,10 @@ public class ContinuousShotCommandGroup  extends SequentialCommandGroup {
     public ContinuousShotCommandGroup(IndexerSubsystem indexer) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.CONTINUOUS_SHOT),
-                new InstantCommand(() -> indexer.setVelocity(4000), indexer) //TODO: move this to config or pass in a firing solution if this survive week one
+                new InstantCommand(() -> {
+                    indexer.reset();
+                    indexer.setVelocity(4000);
+                }, indexer) //TODO: move this to config or pass in a firing solution if this survive week one
         );
 
     }
