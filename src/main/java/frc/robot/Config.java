@@ -79,7 +79,7 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     public static Integer intakeMotorID;
     public static Integer intakeMotorPdpChannel;
-    public static final double intakeOpenLoopRampRate = 1.0;  // don't strip the belt
+    public static final double intakeOpenLoopRampRate = 0.5;  // don't strip the belt
 
     public static Integer intakeSolenoidChannel1;
     public static Integer intakeSolenoidChannel2;
@@ -88,7 +88,7 @@ public class Config {
     public static Double intakePistonRetractDelaySeconds;
 
     public static final double intakeInwardPower = 0.6;
-    public static final double intakeOutwardPower = 0.3;
+    public static final double intakeOutwardPower = 0.6;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
@@ -311,8 +311,8 @@ public class Config {
                 intakeMotorPdpChannel = 11;
                 intakeSolenoidChannel1 = 1;
                 intakeSolenoidChannel2 = 2;
-                intakePistonExtendDelaySeconds = 1.0;
-                intakePistonRetractDelaySeconds = 1.0;
+                intakePistonExtendDelaySeconds = 0.5;
+                intakePistonRetractDelaySeconds = 0.5;
 
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
