@@ -119,7 +119,7 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexIn() {
         if (Config.isIndexerInstalled) {
-            if (isInPosition()) {
+//            if (isInPosition()) {
                 UpperMotorDesiredEncoderPosition = UpperIndexerMotor.getSelectedSensorPosition(0) -
                         Config.indexInEncoderCounts[PowerCells];
                 LowerMotorDesiredEncoderPosition = LowerIndexerMotor.getSelectedSensorPosition(0) -
@@ -127,7 +127,7 @@ public class IndexerSubsystem extends SubsystemBase {
                 UpperIndexerMotor.set(ControlMode.MotionMagic, UpperMotorDesiredEncoderPosition);
                 LowerIndexerMotor.set(ControlMode.MotionMagic, LowerMotorDesiredEncoderPosition);
                 incrementIndexerCounter();
-            }
+//            }
         }
     }
 
@@ -159,6 +159,7 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void decrementIndexerCounter() {
         if (PowerCells > 0) {
+
             PowerCells--;
         }
     }

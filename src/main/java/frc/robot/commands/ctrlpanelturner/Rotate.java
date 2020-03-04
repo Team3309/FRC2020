@@ -11,6 +11,7 @@ public class Rotate extends CommandBase {
         this.manipulator = manipulator;
     }
 
+    //Why is the command's action in the isFinished block?
     @Override
     public boolean isFinished() {
         return manipulator.spin();

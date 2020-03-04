@@ -14,6 +14,7 @@ public class SpinTurnerCommandGroup extends SequentialCommandGroup {
     public SpinTurnerCommandGroup(DriveSubsystem drive, CtrlPanelSubsystem ctrlPanel) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.SPIN_TURNER),
+                //Is there a cleaner way to do this?
                 new DriveApplyPower(Config.turnerDriveHoldPower, drive),
                 new Rotate(ctrlPanel),
                 new UpdateHandlingState(RobotContainer.RobotState.TURNER_IN_POSITION)
