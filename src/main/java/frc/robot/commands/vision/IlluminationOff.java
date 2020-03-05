@@ -1,25 +1,18 @@
 package frc.robot.commands.vision;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.VisionSubsystem;
 
-public class IlluminationOff extends CommandBase {
+public class IlluminationOff extends InstantCommand {
 
-    @Override
-    public void initialize() {
+    VisionSubsystem vision;
 
+    IlluminationOff (VisionSubsystem vision) {
+        this.vision = vision;
     }
 
     @Override
     public void execute() {
-        return;
-    }
-
-    public void end() {
-
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
+        vision.setIllumination(false);
     }
 }

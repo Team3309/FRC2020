@@ -61,6 +61,13 @@ public class VisionSubsystem extends SubsystemBase {
         return distanceToVisionTarget;
     }
 
+    public void setIllumination (boolean illuminated) {
+        if (illuminated)
+            limelight.setLed(Limelight.LEDMode.On);
+        else
+            limelight.setLed(Limelight.LEDMode.Off);
+    }
+
     /** ----------------------------------------------------------------------------------------------------------------
      * Sends limelight data to SmartDashboard.
      */
