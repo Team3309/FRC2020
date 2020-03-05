@@ -8,9 +8,9 @@ import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class PositionTurnerCommandGroup extends SequentialCommandGroup {
+public class PositionTurnerCmdGroup extends SequentialCommandGroup {
 
-    public PositionTurnerCommandGroup(ArmSubsystem arm, IntakeSubsystem intake) {
+    public PositionTurnerCmdGroup(ArmSubsystem arm, IntakeSubsystem intake) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_POSITION_TURNER),
                 new MoveArmAndRetractIntake(Config.armControlPanelPosition, intake, arm),

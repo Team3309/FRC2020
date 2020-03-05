@@ -7,9 +7,9 @@ import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.climber.LiftRobot;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class LiftRobotCommandGroup extends SequentialCommandGroup {
+public class LiftRobotCmdGroup extends SequentialCommandGroup {
 
-    public LiftRobotCommandGroup(ClimberSubsystem climber, XboxController controller) {
+    public LiftRobotCmdGroup(ClimberSubsystem climber, XboxController controller) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.CLIMBING),
                 new LiftRobot(climber, controller)

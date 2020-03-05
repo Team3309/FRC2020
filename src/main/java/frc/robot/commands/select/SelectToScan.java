@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToScanCommandGroup;
+import frc.robot.commands.groups.ToScanCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -22,7 +22,7 @@ public class SelectToScan extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToScanCommandGroup(intake, indexer, shooter, arm, vision, drive);
+                return new ToScanCmdGroup(intake, indexer, shooter, arm, vision, drive);
             } else {
                 //do nothing
                 return new DoNothing();

@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndExtendIntake;
 import frc.robot.commands.indexer.SetIndexerSpeed;
-import frc.robot.commands.intake.StartIntakeMotor;
+import frc.robot.commands.intake.StartIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.StopFlywheels;
 import frc.robot.subsystems.ArmSubsystem;
@@ -22,16 +22,16 @@ import frc.robot.subsystems.ShooterSubsystem;
 //4) Engage the IIF
 
 
-public class ToIntakeCommandGroup extends SequentialCommandGroup {
+public class ToIntakeCmdGroup extends SequentialCommandGroup {
 
-    public ToIntakeCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public ToIntakeCmdGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_INTAKE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new SetIndexerSpeed(indexer, Config.indexInSpeed),
                 new MoveArmAndExtendIntake(intake, arm, false),
-                new StartIntakeMotor(intake, shooter),
+                new StartIntake(intake, shooter),
                 new UpdateHandlingState(RobotContainer.RobotState.INTAKE)
         );
     }

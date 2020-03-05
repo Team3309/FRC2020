@@ -15,9 +15,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class ToScanCommandGroup extends SequentialCommandGroup {
+public class ToScanCmdGroup extends SequentialCommandGroup {
 
-    public ToScanCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, VisionSubsystem vision, DriveSubsystem drive) {
+    public ToScanCmdGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, VisionSubsystem vision, DriveSubsystem drive) {
         addCommands(
                 //give drive angle to change by to aim at target
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_SCAN),

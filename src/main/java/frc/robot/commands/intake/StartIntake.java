@@ -5,11 +5,11 @@ import frc.robot.Config;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class StartIntakeMotor extends InstantCommand {
+public class StartIntake extends InstantCommand {
     private final IntakeSubsystem intake;
     private final ShooterSubsystem shooter;
 
-    public StartIntakeMotor(IntakeSubsystem intake, ShooterSubsystem shooter) {
+    public StartIntake(IntakeSubsystem intake, ShooterSubsystem shooter) {
 
         this.intake = intake;
         this.shooter = shooter;

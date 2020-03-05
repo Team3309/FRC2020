@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToReadyToShootCommandGroup;
+import frc.robot.commands.groups.ToReadyToShootCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -15,7 +15,7 @@ public class SelectMultishotToReadyToShoot extends SelectCommand3309 {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_MULTI_SHOT ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.MULTI_SHOT
             ) {
-                return new ToReadyToShootCommandGroup(null, intake, indexer, shooter, arm);
+                return new ToReadyToShootCmdGroup(null, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();
             }

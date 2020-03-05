@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToDriveCommandGroup;
-import frc.robot.commands.groups.ToIntakeCommandGroup;
+import frc.robot.commands.groups.ToDriveCmdGroup;
+import frc.robot.commands.groups.ToIntakeCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -24,16 +24,16 @@ public class SelectCancelOuttake extends SelectCommand3309 {
                 RobotContainer.getRobotState() == RobotContainer.RobotState.OUTTAKE
             ) {
                 if (xboxController.getRawAxis(XboxController.Axis.kLeftTrigger.value) > Config.xBoxTriggerButtonThreshold) {
-                    return new ToIntakeCommandGroup(intake, indexer, shooter, arm);
+                    return new ToIntakeCmdGroup(intake, indexer, shooter, arm);
 
                 } else {
-                    return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
+                    return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
 
                 }
             }else if (RobotContainer.getRobotState() == RobotContainer.RobotState.EMERGENCY_OUTTAKE
                     || RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_EMERGENCY_OUTTAKE
             ) {
-                return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
+                return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
             } else {
                 return new DoNothing();
             }

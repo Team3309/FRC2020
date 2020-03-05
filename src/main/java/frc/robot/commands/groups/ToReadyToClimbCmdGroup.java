@@ -9,9 +9,9 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ToReadyToClimbCommandGroup extends SequentialCommandGroup {
+public class ToReadyToClimbCmdGroup extends SequentialCommandGroup {
 
-    public ToReadyToClimbCommandGroup(ClimberSubsystem climber, IntakeSubsystem intake, ArmSubsystem arm) {
+    public ToReadyToClimbCmdGroup(ClimberSubsystem climber, IntakeSubsystem intake, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_READY_TO_CLIMB),
                 new MoveArmAndExtendIntake(intake, arm, false),

@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.PositionTurnerCommandGroup;
+import frc.robot.commands.groups.PositionTurnerCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -13,7 +13,7 @@ public class SelectPositionTurner extends SelectCommand3309 {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE
             ) {
-                return new PositionTurnerCommandGroup(arm, intake);
+                return new PositionTurnerCmdGroup(arm, intake);
             } else {
                 //do nothing
                 return new DoNothing();

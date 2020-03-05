@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToDriveCommandGroup;
+import frc.robot.commands.groups.ToDriveCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -17,7 +17,7 @@ public class SelectCancelScan extends SelectCommand3309 {
         super(() -> {
             if(RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_SCAN ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.SCAN) {
-                return new ToDriveCommandGroup(null, intake, indexer, shooter, arm, drive, ctrl);
+                return new ToDriveCmdGroup(null, intake, indexer, shooter, arm, drive, ctrl);
             } else {
                 return new DoNothing();
             }

@@ -7,9 +7,9 @@ import frc.robot.commands.UpdateHandlingState;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class StopCtrlPanelSpinningCommandGroup extends SequentialCommandGroup {
+public class StopCtrlPanelSpinningCmdGroup extends SequentialCommandGroup {
 
-    public StopCtrlPanelSpinningCommandGroup(CtrlPanelSubsystem manipulator, DriveSubsystem drive) {
+    public StopCtrlPanelSpinningCmdGroup(CtrlPanelSubsystem manipulator, DriveSubsystem drive) {
         addCommands(
                 //Why does this have to be an instant command?
                 new InstantCommand(manipulator::stop),

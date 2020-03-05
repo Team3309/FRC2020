@@ -17,10 +17,10 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToReadyToShootCommandGroup extends SequentialCommandGroup {
-    public ToReadyToShootCommandGroup(FiringSolution firingSolution,
-                                      IntakeSubsystem intake, IndexerSubsystem indexer,
-                                      ShooterSubsystem shooter, ArmSubsystem arm) {
+public class ToReadyToShootCmdGroup extends SequentialCommandGroup {
+    public ToReadyToShootCmdGroup(FiringSolution firingSolution,
+                                  IntakeSubsystem intake, IndexerSubsystem indexer,
+                                  ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_READY_TO_SHOOT),
                 /*we only want to stop the flywheels if we are moving the arm. because of the shooter shaking the system*/

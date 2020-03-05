@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToDriveCommandGroup;
-import frc.robot.commands.groups.ToOuttakeCommandGroup;
+import frc.robot.commands.groups.ToDriveCmdGroup;
+import frc.robot.commands.groups.ToOuttakeCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -22,9 +22,9 @@ public class SelectCancelIntake extends SelectCommand3309 {
                 RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState()
             ) {
                 if (xboxController.getRawAxis(XboxController.Axis.kRightTrigger.value) > Config.xBoxTriggerButtonThreshold) {
-                    return new ToOuttakeCommandGroup(intake, indexer, shooter, arm, drive, manipulator);
+                    return new ToOuttakeCmdGroup(intake, indexer, shooter, arm, drive, manipulator);
                 } else {
-                    return new ToDriveCommandGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
+                    return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
                 }
             } else {
                 return new DoNothing();

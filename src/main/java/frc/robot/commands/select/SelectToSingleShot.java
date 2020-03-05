@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.SingleShotCommandGroup;
+import frc.robot.commands.groups.SingleShotCmdGroup;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -21,8 +21,8 @@ public class SelectToSingleShot extends SelectCommand3309 {
      * @param indexer The indexer which is used to move power cells into the shooter for shooting.
      * @param shooter The shooter which will shoot the power cells.
      *
-     * @return A Single Shot command group if the robot is in the correct states.
-     * @return A Do Nothing command otherwise.
+     * @return A Single Shot command group if the robot is in the correct states, and a Do Nothing
+     *         command otherwise.
      *
      */
     public SelectToSingleShot(IndexerSubsystem indexer, ShooterSubsystem shooter) {
@@ -31,7 +31,7 @@ public class SelectToSingleShot extends SelectCommand3309 {
                     && shooter.hasPresetSpeeds())
                     || RobotContainer.getRobotState()
                         == RobotContainer.RobotState.READY_TO_SHOOT)) {
-                return new SingleShotCommandGroup(shooter, indexer); //Change to Command Group 5
+                return new SingleShotCmdGroup(shooter, indexer); //Change to Command Group 5
             } else {
                 return new DoNothing(); //
             }

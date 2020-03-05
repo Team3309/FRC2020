@@ -9,9 +9,9 @@ import frc.robot.commands.shooter.StartFlywheels;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ContinuousShotCommandGroup  extends SequentialCommandGroup {
+public class ContinuousShotCmdGroup extends SequentialCommandGroup {
 
-    public ContinuousShotCommandGroup(IndexerSubsystem indexer) {
+    public ContinuousShotCmdGroup(IndexerSubsystem indexer) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.CONTINUOUS_SHOT),
                 new InstantCommand(() -> {

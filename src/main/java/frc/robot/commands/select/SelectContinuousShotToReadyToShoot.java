@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToReadyToShootCommandGroup;
+import frc.robot.commands.groups.ToReadyToShootCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -13,7 +13,7 @@ public class SelectContinuousShotToReadyToShoot extends SelectCommand3309 {
                                          ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.CONTINUOUS_SHOT) {
-                return new ToReadyToShootCommandGroup(null, intake, indexer, shooter, arm);
+                return new ToReadyToShootCmdGroup(null, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();
             }

@@ -8,8 +8,8 @@ import frc.robot.commands.shooter.StartFlywheels;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class SingleShotCommandGroup extends SequentialCommandGroup {
-    public SingleShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
+public class SingleShotCmdGroup extends SequentialCommandGroup {
+    public SingleShotCmdGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_SINGLE_SHOT),
                 new StartFlywheels(shooter),

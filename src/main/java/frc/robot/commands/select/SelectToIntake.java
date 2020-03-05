@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToIntakeCommandGroup;
+import frc.robot.commands.groups.ToIntakeCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -23,7 +23,7 @@ public class SelectToIntake extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.OUTTAKE
 
             ) {
-                return new ToIntakeCommandGroup(intake, indexer, shooter, arm); //aka command group 1 (See Slack for details)
+                return new ToIntakeCmdGroup(intake, indexer, shooter, arm); //aka command group 1 (See Slack for details)
             }  else {
                 //do nothing
                 return new DoNothing();

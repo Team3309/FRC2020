@@ -8,9 +8,9 @@ import frc.robot.commands.shooter.StartFlywheels;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class MultiShotCommandGroup extends SequentialCommandGroup {
+public class MultiShotCmdGroup extends SequentialCommandGroup {
 
-    public MultiShotCommandGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
+    public MultiShotCmdGroup(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_MULTI_SHOT),
                 new StartFlywheels(shooter),

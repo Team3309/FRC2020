@@ -2,7 +2,7 @@ package frc.robot.commands.select;
 
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToOuttakeCommandGroup;
+import frc.robot.commands.groups.ToOuttakeCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -22,7 +22,7 @@ public class SelectToTrench extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToOuttakeCommandGroup(intake, indexer, shooter, arm, drive, manipulator);
+                return new ToOuttakeCmdGroup(intake, indexer, shooter, arm, drive, manipulator);
             } else {
                 //do nothing
                 return new DoNothing();

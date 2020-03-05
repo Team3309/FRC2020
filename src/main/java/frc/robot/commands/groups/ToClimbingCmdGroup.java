@@ -8,8 +8,8 @@ import frc.robot.commands.climber.ExtendRetractClimber;
 import frc.robot.commands.climber.LiftRobot;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class ToClimbingCommandGroup extends SequentialCommandGroup {
-    public ToClimbingCommandGroup(ClimberSubsystem climber, XboxController controller) {
+public class ToClimbingCmdGroup extends SequentialCommandGroup {
+    public ToClimbingCmdGroup(ClimberSubsystem climber, XboxController controller) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_CLIMBING),
                 new ExtendRetractClimber(false, climber),

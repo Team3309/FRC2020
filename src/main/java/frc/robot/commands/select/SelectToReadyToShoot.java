@@ -3,7 +3,7 @@ package frc.robot.commands.select;
 import frc.robot.FiringSolution;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.groups.ToReadyToShootCommandGroup;
+import frc.robot.commands.groups.ToReadyToShootCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -27,7 +27,7 @@ public class SelectToReadyToShoot extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToReadyToShootCommandGroup(firingSolution, intake, indexer, shooter, arm);
+                return new ToReadyToShootCmdGroup(firingSolution, intake, indexer, shooter, arm);
             } else {
                 //do nothing
                 return new DoNothing();

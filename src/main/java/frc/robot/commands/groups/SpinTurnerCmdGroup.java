@@ -9,9 +9,9 @@ import frc.robot.commands.drive.DriveApplyPower;
 import frc.robot.subsystems.CtrlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class SpinTurnerCommandGroup extends SequentialCommandGroup {
+public class SpinTurnerCmdGroup extends SequentialCommandGroup {
 
-    public SpinTurnerCommandGroup(DriveSubsystem drive, CtrlPanelSubsystem ctrlPanel) {
+    public SpinTurnerCmdGroup(DriveSubsystem drive, CtrlPanelSubsystem ctrlPanel) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.SPIN_TURNER),
                 //Is there a cleaner way to do this?
