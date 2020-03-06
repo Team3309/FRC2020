@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Auto.ThreeBallAutoDriveForward;
 import frc.robot.commands.arm.ManualArmAdjustment;
+import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.AutoIndexIn;
@@ -23,6 +24,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.util.Waypoint;
 import frc.robot.util.XBoxControllerAxisButton;
 
 /** --------------------------------------------------------------------------------------------------------------------
