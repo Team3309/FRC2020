@@ -22,6 +22,7 @@ import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.AutoIndexIn;
 import frc.robot.commands.indexer.SetIndexerSpeed;
 import frc.robot.commands.select.*;
+import frc.robot.commands.vision.IlluminationOn;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
