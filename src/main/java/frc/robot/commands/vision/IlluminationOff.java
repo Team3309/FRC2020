@@ -7,7 +7,7 @@ public class IlluminationOff extends InstantCommand {
 
     VisionSubsystem vision;
 
-    IlluminationOff (VisionSubsystem vision) {
+    public IlluminationOff (VisionSubsystem vision) {
         this.vision = vision;
     }
 
