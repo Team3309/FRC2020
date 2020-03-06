@@ -174,7 +174,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (Config.isArmInstalled) {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
-                armMotor.set(ControlMode.Position, desiredPosition);
+                armMotor.set(ControlMode.MotionMagic, desiredPosition);
             } else {
                 DriverStation.reportWarning("ArmSubsystem: Attempt to move while uncalibrated!", false);
             }
