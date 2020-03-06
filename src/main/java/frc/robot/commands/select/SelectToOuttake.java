@@ -17,18 +17,20 @@ public class SelectToOuttake extends SelectCommand3309 {
                            ShooterSubsystem shooter, ArmSubsystem arm,
                            DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
         super(() -> {
-            if ((RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE) ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_READY_TO_SHOOT ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
                 return new ToOuttakeCmdGroup(intake, indexer, shooter, arm, drive, manipulator);
             } else {
+                //do nothing
                 return new DoNothing();
-            }});
+            }
+        });
     }
 }

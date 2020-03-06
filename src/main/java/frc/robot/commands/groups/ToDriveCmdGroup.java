@@ -22,18 +22,11 @@ public class ToDriveCmdGroup extends SequentialCommandGroup {
                            ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive,
                            CtrlPanelSubsystem manipulator) {
         super(
-                position != null && position.equals(Config.trenchArmPosition) ?
-                        new UpdateHandlingState(RobotContainer.RobotState.INIT_TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.RobotState.INIT_ARM_UP_DRIVE),
+                new UpdateHandlingState(RobotContainer.RobotState.INIT_ARM_UP_DRIVE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
-                position != null && position.equals(Config.trenchArmPosition) ?
-                        new ClearFlywheelsSpeeds(shooter) :
-                        new DoNothing(),
                 position == null ? new DoNothing() : new MoveArmAndRetractIntake(position, intake, arm),
-                position != null && position.equals(Config.trenchArmPosition) ?
-                        new UpdateHandlingState(RobotContainer.RobotState.TRENCH_DRIVE) :
-                        new UpdateHandlingState(RobotContainer.RobotState.ARM_UP_DRIVE)
+                new UpdateHandlingState(RobotContainer.RobotState.ARM_UP_DRIVE)
         );
     }
 }

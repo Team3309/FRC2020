@@ -13,35 +13,32 @@ import frc.robot.util.Waypoint;
 
 public class DriveAuto extends CommandBase {
 
-    private int initialBranch; //initial branch of the complex logarithm
-    private double previousHeading;
-
     private enum superState {
-        stopped("Stopped."),
-        drivingStraight("Driving Straight."),
-        spinTurning("Spin Turning."),
-        mobileTurning("Mobile Turning.");
+        stopped("Stopped"),
+        drivingStraight("Driving Straight"),
+        spinTurning("Spin Turning"),
+        mobileTurning("Mobile Turning");
 
         String name;
         superState(String name) {this.name = name;}
     }
 
     private enum travelState {
-        stopped("Stopped."),
-        accelerating("Accelerating."), //accelerating to cruise speed
-        cruising("Cruising."), //Moving at a set speed
-        decelerating("Decelerating."); //decelerating to approach desired point
+        stopped("Stopped"),
+        accelerating("Accelerating"), //accelerating to cruise speed
+        cruising("Cruising"), //Moving at a set speed
+        decelerating("Decelerating"); //decelerating to approach desired point
 
         String name;
         travelState(String name) {this.name = name;}
     }
 
     private enum spinTurnState {
-        notStarted("Not Started."),
-        accelerating("Accelerating."), //accelerating to angular cruise speed
-        cruising("Cruising."), //angular cruising speed
-        decelerating("Decelerating."), //decelerating to approach tweak speed
-        tweaking("Tweaking."); //speed at which final heading is corrected
+        notStarted("Not Started"),
+        accelerating("Accelerating"), //accelerating to angular cruise speed
+        cruising("Cruising"), //angular cruising speed
+        decelerating("Decelerating"), //decelerating to approach tweak speed
+        tweaking("Tweaking"); //speed at which final heading is corrected
 
         String name;
         spinTurnState(String name) {this.name = name;}
@@ -56,19 +53,14 @@ public class DriveAuto extends CommandBase {
     private spinTurnState turnState = spinTurnState.notStarted;
     double encoderZeroValue;
 
-    public static Waypoint[] testPath = {
-            new Waypoint(0, 0, 0, false),
-            new Waypoint(36, 36, 0, false)
-    };
-
     final double kTurnCorrectionConstant = 0.1;
-    final double kDecelerationConstant = 0.1;
 
     private boolean done = false;
     private Waypoint[] path;
     private int nextWaypointIndex = 0;
     private boolean endRollout;
     private DriveSubsystem drive;
+
     // for autonomous path following
     public DriveAuto(Waypoint[] path, boolean endRollOut, DriveSubsystem drive) {
         this.drive = drive;
@@ -88,14 +80,8 @@ public class DriveAuto extends CommandBase {
         superStateMachine = superState.spinTurning;
         driveState = travelState.stopped;
         turnState = spinTurnState.notStarted;
-        encoderZeroValue = drive.getLeftEncoderPosition() /2  + drive.getRightEncoderPosition() / 2;
+        encoderZeroValue = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
         lastVelocity = 0;
-        initialBranch = ((int) (180 + drive.getAngularPosition())) / 360;
-        double branch = drive.getAngularPosition();
-        if (branch > 0 || branch <= 0) {
-            initialBranch = ((int) (drive.getAngularPosition())) / 360;
-        }
-        System.out.println("initialized");
     }
 
     @Override
@@ -103,16 +89,11 @@ public class DriveAuto extends CommandBase {
         if (done)
             return;
 
-
-
         Waypoint currentPoint = path[nextWaypointIndex];
         Waypoint nextPoint = path[nextWaypointIndex + 1];
 
-
         double headingToNextPoint = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
-                nextPoint.xFieldInches - currentPoint.xFieldInches)) + Config.IMUMountingAngle; //this is a constant between waypoints
-
-
+                nextPoint.xFieldInches - currentPoint.xFieldInches)) + Config.IMUMountingAngle;
 
         double signum = 1;
 
@@ -123,15 +104,11 @@ public class DriveAuto extends CommandBase {
         //Positive = clockwise;
         double degsLeftToTurn = Util3309.angleInMinus180To180(signum * drive.getHeadingError(headingToNextPoint));
 
-
-
         SmartDashboard.putNumber("degsLeftToTurn", degsLeftToTurn);
         SmartDashboard.putNumber("headingToNextPoint", headingToNextPoint);
 
-
         boolean turningLeft = degsLeftToTurn > 0;
         boolean turningRight = degsLeftToTurn < 0;
-
 
         double inchesBetweenWaypoints =
                 Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
@@ -144,8 +121,7 @@ public class DriveAuto extends CommandBase {
             }
             final double kTweakThreshold = 2.0;
             double currentAngularVelocity = 0; //negative = clockwise, positive = counterclockwise
-            //checks that this is the start of auto; timer should be started and robot should not have
-            //been previously started
+
             if (turnState == spinTurnState.notStarted) {
                 ControlTimer.reset();
                 turnState = spinTurnState.accelerating;
@@ -160,27 +136,23 @@ public class DriveAuto extends CommandBase {
                 } else if (turningRight) {
                     currentAngularVelocity = -signum * nextPoint.angAccelerationInDegsPerSec2 * timerValue;
                 }
-
             }
+
             //checks whether we should start cruising; we should have finished our acceleration phase
             //and we should be approaching our cruise velocity
             if (turnState == spinTurnState.accelerating &&
                     currentAngularVelocity >= nextPoint.maxAngularSpeedInDegsPerSec) {
                 turnState = spinTurnState.cruising;
                 if (turningLeft) {
-
                     currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 } else if (turningRight) {
-
                     currentAngularVelocity = - signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 }
             }
             if (turnState == spinTurnState.cruising) {
                 if (turningLeft) {
-
                     currentAngularVelocity = signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 } else if (turningRight) {
-
                     currentAngularVelocity = - signum * nextPoint.maxAngularSpeedInDegsPerSec;
                 }
             }
@@ -200,7 +172,6 @@ public class DriveAuto extends CommandBase {
 
             if (turnState == spinTurnState.decelerating) {
                 if (turningLeft) {
-
                     currentAngularVelocity = (lastVelocity - (signum * nextPoint.angDecelerationInDegsPerSec2 * timerValue));
                 } else if (turningRight) {
 
@@ -216,18 +187,14 @@ public class DriveAuto extends CommandBase {
                 if (Math.abs(degsLeftToTurn) < kTweakThreshold) {
                     //spin Turn complete
                     drive.setLeftRight(ControlMode.PercentOutput, 0, 0);
-                    if (nextPoint.finalHeading) {
-                        done = true;
-                        return;
-                    } else {
-                        done = true;
-                        superStateMachine = superState.drivingStraight;
-                        return;
-                    }
-                    //turnState = spinTurnState.notStarted;
+                    turnState = spinTurnState.notStarted;
+                    superStateMachine = superState.drivingStraight;
+
+                    // TODO: continue with path here instead of bailing after first spin turn
+                    done = true;
+                    return;
                 }
                 //turn left if we undershot
-
                 else if (degsLeftToTurn > 0) {
                     currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
                 }
@@ -237,7 +204,7 @@ public class DriveAuto extends CommandBase {
                 }
             }
 
-            double right = drive.degreesPerSecToEncoderVelocity(currentAngularVelocity);
+            double right = DriveSubsystem.degreesPerSecToEncoderVelocity(currentAngularVelocity);
             drive.setLeftRight(ControlMode.Velocity, -right, right);
 
             if (RobotContainer.getDriveDebug()) {
@@ -287,7 +254,7 @@ public class DriveAuto extends CommandBase {
              *     else
              *         stop the robot and increment nextWaypointIndex
              */
-            double encoderTicksLinear = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition())/2;
+            double encoderTicksLinear = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
             double encoderTicksTraveled = encoderTicksLinear - encoderZeroValue;
             double inchesTraveled = DriveSubsystem.encoderCountsToInches((int) encoderTicksTraveled);
 
@@ -309,8 +276,8 @@ public class DriveAuto extends CommandBase {
                     speed = signum * nextPoint.maxLinearSpeed;
                 } else {
                     driveState = travelState.decelerating;
-                    lastVelocity = (DriveSubsystem.encoderVelocityToInchesPerSec(drive.getLeftEncoderVelocity())/2) +
-                            (DriveSubsystem.encoderVelocityToInchesPerSec(drive.getRightEncoderVelocity())/2);
+                    lastVelocity = DriveSubsystem.encoderVelocityToInchesPerSec(
+                            (drive.getLeftEncoderVelocity() + drive.getRightEncoderVelocity()) / 2);
                     ControlTimer.reset();
                 }
             }
@@ -336,7 +303,7 @@ public class DriveAuto extends CommandBase {
             }
 
             if (speed != 0 ) {
-                drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecondToEncoderVelocity(speed), turnCorrection);
+                drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecToEncoderVelocity(speed), turnCorrection);
             } else {
                 //If speed is zero, then use PercentOutput so we don't apply brakes
                 drive.setArcade(ControlMode.PercentOutput, 0,0);
@@ -358,7 +325,7 @@ public class DriveAuto extends CommandBase {
             //Assume that the arc velocity is the average of the velocity of the two wheels.
             //Find out what velocity each wheel will have to maintain to achieve this arc velocity.
             //Set each wheel's velocity to these values.
-            double arcLengthInInches = nextPoint.turnRadiusInches * (180-headingToNextPoint);
+            double arcLengthInInches = nextPoint.turnRadiusInches * (180 - headingToNextPoint);
             //find velocity at which the robot will travel while on the arc.
 
         } else if (superStateMachine == superState.stopped) {
@@ -375,8 +342,6 @@ public class DriveAuto extends CommandBase {
             SmartDashboard.putString("Spin Turning State:", turnState.name);
             SmartDashboard.putNumber("Previous velocity:", lastVelocity);
             SmartDashboard.putNumber("Path Array Index:", nextWaypointIndex);
-
-            DriverStation.reportWarning("Executed.", false);
         }
     }
 

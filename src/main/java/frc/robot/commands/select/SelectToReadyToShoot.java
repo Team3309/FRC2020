@@ -15,10 +15,8 @@ public class SelectToReadyToShoot extends SelectCommand3309 {
                                 IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_ARM_UP_DRIVE ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_TRENCH_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_SCAN ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.SCAN ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||

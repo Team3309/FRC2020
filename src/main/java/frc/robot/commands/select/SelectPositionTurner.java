@@ -10,9 +10,7 @@ public class SelectPositionTurner extends SelectCommand3309 {
 
     public SelectPositionTurner(ArmSubsystem arm, IntakeSubsystem intake) {
         super(() -> {
-            if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
-                    RobotContainer.getRobotState() == RobotContainer.RobotState.TRENCH_DRIVE
-            ) {
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE) {
                 return new PositionTurnerCmdGroup(arm, intake);
             } else {
                 //do nothing

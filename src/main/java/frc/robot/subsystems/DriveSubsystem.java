@@ -72,10 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
          }
     }
 
-
     private void configMaster2019(WPI_TalonSRX talon) {
-
-
         talon.configFactoryDefault();
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
@@ -86,13 +83,10 @@ public class DriveSubsystem extends SubsystemBase {
         talon.config_kD(0, Config.driveVelocityD, Config.motorControllerConfigTimeoutMs);
         talon.config_kF(0, Config.driveVelocityF, Config.motorControllerConfigTimeoutMs);
 
-
         talon.setNeutralMode(NeutralMode.Brake);
         talon.setInverted(true);
         talon.setSensorPhase(false);
     }
-
-
 
     private void configSlave2019(WPI_VictorSPX slave, WPI_TalonSRX master) {
         slave.configFactoryDefault();
@@ -108,7 +102,6 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     private void configDriveMaster(WPI_TalonFX talon) {
-
         talon.configFactoryDefault();
 
         talon.configClosedloopRamp(Config.driveClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
@@ -181,7 +174,6 @@ public class DriveSubsystem extends SubsystemBase {
             } else {
                 return -driveMasterRight.getSelectedSensorPosition(0);
             }
-
         }
         return 0;
     }
@@ -199,7 +191,6 @@ public class DriveSubsystem extends SubsystemBase {
             } else {
                 return driveMasterLeft.getSelectedSensorVelocity(0);
             }
-
         }
         return 0;
     }
@@ -250,7 +241,8 @@ public class DriveSubsystem extends SubsystemBase {
     public double getAngularPosition() {
         if (Config.isIMUInstalled) {
             return imu.getAngle();
-        } else return 0;
+        }
+        return 0;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -262,7 +254,8 @@ public class DriveSubsystem extends SubsystemBase {
     public double getAngularVelocity() {
         if (Config.isIMUInstalled) {
             return imu.getRate();
-        } else return 0;
+        }
+        return 0;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -273,17 +266,6 @@ public class DriveSubsystem extends SubsystemBase {
         if (Config.isIMUInstalled) {
             imu.reset();
         }
-    }
-
-    /**-----------------------------------------------------------------------------------------------------------------
-     * Converts degrees/sec to encoder velocity (counts/sec).
-     *
-     * @param degreesPerSecond - the velocity in degrees to be converted to encoder counts.
-     * @return The encoder velocity in encoder counts.
-     *
-     */
-    public double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
-        return degreesPerSecond * Config.driveSpinTurnEncoderCountsPerDegree;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -343,7 +325,8 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public static double encoderCountsToInches(int counts) {
-        return (counts * Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio) / Config.driveWheelEncoderCountsPerRevolution;
+        return (counts * Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio) /
+                Config.driveWheelEncoderCountsPerRevolution;
     }
 
     /**-----------------------------------------------------------------------------------------------------------------
@@ -363,7 +346,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param inchesPerSecond The velocity in inches per second.
      *
      */
-    public static double inchesPerSecondToEncoderVelocity(double inchesPerSecond) {
+    public static double inchesPerSecToEncoderVelocity(double inchesPerSecond) {
         return (((inchesPerSecond / 10.0) / (Math.PI * Config.driveWheelDiameterInInches / Config.driveGearRatio))
                 * Config.driveWheelEncoderCountsPerRevolution);
     }
@@ -374,7 +357,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param degreesPerSecond The velocity in degrees per second.
      *
      */
-    public static double degreesPerSecondToEncoderVelocity(double degreesPerSecond) {
+    public static double degreesPerSecToEncoderVelocity(double degreesPerSecond) {
         return degreesPerSecond * Config.driveSpinTurnEncoderCountsPerDegree / 10.0;
     }
 
@@ -399,7 +382,6 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getHeadingError(double desiredHeading) {
-
         double heading = getAngularPosition();
         return desiredHeading - heading;
     }
@@ -409,7 +391,6 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         if(Config.currentRobot == Config.RobotModel.Comp2019) {
-
             SmartDashboard.putNumber("Drive left power", driveMasterLeft2019.getMotorOutputPercent());
             SmartDashboard.putNumber("Drive right power", -driveMasterRight2019.getMotorOutputPercent());
         } else {
@@ -428,6 +409,6 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Angular position", getAngularPosition());
         SmartDashboard.putNumber("Angular velocity", getAngularVelocity());
         SmartDashboard.putNumber("Current DriveSubsystem Time", ctrlTimer.get());
-        SmartDashboard.putNumber("Drift in degs sec^-1", getAngularPosition()/ctrlTimer.get());
+        SmartDashboard.putNumber("Drift in degs sec^-1", getAngularPosition() / ctrlTimer.get());
     }
 }
