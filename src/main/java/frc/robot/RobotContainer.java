@@ -154,7 +154,6 @@ public class RobotContainer
         //when inactive is the same as when released
         //whileActiveOnce is the same as when held
 
-        /*
         Waypoint[] waypoints = {new Waypoint(0, 0, 0, false),
                 new Waypoint(Math.cos(Math.toRadians(90)),
                         Math.sin(Math.toRadians(90)),
@@ -164,7 +163,7 @@ public class RobotContainer
         // TODO: Remove after spin turn testing is complete
         // TODO: Simplify the process of command selection.
         new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenPressed(new DriveAuto(waypoints, false, drive)); */
+                .whenPressed(new DriveAuto(waypoints, false, drive));
 
         // -------------------------------------------------------------------------------------------------------------
         // Control Panel

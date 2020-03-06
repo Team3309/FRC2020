@@ -20,13 +20,13 @@ public class MoveArmAndExtendIntake extends CommandBase {
 
     private final ArmSubsystem arm;
     private final IntakeSubsystem intake;
-    private boolean stayAboveIntake;
+    private boolean dontMoveArm;
     private boolean hasSetToMin; //a check if we've initialized the final descent.
 
-    public MoveArmAndExtendIntake(IntakeSubsystem intake, ArmSubsystem arm, boolean stayAboveIntake) {
+    public MoveArmAndExtendIntake(IntakeSubsystem intake, ArmSubsystem arm, boolean dontMoveArm) {
         this.arm = arm;
         this.intake = intake;
-        this.stayAboveIntake = stayAboveIntake;
+        this.dontMoveArm = dontMoveArm;
 
         addRequirements(arm, intake);
     }
@@ -41,7 +41,7 @@ public class MoveArmAndExtendIntake extends CommandBase {
         //above the intake upper limit: go to the upper limit to speed things up
         //at the upper limit: do nothing / stay in place (which is identical to going to the upper limit)
         //below the upper limit: go to the upper limit to get out of the way
-        if (intake.isExtended() && intake.isPistonTravelComplete() && !stayAboveIntake) {
+        if (intake.isExtended() && intake.isPistonTravelComplete()) {
             arm.moveToPosition(Config.minArmPosition);
             hasSetToMin = true;
         } else {
@@ -56,12 +56,14 @@ public class MoveArmAndExtendIntake extends CommandBase {
             intake.extend();
         }
 
+        // dontMoveArm means don't move it down, only move it out of the way, so at this point we're done.
+        if (dontMoveArm)
+            return true;
+
         //once intake is out of the way start, the final descent. If we've already done that on a previous cycle
         //then don't do that so we don't mess up our magic motion profile.
         if (intake.isPistonTravelComplete() && intake.isExtended() && !hasSetToMin) {
-            if (!stayAboveIntake) {
-                arm.moveToPosition(Config.minArmPosition);
-            }
+            arm.moveToPosition(Config.minArmPosition);
             hasSetToMin = true;
         }
         return arm.isInPosition() && hasSetToMin;
