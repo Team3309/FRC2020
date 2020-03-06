@@ -139,7 +139,7 @@ public class Config {
             "Starting Line", 47700, 4000, 10000, 20000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 72500, 4000, 5000, 15000);
+            "Alliance Wall", 67280, 4000, 5000, 15000);
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -187,7 +187,6 @@ public class Config {
     public static Integer armPositionIntakeStowedUpperLimit;
     public static Integer armControlPanelPosition;
     public static Integer armPositionVision;
-    public static Integer armPositionHardStop;
 
     // BEFORE setting armPIDTestMode to true:
     //   Bleed air.
@@ -259,17 +258,17 @@ public class Config {
         switch (currentRobot) {
             case Alpha2020:
                 isArmInstalled = true;
-                isClimberInstalled = true;
+                isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = true;
                 isIndexerSensorInstalled = false;
-                isIntakeInstalled = true;
+                isIntakeInstalled = false;
                 isShooterInstalled = true;
-                isVisionInstalled = true;
+                isVisionInstalled = false;
                 isLimelightOn = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isCompressorEnabled = false;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
@@ -339,10 +338,10 @@ public class Config {
                 armIntegralZone = 5000; // disable I outside of this range
                 armD = 0.0; // increase to lower overshoot (start at 0)
 
-                armPositionVision = 52500; //if you update this then you also need to update the limelightMountingAngle
-                maxArmPosition = 74500;
+                armPositionVision = 50000; //if you update this then you also need to update the limelightMountingAngle
+                maxArmPosition = 72690;
                 minArmPosition = 1000;
-                armPositionIntakeStowedLimit = 21500; // absolute minimum read at 19300
+                armPositionIntakeStowedLimit = 25000;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
 
@@ -350,21 +349,21 @@ public class Config {
                 // Just let the system stabilize between drive pressure and arm repositioning power applied by
                 // the arm motor controller in attempting to maintain the last set position.
                 armControlPanelPosition = maxArmPosition;
-                armPositionHardStop = 0;
+
                 limelightMountingAngle = -5.0;
                 limelightMountingHeight = 33.0; //inches
                 fieldVisionTargetHeight = 78.0 + 14.375; //inches
                 fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
                 fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
 
-                driveGearRatio = 17.05; //different for 2020 comp bot
+                driveGearRatio = 17.05; //different for 2020 beta bot
 
                 IMUDriftConstant = 0.0045;
                 IMUMountingAngle = 0.0;
 
                 threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
                 threePointHoleAngles = new double[] {
-                        Config.armPositionHardStop,
+                        0,
                         shooterShortRangeSolution.getArmPosition(),
                         shooterMidRangeSolution.getArmPosition(),
                         shooterLongRangeSolution.getArmPosition(),
@@ -474,14 +473,13 @@ public class Config {
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
                 armControlPanelPosition = 74000;
-                armPositionHardStop = 74000;
 
                 intakeMotorID = 13;
                 turnerMotorPdpChannel = 7;
 
                 threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
                 threePointHoleAngles = new double[] {
-                        Config.armPositionHardStop,
+                        0,
                         shooterShortRangeSolution.getArmPosition(),
                         shooterMidRangeSolution.getArmPosition(),
                         shooterLongRangeSolution.getArmPosition(),
