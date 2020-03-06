@@ -8,6 +8,7 @@ import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.StopFlywheels;
 import frc.robot.commands.vision.CreateFiringSolution;
+import frc.robot.commands.vision.IlluminationOn;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -21,11 +22,12 @@ public class ToScanCmdGroup extends SequentialCommandGroup {
         addCommands(
                 //give drive angle to change by to aim at target
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_SCAN),
+                new IlluminationOn(vision),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new MoveArmAndRetractIntake(Config.armPositionVision, intake, arm),
-                new UpdateHandlingState(RobotContainer.RobotState.SCAN),
-                new CreateFiringSolution(vision, intake, indexer, shooter, arm, drive));
+                new UpdateHandlingState(RobotContainer.RobotState.SCAN)/*,
+                new CreateFiringSolution(vision, intake, indexer, shooter, arm, drive)*/);
 
     }
 

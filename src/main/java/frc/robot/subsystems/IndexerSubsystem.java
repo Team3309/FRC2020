@@ -55,13 +55,23 @@ public class IndexerSubsystem extends SubsystemBase {
 
         talon.configFactoryDefault();
 
-        talon.configOpenloopRamp(Config.indexerOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
-        talon.configClosedloopRamp(Config.indexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
-        talon.config_kP(0, Config.indexerP, Config.motorControllerConfigTimeoutMs);
-        talon.config_kI(0, Config.indexerI, Config.motorControllerConfigTimeoutMs);
-        talon.config_IntegralZone(0, Config.indexerIntegralZone, Config.motorControllerConfigTimeoutMs);
-        talon.config_kD(0, Config.indexerD, Config.motorControllerConfigTimeoutMs);
-        talon.config_kF(0, Config.indexerF, Config.motorControllerConfigTimeoutMs);
+        if (Config.indexerCompileFlag) {
+            talon.configOpenloopRamp(Config.indexerVelocityOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
+            talon.configClosedloopRamp(Config.indexerVelocityClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
+            talon.config_kP(1, Config.indexerVelocityP, Config.motorControllerConfigTimeoutMs);
+            talon.config_kI(1, Config.indexerVelocityI, Config.motorControllerConfigTimeoutMs);
+            talon.config_kD(1, Config.indexerVelocityD, Config.motorControllerConfigTimeoutMs);
+            talon.config_IntegralZone(1, Config.indexerVelocityIntegralZone, Config.motorControllerConfigTimeoutMs);
+            talon.config_kF(1, Config.indexerVelocityF, Config.motorControllerConfigTimeoutMs);
+        } else {
+            talon.configOpenloopRamp(Config.indexerPositionOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
+            talon.configClosedloopRamp(Config.indexerPositionClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
+            talon.config_kP(0, Config.indexerPositionP, Config.motorControllerConfigTimeoutMs);
+            talon.config_kI(0, Config.indexerPositionI, Config.motorControllerConfigTimeoutMs);
+            talon.config_IntegralZone(0, Config.indexerPositionIntegralZone, Config.motorControllerConfigTimeoutMs);
+            talon.config_kD(0, Config.indexerPositionD, Config.motorControllerConfigTimeoutMs);
+            talon.config_kF(0, Config.indexerPositionF, Config.motorControllerConfigTimeoutMs);
+        }
 
         // Motion Magic parameters
         talon.configPeakOutputForward(Config.indexerPeakOutputForward, Config.motorControllerConfigTimeoutMs);
@@ -81,9 +91,9 @@ public class IndexerSubsystem extends SubsystemBase {
             LowerIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
 
             UpperIndexerMotor.configMotionAcceleration(
-                    (int) (cruiseVelocity / Config.indexerRampSeconds), Config.motorControllerConfigTimeoutMs);
+                    (int) (cruiseVelocity / Config.indexerPositionRampSeconds), Config.motorControllerConfigTimeoutMs);
             LowerIndexerMotor.configMotionAcceleration(
-                    (int) (cruiseVelocity / Config.indexerRampSeconds), Config.motorControllerConfigTimeoutMs);
+                    (int) (cruiseVelocity / Config.indexerPositionRampSeconds), Config.motorControllerConfigTimeoutMs);
             lastIndexerSpeed = cruiseVelocity;
         }
     }
