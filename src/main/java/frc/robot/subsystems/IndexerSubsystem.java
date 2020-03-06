@@ -106,10 +106,10 @@ public class IndexerSubsystem extends SubsystemBase {
         }
     }
 
-    public void setVelocity(double velocity) {
+    public void velocityShooting() {
         if (Config.isIndexerInstalled) {
-            UpperIndexerMotor.set(ControlMode.Velocity, velocity);
-            LowerIndexerMotor.set(ControlMode.Velocity, velocity);
+            UpperIndexerMotor.set(ControlMode.Velocity, lastIndexerSpeed);
+            LowerIndexerMotor.set(ControlMode.Velocity, lastIndexerSpeed);
         }
     }
 

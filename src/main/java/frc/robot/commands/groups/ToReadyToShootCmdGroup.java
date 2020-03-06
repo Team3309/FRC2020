@@ -26,6 +26,7 @@ public class ToReadyToShootCmdGroup extends SequentialCommandGroup {
                 /*we only want to stop the flywheels if we are moving the arm. because of the shooter shaking the system*/
                 firingSolution == null ? new DoNothing() : new StopFlywheels(shooter),
                 new StopIntake(intake),
+                new InstantCommand(indexer::reset, indexer),
                 firingSolution == null ? new DoNothing() :
                         new MoveArmAndRetractIntake(firingSolution.getArmPosition(), intake, arm),
                 firingSolution == null ? new DoNothing() :

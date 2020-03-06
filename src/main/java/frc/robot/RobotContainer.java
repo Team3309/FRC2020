@@ -216,9 +216,7 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
                 .whenActive(new SelectToContinuousShot(indexer))
-                .whenInactive(new SequentialCommandGroup(
-                        new InstantCommand(() -> indexer.setVelocity(0), indexer),
-                        new SelectContinuousShotToReadyToShoot(intake, indexer, shooter, arm)));
+                .whenInactive(new SelectContinuousShotToReadyToShoot(intake, indexer, shooter, arm));
 
         //D-pad Left - Long
         new POVButton(OI.OperatorController, 270)
