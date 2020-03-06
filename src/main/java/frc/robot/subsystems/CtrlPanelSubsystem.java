@@ -15,11 +15,13 @@ import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.util.PanelColor;
 
-/** --------------------------------------------------------------------------------------------------------------------
+/**
+ * @author Joshua Badzey & Mark Ghebrial
+ *
  * The class for the control panel manipulator mechanism, which will turn the control panel a desired
  * number of times, turn it to a specific color, and receive a color from the FMS. Works with
  * FMS to determine what color is needed for position control.
- -------------------------------------------------------------------------------------------------------------------- */
+ */
 
 public class CtrlPanelSubsystem extends SubsystemBase {
 
@@ -39,11 +41,6 @@ public class CtrlPanelSubsystem extends SubsystemBase {
         }
     }
 
-    /** ----------------------------------------------------------------------------------------------------------------
-     * Returns whether or not a color has been detected.
-     *
-     * @return Whether or not a color has been detected.
-     ---------------------------------------------------------------------------------------------------------------- */
     private boolean hasSensorColor () {
         return getColor() != PanelColor.unknown;
     }

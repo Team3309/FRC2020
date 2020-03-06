@@ -30,7 +30,7 @@ public class ToIntakeCmdGroup extends SequentialCommandGroup {
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new SetIndexerSpeed(indexer, Config.indexInSpeed),
-                new MoveArmAndExtendIntake(intake, arm, false),
+                new MoveArmAndExtendIntake(intake, arm),
                 new StartIntake(intake, shooter),
                 new UpdateHandlingState(RobotContainer.RobotState.INTAKE)
         );

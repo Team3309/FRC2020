@@ -20,13 +20,11 @@ public class MoveArmAndExtendIntake extends CommandBase {
 
     private final ArmSubsystem arm;
     private final IntakeSubsystem intake;
-    private boolean dontMoveArm;
     private boolean hasSetToMin; //a check if we've initialized the final descent.
 
-    public MoveArmAndExtendIntake(IntakeSubsystem intake, ArmSubsystem arm, boolean dontMoveArm) {
+    public MoveArmAndExtendIntake(IntakeSubsystem intake, ArmSubsystem arm) {
         this.arm = arm;
         this.intake = intake;
-        this.dontMoveArm = dontMoveArm;
 
         addRequirements(arm, intake);
     }
@@ -55,10 +53,6 @@ public class MoveArmAndExtendIntake extends CommandBase {
         if (arm.isArmAboveIntakeMinimum()) {
             intake.extend();
         }
-
-        // dontMoveArm means don't move it down, only move it out of the way, so at this point we're done.
-        if (dontMoveArm)
-            return true;
 
         //once intake is out of the way start, the final descent. If we've already done that on a previous cycle
         //then don't do that so we don't mess up our magic motion profile.

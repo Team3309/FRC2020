@@ -20,7 +20,7 @@ public class ToOuttakeCmdGroup extends SequentialCommandGroup {
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_OUTTAKE),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
-                new MoveArmAndExtendIntake(intake, arm, false),
+                new MoveArmAndExtendIntake(intake, arm),
                 new StartOuttake(intake, shooter),
                 new UpdateHandlingState(RobotContainer.RobotState.OUTTAKE));
     }
