@@ -19,9 +19,9 @@ public class ThreeBallAutoDriveForward extends SequentialCommandGroup {
                 new ToReadyToShootCmdGroup(Config.shooterMidRangeSolution, intake, indexer, shooter, arm),
                 new ParallelCommandGroup(
                         new Sleep(3.0),
-                        new InstantCommand(() -> indexer.setVelocity(4000), indexer)
+                        new InstantCommand(indexer::velocityShooting, indexer)
                 ),
-                new InstantCommand(() -> indexer.setVelocity(0), indexer),
+                new InstantCommand(indexer::reset, indexer),
 
                 // Super cheesy way to get across the line because DriveStraight isn't working right yet.
                 new DriveApplyPower(0.2, drive),  // will be cancelled by DriveManual resuming at end of command group
