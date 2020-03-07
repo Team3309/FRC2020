@@ -290,14 +290,14 @@ public class Config {
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
+                climberDeploySolenoidId = 3;
+                climbMotorId = 13;
+                climbPdpChannel = 0; // TODO: Get the right channel
+
                 topShooterMotorID = 2;
                 bottomShooterMotorID = 10;
                 topShooterPdpChannel = 12;
                 bottomShooterPdpChannel = 13;
-
-                climberDeploySolenoidId = 3;
-                climbMotorId = 13;
-                climbPdpChannel = 0; // TODO: Get the right channel
 
                 shooterVelocityP = 0.04;
                 shooterVelocityI = 0.0002;
