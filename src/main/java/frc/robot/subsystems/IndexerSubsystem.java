@@ -236,16 +236,18 @@ public class IndexerSubsystem extends SubsystemBase {
      * Sends motor data to SmartDashboard.
      */
     public void outputToDashboard() {
-        SmartDashboard.putNumber("Upper motor desired encoder position:", UpperMotorDesiredEncoderPosition);
-        SmartDashboard.putNumber("Upper motor current encoder position:",
+        SmartDashboard.putNumber("Upper index desired position:", UpperMotorDesiredEncoderPosition);
+        SmartDashboard.putNumber("Upper index current position:",
                 UpperIndexerMotor.getSelectedSensorPosition(0));
-        SmartDashboard.putNumber("Lower motor desired encoder position:", LowerMotorDesiredEncoderPosition);
-        SmartDashboard.putNumber("Lower motor current encoder position:",
+        SmartDashboard.putNumber("Lower index desired position:", LowerMotorDesiredEncoderPosition);
+        SmartDashboard.putNumber("Lower index current position:",
                 LowerIndexerMotor.getSelectedSensorPosition(0));
-        SmartDashboard.putNumber("Upper motor power:", UpperIndexerMotor.getMotorOutputPercent());
-        SmartDashboard.putNumber("Lower motor power:", LowerIndexerMotor.getMotorOutputPercent());
-        SmartDashboard.putNumber("Upper motor current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
-        SmartDashboard.putNumber("Lower motor current:", Robot.pdp.getCurrent(Config.lowerIndexerMotorPdpChannel));
+        SmartDashboard.putNumber("Upper index velocity:", UpperIndexerMotor.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("Lower index velocity:", LowerIndexerMotor.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("Upper index power:", UpperIndexerMotor.getMotorOutputPercent());
+        SmartDashboard.putNumber("Lower index power:", LowerIndexerMotor.getMotorOutputPercent());
+        SmartDashboard.putNumber("Upper index current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
+        SmartDashboard.putNumber("Lower index current:", Robot.pdp.getCurrent(Config.lowerIndexerMotorPdpChannel));
         SmartDashboard.putBoolean("In position:", isInPosition());
         SmartDashboard.putBoolean("Sensor blocked:", isSensorBlocked());
         SmartDashboard.putNumber("Power Cell count:", getCount());
