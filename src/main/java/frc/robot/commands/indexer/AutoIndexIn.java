@@ -1,5 +1,6 @@
 package frc.robot.commands.indexer;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Config;
 import frc.robot.RobotContainer;
@@ -46,9 +47,9 @@ public class AutoIndexIn extends CommandBase {
             // Could get much fancier here with multiple sample filtering, but this core logic should be sound
             // so let's try the simple approach first.
             double currentFlywheelSpeed = (shooter.getTopMotorVelocity() + shooter.getBottomMotorVelocity()) / 2;
-            if (currentFlywheelSpeed >= Config.autoIndexInMinFlywheelSpeed) {
+            if (currentFlywheelSpeed <= Config.autoIndexInMinFlywheelSpeed) {
                 if (wasToSpeed) {
-                    if (maxFlywheelSpeed - currentFlywheelSpeed >= Config.autoIndexInFlywheelSpeedDropDetectThreshold) {
+                    if (currentFlywheelSpeed - maxFlywheelSpeed >= Config.autoIndexInFlywheelSpeedDropDetectThreshold) {
                         // speed drop is over detection threshold
                         Indexer.indexIn();
                         wasToSpeed = false; //reset this so we don't repeatedly index in.
@@ -56,18 +57,25 @@ public class AutoIndexIn extends CommandBase {
                     }
                 }
                 else if (isAccelerating) {
-                    if (lastFlywheelSpeed - currentFlywheelSpeed < Config.autoIndexInMaxFlywheelSpeedTolerance) {
+                    if (currentFlywheelSpeed - lastFlywheelSpeed < Config.autoIndexInMaxFlywheelSpeedTolerance) {
                         // we have plateaued at max speed after ramping up
                         wasToSpeed = true;
                         maxFlywheelSpeed = currentFlywheelSpeed;
                     }
                 }
-                else if (currentFlywheelSpeed - lastFlywheelSpeed >= Config.autoIndexInMaxFlywheelSpeedTolerance) {
+                else if (lastFlywheelSpeed - currentFlywheelSpeed >= Config.autoIndexInMaxFlywheelSpeedTolerance) {
                     // we are ramping up
                     isAccelerating = true;
                 }
             }
             lastFlywheelSpeed = currentFlywheelSpeed;
+
+            if (RobotContainer.getIndexerDebug()) {
+                SmartDashboard.putNumber("Indexer maxFlywheelSpeed", maxFlywheelSpeed);
+                SmartDashboard.putNumber("Indexer lastFlywheelSpeed", lastFlywheelSpeed);
+                SmartDashboard.putBoolean("Indexer wasToSpeed", wasToSpeed);
+                SmartDashboard.putBoolean("Indexer isAccelerating", isAccelerating);
+            }
         }
         else {
             initialize(); // restart state machine when resuming intake mode
