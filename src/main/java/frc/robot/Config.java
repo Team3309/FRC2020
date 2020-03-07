@@ -119,7 +119,7 @@ public class Config {
     public static Integer bottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
-    public static final double shooterClosedLoopRampRate = 1.0;  // don't strip the belts when spinning up
+    public static final double shooterClosedLoopRampRate = 0.65;  // don't strip the belts when spinning up
     public static final double shooterOpenLoopRampRate = 1.0;    // don't strip the belts when stopping flywheels
     public static Double shooterVelocityP;
     public static Double shooterVelocityI;
