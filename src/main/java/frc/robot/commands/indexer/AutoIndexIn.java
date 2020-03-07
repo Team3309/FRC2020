@@ -60,6 +60,7 @@ public class AutoIndexIn extends CommandBase {
                     if (currentFlywheelSpeed - lastFlywheelSpeed < Config.autoIndexInMaxFlywheelSpeedTolerance) {
                         // we have plateaued at max speed after ramping up
                         wasToSpeed = true;
+                        isAccelerating = false;
                         maxFlywheelSpeed = currentFlywheelSpeed;
                     }
                 }
