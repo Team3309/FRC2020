@@ -299,11 +299,11 @@ public class Config {
                 topShooterPdpChannel = 12;
                 bottomShooterPdpChannel = 13;
 
-                shooterVelocityP = 0.04;
-                shooterVelocityI = 0.0002;
-                shooterVelocityIntegralZone = 500;
+                shooterVelocityP = 0.06;
+                shooterVelocityI = 0.0004;
+                shooterVelocityIntegralZone = 1000;
                 shooterVelocityD = 0.0;
-                shooterVelocityF = 0.05;
+                shooterVelocityF = 0.049;
 
                 intakeMotorID = 20;
                 intakeMotorPdpChannel = 11;
