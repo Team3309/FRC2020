@@ -86,7 +86,7 @@ public class RobotContainer
     private final String climberDashboardKey = "Display Climber Values";
     private final String ctrlPanelDashboardKey = "Display CtrlPanel Values";
     private final static String driveDashboardKey = "Display Drive Values";
-    private final String indexerDashboardKey = "Display Indexer Values";
+    private final static String indexerDashboardKey = "Display Indexer Values";
     private final String intakeDashboardKey = "Display Intake Values";
     private final String shooterDashboardKey = "Display Shooter Values";
     private final String visionDashboardKey = "Display Vision Values";
@@ -375,7 +375,7 @@ public class RobotContainer
         if (getDriveDebug() && Config.isDriveInstalled) {
             drive.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(indexerDashboardKey, false) && Config.isIndexerInstalled) {
+        if (getIndexerDebug() && Config.isIndexerInstalled) {
             indexer.outputToDashboard();
         }
         if (SmartDashboard.getBoolean(intakeDashboardKey, false) && Config.isIntakeInstalled) {
@@ -419,5 +419,13 @@ public class RobotContainer
      */
     public static boolean getDriveDebug() {
         return SmartDashboard.getBoolean(driveDashboardKey, false);
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return boolean indicating if indexer values display is enabled
+     * Used for AutoIndexIn to output additional debug information.
+     */
+    public static boolean getIndexerDebug() {
+        return SmartDashboard.getBoolean(indexerDashboardKey, false);
     }
 }
