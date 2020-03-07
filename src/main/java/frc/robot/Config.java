@@ -356,7 +356,7 @@ public class Config {
                 fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
                 fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
 
-                driveGearRatio = 17.05; //different for 2020 beta bot
+                driveGearRatio = 10.7; //might be different for 2020 beta bot
 
                 IMUDriftConstant = 0.0045;
                 IMUMountingAngle = 0.0;
