@@ -119,7 +119,7 @@ public class Config {
     public static Integer bottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
-    public static final double shooterClosedLoopRampRate = 1.0;  // don't strip the belts when spinning up
+    public static final double shooterClosedLoopRampRate = 0.5;  // don't strip the belts when spinning up
     public static final double shooterOpenLoopRampRate = 1.0;    // don't strip the belts when stopping flywheels
     public static Double shooterVelocityP;
     public static Double shooterVelocityI;
@@ -259,17 +259,17 @@ public class Config {
         switch (currentRobot) {
             case Alpha2020:
                 isArmInstalled = true;
-                isClimberInstalled = true;
+                isClimberInstalled = false;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = true;
                 isIndexerSensorInstalled = false;
-                isIntakeInstalled = true;
+                isIntakeInstalled = false;
                 isShooterInstalled = true;
-                isVisionInstalled = true;
+                isVisionInstalled = false;
                 isLimelightOn = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = true;
+                isCompressorEnabled = false;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
