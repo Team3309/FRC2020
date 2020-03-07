@@ -206,12 +206,12 @@ public class Config {
     public static Integer armIntegralZone;
     public static Double armD;
 
-    public static final double armPeakOutputReverse = -0.2;
+    public static final double armPeakOutputReverse = -0.3;
     public static final double armPeakOutputForward = 0.5;
     public static final int armAcceleration = 75000; // Ticks per 100ms per sec
     public static final int armCruiseVelocity = 7500; // Ticks per 100ms
 
-    public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
+    public static final int armPositioningTolerance = 1000; //maximum encoder count difference to be properly in a position
     public static final double armJoystickTiltToPositionFactor = 100;
 
     //------------------------------------------------------------------------------------------------------------------
@@ -333,14 +333,14 @@ public class Config {
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
 
-                armP = 0.04; // core power (start at .1)
-                armI = 3.54972071e-05; // maintain goal position
+                armP = 0.1; // core power (start at .1)
+                armI = 2.54972071e-05; // maintain goal position
                 armIntegralZone = 5000; // disable I outside of this range
-                armD = 0.0; // increase to lower overshoot (start at 0)
+                armD = 3.0; // increase to lower overshoot (start at 0)
 
                 armPositionVision = 50000; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 72690;
-                minArmPosition = 1000;
+                minArmPosition = 1700;
                 armPositionIntakeStowedLimit = 25000;
                 armPositionIntakeStowedTarget = armPositionIntakeStowedLimit + armPositioningTolerance;
                 armPositionIntakeStowedUpperLimit = armPositionIntakeStowedTarget + armPositioningTolerance;
