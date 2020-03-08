@@ -87,7 +87,7 @@ public class Config {
     public static Double intakePistonExtendDelaySeconds;
     public static Double intakePistonRetractDelaySeconds;
 
-    public static final double intakeInwardPower = 0.6;
+    public static final double intakeInwardPower = 0.9;
     public static final double intakeOutwardPower = 0.6;
 
     //------------------------------------------------------------------------------------------------------------------
