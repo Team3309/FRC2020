@@ -1,5 +1,6 @@
 package frc.robot.commands.select;
 
+import frc.robot.Config;
 import frc.robot.RobotContainer;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.groups.ToDriveCmdGroup;
@@ -17,7 +18,7 @@ public class SelectReadyToShootToDriving extends SelectCommand3309 {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_READY_TO_SHOOT ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT
             ) {
-                return new ToDriveCmdGroup(null, intake, shooter, arm);
+                return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);
             } else {
                 return new DoNothing();
             }
