@@ -177,7 +177,6 @@ public class Config {
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer armMotorId;
-    public static Integer armHallEffectLimitSwitchId;
     public static Integer armMotorPdpChannel;
 
     public static Integer maxArmPosition;
