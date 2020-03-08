@@ -82,10 +82,10 @@ public class IntakeSubsystem extends SubsystemBase {
      * Start emergency outtake to release trapped power cell
      */
     public void startEmergencyOuttake() {
-        if (!isExtended() && isPistonTravelComplete()) {
-            outtake();
-            emergencyOuttakeActive = true;
+        if (Config.isIntakeInstalled && !isExtended() && isPistonTravelComplete()) {
+            intakeMotor.set(ControlMode.PercentOutput, -Config.intakeEmergencyOutwardPower);
         }
+        emergencyOuttakeActive = true;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

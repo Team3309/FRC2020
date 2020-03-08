@@ -89,6 +89,7 @@ public class Config {
 
     public static final double intakeInwardPower = 0.9;
     public static final double intakeOutwardPower = 0.6;
+    public static final double intakeEmergencyOutwardPower = 0.35;
 
     //------------------------------------------------------------------------------------------------------------------
     //Control Panel Manipulator Constants//
