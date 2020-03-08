@@ -27,6 +27,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private WPI_TalonSRX intakeMotor;
     private DoubleSolenoid solenoid;
     private double solenoidStateExtendSwapTime;
+    private boolean emergencyOuttakeActive;
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
@@ -54,6 +55,7 @@ public class IntakeSubsystem extends SubsystemBase {
         if (Config.isIntakeInstalled) {
             intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
+        emergencyOuttakeActive = false;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -63,6 +65,7 @@ public class IntakeSubsystem extends SubsystemBase {
         if (Config.isIntakeInstalled) {
             intakeMotor.set(ControlMode.PercentOutput, -Config.intakeOutwardPower);
         }
+        emergencyOuttakeActive = false;
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -72,6 +75,26 @@ public class IntakeSubsystem extends SubsystemBase {
         if (Config.isIntakeInstalled) {
             intakeMotor.set(ControlMode.PercentOutput, 0);
         }
+        emergencyOuttakeActive = false;
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Start emergency outtake to release trapped power cell
+     */
+    public void startEmergencyOuttake() {
+        if (!isExtended() && isPistonTravelComplete()) {
+            outtake();
+            emergencyOuttakeActive = true;
+        }
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Emergency outtake complete
+     */
+    public void stopEmergencyOuttake() {
+        if (emergencyOuttakeActive) {
+            stop();
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
@@ -79,6 +102,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public void extend() {
         if (Config.isIntakeInstalled && Config.isPcmInstalled) {
+            stopEmergencyOuttake();
             DoubleSolenoid.Value solenoidState = solenoid.get();
             if (solenoidState == DoubleSolenoid.Value.kReverse ||
                     solenoidState == DoubleSolenoid.Value.kOff) {
@@ -123,6 +147,7 @@ public class IntakeSubsystem extends SubsystemBase {
          SmartDashboard.putNumber("Intake motor current", Robot.pdp.getCurrent(Config.intakeMotorPdpChannel));
          SmartDashboard.putBoolean("Intake extended", isExtended());
          SmartDashboard.putBoolean("Intake travel complete", isPistonTravelComplete());
+         SmartDashboard.putBoolean("Intake emergencyOuttakeActive", emergencyOuttakeActive);
      }
 
     public boolean isExtended() {

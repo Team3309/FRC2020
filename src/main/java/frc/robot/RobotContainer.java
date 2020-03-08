@@ -160,8 +160,8 @@ public class RobotContainer
 
         // TODO: Remove after spin turn testing is complete
         // TODO: Simplify the process of command selection.
-        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-                .whenPressed(new DriveAuto(waypoints, false, drive));
+        //new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+        //       .whenPressed(new DriveAuto(waypoints, false, drive));
 
         // -------------------------------------------------------------------------------------------------------------
         // Control Panel
@@ -183,6 +183,13 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectToOuttake(intake, shooter, arm))
                 .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, OI.OperatorController));
+
+        // Don't require the intake subsystem for emergency outtake so it can be run in any arm up mode
+        // without interrupting other commands. Arbitration over control of the intake motor is
+        // managed directly by the intake subsystem.
+        new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
+                .whenPressed(new InstantCommand(intake::startEmergencyOuttake))
+                .whenReleased(new InstantCommand(intake::stopEmergencyOuttake));
 
         // Manual index load
         new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
