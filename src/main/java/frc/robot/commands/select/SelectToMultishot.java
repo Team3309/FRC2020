@@ -18,7 +18,6 @@ public class SelectToMultishot extends SelectCommand3309 {
             } else {
                 return new DoNothing();
             }
-
         });
     }
 

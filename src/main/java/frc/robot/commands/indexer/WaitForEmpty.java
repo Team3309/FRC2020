@@ -11,11 +11,10 @@ public class WaitForEmpty extends CommandBase {
 
     @Override
     public void execute() {
-        return;
     }
 
-    public void end() {
-
+    @Override
+    public void end(boolean interrupted) {
     }
 
     @Override

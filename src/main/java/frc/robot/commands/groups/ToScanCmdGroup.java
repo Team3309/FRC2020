@@ -20,15 +20,14 @@ public class ToScanCmdGroup extends SequentialCommandGroup {
 
     public ToScanCmdGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, VisionSubsystem vision, DriveSubsystem drive) {
         addCommands(
-                //give drive angle to change by to aim at target
+                // turn to target and prepare to shoot
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_SCAN),
                 new IlluminationOn(vision),
                 new StopIntake(intake),
                 new StopFlywheels(shooter),
                 new MoveArmAndRetractIntake(Config.armPositionVision, intake, arm),
-                new UpdateHandlingState(RobotContainer.RobotState.SCAN)/*,
-                new CreateFiringSolution(vision, intake, indexer, shooter, arm, drive)*/);
-
+                new UpdateHandlingState(RobotContainer.RobotState.SCAN),
+                new CreateFiringSolution(vision, intake, indexer, shooter, arm, drive));
     }
 
 }

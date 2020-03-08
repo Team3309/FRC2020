@@ -35,7 +35,8 @@ public class LiftRobot extends CommandBase {
         }
     }
 
-    public void end() {
+    @Override
+    public void end(boolean interrupted) {
         climber.moveWinch(0);
     }
 

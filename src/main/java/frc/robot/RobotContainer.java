@@ -89,11 +89,9 @@ public class RobotContainer
     private final String intakeDashboardKey = "Display Intake Values";
     private final String shooterDashboardKey = "Display Shooter Values";
     private final String visionDashboardKey = "Display Vision Values";
-    private final String ArmSetManualCalibrationDashboardKey = "Arm - Set Manual Calibration Now";
     private final String ArmCoastModeDashboardKey = "Arm - Coast Mode";
     private final String DriveCoastModeDashboardKey = "Drive - Coast Mode";
     private final String ClimberCoastModeDashboardKey = "Climber - Coast Mode";
-    private final String VisionEnableLEDsDashboardKey = "Vision - Enable LEDs";
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
@@ -317,7 +315,6 @@ public class RobotContainer
         // Toggles for systems while disabled.
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
-        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
         SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
     }
 
@@ -335,7 +332,6 @@ public class RobotContainer
 
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
-        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
         SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
     }
 
@@ -393,12 +389,6 @@ public class RobotContainer
      * Read values that are toggleable on the dashboard and update state as appropriate
      */
     private void updateDashboardToggles() {
-        // Manual calibration is currently disabled, instead we calibrate via turning no the robot in the correct state
-//        boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
-//        if (setCalibration) {
-//            SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
-//            arm.calibrate();
-//        }
 
         // These toggles should only be usable while disabled.
         if (DriverStation.getInstance().isDisabled()) {

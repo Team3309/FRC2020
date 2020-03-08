@@ -13,7 +13,6 @@ public class SelectPositionTurner extends SelectCommand3309 {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE) {
                 return new PositionTurnerCmdGroup(arm, intake);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });
