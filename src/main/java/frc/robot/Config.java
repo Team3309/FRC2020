@@ -87,7 +87,7 @@ public class Config {
     public static Double intakePistonExtendDelaySeconds;
     public static Double intakePistonRetractDelaySeconds;
 
-    public static final double intakeInwardPower = 0.6;
+    public static final double intakeInwardPower = 0.9;
     public static final double intakeOutwardPower = 0.6;
 
     //------------------------------------------------------------------------------------------------------------------
@@ -119,7 +119,7 @@ public class Config {
     public static Integer bottomShooterPdpChannel;
 
     //Shooter Velocity Constants----------------------------------------------------------------------------------------
-    public static final double shooterClosedLoopRampRate = 1.0;  // don't strip the belts when spinning up
+    public static final double shooterClosedLoopRampRate = 0.65;  // don't strip the belts when spinning up
     public static final double shooterOpenLoopRampRate = 1.0;    // don't strip the belts when stopping flywheels
     public static Double shooterVelocityP;
     public static Double shooterVelocityI;
@@ -290,20 +290,20 @@ public class Config {
                 driveVelocityD = 0.0006;
                 driveVelocityF = 0.002;
 
+                climberDeploySolenoidId = 3;
+                climbMotorId = 13;
+                climbPdpChannel = 0; // TODO: Get the right channel
+
                 topShooterMotorID = 2;
                 bottomShooterMotorID = 10;
                 topShooterPdpChannel = 12;
                 bottomShooterPdpChannel = 13;
 
-                climberDeploySolenoidId = 3;
-                climbMotorId = 13;
-                climbPdpChannel = 0; // TODO: Get the right channel
-
-                shooterVelocityP = 0.04;
-                shooterVelocityI = 0.0002;
-                shooterVelocityIntegralZone = 500;
+                shooterVelocityP = 0.06;
+                shooterVelocityI = 0.0004;
+                shooterVelocityIntegralZone = 1000;
                 shooterVelocityD = 0.0;
-                shooterVelocityF = 0.05;
+                shooterVelocityF = 0.049;
 
                 intakeMotorID = 20;
                 intakeMotorPdpChannel = 11;
