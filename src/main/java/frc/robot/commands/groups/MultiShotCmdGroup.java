@@ -17,6 +17,5 @@ public class MultiShotCmdGroup extends SequentialCommandGroup {
                 new UpdateHandlingState(RobotContainer.RobotState.MULTI_SHOT),
                 new MultiShot(indexer, shooter)
         );
-
     }
 }

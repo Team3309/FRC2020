@@ -15,21 +15,8 @@ import frc.robot.Robot;
  */
 public class ShooterSubsystem extends SubsystemBase {
 
-     /**
-      * Flywheel
-      */
     private Integer flywheelSpeedTop;
     private Integer flywheelSpeedBottom;
-
-     public boolean areFlywheelsToSpeed() {
-         if (!Config.isShooterInstalled) return true;
-         if (flywheelSpeedBottom == null || flywheelSpeedTop == null) {
-             return true;
-         }
-         return (
-                 Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < Config.shooterSpeedTolerance &&
-                 Math.abs(getBottomMotorVelocity() - flywheelSpeedBottom) < Config.shooterSpeedTolerance);
-     }
 
     private WPI_TalonFX topMotor;
     private WPI_TalonFX bottomMotor;
@@ -70,10 +57,14 @@ public class ShooterSubsystem extends SubsystemBase {
      * Spins up the flywheels in preparation for firing.
      */
     public void runFlywheelsAtPresetSpeeds() {
-        if (flywheelSpeedTop != null && flywheelSpeedBottom != null) {
+        runFlywheels(flywheelSpeedTop, flywheelSpeedBottom);
+    }
 
-            runFlywheels(flywheelSpeedTop, flywheelSpeedBottom);
-        }
+    public boolean areFlywheelsToSpeed() {
+        if (!Config.isShooterInstalled || flywheelSpeedBottom == null || flywheelSpeedTop == null) return true;
+        return (
+            Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < Config.shooterSpeedTolerance &&
+            Math.abs(getBottomMotorVelocity() - flywheelSpeedBottom) < Config.shooterSpeedTolerance);
     }
 
      /** ---------------------------------------------------------------------------------------------------------------
@@ -94,11 +85,9 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param bottomSpeed - the desired speed of the bottom motor.
      */
     public void runFlywheels(double topSpeed, double bottomSpeed) {
-        if (Config.isShooterInstalled) {
-            if (flywheelSpeedTop != null && flywheelSpeedBottom != null) {
-                topMotor.set(ControlMode.Velocity, topSpeed);
-                bottomMotor.set(ControlMode.Velocity, bottomSpeed);
-            }
+        if (Config.isShooterInstalled && flywheelSpeedTop != null && flywheelSpeedBottom != null) {
+            topMotor.set(ControlMode.Velocity, topSpeed);
+            bottomMotor.set(ControlMode.Velocity, bottomSpeed);
         }
     }
 
