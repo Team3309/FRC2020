@@ -145,7 +145,7 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Boolean indexerVelocityModeShooting;
+    public static Boolean isVelocityModeShooting;
     public static Integer upperIndexerMotorID;
     public static Integer lowerIndexerMotorID;
     public static Integer lowerIndexerMotorPdpChannel;
@@ -319,7 +319,7 @@ public class Config {
                 intakePistonExtendDelaySeconds = 0.5;
                 intakePistonRetractDelaySeconds = 0.5;
 
-                indexerVelocityModeShooting = false;
+                isVelocityModeShooting = false;
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
                 indexerSensorID = 4;

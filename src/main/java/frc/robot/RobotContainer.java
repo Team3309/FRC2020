@@ -60,7 +60,6 @@ public class RobotContainer
         SCAN,
         SINGLE_SHOT,
         MULTI_SHOT,
-        CONTINUOUS_SHOT,
         INTAKE,
         READY_TO_SHOOT,
         INIT_ARM_UP_DRIVE,
@@ -213,11 +212,11 @@ public class RobotContainer
 //                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
 //                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
-        // Continuous-shot
+        // Shoot multiple power cells in either position or velocity control mode for the indexer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .or(OI.leftStickLeftCluster)
-                .whenActive(new SelectToContinuousShot(indexer))
-                .whenInactive(new SelectContinuousShotToReadyToShoot(intake, indexer, shooter, arm));
+                .whenActive(new SelectToMultishot(indexer, shooter))
+                .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         //D-pad Left - Long
         new POVButton(OI.OperatorController, 270)
