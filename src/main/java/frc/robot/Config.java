@@ -129,7 +129,7 @@ public class Config {
     public static final double shooterIntakePowerTopMotor = 0.3;
     public static final double shooterIntakePowerBottomMotor = 0.3;
 
-    public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
+    public static final int shooterSpeedTolerance = 200; //Encoder counts per 100ms
 
     // Un-tuned values
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
