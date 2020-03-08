@@ -13,7 +13,6 @@ public class SelectSpinTurner extends SelectCommand3309 {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION) {
                 return new SpinTurnerCmdGroup(drive, ctrlPanel);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });

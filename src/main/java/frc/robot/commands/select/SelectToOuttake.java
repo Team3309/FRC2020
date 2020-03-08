@@ -28,7 +28,6 @@ public class SelectToOuttake extends SelectCommand3309 {
             ) {
                 return new ToOuttakeCmdGroup(intake, indexer, shooter, arm, drive, manipulator);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });

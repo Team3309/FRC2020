@@ -7,7 +7,6 @@ import frc.robot.subsystems.IndexerSubsystem;
 
 public class SelectToContinuousShot extends SelectCommand3309 {
 
-
     public SelectToContinuousShot(IndexerSubsystem indexer) {
         super(() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT) {
@@ -18,5 +17,4 @@ public class SelectToContinuousShot extends SelectCommand3309 {
 
         });
     }
-
 }

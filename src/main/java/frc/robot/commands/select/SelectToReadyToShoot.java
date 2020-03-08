@@ -27,7 +27,6 @@ public class SelectToReadyToShoot extends SelectCommand3309 {
             ) {
                 return new ToReadyToShootCmdGroup(firingSolution, intake, indexer, shooter, arm);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });
