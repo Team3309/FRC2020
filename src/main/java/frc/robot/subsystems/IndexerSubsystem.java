@@ -117,15 +117,17 @@ public class IndexerSubsystem extends SubsystemBase {
      */
     public void indexIn() {
         if (Config.isIndexerInstalled) {
-            upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0) -
-                    Config.indexInEncoderCounts[powerCells];
-            lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0) -
-                    Config.indexInEncoderCounts[powerCells];
-            upperIndexerMotor.selectProfileSlot(0, 0);  // use position control PID parameters
-            lowerIndexerMotor.selectProfileSlot(0, 0);
-            upperIndexerMotor.set(ControlMode.MotionMagic, upperMotorDesiredEncoderPosition);
-            lowerIndexerMotor.set(ControlMode.MotionMagic, lowerMotorDesiredEncoderPosition);
-            incrementIndexerCounter();
+            if (isInPosition()) {
+                upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0) -
+                        Config.indexInEncoderCounts[powerCells];
+                lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0) -
+                        Config.indexInEncoderCounts[powerCells];
+                upperIndexerMotor.selectProfileSlot(0, 0);  // use position control PID parameters
+                lowerIndexerMotor.selectProfileSlot(0, 0);
+                upperIndexerMotor.set(ControlMode.MotionMagic, upperMotorDesiredEncoderPosition);
+                lowerIndexerMotor.set(ControlMode.MotionMagic, lowerMotorDesiredEncoderPosition);
+                incrementIndexerCounter();
+            }
         }
     }
 
