@@ -15,7 +15,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToOuttakeCmdGroup extends SequentialCommandGroup {
-    public ToOuttakeCmdGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
+    public ToOuttakeCmdGroup(IntakeSubsystem intake, ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_OUTTAKE),
                 new StopIntake(intake),

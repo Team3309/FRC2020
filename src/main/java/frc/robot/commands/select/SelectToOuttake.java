@@ -13,9 +13,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectToOuttake extends SelectCommand3309 {
 
-    public SelectToOuttake(IntakeSubsystem intake, IndexerSubsystem indexer,
-                           ShooterSubsystem shooter, ArmSubsystem arm,
-                           DriveSubsystem drive, CtrlPanelSubsystem manipulator) {
+    public SelectToOuttake(IntakeSubsystem intake, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE ||
@@ -26,9 +24,8 @@ public class SelectToOuttake extends SelectCommand3309 {
                     RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION
             ) {
-                return new ToOuttakeCmdGroup(intake, indexer, shooter, arm, drive, manipulator);
+                return new ToOuttakeCmdGroup(intake, shooter, arm);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });

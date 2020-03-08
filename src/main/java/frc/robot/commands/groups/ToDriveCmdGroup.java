@@ -18,9 +18,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToDriveCmdGroup extends SequentialCommandGroup {
 
-    public ToDriveCmdGroup(Integer position, IntakeSubsystem intake, IndexerSubsystem indexer,
-                           ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive,
-                           CtrlPanelSubsystem manipulator) {
+    public ToDriveCmdGroup(Integer position, IntakeSubsystem intake, ShooterSubsystem shooter, ArmSubsystem arm) {
         super(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_ARM_UP_DRIVE),
                 new StopIntake(intake),

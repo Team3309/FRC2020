@@ -22,9 +22,9 @@ public class SelectCancelIntake extends SelectCommand3309 {
                 RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState()
             ) {
                 if (xboxController.getRawAxis(XboxController.Axis.kRightTrigger.value) > Config.xBoxTriggerButtonThreshold) {
-                    return new ToOuttakeCmdGroup(intake, indexer, shooter, arm, drive, manipulator);
+                    return new ToOuttakeCmdGroup(intake, shooter, arm);
                 } else {
-                    return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
+                    return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);
                 }
             } else {
                 return new DoNothing();

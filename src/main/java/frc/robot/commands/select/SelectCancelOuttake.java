@@ -17,7 +17,6 @@ public class SelectCancelOuttake extends SelectCommand3309 {
 
     public SelectCancelOuttake(IntakeSubsystem intake, IndexerSubsystem indexer,
                                ShooterSubsystem shooter, ArmSubsystem arm,
-                               DriveSubsystem drive, CtrlPanelSubsystem manipulator,
                                XboxController xboxController) {
         super (() -> {
             if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_OUTTAKE ||
@@ -27,7 +26,7 @@ public class SelectCancelOuttake extends SelectCommand3309 {
                     return new ToIntakeCmdGroup(intake, indexer, shooter, arm);
 
                 } else {
-                    return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm, drive, manipulator);
+                    return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);
 
                 }
             } else {

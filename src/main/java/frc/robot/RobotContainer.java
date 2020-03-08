@@ -176,13 +176,13 @@ public class RobotContainer
         // -------------------------------------------------------------------------------------------------------------
         // Intake / outtake
         // -------------------------------------------------------------------------------------------------------------
-        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
                 .whenPressed(new SelectToIntake(intake, indexer, shooter, arm))
                 .whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
 
-        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
-                .whenPressed(new SelectToOuttake(intake, indexer, shooter, arm, drive, ctrlPanel))
-                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
+        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
+                .whenPressed(new SelectToOuttake(intake, shooter, arm))
+                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, OI.OperatorController));
 
         // Manual index load
         new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
@@ -200,8 +200,8 @@ public class RobotContainer
         // -------------------------------------------------------------------------------------------------------------
 
         // Cancel Shooting
-        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm, drive, ctrlPanel));
+        new POVButton(OI.OperatorController, 180)  // D-Down
+                .whenPressed(new SelectReadyToShootToDriving(intake, shooter, arm));
 
         // TODO BUG: Having this binding active will cause the Continuous-shot binding to put the robot into
         //  INIT_SINGLE_SHOT when pressed when not in READY_TO_SHOOT, but ONLY AFTER the robot has entered READY_TO_SHOOT
@@ -213,7 +213,7 @@ public class RobotContainer
 //                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
         // Continuous-shot
-        new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
                 .or(OI.leftStickLeftCluster)
                 .whenActive(new SelectToContinuousShot(indexer))
                 .whenInactive(new SelectContinuousShotToReadyToShoot(intake, indexer, shooter, arm));
@@ -233,8 +233,8 @@ public class RobotContainer
                 .whenPressed(new SelectToReadyToShoot(Config.shooterShortRangeSolution, intake, indexer, shooter, arm)
                 );
 
-        //D-pad Down - Smart
-        new POVButton(OI.OperatorController, 180)
+        // Scan
+        new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kRightTrigger, Config.xBoxTriggerButtonThreshold)
                 .whenPressed(new SelectToScan(intake, indexer, shooter, arm, vision, drive))
                 .whenReleased(new SelectCancelScan(intake, indexer, shooter, arm, drive, ctrlPanel));
     }
