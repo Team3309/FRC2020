@@ -1,0 +1,22 @@
+Operator controller requests from Mathew 3/7/20:
+
+Intake toggle on left bumper
+Outtake toggle on right bumper
+
+Left bumper: intake => right bumper: outtake => left bumper: resume intake => left bumper: arm up drive
+Right bumper: outtake => left bumper: intake => right bumper: resume outtake => right bumper: arm up drive
+Left bumper: intake => right bumper: outtake => right bumper: continue outtake => left bumper: intake => left bumper: arm up drive
+
+Multi-ball shooting on left trigger
+Scan on right trigger
+
+D-down: stop flywheels, move arm to above intake position, retract intake (not when in a shooting mode)
+
+hold A: emergency outtake when intake retracted (use lower power outtake to not impact shooting)
+
+Back button: toggle climber deploy (not when in a shooting mode)
+
+Start button: retract climber, stop winch, enable drive control (in case of accidental or missed deployment)
+
+Winch only operates after climber has been deployed and retracted at least once
+
