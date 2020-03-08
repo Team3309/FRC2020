@@ -13,8 +13,8 @@ public class OperatorInterface
 
 
     public ClusterGroup leftStickLeftCluster = new ClusterGroup(DriverLeft, GenericHID.Hand.kLeft);
-    public ClusterGroup leftStickRightCluster = new ClusterGroup(DriverLeft, GenericHID.Hand.kLeft);
-    public ClusterGroup rightStickLeftCluster = new ClusterGroup(DriverRight, GenericHID.Hand.kRight);
+    public ClusterGroup leftStickRightCluster = new ClusterGroup(DriverLeft, GenericHID.Hand.kRight);
+    public ClusterGroup rightStickLeftCluster = new ClusterGroup(DriverRight, GenericHID.Hand.kLeft);
     public ClusterGroup rightStickRightCluster = new ClusterGroup(DriverRight, GenericHID.Hand.kRight);
 
 
