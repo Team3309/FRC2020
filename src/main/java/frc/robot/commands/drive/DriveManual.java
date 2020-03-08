@@ -8,9 +8,9 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.util.CheesyDriveHelper;
 
 public class DriveManual extends CommandBase {
-    private DriveSubsystem Drive;
-    private Joystick LeftStick;
-    private Joystick RightStick;
+    private DriveSubsystem drive;
+    private Joystick leftStick;
+    private Joystick rightStick;
 
     private CheesyDriveHelper cheesyDrive = new CheesyDriveHelper();
     Config.RobotModel a = Config.currentRobot;
@@ -19,9 +19,9 @@ public class DriveManual extends CommandBase {
     {
         addRequirements(drive);
 
-        LeftStick = leftStick;
-        RightStick = rightStick;
-        Drive = drive;
+        this.leftStick = leftStick;
+        this.rightStick = rightStick;
+        this.drive = drive;
     }
 
     @Override
@@ -30,14 +30,17 @@ public class DriveManual extends CommandBase {
     @Override
     public void execute()
     {
-        double throttle = -LeftStick.getY();  // positive getY() is down
-        double turn = RightStick.getX();  // positive getX() is to the right
-        boolean quickTurn = RightStick.getTrigger();
+        double throttle = -leftStick.getY();  // positive getY() is down
+        double turn = rightStick.getX();  // positive getX() is to the right
+        boolean quickTurn = rightStick.getTrigger();
 
-        Drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickTurn, false));
+        drive.setLeftRight(ControlMode.PercentOutput, cheesyDrive.update(throttle, turn, quickTurn, false));
     }
 
-    public void end() { }
+    @Override
+    public void end(boolean interrupted) {
+        drive.stop();
+    }
 
     @Override
     public boolean isFinished()

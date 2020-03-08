@@ -183,7 +183,7 @@ public class DriveAuto extends CommandBase {
                 //check if correction is needed
                 if (Math.abs(degsLeftToTurn) < kTweakThreshold) {
                     //spin Turn complete
-                    drive.setLeftRight(ControlMode.PercentOutput, 0, 0);
+                    drive.stop();
                     turnState = spinTurnState.notStarted;
                     superStateMachine = superState.drivingStraight;
 
@@ -326,7 +326,7 @@ public class DriveAuto extends CommandBase {
             //find velocity at which the robot will travel while on the arc.
 
         } else if (superStateMachine == superState.stopped) {
-            drive.setLeftRight(ControlMode.PercentOutput, 0, 0);
+            drive.stop();
         }
 
         if (nextWaypointIndex == path.length - 1) {

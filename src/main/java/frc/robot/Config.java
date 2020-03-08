@@ -177,7 +177,6 @@ public class Config {
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer armMotorId;
-    public static Integer armHallEffectLimitSwitchId;
     public static Integer armMotorPdpChannel;
 
     public static Integer maxArmPosition;
@@ -214,13 +213,6 @@ public class Config {
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
     public static final double armJoystickTiltToPositionFactor = 100;
-
-    //------------------------------------------------------------------------------------------------------------------
-    //Aiming PID Constants for Vision Controlled Turning//
-    //------------------------------------------------------------------------------------------------------------------
-    public static Double aimingP;
-    public static Double aimingI;
-    public static Double aimingD;
 
     //
     //Climber Constants//

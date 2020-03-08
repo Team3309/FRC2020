@@ -290,6 +290,11 @@ public class DriveSubsystem extends SubsystemBase {
         }
     }
 
+    public void stop() {
+        // never use velocity control to stop the motors
+        setLeftRight(ControlMode.PercentOutput, 0, 0);
+    }
+
     /**-----------------------------------------------------------------------------------------------------------------
      * Programs the motors to move according to the left and right constants of a certain DriveSignal object.
      *
