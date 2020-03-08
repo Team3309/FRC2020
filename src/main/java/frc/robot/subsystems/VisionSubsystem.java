@@ -62,10 +62,11 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     public void setIllumination (boolean illuminated) {
-        if (illuminated)
+        if (illuminated) {
             limelight.setLed(Limelight.LEDMode.On);
-        else
+        } else {
             limelight.setLed(Limelight.LEDMode.Off);
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
