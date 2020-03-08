@@ -319,7 +319,7 @@ public class Config {
                 intakePistonExtendDelaySeconds = 0.5;
                 intakePistonRetractDelaySeconds = 0.5;
 
-                isVelocityModeShooting = false;
+                isVelocityModeShooting = true;
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
                 indexerSensorID = 4;
