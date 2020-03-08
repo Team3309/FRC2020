@@ -12,10 +12,8 @@ public class AutoIndexIn extends CommandBase {
 
     private final ShooterSubsystem shooter;
     private IndexerSubsystem Indexer;
-    private boolean wasToSpeed;
-    private boolean isAccelerating;
+    private boolean isIndexing;
     private double maxFlywheelSpeed;
-    private double lastFlywheelSpeed;
 
     public AutoIndexIn(IndexerSubsystem indexer, ShooterSubsystem shooter) {
         this.shooter = shooter;
@@ -24,9 +22,7 @@ public class AutoIndexIn extends CommandBase {
     }
 
     public void initialize() {
-        wasToSpeed = false;
-        isAccelerating = false;
-        lastFlywheelSpeed = 0;
+        isIndexing = false;
         maxFlywheelSpeed = 0;
     }
 
@@ -42,44 +38,39 @@ public class AutoIndexIn extends CommandBase {
         // However, getting a power cell jammed at the front of the indexer because we're full isn't great.
         // Perhaps that is better than the alternative of jamming all power cells against the intake motors.
         // Probably better to switch to outtake when we're full instead.
-        if (RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE  && Indexer.getCount() < Config.maxPowerCells) {
+        if (RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE  &&
+                Indexer.getCount() < Config.maxPowerCells) {
 
-            // Could get much fancier here with multiple sample filtering, but this core logic should be sound
-            // so let's try the simple approach first.
+            // flywheel speed is negative when intaking
             double currentFlywheelSpeed = (shooter.getTopMotorVelocity() + shooter.getBottomMotorVelocity()) / 2;
-            if (currentFlywheelSpeed <= Config.autoIndexInMinFlywheelSpeed) {
-                if (wasToSpeed) {
-                    if (currentFlywheelSpeed - maxFlywheelSpeed >= Config.autoIndexInFlywheelSpeedDropDetectThreshold) {
-                        // speed drop is over detection threshold
-                        Indexer.indexIn();
-                        wasToSpeed = false; //reset this so we don't repeatedly index in.
-                        isAccelerating = false;
-                    }
+
+            if (isIndexing) {
+                if (currentFlywheelSpeed >= maxFlywheelSpeed) {
+                    // flywheels are still slowing down
+                    maxFlywheelSpeed = currentFlywheelSpeed;  // keep track of slowest speed
+                } else if (currentFlywheelSpeed >= maxFlywheelSpeed - Config.autoIndexInFlywheelSpeedUpThreshold) {
+                    // significant speed up detected after indexing
+                    maxFlywheelSpeed = currentFlywheelSpeed;  // keep track of highest speed
+                    isIndexing = false;  // enable detection logic for next power cell
                 }
-                else if (isAccelerating) {
-                    if (currentFlywheelSpeed - lastFlywheelSpeed < Config.autoIndexInMaxFlywheelSpeedTolerance) {
-                        // we have plateaued at max speed after ramping up
-                        wasToSpeed = true;
-                        isAccelerating = false;
-                        maxFlywheelSpeed = currentFlywheelSpeed;
-                    }
-                }
-                else if (lastFlywheelSpeed - currentFlywheelSpeed >= Config.autoIndexInMaxFlywheelSpeedTolerance) {
-                    // we are ramping up
-                    isAccelerating = true;
-                }
+            } else if (currentFlywheelSpeed >=  maxFlywheelSpeed + Config.autoIndexInFlywheelSpeedDropThreshold) {
+                // flywheel speed drop is over detection threshold
+                Indexer.indexIn();
+                maxFlywheelSpeed = currentFlywheelSpeed;
+                isIndexing = true;  // don't index again if we get a second drop over threshold before speeding up again
+            } else if (currentFlywheelSpeed <  maxFlywheelSpeed) {
+                // flywheels are speeding up
+                maxFlywheelSpeed = currentFlywheelSpeed; // keep track of highest speed
             }
-            lastFlywheelSpeed = currentFlywheelSpeed;
 
             if (RobotContainer.getIndexerDebug()) {
-                SmartDashboard.putNumber("Indexer maxFlywheelSpeed", maxFlywheelSpeed);
-                SmartDashboard.putNumber("Indexer lastFlywheelSpeed", lastFlywheelSpeed);
-                SmartDashboard.putBoolean("Indexer wasToSpeed", wasToSpeed);
-                SmartDashboard.putBoolean("Indexer isAccelerating", isAccelerating);
+                SmartDashboard.putNumber("Auto index maxFlywheelSpeed", maxFlywheelSpeed);
+                SmartDashboard.putNumber("Auto index currentFlywheelSpeed", currentFlywheelSpeed);
+                SmartDashboard.putBoolean("Auto index isIndexing", isIndexing);
             }
         }
         else {
-            initialize(); // restart state machine when resuming intake mode
+            initialize(); // restart state machine when intake is complete
         }
     }
 }

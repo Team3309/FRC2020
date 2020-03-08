@@ -169,9 +169,8 @@ public class Config {
     public static final int indexInSpeed = 4000; // encoder counts per 100ms
 
     // we don't know what the nominal flywheel speed is when intaking because we use voltage control for intake
-    public static final double autoIndexInMinFlywheelSpeed = -2000;  // ignore bounces before power is applied
-    public static final double autoIndexInMaxFlywheelSpeedTolerance = 20;  // ignore small speed changes when at full intake speed
-    public static final double autoIndexInFlywheelSpeedDropDetectThreshold = 1000;  // require sizable drop to activate indexer
+    public static final double autoIndexInFlywheelSpeedUpThreshold = 200;  // ignore small speed changes when at full intake speed
+    public static final double autoIndexInFlywheelSpeedDropThreshold = 1000;  // require sizable drop to activate indexer
 
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
