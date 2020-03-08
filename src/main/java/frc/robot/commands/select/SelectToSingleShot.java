@@ -29,11 +29,10 @@ public class SelectToSingleShot extends SelectCommand3309 {
         super(() -> {
             if (((RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE
                     && shooter.hasPresetSpeeds())
-                    || RobotContainer.getRobotState()
-                        == RobotContainer.RobotState.READY_TO_SHOOT)) {
+                    || RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT)) {
                 return new SingleShotCmdGroup(shooter, indexer);
             } else {
-                return new DoNothing(); //
+                return new DoNothing();
             }
         });
     }

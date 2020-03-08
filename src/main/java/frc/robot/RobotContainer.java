@@ -201,14 +201,9 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm, drive, ctrlPanel));
 
-        // TODO BUG: Having this binding active will cause the Continuous-shot binding to put the robot into
-        //  INIT_SINGLE_SHOT when pressed when not in READY_TO_SHOOT, but ONLY AFTER the robot has entered READY_TO_SHOOT
-        //  and then goes back to ARM_UP_DRIVE.  Invoking the continuous-shot bind BEFORE the robot has entered READY_TO_SHOOT
-        //  correctly does nothing.
-        //  Since we're not using single-shot, we're just commenting this out for now.
-//        OI.leftStickRightCluster
-//                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
-//                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
+        OI.leftStickRightCluster
+                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
+                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
         // Shoot multiple power cells in either position or velocity control mode for the indexer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
