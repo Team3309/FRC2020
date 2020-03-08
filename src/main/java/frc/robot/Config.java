@@ -145,20 +145,18 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
-    public static Boolean indexerCompileFlag;
+    public static Boolean indexerVelocityModeShooting;
     public static Integer upperIndexerMotorID;
     public static Integer lowerIndexerMotorID;
     public static Integer lowerIndexerMotorPdpChannel;
     public static Integer upperIndexerMotorPdpChannel;
-    public static final double indexerPositionOpenLoopRampRate = 1.0;
-    public static final double indexerPositionClosedLoopRampRate = 1.0;
+    public static final double indexerOpenLoopRampRate = 1.0;
+    public static final double indexerClosedLoopRampRate = 1.0;
     public static Double indexerPositionP;
     public static Double indexerPositionI;
     public static Integer indexerPositionIntegralZone;
     public static Double indexerPositionD;
     public static Double indexerPositionF;
-    public static final double indexerVelocityOpenLoopRampRate = 1.0;
-    public static final double indexerVelocityClosedLoopRampRate = 1.0;
     public static Double indexerVelocityP;
     public static Double indexerVelocityI;
     public static Integer indexerVelocityIntegralZone;
@@ -321,7 +319,7 @@ public class Config {
                 intakePistonExtendDelaySeconds = 0.5;
                 intakePistonRetractDelaySeconds = 0.5;
 
-                indexerCompileFlag = false;
+                indexerVelocityModeShooting = false;
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
                 indexerSensorID = 4;
