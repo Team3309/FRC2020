@@ -196,11 +196,13 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         outputArmPositionToDashboard();
-        SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - calibrationZeroCount);
+        //SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - calibrationZeroCount);
         SmartDashboard.putNumber("Arm desired encoder position", desiredPosition);
+        SmartDashboard.putNumber("Arm position error", armMotor.getSelectedSensorPosition(0) - desiredPosition);
+        SmartDashboard.putNumber("Arm velocity", armMotor.getSelectedSensorVelocity(0));
         SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));
-        SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
+        //SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
         SmartDashboard.putBoolean("Arm calibrated", calibrated);
     }
 

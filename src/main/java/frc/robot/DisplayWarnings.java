@@ -12,7 +12,7 @@ public class DisplayWarnings {
     }
 
     public void execute() {
-        if (warningsTimer.get() >= 20) {
+        if (warningsTimer.get() >= 60) {
             warnNow();
             warningsTimer.reset();
         }
