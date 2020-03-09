@@ -11,8 +11,7 @@ public class StopCtrlPanelSpinningCmdGroup extends SequentialCommandGroup {
 
     public StopCtrlPanelSpinningCmdGroup(CtrlPanelSubsystem manipulator, DriveSubsystem drive) {
         addCommands(
-                //Why does this have to be an instant command?
-                new InstantCommand(manipulator::stop),
+                new InstantCommand(manipulator::stop, manipulator),
                 new UpdateHandlingState(RobotContainer.RobotState.TURNER_IN_POSITION)
         );
         addRequirements(drive); //To stop drive from pushing against control panel and to allow DriveManual to resume
