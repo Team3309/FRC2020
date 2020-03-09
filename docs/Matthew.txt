@@ -1,4 +1,4 @@
-Operator controller requests from Mathew 3/7/20:
+Operator controller requests from Matthew 3/7/20:
 
 Activate intake: single-tap left bumper
 Activate outtake: single-tap right bumper
