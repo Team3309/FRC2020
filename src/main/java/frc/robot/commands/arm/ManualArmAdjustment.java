@@ -33,7 +33,7 @@ public class ManualArmAdjustment extends CommandBase {
                 RobotContainer.getRobotState() == RobotContainer.RobotState.SINGLE_SHOT) {
             double yRaw = controller.getY(GenericHID.Hand.kRight);
             if (yRaw < -Config.operatorControllerDeadzoneRightStick || yRaw > Config.operatorControllerDeadzoneRightStick) {
-                arm.adjustArm(yRaw * yRaw * yRaw);
+                arm.adjustArm(-(yRaw * yRaw * yRaw));
             }
         }
     }
