@@ -129,7 +129,7 @@ public class Config {
     public static final double shooterIntakePowerTopMotor = 0.3;
     public static final double shooterIntakePowerBottomMotor = 0.3;
 
-    public static final int shooterSpeedTolerance = 100; //Encoder counts per 100ms
+    public static final int shooterSpeedTolerance = 200; //Encoder counts per 100ms
 
     // Un-tuned values
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
@@ -145,30 +145,36 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Indexer Constants//
     //------------------------------------------------------------------------------------------------------------------
+    public static Boolean isVelocityModeShooting;
     public static Integer upperIndexerMotorID;
     public static Integer lowerIndexerMotorID;
     public static Integer lowerIndexerMotorPdpChannel;
     public static Integer upperIndexerMotorPdpChannel;
     public static final double indexerOpenLoopRampRate = 1.0;
     public static final double indexerClosedLoopRampRate = 1.0;
-    public static Double indexerP;
-    public static Double indexerI;
-    public static Integer indexerIntegralZone;
-    public static Double indexerD;
-    public static Double indexerF;
+    public static Double indexerPositionP;
+    public static Double indexerPositionI;
+    public static Integer indexerPositionIntegralZone;
+    public static Double indexerPositionD;
+    public static Double indexerPositionF;
+    public static Double indexerVelocityP;
+    public static Double indexerVelocityI;
+    public static Integer indexerVelocityIntegralZone;
+    public static Double indexerVelocityD;
+    public static Double indexerVelocityF;
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
     public static final int indexInSpeed = 4000; // encoder counts per 100ms
 
     // we don't know what the nominal flywheel speed is when intaking because we use voltage control for intake
-    public static final double autoIndexInMinFlywheelSpeed = 2000;  // ignore bounces before power is applied
-    public static final double autoIndexInMaxFlywheelSpeedTolerance = 20;  // ignore small speed changes when at full intake speed
-    public static final double autoIndexInFlywheelSpeedDropDetectThreshold = 1000;  // require sizable drop to activate indexer
+    public static final double autoIndexInFlywheelSpeedUpThreshold = 200;  // ignore small speed changes when at full intake speed
+    public static final double autoIndexInFlywheelSpeedDropThreshold = 1000;  // require sizable drop to activate indexer
 
     //Positive power and positive encoder values are for indexing out; negative for indexing in.
     public static final double indexerPeakOutputReverse = -1.0;
     public static final double indexerPeakOutputForward = 1.0;
-    public static final double indexerRampSeconds = 0.1;  // time for indexer to switch between stopped and full-speed
+    public static final double indexerPositionRampSeconds = 0.1;  // time for indexer to switch between stopped and full-speed
+    public static final double indexerVelocityRampSeconds = 0.1;
     public static Integer indexerPositioningTolerance;
     public static Integer indexerSensorID;
     public static int maxPowerCells = 5;
@@ -177,7 +183,6 @@ public class Config {
     //Arm Constants//
     //------------------------------------------------------------------------------------------------------------------
     public static Integer armMotorId;
-    public static Integer armHallEffectLimitSwitchId;
     public static Integer armMotorPdpChannel;
 
     public static Integer maxArmPosition;
@@ -214,13 +219,6 @@ public class Config {
 
     public static final int armPositioningTolerance = 500; //maximum encoder count difference to be properly in a position
     public static final double armJoystickTiltToPositionFactor = 100;
-
-    //------------------------------------------------------------------------------------------------------------------
-    //Aiming PID Constants for Vision Controlled Turning//
-    //------------------------------------------------------------------------------------------------------------------
-    public static Double aimingP;
-    public static Double aimingI;
-    public static Double aimingD;
 
     //
     //Climber Constants//
@@ -313,17 +311,24 @@ public class Config {
                 intakePistonExtendDelaySeconds = 0.5;
                 intakePistonRetractDelaySeconds = 0.5;
 
+                isVelocityModeShooting = true;
                 upperIndexerMotorID = 21;
                 lowerIndexerMotorID = 22;
                 indexerSensorID = 4;
                 upperIndexerMotorPdpChannel = 8;
                 lowerIndexerMotorPdpChannel = 9;
-                indexerP = 0.2;
-                indexerI = 0.0;
-                indexerD = 20.0;
-                indexerIntegralZone = 0;
-                indexerF = 0.0;
+                indexerPositionP = 0.2;
+                indexerPositionI = 0.0;
+                indexerPositionD = 20.0;
+                indexerPositionIntegralZone = 0;
+                indexerPositionF = 0.0;
                 indexerPositioningTolerance = 900;
+                indexerVelocityP = 0.2;
+                indexerVelocityI = 0.0;
+                indexerVelocityD = 20.0;
+                indexerVelocityIntegralZone = 0;
+                indexerVelocityF = 0.0;
+
 
                 // We need to fight gravity both ways.
                 // There is more slippage at the start of movement as the belts tighten up.
@@ -351,9 +356,8 @@ public class Config {
                 // the arm motor controller in attempting to maintain the last set position.
                 armControlPanelPosition = maxArmPosition;
                 armPositionHardStop = 0;
-                limelightMountingAngle = -5.0;
-                limelightMountingHeight = 33.0; //inches
-                fieldVisionTargetHeight = 78.0 + 14.375; //inches
+                limelightMountingAngle = 12.0;
+                limelightMountingHeight = 41.5; //inches                fieldVisionTargetHeight = 78.0 + 14.375; //inches
                 fieldVisionDepthOfThreePointHoleFromVisionTarget = 29.0;
                 fieldVisionHeightOfThreePointHoleFromVisionTarget = 11.0;
 

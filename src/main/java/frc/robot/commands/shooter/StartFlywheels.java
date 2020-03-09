@@ -5,7 +5,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class StartFlywheels extends CommandBase {
 
-
     private final ShooterSubsystem shooter;
 
     public StartFlywheels(ShooterSubsystem shooter) {
@@ -14,10 +13,11 @@ public class StartFlywheels extends CommandBase {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         shooter.runFlywheelsAtPresetSpeeds();
     }
 
+    @Override
     public boolean isFinished() {
         return shooter.areFlywheelsToSpeed();
     }

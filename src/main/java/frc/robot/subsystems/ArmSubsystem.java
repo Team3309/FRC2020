@@ -25,8 +25,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
 
-    private DigitalInput hallEffectLimitSwitch;
-
     private WPI_TalonFX armMotor;
 
     public boolean isArmAboveIntakeMinimum() {
@@ -47,14 +45,6 @@ public class ArmSubsystem extends SubsystemBase {
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.armMotorId);
             configTalon(armMotor);
-
-            try {
-                //we try to enable, in case there is no hall effect currently installed.
-                hallEffectLimitSwitch = new DigitalInput(Config.armHallEffectLimitSwitchId);
-            } catch (Exception e) {
-                DriverStation.reportWarning("ArmSubsystem: Hall Effect Limit Switch not found!", false);
-            }
-
         }
     }
 

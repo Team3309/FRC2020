@@ -21,7 +21,7 @@ public class SelectToSingleShot extends SelectCommand3309 {
      * @param indexer The indexer which is used to move power cells into the shooter for shooting.
      * @param shooter The shooter which will shoot the power cells.
      *
-     * @return A Single Shot command group if the robot is in the correct states, and a Do Nothing
+     * Provides a Single Shot command group if the robot is in the correct states, and a Do Nothing
      *         command otherwise.
      *
      */
@@ -29,11 +29,10 @@ public class SelectToSingleShot extends SelectCommand3309 {
         super(() -> {
             if (((RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE
                     && shooter.hasPresetSpeeds())
-                    || RobotContainer.getRobotState()
-                        == RobotContainer.RobotState.READY_TO_SHOOT)) {
-                return new SingleShotCmdGroup(shooter, indexer); //Change to Command Group 5
+                    || RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT)) {
+                return new SingleShotCmdGroup(shooter, indexer);
             } else {
-                return new DoNothing(); //
+                return new DoNothing();
             }
         });
     }
