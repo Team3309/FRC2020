@@ -25,8 +25,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     private int desiredPosition; //we can't actually store the ArmPosition because it's an enum and fine tuning / scan mode will forbid that.
 
-    private DigitalInput hallEffectLimitSwitch;
-
     private WPI_TalonFX armMotor;
 
     public boolean isArmAboveIntakeMinimum() {
@@ -47,14 +45,6 @@ public class ArmSubsystem extends SubsystemBase {
         if (Config.isArmInstalled) {
             armMotor = new WPI_TalonFX(Config.armMotorId);
             configTalon(armMotor);
-
-            try {
-                //we try to enable, in case there is no hall effect currently installed.
-                hallEffectLimitSwitch = new DigitalInput(Config.armHallEffectLimitSwitchId);
-            } catch (Exception e) {
-                DriverStation.reportWarning("ArmSubsystem: Hall Effect Limit Switch not found!", false);
-            }
-
         }
     }
 
@@ -206,11 +196,13 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void outputToDashboard() {
         outputArmPositionToDashboard();
-        SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - calibrationZeroCount);
+        //SmartDashboard.putNumber("Arm encoder offset", armMotor.getSelectedSensorPosition(0) - calibrationZeroCount);
         SmartDashboard.putNumber("Arm desired encoder position", desiredPosition);
+        SmartDashboard.putNumber("Arm position error", armMotor.getSelectedSensorPosition(0) - desiredPosition);
+        SmartDashboard.putNumber("Arm velocity", armMotor.getSelectedSensorVelocity(0));
         SmartDashboard.putNumber("Arm power", armMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Arm current", Robot.pdp.getCurrent(Config.armMotorPdpChannel));
-        SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
+        //SmartDashboard.putBoolean("Arm upper limit switch", isArmAtUpperLimit());
         SmartDashboard.putBoolean("Arm calibrated", calibrated);
     }
 

@@ -16,6 +16,7 @@ import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.AutoIndexIn;
 import frc.robot.commands.select.*;
+import frc.robot.commands.vision.IlluminationOn;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
@@ -59,7 +60,6 @@ public class RobotContainer
         SCAN,
         SINGLE_SHOT,
         MULTI_SHOT,
-        CONTINUOUS_SHOT,
         INTAKE,
         READY_TO_SHOOT,
         INIT_ARM_UP_DRIVE,
@@ -85,15 +85,13 @@ public class RobotContainer
     private final String climberDashboardKey = "Display Climber Values";
     private final String ctrlPanelDashboardKey = "Display CtrlPanel Values";
     private final static String driveDashboardKey = "Display Drive Values";
-    private final String indexerDashboardKey = "Display Indexer Values";
+    private final static String indexerDashboardKey = "Display Indexer Values";
     private final String intakeDashboardKey = "Display Intake Values";
     private final String shooterDashboardKey = "Display Shooter Values";
     private final String visionDashboardKey = "Display Vision Values";
-    private final String ArmSetManualCalibrationDashboardKey = "Arm - Set Manual Calibration Now";
     private final String ArmCoastModeDashboardKey = "Arm - Coast Mode";
     private final String DriveCoastModeDashboardKey = "Drive - Coast Mode";
     private final String ClimberCoastModeDashboardKey = "Climber - Coast Mode";
-    private final String VisionEnableLEDsDashboardKey = "Vision - Enable LEDs";
 
     // --------------------------------------------------------------------------------------------
     // -- Subsystems
@@ -214,20 +212,15 @@ public class RobotContainer
         new POVButton(OI.OperatorController, 180)  // D-Down
                 .whenPressed(new SelectReadyToShootToDriving(intake, shooter, arm));
 
-        // TODO BUG: Having this binding active will cause the Continuous-shot binding to put the robot into
-        //  INIT_SINGLE_SHOT when pressed when not in READY_TO_SHOOT, but ONLY AFTER the robot has entered READY_TO_SHOOT
-        //  and then goes back to ARM_UP_DRIVE.  Invoking the continuous-shot bind BEFORE the robot has entered READY_TO_SHOOT
-        //  correctly does nothing.
-        //  Since we're not using single-shot, we're just commenting this out for now.
-//        OI.leftStickRightCluster
-//                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
-//                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
+        OI.leftStickRightCluster
+                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
+                .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
-        // Continuous-shot
+        // Shoot multiple power cells in either position or velocity control mode for the indexer
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
                 .or(OI.leftStickLeftCluster)
-                .whenActive(new SelectToContinuousShot(indexer))
-                .whenInactive(new SelectContinuousShotToReadyToShoot(intake, indexer, shooter, arm));
+                .whenActive(new SelectToMultishot(indexer, shooter))
+                .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         //D-pad Left - Long
         new POVButton(OI.OperatorController, 270)
@@ -328,7 +321,6 @@ public class RobotContainer
         // Toggles for systems while disabled.
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
-        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
         SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
     }
 
@@ -346,7 +338,6 @@ public class RobotContainer
 
         SmartDashboard.putBoolean(ArmCoastModeDashboardKey, false);
         SmartDashboard.putBoolean(DriveCoastModeDashboardKey, false);
-        SmartDashboard.putBoolean(VisionEnableLEDsDashboardKey, true);
         SmartDashboard.putBoolean(ClimberCoastModeDashboardKey, false);
     }
 
@@ -385,7 +376,7 @@ public class RobotContainer
         if (getDriveDebug() && Config.isDriveInstalled) {
             drive.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(indexerDashboardKey, false) && Config.isIndexerInstalled) {
+        if (getIndexerDebug() && Config.isIndexerInstalled) {
             indexer.outputToDashboard();
         }
         if (SmartDashboard.getBoolean(intakeDashboardKey, false) && Config.isIntakeInstalled) {
@@ -404,12 +395,6 @@ public class RobotContainer
      * Read values that are toggleable on the dashboard and update state as appropriate
      */
     private void updateDashboardToggles() {
-        // Manual calibration is currently disabled, instead we calibrate via turning no the robot in the correct state
-//        boolean setCalibration = SmartDashboard.getBoolean(ArmSetManualCalibrationDashboardKey, false);
-//        if (setCalibration) {
-//            SmartDashboard.putBoolean(ArmSetManualCalibrationDashboardKey, false);
-//            arm.calibrate();
-//        }
 
         // These toggles should only be usable while disabled.
         if (DriverStation.getInstance().isDisabled()) {
@@ -429,5 +414,13 @@ public class RobotContainer
      */
     public static boolean getDriveDebug() {
         return SmartDashboard.getBoolean(driveDashboardKey, false);
+    }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * @return boolean indicating if indexer values display is enabled
+     * Used for AutoIndexIn to output additional debug information.
+     */
+    public static boolean getIndexerDebug() {
+        return SmartDashboard.getBoolean(indexerDashboardKey, false);
     }
 }

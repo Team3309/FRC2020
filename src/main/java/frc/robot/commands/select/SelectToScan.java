@@ -23,10 +23,8 @@ public class SelectToScan extends SelectCommand3309 {
             ) {
                 return new ToScanCmdGroup(intake, indexer, shooter, arm, vision, drive);
             } else {
-                //do nothing
                 return new DoNothing();
             }
         });
     }
-
 }
