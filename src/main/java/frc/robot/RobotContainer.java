@@ -203,6 +203,9 @@ public class RobotContainer
         new JoystickButton(OI.OperatorController, XboxController.Button.kBack.value)
                 .whenPressed(new SelectClimbing(climber, intake, arm, OI.OperatorController));
 
+        new JoystickButton(OI.OperatorController, XboxController.Button.kStart.value)
+                .whenPressed(new SelectCancelClimbing(climber));
+
         // -------------------------------------------------------------------------------------------------------------
         // Shooting
         // -------------------------------------------------------------------------------------------------------------

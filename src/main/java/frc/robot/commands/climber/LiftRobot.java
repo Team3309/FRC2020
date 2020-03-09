@@ -20,7 +20,6 @@ public class LiftRobot extends CommandBase {
 
     @Override
     public void initialize() {
-
     }
 
     @Override
@@ -42,6 +41,6 @@ public class LiftRobot extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return controller.getStartButtonPressed();
+        return false;
     }
 }

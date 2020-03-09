@@ -229,7 +229,6 @@ public class Config {
     public static Integer climbPdpChannel;
     public static Integer climberDeploySolenoidId;
     public static final double climberMaxPower = 0.35;
-    public static Integer buddyClimbDeploySolenoidId;
     public static final double climberDeployTime = 0.7; //Seconds
 
     public static final double xBoxTriggerButtonThreshold = 0.5;
