@@ -13,6 +13,9 @@ import frc.robot.commands.Auto.ThreeBallAutoDriveForward;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
+import frc.robot.commands.groups.ToDriveCmdGroup;
+import frc.robot.commands.groups.ToIntakeCmdGroup;
+import frc.robot.commands.groups.ToOuttakeCmdGroup;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.AutoIndexIn;
 import frc.robot.commands.select.*;
@@ -109,11 +112,6 @@ public class RobotContainer
 
     // -- Auto
     SendableChooser<Command> Chooser = new SendableChooser<>();
-/*
-    // Intake/Outtake command groups
-    private new ToOuttakeCmdGroup(intake, shooter, arm);
-} else {
-        return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);*/
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
@@ -125,6 +123,11 @@ public class RobotContainer
         setAutoOptions();
         displaySubsystemToggles();
     }
+
+    // Intake/outtake command groups for use in button bindings
+    private Command activateIntake = new ToIntakeCmdGroup(intake, indexer, shooter, arm);
+    private Command activateOuttake = new ToOuttakeCmdGroup(intake, shooter, arm);
+    private Command cancelIntakeOuttake = new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Set up default commands for any subsystem that needs one
@@ -160,8 +163,6 @@ public class RobotContainer
                         0,
                         false, true)};
 
-        // TODO: Remove after spin turn testing is complete
-        // TODO: Simplify the process of command selection.
         //new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
         //       .whenPressed(new DriveAuto(waypoints, false, drive));
 
@@ -179,8 +180,7 @@ public class RobotContainer
         // Intake / outtake
         // -------------------------------------------------------------------------------------------------------------
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new SelectToIntake(intake, indexer, shooter, arm))
-                .whenReleased(new SelectCancelIntake(intake, indexer, shooter, arm, drive, ctrlPanel, OI.OperatorController));
+                .whenPressed(new InstantCommand(intake::pressIntake,
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
                 .whenPressed(new SelectToOuttake(intake, shooter, arm))

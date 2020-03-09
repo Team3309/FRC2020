@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -105,16 +106,54 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public void pressIntake() {
+    public void pressIntake(Command startIntake, Command cancelIntake) {
         if (pressIntakeTimer.hasElapsed(Config.doubleClickSec)) {
-            // single-click, activate intake
+            // single-click, activate intake if allowed
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_OUTTAKE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.OUTTAKE) {
+                CommandScheduler.getInstance().schedule(startIntake);
+            }
         } else {
-            // double-click, cancel intake
+            // double-click, cancel intake if allowed
             if (RobotContainer.RobotState.INIT_INTAKE == RobotContainer.getRobotState() ||
-                    RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState()) {
-                //CommandScheduler.getInstance().schedule()
+                    RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.INIT_OUTTAKE == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.OUTTAKE == RobotContainer.getRobotState()) {
+                CommandScheduler.getInstance().schedule(cancelIntake);
             }
         }
+        pressIntakeTimer.reset();
+    }
+
+    public void pressOuttake(Command startOuttake, Command cancelOuttake) {
+        if (pressOuttakeTimer.hasElapsed(Config.doubleClickSec)) {
+            // single-click, activate outtake if allowed
+            if (RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.ARM_UP_DRIVE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_POSITION_TURNER ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.TURNER_IN_POSITION ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_INTAKE ||
+                    RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE) {
+                CommandScheduler.getInstance().schedule(startOuttake);
+            }
+        } else {
+            // double-click, cancel outtake if allowed
+            if (RobotContainer.RobotState.INIT_INTAKE == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.INIT_OUTTAKE == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.OUTTAKE == RobotContainer.getRobotState()) {
+                CommandScheduler.getInstance().schedule(cancelOuttake);
+            }
+        }
+        pressOuttakeTimer.reset();
     }
 
     /** ----------------------------------------------------------------------------------------------------------------
