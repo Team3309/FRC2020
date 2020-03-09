@@ -104,9 +104,6 @@ public class DriveAuto extends CommandBase {
         //Positive = clockwise;
         double degsLeftToTurn = Util3309.angleInMinus180To180(signum * drive.getHeadingError(headingToNextPoint));
 
-        SmartDashboard.putNumber("degsLeftToTurn", degsLeftToTurn);
-        SmartDashboard.putNumber("headingToNextPoint", headingToNextPoint);
-
         boolean turningLeft = degsLeftToTurn > 0;
         boolean turningRight = degsLeftToTurn < 0;
 
