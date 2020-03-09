@@ -112,8 +112,7 @@ public class ArmSubsystem extends SubsystemBase {
                 int newDesiredPosition = (int) (desiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor);
                 //so we don't attempt to crash the arm
                 if (newDesiredPosition > armPositionToEncoderPosition(Config.armPositionIntakeStowedLimit) &&
-                        newDesiredPosition + axisTilt * Config.armJoystickTiltToPositionFactor <
-                                armPositionToEncoderPosition(Config.maxArmPosition)) {
+                        newDesiredPosition < armPositionToEncoderPosition(Config.maxArmPosition)) {
                     //DO NOT USE MOTION MAGIC. This is a small adjustment.
                     desiredPosition = newDesiredPosition;
                     armMotor.set(ControlMode.Position, newDesiredPosition);
