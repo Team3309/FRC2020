@@ -17,6 +17,8 @@ public class SelectReadyToShootToDriving extends SelectCommand3309 {
         super(() -> {
             if (RobotContainer.RobotState.INIT_READY_TO_SHOOT == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.READY_TO_SHOOT == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.INIT_ARM_UP_DRIVE == RobotContainer.getRobotState() ||
+                    RobotContainer.RobotState.ARM_UP_DRIVE == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.INIT_INTAKE == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.INIT_OUTTAKE == RobotContainer.getRobotState() ||
