@@ -256,17 +256,17 @@ public class Config {
         switch (currentRobot) {
             case Alpha2020:
                 isArmInstalled = true;
-                isClimberInstalled = false;
+                isClimberInstalled = true;
                 isCtrlPanelInstalled = false;
                 isDriveInstalled = true;
                 isIndexerInstalled = true;
                 isIndexerSensorInstalled = false;
-                isIntakeInstalled = false;
+                isIntakeInstalled = true;
                 isShooterInstalled = true;
-                isVisionInstalled = false;
+                isVisionInstalled = true;
                 isLimelightOn = false;
                 isPcmInstalled = true;
-                isCompressorEnabled = false;
+                isCompressorEnabled = true;
                 isIMUInstalled = true;
 
                 driveLeftMasterID = 4;
