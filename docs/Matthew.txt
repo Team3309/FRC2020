@@ -1,11 +1,8 @@
 Operator controller requests from Mathew 3/7/20:
 
-Intake toggle on left bumper
-Outtake toggle on right bumper
-
-Left bumper: intake => right bumper: outtake => left bumper: resume intake => left bumper: arm up drive
-Right bumper: outtake => left bumper: intake => right bumper: resume outtake => right bumper: arm up drive
-Left bumper: intake => right bumper: outtake => right bumper: continue outtake => left bumper: intake => left bumper: arm up drive
+Activate intake: single-tap left bumper
+Activate outtake: single-tap right bumper
+Cancel and retract intake: double-tap left or right bumper or press any D pad button, including D-down if not ready to shoot
 
 Multi-ball shooting on left trigger
 Scan on right trigger
