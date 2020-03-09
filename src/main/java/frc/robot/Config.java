@@ -37,7 +37,8 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Driver Station
     //------------------------------------------------------------------------------------------------------------------
-    public static double operatorControllerDeadzoneRightStick = 0.03;
+    public static final double operatorControllerDeadzoneRightStick = 0.03;
+    public static final double doubleClickSec = 0.4;
 
     //------------------------------------------------------------------------------------------------------------------
     //Drive Constants//

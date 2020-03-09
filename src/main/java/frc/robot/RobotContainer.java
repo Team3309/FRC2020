@@ -111,7 +111,11 @@ public class RobotContainer
 
     // -- Auto
     SendableChooser<Command> Chooser = new SendableChooser<>();
-
+/*
+    // Intake/Outtake command groups
+    private new ToOuttakeCmdGroup(intake, shooter, arm);
+} else {
+        return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);*/
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Constructor
