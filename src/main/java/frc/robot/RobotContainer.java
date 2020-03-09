@@ -180,11 +180,10 @@ public class RobotContainer
         // Intake / outtake
         // -------------------------------------------------------------------------------------------------------------
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperLeft.value)
-                .whenPressed(new InstantCommand(intake::pressIntake,
+                .whenPressed(new InstantCommand(() -> intake.pressIntake(activateIntake, cancelIntakeOuttake)));
 
         new JoystickButton(OI.OperatorController, XboxController.Button.kBumperRight.value)
-                .whenPressed(new SelectToOuttake(intake, shooter, arm))
-                .whenReleased(new SelectCancelOuttake(intake, indexer, shooter, arm, OI.OperatorController));
+                .whenPressed(new InstantCommand(() -> intake.pressOuttake(activateOuttake, cancelIntakeOuttake)));
 
         // Don't require the intake subsystem for emergency outtake so it can be run in any arm up mode
         // without interrupting other commands. Arbitration over control of the intake motor is
