@@ -116,7 +116,6 @@ public class DriveAuto extends CommandBase {
             if (nextPoint.reverse) {
                 headingToNextPoint += 180;
             }
-            final double kTweakThreshold = 2.0;
             double currentAngularVelocity = 0; //negative = clockwise, positive = counterclockwise
 
             if (turnState == spinTurnState.notStarted) {
@@ -181,7 +180,7 @@ public class DriveAuto extends CommandBase {
             }
             if (turnState == spinTurnState.tweaking) {
                 //check if correction is needed
-                if (Math.abs(degsLeftToTurn) < kTweakThreshold) {
+                if (Math.abs(degsLeftToTurn) < Config.driveAutoSpinTurnToleranceDegrees) {
                     //spin Turn complete
                     drive.stop();
                     turnState = spinTurnState.notStarted;
@@ -190,13 +189,9 @@ public class DriveAuto extends CommandBase {
                     // TODO: continue with path here instead of bailing after first spin turn
                     done = true;
                     return;
-                }
-                //turn left if we undershot
-                else if (degsLeftToTurn > 0) {
+                } else if (degsLeftToTurn > 0) {  //turn left if we undershot
                     currentAngularVelocity = nextPoint.angCreepSpeedInDegsPerSec;
-                }
-                //turn right if we overshot
-                else if (degsLeftToTurn < 0) {
+                } else {  //turn right if we overshot
                     currentAngularVelocity = - nextPoint.angCreepSpeedInDegsPerSec;
                 }
             }
@@ -264,13 +259,13 @@ public class DriveAuto extends CommandBase {
             }
             if (driveState == travelState.accelerating) {
                 speed = signum * nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
-                if (signum * speed > signum * nextPoint.maxLinearSpeed) {
+                if (signum * speed > signum * nextPoint.maxLinearSpeedInInchesPerSec) {
                     driveState = travelState.cruising;
                 }
             }
             if (driveState == travelState.cruising){
                 if (signum * (inchesBetweenWaypoints - inchesTraveled) < signum * speed * ControlTimer.get()) {
-                    speed = signum * nextPoint.maxLinearSpeed;
+                    speed = signum * nextPoint.maxLinearSpeedInInchesPerSec;
                 } else {
                     driveState = travelState.decelerating;
                     lastVelocity = DriveSubsystem.encoderVelocityToInchesPerSec(
@@ -281,9 +276,9 @@ public class DriveAuto extends CommandBase {
             if (driveState == travelState.decelerating){
 
                 speed = signum * (lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get());
-                if (signum *(inchesBetweenWaypoints - inchesTraveled) < signum * nextPoint.linToleranceInInches) {
-                    if (speed < nextPoint.linCreepSpeed) {
-                        speed = signum * nextPoint.linCreepSpeed;
+                if (signum *(inchesBetweenWaypoints - inchesTraveled) < signum * nextPoint.linearToleranceInInches) {
+                    if (speed < nextPoint.linCreepSpeedInInchesPerSec) {
+                        speed = signum * nextPoint.linCreepSpeedInInchesPerSec;
                     }
                 } else {
                     if (nextWaypointIndex == path.length - 1 && !endRollout) {
@@ -291,7 +286,7 @@ public class DriveAuto extends CommandBase {
                         //Stop the robot
                         speed = 0;
                     }
-                    if (inchesTraveled > inchesBetweenWaypoints + nextPoint.linToleranceInInches) {
+                    if (inchesTraveled > inchesBetweenWaypoints + nextPoint.linearToleranceInInches) {
                         DriverStation.reportError("Traveled too far", true);
                     }
                     nextWaypointIndex++;

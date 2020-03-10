@@ -161,7 +161,7 @@ public class RobotContainer
                 new Waypoint(Math.cos(Math.toRadians(90)),
                         Math.sin(Math.toRadians(90)),
                         0,
-                        false, true)};
+                        false, 0)};
 
         //new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
         //       .whenPressed(new DriveAuto(waypoints, false, drive));

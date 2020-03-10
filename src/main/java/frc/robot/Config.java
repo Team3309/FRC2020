@@ -74,6 +74,16 @@ public class Config {
     public static Integer driveWheelEncoderCountsPerRevolution;
     public static Integer driveSpinTurnEncoderCountsPerDegree;
     public static Double driveGearRatio;
+    public static final double maxAngularSpeedInDegsPerSec = 360;
+    public static final double angCreepSpeedInDegsPerSec = 60;
+    public static final double angAccelerationInDegsPerSec2 = 720;
+    public static final double angDecelerationInDegsPerSec2 = 720;
+    public static final double driveAutoSpinTurnToleranceDegrees = 1.0;
+    public static final double maxLinearSpeedInInchesPerSec = 140;  // physical max is about 172
+    public static final double linCreepSpeedInInchesPerSec = 30;
+    public static final double linAccelerationInInchesPerSec2 = 300;
+    public static final double linDecelerationInInchesPerSec2 = 300;
+    public static final double linearToleranceInInches = 2.0;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
