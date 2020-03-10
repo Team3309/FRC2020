@@ -107,16 +107,14 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void indexOut() {
-        if (Config.isIndexerInstalled) {
-            if (isInPosition()) {
-                upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0)
-                        + Config.indexOutEncoderCounts[powerCells];
-                lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0)
-                        + Config.indexOutEncoderCounts[powerCells];
-                upperIndexerMotor.set(ControlMode.MotionMagic, upperMotorDesiredEncoderPosition);
-                lowerIndexerMotor.set(ControlMode.MotionMagic, lowerMotorDesiredEncoderPosition);
-                decrementIndexerCounter();
-            }
+        if (Config.isIndexerInstalled && isInPosition()) {
+            upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0)
+                    + Config.indexOutEncoderCounts[powerCells];
+            lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0)
+                    + Config.indexOutEncoderCounts[powerCells];
+            upperIndexerMotor.set(ControlMode.MotionMagic, upperMotorDesiredEncoderPosition);
+            lowerIndexerMotor.set(ControlMode.MotionMagic, lowerMotorDesiredEncoderPosition);
+            decrementIndexerCounter();
         }
     }
 
@@ -132,18 +130,17 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void indexIn() {
-        if (Config.isIndexerInstalled) {
-            if (isInPosition()) {
-                upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0) -
-                        Config.indexInEncoderCounts[powerCells];
-                lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0) -
-                        Config.indexInEncoderCounts[powerCells];
-                upperIndexerMotor.selectProfileSlot(0, 0);  // use position control PID parameters
-                lowerIndexerMotor.selectProfileSlot(0, 0);
-                upperIndexerMotor.set(ControlMode.MotionMagic, upperMotorDesiredEncoderPosition);
-                lowerIndexerMotor.set(ControlMode.MotionMagic, lowerMotorDesiredEncoderPosition);
-                incrementIndexerCounter();
-            }
+        if (Config.isIndexerInstalled && isInPosition()) {
+
+            upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0) -
+                    Config.indexInEncoderCounts[powerCells];
+            lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0) -
+                    Config.indexInEncoderCounts[powerCells];
+            upperIndexerMotor.selectProfileSlot(0, 0);  // use position control PID parameters
+            lowerIndexerMotor.selectProfileSlot(0, 0);
+            upperIndexerMotor.set(ControlMode.MotionMagic, upperMotorDesiredEncoderPosition);
+            lowerIndexerMotor.set(ControlMode.MotionMagic, lowerMotorDesiredEncoderPosition);
+            incrementIndexerCounter();
         }
     }
 
