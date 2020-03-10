@@ -1,5 +1,6 @@
 package frc.robot.commands.groups;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.UpdateHandlingState;
@@ -15,10 +16,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ToOuttakeCmdGroup extends SequentialCommandGroup {
-    public ToOuttakeCmdGroup(IntakeSubsystem intake, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public ToOuttakeCmdGroup(IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_OUTTAKE),
                 new StopIntake(intake),
+                new InstantCommand(indexer::reset, indexer),
                 new StopFlywheels(shooter),
                 new MoveArmAndExtendIntake(intake, arm),
                 new StartOuttake(intake, shooter),
