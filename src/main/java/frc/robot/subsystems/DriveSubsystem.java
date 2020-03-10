@@ -424,14 +424,6 @@ public class DriveSubsystem extends SubsystemBase {
             }
         } else if (testPath == 3) {
             if (testNumber == 1) {
-                // forward and roll
-                path = new Waypoint[] {new Waypoint(testScale, 0, 0, true)};
-            } else {
-                // reverse and roll
-                path = new Waypoint[] {new Waypoint(-testScale, 0, 0, true)};
-            }
-        } else if (testPath == 4) {
-            if (testNumber == 1) {
                 path = new Waypoint[] {
                         new Waypoint(0, 0, 0, false),
                         new Waypoint(testScale, 0, 0, false),
