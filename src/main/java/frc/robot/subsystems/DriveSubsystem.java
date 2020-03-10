@@ -9,11 +9,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
+import frc.robot.commands.drive.DriveAuto;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
+import frc.robot.util.Waypoint;
 
 import java.io.ObjectInputFilter;
 
@@ -23,10 +27,12 @@ public class DriveSubsystem extends SubsystemBase {
     private WPI_TalonFX driveSlaveLeft;
     private WPI_TalonFX driveMasterRight;
     private WPI_TalonFX driveSlaveRight;
+    private WPI_TalonSRX driveMasterLeft2019, driveMasterRight2019;
     private IMU3309 imu;
     private Timer ctrlTimer;
+    private String driveAutoTestPathKey = "Drive Auto Test Path";
+    private String driveAutoTestScaleKey = "Drive Auto Test Scale";
 
-    private WPI_TalonSRX driveMasterLeft2019, driveMasterRight2019;
 
      /**----------------------------------------------------------------------------------------------------------------
      * Initializes a Drive object by initializing the class member variables and configuring the new TalonFX objects.
@@ -68,6 +74,10 @@ public class DriveSubsystem extends SubsystemBase {
                  configDriveSlave(driveSlaveLeft, driveMasterLeft);
                  configDriveMaster(driveMasterRight);
                  configDriveSlave(driveSlaveRight, driveMasterRight);
+             }
+             if (Config.isDriveAutoTestModeEnabled) {
+                 SmartDashboard.putNumber(driveAutoTestPathKey, 1);
+                 SmartDashboard.putNumber(driveAutoTestScaleKey, 45);
              }
          }
     }
@@ -389,6 +399,60 @@ public class DriveSubsystem extends SubsystemBase {
     public double getHeadingError(double desiredHeading) {
         double heading = getAngularPosition();
         return desiredHeading - heading;
+    }
+
+    public void driveAutoTest(int testNumber) {
+        double testPath = SmartDashboard.getNumber(driveAutoTestPathKey, 1);
+        double testScale = SmartDashboard.getNumber(driveAutoTestScaleKey, 1);
+        Waypoint[] path = null;
+
+        if (testPath == 1) {
+            if (testNumber == 1) {
+                // turn left
+                path = new Waypoint[]{new Waypoint(0, 0, 0, false, testScale)};
+            } else {
+                // turn right
+                path = new Waypoint[]{new Waypoint(0, 0, 0, false, -testScale)};
+            }
+        } else if (testPath == 2) {
+            if (testNumber == 1) {
+                // forward and stop
+                path = new Waypoint[] {new Waypoint(testScale, 0, 0, false)};
+            } else {
+                // reverse and stop
+                path = new Waypoint[] {new Waypoint(-testScale, 0, 0, false)};
+            }
+        } else if (testPath == 3) {
+            if (testNumber == 1) {
+                // forward and roll
+                path = new Waypoint[] {new Waypoint(testScale, 0, 0, true)};
+            } else {
+                // reverse and roll
+                path = new Waypoint[] {new Waypoint(-testScale, 0, 0, true)};
+            }
+        } else if (testPath == 4) {
+            if (testNumber == 1) {
+                path = new Waypoint[] {
+                        new Waypoint(0, 0, 0, false),
+                        new Waypoint(testScale, 0, 0, false),
+                        new Waypoint(testScale, testScale, 0, false),
+                        new Waypoint(0, testScale, 0, true),
+                        new Waypoint(0, 0, 0, true, 0)
+                };
+            } else {
+                path = new Waypoint[] {
+                        new Waypoint(0, 0, 0, false),
+                        new Waypoint(testScale, 0, 0, false),
+                        new Waypoint(testScale, -testScale, 0, false),
+                        new Waypoint(0, -testScale, 0, true),
+                        new Waypoint(0, 0, 0, true, 0)
+                };
+            }
+        }
+
+        if (path != null) {
+            CommandScheduler.getInstance().schedule(new DriveAuto(path, this));
+        }
     }
 
     /** ----------------------------------------------------------------------------------------------------------------

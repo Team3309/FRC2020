@@ -31,6 +31,8 @@ import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.util.Waypoint;
 import frc.robot.util.XBoxControllerAxisButton;
 
+import java.sql.Driver;
+
 /** --------------------------------------------------------------------------------------------------------------------
 * A class that contains all the subsystems and commands that Robot needs. Based off of the RobotContainer
 * example class by WPI.
@@ -157,24 +159,29 @@ public class RobotContainer
         //when inactive is the same as when released
         //whileActiveOnce is the same as when held
 
-        Waypoint[] waypoints = {new Waypoint(0, 0, 0, false),
-                new Waypoint(Math.cos(Math.toRadians(90)),
-                        Math.sin(Math.toRadians(90)),
-                        0,
-                        false, 0)};
-
-        //new JoystickButton(OI.OperatorController, XboxController.Button.kA.value)
-        //       .whenPressed(new DriveAuto(waypoints, false, drive));
-
         // -------------------------------------------------------------------------------------------------------------
         // Control Panel
         // -------------------------------------------------------------------------------------------------------------
-        new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
-                .whenPressed(new SelectPositionTurner(arm, intake));
+        if (Config.isCtrlPanelInstalled && Config.isDriveAutoTestModeEnabled) {
+            DriverStation.reportError("Ctrl panel must be disabled to use drive auto test mode!", false);
+        }
+        if (Config.isCtrlPanelInstalled || !Config.isDriveAutoTestModeEnabled) {
+            new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
+                    .whenPressed(new SelectPositionTurner(arm, intake));
 
-        new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
-                .whenPressed(new SelectSpinTurner(drive, ctrlPanel))
-                .whenReleased(new SelectStopCtrlPanelSpinning(ctrlPanel, drive));
+            new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
+                    .whenPressed(new SelectSpinTurner(drive, ctrlPanel))
+                    .whenReleased(new SelectStopCtrlPanelSpinning(ctrlPanel, drive));
+        } else {
+            // steal ctrl panel buttons for drive auto testing
+            new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
+                    .whenPressed(new InstantCommand(() -> drive.driveAutoTest(2)))
+                    .whenReleased(new InstantCommand(drive::stop, drive));
+
+            new JoystickButton(OI.OperatorController, XboxController.Button.kY.value)
+                    .whenPressed(new InstantCommand(() -> drive.driveAutoTest(1)))
+                    .whenReleased(new InstantCommand(drive::stop, drive));
+        }
 
         // -------------------------------------------------------------------------------------------------------------
         // Intake / outtake
@@ -276,7 +283,6 @@ public class RobotContainer
     public void disabledInit() {
         //We're using a double solenoid now and want to retract but don't can't move the arm in a single cycle if intaking
         //so the best we can do is nothing, which is fine because the double solenoid holds it state when reenabled.
-        //TODO: Add a test mode only button that lets us have the robot send itself to starting configuration.
 
         // let arm drop slowly
         arm.setCoastMode(false);

@@ -45,14 +45,12 @@ public class DriveAuto extends CommandBase {
     }
 
     private Waypoint[] path;
-    private boolean endRollout;
     private DriveSubsystem drive;
 
     // for autonomous path following
-    public DriveAuto(Waypoint[] path, boolean endRollOut, DriveSubsystem drive) {
+    public DriveAuto(Waypoint[] path, DriveSubsystem drive) {
         this.drive = drive;
         this.path = path;
-        this.endRollout = endRollOut;
         addRequirements(drive);
     }
 
@@ -89,7 +87,7 @@ public class DriveAuto extends CommandBase {
         Waypoint currentPoint = path[waypointIndex];
         Waypoint nextPoint;
 
-        nextPoint = currentPoint;  // TODO: kludge to make it compile, figure out if it's a real problem
+        nextPoint = null;
 
         if (waypointIndex == path.length - 1) {
             // on last waypoint, so turn to pose heading

@@ -33,6 +33,7 @@ public class Config {
     public static Boolean isPcmInstalled;
     public static Boolean isCompressorEnabled;
     public static Boolean isIMUInstalled;
+    public static final boolean isDriveAutoTestModeEnabled = false;
 
     //------------------------------------------------------------------------------------------------------------------
     //Driver Station
