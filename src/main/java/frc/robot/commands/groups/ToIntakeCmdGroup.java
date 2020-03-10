@@ -29,11 +29,12 @@ public class ToIntakeCmdGroup extends SequentialCommandGroup {
                             ShooterSubsystem shooter, ArmSubsystem arm) {
         addCommands(
                 new UpdateHandlingState(RobotContainer.RobotState.INIT_INTAKE),
+                new InstantCommand(indexer::reset, indexer),  // stop indexer
                 new StopIntake(intake),
-                new InstantCommand(indexer::reset, indexer),
                 new StopFlywheels(shooter),
                 new SetIndexerSpeed(indexer, Config.indexInSpeed),
                 new MoveArmAndExtendIntake(intake, arm),
+                new InstantCommand(indexer::reset, indexer),  // reset encoders after indexer has stopped
                 new StartIntake(intake, shooter),
                 new UpdateHandlingState(RobotContainer.RobotState.INTAKE)
         );
