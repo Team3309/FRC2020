@@ -19,8 +19,10 @@ public class CreateFiringSolution extends CommandBase {
     private final ShooterSubsystem shooter;
     private final ArmSubsystem arm;
     private final DriveSubsystem drive;
+    private boolean hasTarget;
 
-    public CreateFiringSolution(VisionSubsystem vision, IntakeSubsystem intake, IndexerSubsystem indexer, ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive) {
+    public CreateFiringSolution(VisionSubsystem vision, IntakeSubsystem intake, IndexerSubsystem indexer,
+                                ShooterSubsystem shooter, ArmSubsystem arm, DriveSubsystem drive) {
         this.vision = vision;
         this.intake = intake;
         this.indexer = indexer;
@@ -29,22 +31,30 @@ public class CreateFiringSolution extends CommandBase {
         this.drive = drive;
     }
 
-    public boolean isFinished() {
-        boolean hasTarget = vision.hasTarget();
-        if (hasTarget) {
-            FiringSolution firingSolution = new FiringSolution(
-                    vision.getDistanceToTarget(),
-                    vision.getAngleToTarget(),
-                    vision.getHeightAngleToTarget());
-            Waypoint[] waypoints = {new Waypoint(0, 0, 0, false),
-                                    new Waypoint(Math.cos(Math.toRadians(vision.getAngleToTarget() - drive.getAngularPosition())),
-                                            Math.sin(Math.toRadians(vision.getAngleToTarget() - drive.getAngularPosition())),
-                                            0,
-                                            false, true)};
-            CommandScheduler.getInstance().schedule(
-                    new DriveAuto(waypoints, false, drive)
-                    );
+    @Override
+    public void initialize() {
+        hasTarget = false;
+    }
+
+    @Override
+    public void execute() {
+        if (!hasTarget) {  // only engage target once
+            hasTarget = vision.hasTarget();
+            if (hasTarget) {
+                FiringSolution firingSolution = new FiringSolution(
+                        vision.getDistanceToTarget(),
+                        vision.getAngleToTarget(),
+                        vision.getHeightAngleToTarget());
+                Waypoint[] path = {new Waypoint(0, 0, 0, false,
+                        vision.getAngleToTarget() - drive.getAngularPosition())};
+
+                CommandScheduler.getInstance().schedule(new DriveAuto(path, false, drive));
+            }
         }
+    }
+
+    @Override
+    public boolean isFinished() {
         return hasTarget;
     }
 }

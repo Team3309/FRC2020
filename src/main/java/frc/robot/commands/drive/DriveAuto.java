@@ -44,20 +44,7 @@ public class DriveAuto extends CommandBase {
         spinTurnState(String name) {this.name = name;}
     }
 
-    double speed = 0;
-    private double lastVelocity;
-    Timer ControlTimer = new Timer();
-
-    private superState superStateMachine = superState.spinTurning;
-    private travelState driveState = travelState.stopped;
-    private spinTurnState turnState = spinTurnState.notStarted;
-    double encoderZeroValue;
-
-    final double kTurnCorrectionConstant = 0.1;
-
-    private boolean done = false;
     private Waypoint[] path;
-    private int nextWaypointIndex = 0;
     private boolean endRollout;
     private DriveSubsystem drive;
 
@@ -69,25 +56,34 @@ public class DriveAuto extends CommandBase {
         addRequirements(drive);
     }
 
+    private Timer ControlTimer = new Timer();
+    private superState superStateMachine;
+    private spinTurnState turnState;
+    private travelState driveState;
+    private int nextWaypointIndex;
+    private double speed;
+    private double lastVelocity;
+    private double encoderZeroValue;
+    private boolean done = false;
+
     @Override
     public void initialize() {
         super.initialize();
         ControlTimer.reset();
         ControlTimer.start();
-        done = false;
-        nextWaypointIndex = 0;
-        speed = 0;
         superStateMachine = superState.spinTurning;
         driveState = travelState.stopped;
         turnState = spinTurnState.notStarted;
-        encoderZeroValue = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
+        nextWaypointIndex = 0;
+        speed = 0;
         lastVelocity = 0;
+        encoderZeroValue = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
+        done = false;
     }
 
     @Override
     public void execute() {
-        if (done)
-            return;
+        if (done) return;
 
         Waypoint currentPoint = path[nextWaypointIndex];
         Waypoint nextPoint = path[nextWaypointIndex + 1];
@@ -101,7 +97,7 @@ public class DriveAuto extends CommandBase {
             signum = -1;
         }
 
-        //Positive = clockwise;
+        //negative = clockwise, positive = counterclockwise
         double degsLeftToTurn = Util3309.angleInMinus180To180(signum * drive.getHeadingError(headingToNextPoint));
 
         boolean turningLeft = degsLeftToTurn > 0;
@@ -250,7 +246,7 @@ public class DriveAuto extends CommandBase {
             double encoderTicksTraveled = encoderTicksLinear - encoderZeroValue;
             double inchesTraveled = DriveSubsystem.encoderCountsToInches((int) encoderTicksTraveled);
 
-            double turnCorrection = degsLeftToTurn * kTurnCorrectionConstant;
+            double turnCorrection = degsLeftToTurn * Config.linearHeadingCorrectionFactor;
 
             if (driveState == travelState.stopped) {
                 ControlTimer.reset();
@@ -335,6 +331,11 @@ public class DriveAuto extends CommandBase {
             SmartDashboard.putNumber("Previous velocity:", lastVelocity);
             SmartDashboard.putNumber("Path Array Index:", nextWaypointIndex);
         }
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        drive.stop();
     }
 
     @Override

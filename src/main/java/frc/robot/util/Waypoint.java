@@ -8,7 +8,7 @@ public class Waypoint {
     public double xFieldInches; //lateral position of the waypoint
     public double turnRadiusInches; //centered on the vertices of the straight-line path, not the guide circles
     public boolean reverse;  // robot backs into waypoint
-    public Double poseDegrees;
+    public Double poseDegrees;  // positive = counter-clockwise
 
     public double linCreepSpeedInInchesPerSec = Config.linCreepSpeedInInchesPerSec;
     public double angCreepSpeedInDegsPerSec = Config.angCreepSpeedInDegsPerSec;

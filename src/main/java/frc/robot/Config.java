@@ -84,6 +84,7 @@ public class Config {
     public static final double linAccelerationInInchesPerSec2 = 300;
     public static final double linDecelerationInInchesPerSec2 = 300;
     public static final double linearToleranceInInches = 2.0;
+    public static final double linearHeadingCorrectionFactor = 0.1;
 
     //------------------------------------------------------------------------------------------------------------------
     //Intake Constants//
