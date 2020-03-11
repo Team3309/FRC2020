@@ -22,6 +22,7 @@ public class ThreeBallAutoDriveForward extends SequentialCommandGroup {
                         new InstantCommand(indexer::velocityShooting, indexer)
                 ),
                 new InstantCommand(indexer::reset, indexer),
+                new InstantCommand(intake::extend, intake),  // drop the ball guard before the start of teleop
 
                 // Super cheesy way to get across the line because DriveStraight isn't working right yet.
                 new DriveApplyPower(0.2, drive),  // will be cancelled by DriveManual resuming at end of command group
