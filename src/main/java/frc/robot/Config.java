@@ -351,10 +351,10 @@ public class Config {
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
 
-                armP = 0.1; // core power (start at .1)
+                armP = 0.2; // core power (start at .1)
                 armI = 2.54972071e-05; // maintain goal position
                 armIntegralZone = 5000; // disable I outside of this range
-                armD = 3.0; // increase to lower overshoot (start at 0)
+                armD = 10.0; // increase to lower overshoot (start at 0)
 
                 armPositionVision = 50000; //if you update this then you also need to update the limelightMountingAngle
                 maxArmPosition = 72690;
