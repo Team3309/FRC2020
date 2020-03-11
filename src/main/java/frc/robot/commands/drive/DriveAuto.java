@@ -85,16 +85,13 @@ public class DriveAuto extends CommandBase {
         double signum = 1;
         double desiredHeading;
         Waypoint currentPoint = path[waypointIndex];
-        Waypoint nextPoint;
-
-        nextPoint = null;
 
         if (waypointIndex == path.length - 1) {
             // on last waypoint, so turn to pose heading
             desiredHeading = currentPoint.poseDegrees;
         } else {
             // turn toward next waypoint
-            nextPoint = path[waypointIndex + 1];
+            Waypoint nextPoint = path[waypointIndex + 1];
 
             desiredHeading = Math.toDegrees(Math.atan2(nextPoint.downFieldInches - currentPoint.downFieldInches,
                     nextPoint.xFieldInches - currentPoint.xFieldInches)) + Config.IMUMountingAngle;
@@ -234,7 +231,6 @@ public class DriveAuto extends CommandBase {
              * JK, it actually uses some pretty simple state machine logic:
              *
              * if we are stopped, then
-             *     calibrate
              *     set state to accelerating
              * if state is accelerating, then
              *     if we still need to accelerate, then
@@ -254,7 +250,7 @@ public class DriveAuto extends CommandBase {
              */
             double inchesBetweenWaypoints =
                     Util3309.distanceFormula(currentPoint.xFieldInches, currentPoint.downFieldInches,
-                            nextPoint.xFieldInches, nextPoint.downFieldInches);
+                            path[waypointIndex + 1].xFieldInches, path[waypointIndex + 1].downFieldInches);
 
             double encoderTicksLinear = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
             double encoderTicksTraveled = encoderTicksLinear - encoderZeroValue;
@@ -268,14 +264,14 @@ public class DriveAuto extends CommandBase {
                 encoderZeroValue = encoderTicksLinear;
             }
             if (driveState == travelState.accelerating) {
-                speed = signum * nextPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
-                if (signum * speed > signum * nextPoint.maxLinearSpeedInInchesPerSec) {
+                speed = signum * currentPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
+                if (signum * speed > signum * currentPoint.maxLinearSpeedInInchesPerSec) {
                     driveState = travelState.cruising;
                 }
             }
             if (driveState == travelState.cruising){
                 if (signum * (inchesBetweenWaypoints - inchesTraveled) < signum * speed * ControlTimer.get()) {
-                    speed = signum * nextPoint.maxLinearSpeedInInchesPerSec;
+                    speed = signum * currentPoint.maxLinearSpeedInInchesPerSec;
                 } else {
                     driveState = travelState.decelerating;
                     lastVelocity = DriveSubsystem.encoderVelocityToInchesPerSec(
@@ -284,14 +280,14 @@ public class DriveAuto extends CommandBase {
                 }
             }
             if (driveState == travelState.decelerating){
-                speed = signum * (lastVelocity - nextPoint.linDecelerationInInchesPerSec2 * ControlTimer.get());
-                if (signum *(inchesBetweenWaypoints - inchesTraveled) > signum * nextPoint.linearToleranceInInches) {
-                    if (Math.abs(speed) < nextPoint.linCreepSpeedInInchesPerSec) {
-                        speed = signum * nextPoint.linCreepSpeedInInchesPerSec;
+                speed = signum * (lastVelocity - currentPoint.linDecelerationInInchesPerSec2 * ControlTimer.get());
+                if (signum *(inchesBetweenWaypoints - inchesTraveled) > signum * currentPoint.linearToleranceInInches) {
+                    if (Math.abs(speed) < currentPoint.linCreepSpeedInInchesPerSec) {
+                        speed = signum * currentPoint.linCreepSpeedInInchesPerSec;
                     }
                 } else {
                     // done with waypoint
-                    if (inchesTraveled > inchesBetweenWaypoints + nextPoint.linearToleranceInInches) {
+                    if (inchesTraveled > inchesBetweenWaypoints + currentPoint.linearToleranceInInches) {
                         System.out.println("Waypoint " + waypointIndex + " overshot by " +
                                 (inchesTraveled - inchesBetweenWaypoints) + " inches");
                     }
@@ -327,7 +323,7 @@ public class DriveAuto extends CommandBase {
             //Assume that the arc velocity is the average of the velocity of the two wheels.
             //Find out what velocity each wheel will have to maintain to achieve this arc velocity.
             //Set each wheel's velocity to these values.
-            double arcLengthInInches = nextPoint.turnRadiusInches * (180 - desiredHeading);
+            double arcLengthInInches = path[waypointIndex + 1].turnRadiusInches * (180 - desiredHeading);
             //find velocity at which the robot will travel while on the arc.
 
         } else if (superStateMachine == superState.stopped) {
