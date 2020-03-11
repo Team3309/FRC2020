@@ -8,7 +8,6 @@ import frc.robot.commands.DoNothing;
 import frc.robot.commands.UpdateHandlingState;
 import frc.robot.commands.arm.MoveArmAndRetractIntake;
 import frc.robot.commands.indexer.SetIndexerSpeed;
-import frc.robot.commands.indexer.SetNumPowerCells;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.SetFlywheelsSpeed;
 import frc.robot.commands.shooter.StartFlywheels;

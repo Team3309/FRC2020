@@ -124,7 +124,6 @@ public class RobotContainer
         setDefaultCommands();
         setAutoOptions();
         displaySubsystemToggles();
-
     }
 
     // Intake/outtake command groups for use in button bindings
@@ -204,8 +203,7 @@ public class RobotContainer
         // Manual index load
         new JoystickButton(OI.OperatorController, XboxController.Button.kX.value)
                 .or(OI.rightStickRightCluster)
-                .whenActive(new LoadIntoArm(indexer))
-                .whenInactive(new InstantCommand(indexer::reset));
+                .whenActive(new LoadIntoArm(indexer));
 
         // -------------------------------------------------------------------------------------------------------------
         // Climb

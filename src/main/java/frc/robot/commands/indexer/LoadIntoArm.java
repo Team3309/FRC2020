@@ -17,6 +17,7 @@ public class LoadIntoArm extends InstantCommand {
 
     @Override
     public void execute() {
+        indexer.reset();
         indexer.indexIn();
     }
 
