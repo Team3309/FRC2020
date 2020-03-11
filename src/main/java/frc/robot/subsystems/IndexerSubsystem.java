@@ -57,6 +57,8 @@ public class IndexerSubsystem extends SubsystemBase {
         talon.configPeakOutputReverse(Config.indexerPeakOutputReverse, Config.motorControllerConfigTimeoutMs);
         talon.configOpenloopRamp(Config.indexerOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
         talon.configClosedloopRamp(Config.indexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
+        talon.configNominalOutputForward(Config.indexerMinimumOutput);
+        talon.configNominalOutputReverse(-Config.indexerMinimumOutput);
         talon.config_kP(0, Config.indexerPositionP, Config.motorControllerConfigTimeoutMs);
         talon.config_kI(0, Config.indexerPositionI, Config.motorControllerConfigTimeoutMs);
         talon.config_IntegralZone(0, Config.indexerPositionIntegralZone, Config.motorControllerConfigTimeoutMs);

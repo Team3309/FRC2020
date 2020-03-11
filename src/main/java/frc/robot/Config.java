@@ -177,6 +177,7 @@ public class Config {
     public static Integer indexerVelocityIntegralZone;
     public static Double indexerVelocityD;
     public static Double indexerVelocityF;
+    public static Double indexerMinimumOutput;
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
     public static final int indexInSpeed = 2000; // encoder counts per 100ms
@@ -330,17 +331,18 @@ public class Config {
                 indexerSensorID = 4;
                 upperIndexerMotorPdpChannel = 8;
                 lowerIndexerMotorPdpChannel = 9;
-                indexerPositionP = 0.05;
+                indexerPositionP = 0.07;
                 indexerPositionI = 0.0;
                 indexerPositionD = 0.0;
                 indexerPositionIntegralZone = 0;
-                indexerPositionF = 0.26;
+                indexerPositionF = 0.18;
                 indexerPositioningTolerance = 900;
                 indexerVelocityP = 0.1;
                 indexerVelocityI = 0.001;
                 indexerVelocityD = 0.0;
                 indexerVelocityIntegralZone = 500;
                 indexerVelocityF = 0.26;
+                indexerMinimumOutput = 0.085;
 
 
                 // We need to fight gravity both ways.

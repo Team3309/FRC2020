@@ -5,12 +5,12 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 96.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "3,0": {
+          "0,0": {
             "size": [
               5,
               4
@@ -22,10 +22,11 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Arm position error": true
             }
           },
-          "8,0": {
+          "0,4": {
             "size": [
               5,
               4
@@ -37,13 +38,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Arm power": true
             }
           },
-          "3,4": {
+          "5,6": {
             "size": [
-              1,
-              1
+              12,
+              2
             ],
             "content": {
               "_type": "Toggle Switch",
@@ -59,15 +61,15 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 96.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
+          "8,6": {
             "size": [
-              1,
-              1
+              9,
+              2
             ],
             "content": {
               "_type": "Toggle Switch",
@@ -75,10 +77,10 @@
               "_title": "SmartDashboard/Display Indexer Values"
             }
           },
-          "9,3": {
+          "11,3": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -91,42 +93,42 @@
               "Visible data/SmartDashboard/Lower index power:": true
             }
           },
-          "7,3": {
+          "8,3": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Lower index velocity:",
               "_title": "SmartDashboard/Lower index velocity:",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 3000.0,
+              "Y-axis/Lower bound": -3000.0,
               "Visible data/SmartDashboard/Lower index velocity:": true
             }
           },
-          "7,0": {
+          "8,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Upper index velocity:",
               "_title": "SmartDashboard/Upper index velocity:",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 3000.0,
+              "Y-axis/Lower bound": -3000.0,
               "Visible data/SmartDashboard/Upper index velocity:": true
             }
           },
-          "9,0": {
+          "11,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -139,74 +141,74 @@
               "Visible data/SmartDashboard/Upper index power:": true
             }
           },
-          "1,3": {
+          "0,4": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Lower index position error:",
               "_title": "SmartDashboard/Lower index position error:",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 4000.0,
+              "Y-axis/Lower bound": -4000.0,
               "Visible data/SmartDashboard/Lower index position error:": true
             }
           },
-          "1,0": {
+          "0,0": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Upper index position error:",
               "_title": "SmartDashboard/Upper index position error:",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 4000.0,
+              "Y-axis/Lower bound": -4000.0,
               "Visible data/SmartDashboard/Upper index position error:": true
             }
           },
-          "4,3": {
+          "4,4": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Lower index velocity error:",
               "_title": "SmartDashboard/Lower index velocity error:",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 1000.0,
+              "Y-axis/Lower bound": -1000.0,
               "Visible data/SmartDashboard/Lower index velocity error:": true
             }
           },
           "4,0": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/Upper index velocity error:",
               "_title": "SmartDashboard/Upper index velocity error:",
               "Graph/Visible time": 30.0,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Automatic bounds": false,
+              "Y-axis/Upper bound": 1000.0,
+              "Y-axis/Lower bound": -1000.0,
               "Visible data/SmartDashboard/Upper index velocity error:": true
             }
           },
-          "11,3": {
+          "14,3": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -219,10 +221,10 @@
               "Visible data/SmartDashboard/Lower index current:": true
             }
           },
-          "11,0": {
+          "14,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -243,15 +245,15 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 96.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
+          "8,6": {
             "size": [
-              1,
-              1
+              9,
+              2
             ],
             "content": {
               "_type": "Toggle Switch",
@@ -259,10 +261,10 @@
               "_title": "SmartDashboard/Display Shooter Values"
             }
           },
-          "11,0": {
+          "14,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -271,13 +273,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Top flywheel current": true
             }
           },
-          "7,0": {
+          "8,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -286,13 +289,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Top flywheel desired speed": true
             }
           },
-          "9,0": {
+          "11,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -301,13 +305,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Top flywheel power": true
             }
           },
           "4,0": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
@@ -316,13 +321,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Top flywheel speed": true
             }
           },
-          "1,0": {
+          "0,0": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
@@ -331,13 +337,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Top flywheel speed error": true
             }
           },
-          "11,3": {
+          "14,3": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -346,13 +353,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Bottom flywheel current": true
             }
           },
-          "7,3": {
+          "8,3": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -361,13 +369,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Bottom flywheel desired speed": true
             }
           },
-          "9,3": {
+          "11,3": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Graph",
@@ -376,13 +385,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Bottom flywheel power": true
             }
           },
-          "4,3": {
+          "4,4": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
@@ -391,13 +401,14 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Bottom flywheel speed": true
             }
           },
-          "1,3": {
+          "0,4": {
             "size": [
-              3,
-              3
+              4,
+              4
             ],
             "content": {
               "_type": "Graph",
@@ -406,7 +417,8 @@
               "Graph/Visible time": 30.0,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0
+              "Y-axis/Lower bound": -1.0,
+              "Visible data/SmartDashboard/Bottom flywheel speed error": true
             }
           }
         }
@@ -414,9 +426,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1936.0,
-    "height": 1056.0
+    "x": -120.0,
+    "y": -1080.0,
+    "width": 1920.0,
+    "height": 1080.0
   }
 }
