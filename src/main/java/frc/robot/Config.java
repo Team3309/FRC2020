@@ -179,7 +179,7 @@ public class Config {
     public static Double indexerVelocityF;
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
-    public static final int indexInSpeed = 10000; // encoder counts per 100ms
+    public static final int indexInSpeed = 4000; // encoder counts per 100ms
 
     // we don't know what the nominal flywheel speed is when intaking because we use voltage control for intake
     public static final double autoIndexInFlywheelSpeedUpThreshold = 200;  // ignore small speed changes when at full intake speed
