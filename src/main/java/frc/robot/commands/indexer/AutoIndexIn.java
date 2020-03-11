@@ -42,7 +42,8 @@ public class AutoIndexIn extends CommandBase {
                 Indexer.getCount() < Config.maxPowerCells) {
 
             // flywheel speed is negative when intaking
-            double currentFlywheelSpeed = (shooter.getTopMotorVelocity() + shooter.getBottomMotorVelocity()) / 2;
+            // use bottom flywheel only because top flywheel doesn't slow much when intaking
+            double currentFlywheelSpeed = shooter.getBottomMotorVelocity();
 
             if (isIndexing) {
                 if (currentFlywheelSpeed >= maxFlywheelSpeed) {

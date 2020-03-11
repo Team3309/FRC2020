@@ -251,7 +251,6 @@ public class IndexerSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Upper index current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
         SmartDashboard.putNumber("Lower index current:", Robot.pdp.getCurrent(Config.lowerIndexerMotorPdpChannel));
         SmartDashboard.putBoolean("In position:", isInPosition());
-        SmartDashboard.putBoolean("Sensor blocked:", isSensorBlocked());
         SmartDashboard.putNumber("Power Cell count:", getCount());
     }
 }
