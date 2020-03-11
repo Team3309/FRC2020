@@ -1,9 +1,0 @@
-To complete clear/update the git credentials on a laptop:
-1. Open git bash, cd to the project directory:
-      git config --global user.name "your name here"
-      git config --global user.email "your email here"
-2. Control Panel => Credential Manager => Windows Credentials => Generic Credentials => git:https://github.com => Remove
-3. Open Chrome, go to https://github.com, if logged into an account, sign-out in upper right corner
-4. IntelliJ => File => Settings => Version Control => GitHub => Remove all accounts shown on right
-5. IntelliJ => File => Settings => Appearance & Behavior => System Settings => Passwords =>
-               Click settings icon to right of "Database" => Clear => Remove Passwords
