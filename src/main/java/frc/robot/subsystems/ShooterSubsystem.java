@@ -4,9 +4,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 /** -------------------------------------------------------------------------------------------------------------------
  * The class for the shooter subsystem, which will launch the power cells to desired targets.
@@ -146,6 +149,38 @@ public class ShooterSubsystem extends SubsystemBase {
      public boolean hasPresetSpeeds() {
          return flywheelSpeedTop != null && flywheelSpeedBottom != null;
      }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Called continuously while the multi-shot button/trigger is held so we can
+     * begin shooting as soon as the flywheels are up to speed. We do this here rather than in a
+     * SelectCommand because we want to be able to immediately jump to the INIT_MULTI_SHOT state without waiting
+     * for the command scheduler. This prevents multiple instances of multiShotCmdGroup from being
+     * scheduled and thereby canceling each other.
+     *
+     * @param multiShotCmdGroup: command to be run
+     */
+     public void holdMultiShot(Command multiShotCmdGroup) {
+         if (RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT) {
+             RobotContainer.setRobotState(RobotContainer.RobotState.INIT_MULTI_SHOT);
+             CommandScheduler.getInstance().schedule(multiShotCmdGroup);
+         }
+     }
+
+    /** ----------------------------------------------------------------------------------------------------------------
+     * Called continuously while the multi-shot button/trigger is held so we can
+     * begin shooting as soon as the flywheels are up to speed. We do this here rather than in a
+     * SelectCommand because we want to be able to immediately jump to the INIT_SINGLE_SHOT state without waiting
+     * for the command scheduler. This prevents multiple instances of multiShotCmdGroup from being
+     * scheduled and thereby canceling each other.
+     *
+     * @param singleShotCmdGroup: command to be run
+     */
+    public void holdSingleShot(Command singleShotCmdGroup) {
+        if (RobotContainer.getRobotState() == RobotContainer.RobotState.READY_TO_SHOOT) {
+            RobotContainer.setRobotState(RobotContainer.RobotState.INIT_SINGLE_SHOT);
+            CommandScheduler.getInstance().schedule(singleShotCmdGroup);
+        }
+    }
 
      /** ---------------------------------------------------------------------------------------------------------------
       * Sends motor data to SmartDashboard

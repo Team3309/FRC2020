@@ -18,7 +18,6 @@ public class UpdateHandlingState extends InstantCommand {
 
     @Override
     public void execute() {
-        System.out.println(savedState.name());
         RobotContainer.setRobotState(savedState);
     }
 

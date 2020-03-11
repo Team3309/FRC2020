@@ -13,6 +13,8 @@ import frc.robot.commands.Auto.ThreeBallAutoDriveForward;
 import frc.robot.commands.arm.ManualArmAdjustment;
 import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
+import frc.robot.commands.groups.MultiShotCmdGroup;
+import frc.robot.commands.groups.SingleShotCmdGroup;
 import frc.robot.commands.groups.ToDriveCmdGroup;
 import frc.robot.commands.groups.ToIntakeCmdGroup;
 import frc.robot.commands.groups.ToOuttakeCmdGroup;
@@ -47,6 +49,7 @@ public class RobotContainer
      *                 but instead is how state transitions mark where the robot is at
      */
     public static void setRobotState(RobotState newState) {
+        System.out.println(newState.name());
         RobotContainer.state = newState;
     }
 
@@ -223,13 +226,13 @@ public class RobotContainer
                 .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         OI.leftStickRightCluster
-                .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
+                .whileActiveContinuous(new InstantCommand(() -> shooter.holdSingleShot(new SingleShotCmdGroup(shooter, indexer))))
                 .whenInactive(new SelectSingleShotToReadyToShoot(intake, indexer, shooter, arm));
 
         // Shoot multiple power cells in either position or velocity control mode for the indexer
         new XBoxControllerAxisButton(OI.OperatorController, XboxController.Axis.kLeftTrigger, Config.xBoxTriggerButtonThreshold)
                 .or(OI.leftStickLeftCluster)
-                .whenActive(new SelectToMultishot(indexer, shooter))
+                .whileActiveContinuous(new InstantCommand(() -> shooter.holdMultiShot(new MultiShotCmdGroup(shooter, indexer))))
                 .whenInactive(new SelectMultishotToReadyToShoot(intake, indexer, shooter, arm));
 
         //D-pad Left - Long
