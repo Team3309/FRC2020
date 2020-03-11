@@ -13,7 +13,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class SelectReadyToShootToDriving extends SelectCommand3309 {
 
-    public SelectReadyToShootToDriving(IntakeSubsystem intake, ShooterSubsystem shooter, ArmSubsystem arm) {
+    public SelectReadyToShootToDriving(IntakeSubsystem intake, IndexerSubsystem indexer,
+                                       ShooterSubsystem shooter, ArmSubsystem arm) {
         super(() -> {
             if (RobotContainer.RobotState.INIT_READY_TO_SHOOT == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.READY_TO_SHOOT == RobotContainer.getRobotState() ||
@@ -23,7 +24,7 @@ public class SelectReadyToShootToDriving extends SelectCommand3309 {
                     RobotContainer.RobotState.INTAKE == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.INIT_OUTTAKE == RobotContainer.getRobotState() ||
                     RobotContainer.RobotState.OUTTAKE == RobotContainer.getRobotState()) {
-                return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);
+                return new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();
             }

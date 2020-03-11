@@ -17,7 +17,7 @@ public class SelectCancelScan extends SelectCommand3309 {
         super(() -> {
             if(RobotContainer.getRobotState() == RobotContainer.RobotState.INIT_SCAN ||
                     RobotContainer.getRobotState() == RobotContainer.RobotState.SCAN) {
-                return new ToDriveCmdGroup(null, intake, shooter, arm);
+                return new ToDriveCmdGroup(null, intake, indexer, shooter, arm);
             } else {
                 return new DoNothing();
             }
