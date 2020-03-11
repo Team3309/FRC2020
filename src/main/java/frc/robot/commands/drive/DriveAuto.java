@@ -1,7 +1,6 @@
 package frc.robot.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -59,7 +58,7 @@ public class DriveAuto extends CommandBase {
     private spinTurnState turnState;
     private travelState driveState;
     private int waypointIndex;
-    private double speed;
+    private double throttle;
     private double lastVelocity;
     private double encoderZeroValue;
     private boolean done;
@@ -76,7 +75,7 @@ public class DriveAuto extends CommandBase {
         driveState = travelState.stopped;
         turnState = spinTurnState.notStarted;
         waypointIndex = 0;
-        speed = 0;
+        throttle = 0;
         lastVelocity = 0;
         encoderZeroValue = (drive.getLeftEncoderPosition() + drive.getRightEncoderPosition()) / 2;
         done = false;
@@ -119,11 +118,13 @@ public class DriveAuto extends CommandBase {
         }
 
         if (RobotContainer.getDriveDebug()) {
-            SmartDashboard.putString("Robot Super State:", superStateMachine.name);
-            SmartDashboard.putString("Straight Drive State:", driveState.name);
-            SmartDashboard.putString("Spin Turning State:", turnState.name);
-            SmartDashboard.putNumber("Previous velocity:", lastVelocity);
-            SmartDashboard.putNumber("Path Array Index:", waypointIndex);
+            SmartDashboard.putString("DriveAuto Master State", superStateMachine.name);
+            SmartDashboard.putNumber("DriveAuto waypointIndex", waypointIndex);
+            SmartDashboard.putString("Spin Turning State", turnState.name);
+            SmartDashboard.putString("Drive Straight State", driveState.name);
+            SmartDashboard.putNumber("DriveAuto signum", signum);
+            SmartDashboard.putNumber("DriveAuto desiredHeading", desiredHeading);
+            SmartDashboard.putNumber("DriveAuto degsLeftToTurn", degsLeftToTurn);
         }
     }
 
@@ -223,11 +224,9 @@ public class DriveAuto extends CommandBase {
         }
 
         if (RobotContainer.getDriveDebug()) {
-            SmartDashboard.putNumber("desiredHeading:", desiredHeading);
-            SmartDashboard.putNumber("angularVelocity:", angularVelocity);
-            SmartDashboard.putNumber("spinTurnVelocity:", spinTurnVelocity);
-            SmartDashboard.putNumber("degsLeftToTurn:", degsLeftToTurn);
-            SmartDashboard.putString("Spin turn state:", turnState.name);
+            SmartDashboard.putNumber("DriveAuto angularVelocity", angularVelocity);
+            SmartDashboard.putNumber("DriveAuto spinTurnVelocity", spinTurnVelocity);
+            SmartDashboard.putNumber("DriveAuto lastVelocity", lastVelocity);
         }
         return false;
     }
@@ -286,14 +285,14 @@ public class DriveAuto extends CommandBase {
             encoderZeroValue = encoderTicksLinear;
         }
         if (driveState == travelState.accelerating) {
-            speed = signum * currentPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
-            if (signum * speed > signum * currentPoint.maxLinearSpeedInInchesPerSec) {
+            throttle = signum * currentPoint.linAccelerationInInchesPerSec2 * ControlTimer.get();
+            if (signum * throttle > signum * currentPoint.maxLinearSpeedInInchesPerSec) {
                 driveState = travelState.cruising;
             }
         }
         if (driveState == travelState.cruising){
-            if (signum * (inchesBetweenWaypoints - inchesTraveled) < signum * speed * ControlTimer.get()) {
-                speed = signum * currentPoint.maxLinearSpeedInInchesPerSec;
+            if (signum * (inchesBetweenWaypoints - inchesTraveled) < signum * throttle * ControlTimer.get()) {
+                throttle = signum * currentPoint.maxLinearSpeedInInchesPerSec;
             } else {
                 driveState = travelState.decelerating;
                 lastVelocity = DriveSubsystem.encoderVelocityToInchesPerSec(
@@ -302,10 +301,10 @@ public class DriveAuto extends CommandBase {
             }
         }
         if (driveState == travelState.decelerating){
-            speed = signum * (lastVelocity - currentPoint.linDecelerationInInchesPerSec2 * ControlTimer.get());
+            throttle = signum * (lastVelocity - currentPoint.linDecelerationInInchesPerSec2 * ControlTimer.get());
             if (signum *(inchesBetweenWaypoints - inchesTraveled) > signum * currentPoint.linearToleranceInInches) {
-                if (Math.abs(speed) < currentPoint.linCreepSpeedInInchesPerSec) {
-                    speed = signum * currentPoint.linCreepSpeedInInchesPerSec;
+                if (Math.abs(throttle) < currentPoint.linCreepSpeedInInchesPerSec) {
+                    throttle = signum * currentPoint.linCreepSpeedInInchesPerSec;
                 }
             } else {
                 // done with waypoint
@@ -313,7 +312,7 @@ public class DriveAuto extends CommandBase {
                     System.out.println("Waypoint " + waypointIndex + " overshot by " +
                             (inchesTraveled - inchesBetweenWaypoints) + " inches");
                 }
-                speed = 0;
+                throttle = 0;
                 waypointIndex++;
                 if (waypointIndex == path.length - 1 && path[waypointIndex].poseDegrees == null) {
                     // last waypoint has no pose, so we don't need a final turn
@@ -323,18 +322,18 @@ public class DriveAuto extends CommandBase {
             }
         }
 
-        if (speed == 0) {
+        if (throttle == 0) {
             drive.stop();
         } else {
-            drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecToEncoderVelocity(speed), turnCorrection);
+            drive.setArcade(ControlMode.Velocity, DriveSubsystem.inchesPerSecToEncoderVelocity(throttle), turnCorrection);
         }
 
         if (RobotContainer.getDriveDebug()) {
-            SmartDashboard.putString("Straight Line State:", driveState.name);
-            SmartDashboard.putNumber("Path Correction:", turnCorrection);
-            SmartDashboard.putNumber("Heading error:", degsLeftToTurn);
-            SmartDashboard.putNumber("Throttle:", speed);
-            SmartDashboard.putNumber("Distance to next waypoint:", inchesBetweenWaypoints);
+            SmartDashboard.putNumber("DriveAuto throttle", throttle);
+            SmartDashboard.putNumber("DriveAuto turnCorrection", turnCorrection);
+            SmartDashboard.putNumber("DriveAuto inchesBetweenWaypoints", inchesBetweenWaypoints);
+            SmartDashboard.putNumber("DriveAuto inchesTraveled", inchesTraveled);
+            SmartDashboard.putNumber("DriveAuto lastVelocity", lastVelocity);
         }
         return false;
         //End of Drive straight code
