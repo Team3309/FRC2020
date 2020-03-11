@@ -3,8 +3,8 @@ package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Config;
-import frc.robot.commands.Sleep;
 import frc.robot.commands.drive.DriveApplyPower;
 import frc.robot.commands.groups.ToReadyToShootCmdGroup;
 import frc.robot.subsystems.ArmSubsystem;
@@ -18,7 +18,7 @@ public class ThreeBallAutoDriveForward extends SequentialCommandGroup {
         addCommands(
                 new ToReadyToShootCmdGroup(Config.shooterMidRangeSolution, intake, indexer, shooter, arm),
                 new ParallelCommandGroup(
-                        new Sleep(3.0),
+                        new WaitCommand(3.0),
                         new InstantCommand(indexer::velocityShooting, indexer)
                 ),
                 new InstantCommand(indexer::reset, indexer),
@@ -26,7 +26,7 @@ public class ThreeBallAutoDriveForward extends SequentialCommandGroup {
 
                 // Super cheesy way to get across the line because DriveStraight isn't working right yet.
                 new DriveApplyPower(0.2, drive),  // will be cancelled by DriveManual resuming at end of command group
-                new Sleep(2.0)
+                new WaitCommand(2.0)
         );
     }
 }
