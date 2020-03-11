@@ -147,13 +147,14 @@ public class Config {
 
     // Un-tuned values
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
-            "Behind Control Panel", 42900, 4000, 16000, 20000);
+            "Behind Control Panel", 42900, 3000, 16000, 20000);
 
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Starting Line", 47700, 4000, 10000, 20000);
+            "Starting Line", 47700, 2000, 10000, 20000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 67280, 4000, 5000, 15000);
+            "Alliance Wall", 67280, 1000, 4000, 4000);
+            //"Alliance Wall", 67280, 4000, 5000, 15000);
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -178,7 +179,7 @@ public class Config {
     public static Double indexerVelocityF;
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
-    public static final int indexInSpeed = 4000; // encoder counts per 100ms
+    public static final int indexInSpeed = 2000; // encoder counts per 100ms
 
     // we don't know what the nominal flywheel speed is when intaking because we use voltage control for intake
     public static final double autoIndexInFlywheelSpeedUpThreshold = 200;  // ignore small speed changes when at full intake speed
@@ -329,23 +330,23 @@ public class Config {
                 indexerSensorID = 4;
                 upperIndexerMotorPdpChannel = 8;
                 lowerIndexerMotorPdpChannel = 9;
-                indexerPositionP = 0.2;
+                indexerPositionP = 0.05;
                 indexerPositionI = 0.0;
-                indexerPositionD = 20.0;
+                indexerPositionD = 0.0;
                 indexerPositionIntegralZone = 0;
-                indexerPositionF = 0.0;
+                indexerPositionF = 0.26;
                 indexerPositioningTolerance = 900;
-                indexerVelocityP = 0.2;
-                indexerVelocityI = 0.0;
-                indexerVelocityD = 20.0;
-                indexerVelocityIntegralZone = 0;
-                indexerVelocityF = 0.0;
+                indexerVelocityP = 0.1;
+                indexerVelocityI = 0.001;
+                indexerVelocityD = 0.0;
+                indexerVelocityIntegralZone = 500;
+                indexerVelocityF = 0.26;
 
 
                 // We need to fight gravity both ways.
                 // There is more slippage at the start of movement as the belts tighten up.
                 // Therefore, longer movements have less encoder loss.
-                indexInEncoderCounts = new int[] { 7600, 8200, 9200, 1000, 10000, 10000 };
+                indexInEncoderCounts = new int[] { 7600, 7600, 7600, 7600, 7600, 7600 };
                 indexOutEncoderCounts = new int[] { 9000, 9300, 10300, 11400, 13000, 13000 };
 
                 armMotorId = 3;
