@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -13,8 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.commands.groups.ToDriveCmdGroup;
-import frc.robot.commands.groups.ToOuttakeCmdGroup;
 
 /** --------------------------------------------------------------------------------------------------------------------
  * The class for the power cell intake, which will intake or expel power cells. Will work with shooter and
@@ -29,9 +26,9 @@ import frc.robot.commands.groups.ToOuttakeCmdGroup;
  */
 public class IntakeSubsystem extends SubsystemBase {
 
-    private Timer pistonTimer = new Timer();;
-    private Timer pressIntakeTimer = new Timer();;
-    private Timer pressOuttakeTimer = new Timer();;
+    private Timer pistonTimer = new Timer();
+    private Timer pressIntakeTimer = new Timer();
+    private Timer pressOuttakeTimer = new Timer();
     private WPI_TalonSRX intakeMotor;
     private DoubleSolenoid solenoid;
     private double solenoidStateExtendSwapTime;

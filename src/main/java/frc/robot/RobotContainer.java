@@ -128,8 +128,9 @@ public class RobotContainer
 
     // Intake/outtake command groups for use in button bindings
     private Command activateIntake = new ToIntakeCmdGroup(intake, indexer, shooter, arm);
-    private Command activateOuttake = new ToOuttakeCmdGroup(intake, shooter, arm);
-    private Command cancelIntakeOuttake = new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget, intake, shooter, arm);
+    private Command activateOuttake = new ToOuttakeCmdGroup(intake, indexer, shooter, arm);
+    private Command cancelIntakeOuttake = new ToDriveCmdGroup(Config.armPositionIntakeStowedTarget,
+            intake, indexer, shooter, arm);
 
     /** ----------------------------------------------------------------------------------------------------------------
      * Set up default commands for any subsystem that needs one
@@ -219,7 +220,7 @@ public class RobotContainer
 
         // Cancel Shooting
         new POVButton(OI.OperatorController, 180)  // D-Down
-                .whenPressed(new SelectReadyToShootToDriving(intake, shooter, arm));
+                .whenPressed(new SelectReadyToShootToDriving(intake, indexer, shooter, arm));
 
         OI.leftStickRightCluster
                 .whileActiveOnce(new SelectToSingleShot(indexer, shooter))
