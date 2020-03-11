@@ -167,10 +167,10 @@ public class ShooterSubsystem extends SubsystemBase {
      }
 
     /** ----------------------------------------------------------------------------------------------------------------
-     * Called continuously while the multi-shot button/trigger is held so we can
+     * Called continuously while the single-shot button/trigger is held so we can
      * begin shooting as soon as the flywheels are up to speed. We do this here rather than in a
      * SelectCommand because we want to be able to immediately jump to the INIT_SINGLE_SHOT state without waiting
-     * for the command scheduler. This prevents multiple instances of multiShotCmdGroup from being
+     * for the command scheduler. This prevents multiple instances of singleShotCmdGroup from being
      * scheduled and thereby canceling each other.
      *
      * @param singleShotCmdGroup: command to be run
