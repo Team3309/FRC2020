@@ -233,11 +233,17 @@ public class IndexerSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Upper index desired position:", upperMotorDesiredEncoderPosition);
         SmartDashboard.putNumber("Upper index current position:",
                 upperIndexerMotor.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Upper index position error:",
+                upperIndexerMotor.getSelectedSensorPosition(0) - upperMotorDesiredEncoderPosition);
         SmartDashboard.putNumber("Lower index desired position:", lowerMotorDesiredEncoderPosition);
         SmartDashboard.putNumber("Lower index current position:",
                 lowerIndexerMotor.getSelectedSensorPosition(0));
+        SmartDashboard.putNumber("Lower index position error:",
+                lowerIndexerMotor.getSelectedSensorPosition(0) - lowerMotorDesiredEncoderPosition);
         SmartDashboard.putNumber("Upper index velocity:", upperIndexerMotor.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("Upper index velocity error:", upperIndexerMotor.getSelectedSensorVelocity(0) - lastCruiseVelocity);
         SmartDashboard.putNumber("Lower index velocity:", lowerIndexerMotor.getSelectedSensorVelocity(0));
+        SmartDashboard.putNumber("Lower index velocity error:", lowerIndexerMotor.getSelectedSensorVelocity(0) - lastCruiseVelocity);
         SmartDashboard.putNumber("Upper index power:", upperIndexerMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Lower index power:", lowerIndexerMotor.getMotorOutputPercent());
         SmartDashboard.putNumber("Upper index current:", Robot.pdp.getCurrent(Config.upperIndexerMotorPdpChannel));
