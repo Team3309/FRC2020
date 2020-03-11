@@ -96,7 +96,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void indexOut() {
-        if (Config.isIndexerInstalled && isInPosition() && powerCells > 0) {
+        if (Config.isIndexerInstalled && isInPosition()) {
             upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0)
                     + Config.indexOutEncoderCounts[powerCells];
             lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0)
@@ -114,7 +114,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void indexIn() {
-        if (Config.isIndexerInstalled && isInPosition() && powerCells < 5) {
+        if (Config.isIndexerInstalled && isInPosition()) {
             upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0) -
                     Config.indexInEncoderCounts[powerCells];
             lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0) -
