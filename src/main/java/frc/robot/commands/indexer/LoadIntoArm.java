@@ -9,7 +9,6 @@ import frc.robot.subsystems.IndexerSubsystem;
 public class LoadIntoArm extends InstantCommand {
 
     private IndexerSubsystem indexer;
-    private int powerCells;
 
     public LoadIntoArm(IndexerSubsystem indexer) {
         this.indexer = indexer;
@@ -17,15 +16,8 @@ public class LoadIntoArm extends InstantCommand {
     }
 
     @Override
-    public void initialize() {
-        powerCells = indexer.getCount();
-    }
-
-    @Override
     public void execute() {
-        if (powerCells >= 0 && powerCells < 5) {
-            indexer.setVelocity(-10000);
-        }
+        indexer.indexIn();
     }
 
 }
