@@ -7,7 +7,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Arrays;
 
-//TODO: Get the indexer to feed the balls to the very back of the arm.
 public class Config {
 
     /** Robot parameters
