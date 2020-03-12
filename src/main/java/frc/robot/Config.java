@@ -151,10 +151,10 @@ public class Config {
             "Behind Control Panel", 42900, 3000, 16000, 20000);
 
     public static final FiringSolution shooterMidRangeSolution = new FiringSolution(
-            "Starting Line", 47700, 2000, 10000, 20000);
+            "Starting Line", 45250, 2000, 9000, 18000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 67280, 1000, 5000, 15000);
+            "Alliance Wall", 67280, 2000, 5000, 15000);
 
 
     //------------------------------------------------------------------------------------------------------------------

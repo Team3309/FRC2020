@@ -10,7 +10,7 @@ public class CheesyDriveHelper {
 
     // TODO: deadbands were 0.02, but the falcons are too sensitive for that. Is there a better way?
     private static final double kThrottleDeadband = 0.1;
-    private static final double kWheelDeadband = 0.1;
+    private static final double kWheelDeadband = 0.03;
 
     // These factor determine how fast the wheel traverses the "non linear" sine curve.
     private static final double kHighWheelNonLinearity = 0.65;
