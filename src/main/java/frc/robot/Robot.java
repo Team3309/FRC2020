@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
      * Constructor
      */
     public Robot() {
-        super(0.01);
+        super(0.02);
     }
 
 
