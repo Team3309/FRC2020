@@ -30,6 +30,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.util.FiringSolutionManager;
 import frc.robot.util.Waypoint;
 import frc.robot.util.XBoxControllerAxisButton;
 
@@ -123,10 +124,20 @@ public class RobotContainer
      */
     public RobotContainer() {
         // -- Bindings
+        buildFiringSolutions();
         configureButtonBindings();
         setDefaultCommands();
         setAutoOptions();
         displaySubsystemToggles();
+    }
+
+    private void buildFiringSolutions() {
+        FiringSolutionManager.getSingleton().addSolution(Config.shooterLongRangeSolution,
+                Config. visionFiringSolutionTag, Config.longRangeFiringSolutionTag);
+        FiringSolutionManager.getSingleton().addSolution(Config.shooterMidRangeSolution,
+                Config. visionFiringSolutionTag, Config.midRangeFiringSolutionTag);
+        FiringSolutionManager.getSingleton().addSolution(Config.shooterShortRangeSolution,
+                Config. visionFiringSolutionTag, Config.allianceWallFiringSolutionTag);
     }
 
     // Intake/outtake command groups for use in button bindings
