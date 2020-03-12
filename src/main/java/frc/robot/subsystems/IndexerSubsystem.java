@@ -211,14 +211,14 @@ public class IndexerSubsystem extends SubsystemBase {
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Checks whether the indexer has reached the target encoder position to within an acceptable range.
+     * Don't check the top belt because it's less reliable due to the resistance from the extra pulleys.
      *
      * @return Whether the indexer is in position with an acceptable error.
      *
      */
     private boolean isInPosition() {
-        return ((Math.abs(upperMotorDesiredEncoderPosition - upperIndexerMotor.getSelectedSensorPosition())
-                < Config.indexerPositioningTolerance)) && (Math.abs(lowerMotorDesiredEncoderPosition
-                - lowerIndexerMotor.getSelectedSensorPosition()) < Config.indexerPositioningTolerance);
+        return (Math.abs(lowerMotorDesiredEncoderPosition - lowerIndexerMotor.getSelectedSensorPosition())
+                < Config.indexerPositioningTolerance);
     }
 
     public void reset() {
