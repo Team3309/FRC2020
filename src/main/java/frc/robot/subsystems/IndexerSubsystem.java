@@ -41,6 +41,15 @@ public class IndexerSubsystem extends SubsystemBase {
             configIndexerTalon(lowerIndexerMotor);
             setIndexerSpeed(Config.indexInSpeed);  // configure motion magic parameters
 
+            upperIndexerMotor.configNominalOutputForward(Config.indexerTopMinimumOutput, Config.motorControllerConfigTimeoutMs);
+            upperIndexerMotor.configNominalOutputReverse(-Config.indexerTopMinimumOutput, Config.motorControllerConfigTimeoutMs);
+            upperIndexerMotor.config_kP(0, Config.indexerTopPositionP, Config.motorControllerConfigTimeoutMs);
+            upperIndexerMotor.config_kF(0, Config.indexerTopPositionF, Config.motorControllerConfigTimeoutMs);
+            lowerIndexerMotor.configNominalOutputForward(Config.indexerBottomMinimumOutput, Config.motorControllerConfigTimeoutMs);
+            lowerIndexerMotor.configNominalOutputReverse(-Config.indexerBottomMinimumOutput, Config.motorControllerConfigTimeoutMs);
+            lowerIndexerMotor.config_kP(0, Config.indexerBottomPositionP, Config.motorControllerConfigTimeoutMs);
+            lowerIndexerMotor.config_kF(0, Config.indexerBottomPositionF, Config.motorControllerConfigTimeoutMs);
+
             lowerIndexerMotor.setInverted(false);
             upperIndexerMotor.setInverted(true);
 
@@ -57,13 +66,9 @@ public class IndexerSubsystem extends SubsystemBase {
         talon.configPeakOutputReverse(Config.indexerPeakOutputReverse, Config.motorControllerConfigTimeoutMs);
         talon.configOpenloopRamp(Config.indexerOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
         talon.configClosedloopRamp(Config.indexerClosedLoopRampRate, Config.motorControllerConfigTimeoutMs);
-        talon.configNominalOutputForward(Config.indexerMinimumOutput);
-        talon.configNominalOutputReverse(-Config.indexerMinimumOutput);
-        talon.config_kP(0, Config.indexerPositionP, Config.motorControllerConfigTimeoutMs);
         talon.config_kI(0, Config.indexerPositionI, Config.motorControllerConfigTimeoutMs);
         talon.config_IntegralZone(0, Config.indexerPositionIntegralZone, Config.motorControllerConfigTimeoutMs);
         talon.config_kD(0, Config.indexerPositionD, Config.motorControllerConfigTimeoutMs);
-        talon.config_kF(0, Config.indexerPositionF, Config.motorControllerConfigTimeoutMs);
         talon.config_kP(1, Config.indexerVelocityP, Config.motorControllerConfigTimeoutMs);
         talon.config_kI(1, Config.indexerVelocityI, Config.motorControllerConfigTimeoutMs);
         talon.config_IntegralZone(1, Config.indexerVelocityIntegralZone, Config.motorControllerConfigTimeoutMs);

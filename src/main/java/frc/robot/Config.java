@@ -167,17 +167,20 @@ public class Config {
     public static Integer upperIndexerMotorPdpChannel;
     public static final double indexerOpenLoopRampRate = 1.0;
     public static final double indexerClosedLoopRampRate = 1.0;
-    public static Double indexerPositionP;
+    public static Double indexerTopPositionP;
+    public static Double indexerBottomPositionP;
     public static Double indexerPositionI;
     public static Integer indexerPositionIntegralZone;
     public static Double indexerPositionD;
-    public static Double indexerPositionF;
+    public static Double indexerTopPositionF;
+    public static Double indexerBottomPositionF;
     public static Double indexerVelocityP;
     public static Double indexerVelocityI;
     public static Integer indexerVelocityIntegralZone;
     public static Double indexerVelocityD;
     public static Double indexerVelocityF;
-    public static Double indexerMinimumOutput;
+    public static Double indexerTopMinimumOutput;
+    public static Double indexerBottomMinimumOutput;
     public static int[] indexInEncoderCounts;
     public static int[] indexOutEncoderCounts;
     public static final int indexInSpeed = 2000; // encoder counts per 100ms
@@ -330,25 +333,28 @@ public class Config {
                 indexerSensorID = 4;
                 upperIndexerMotorPdpChannel = 8;
                 lowerIndexerMotorPdpChannel = 9;
-                indexerPositionP = 0.07;
+                indexerTopPositionP = 0.1;
+                indexerBottomPositionP = 0.07;
                 indexerPositionI = 0.0;
-                indexerPositionD = 0.0;
+                indexerPositionD = 5.0;
                 indexerPositionIntegralZone = 0;
-                indexerPositionF = 0.18;
-                indexerPositioningTolerance = 3000; //TODO 900
+                indexerTopPositionF = 0.2;
+                indexerBottomPositionF = 0.18;
+                indexerPositioningTolerance = 900;
                 indexerVelocityP = 0.1;
                 indexerVelocityI = 0.001;
                 indexerVelocityD = 0.0;
                 indexerVelocityIntegralZone = 500;
                 indexerVelocityF = 0.26;
-                indexerMinimumOutput = 0.085;
+                indexerTopMinimumOutput = 0.09;
+                indexerBottomMinimumOutput = 0.085;
 
 
                 // We need to fight gravity both ways.
                 // There is more slippage at the start of movement as the belts tighten up.
                 // Therefore, longer movements have less encoder loss.
-                indexInEncoderCounts = new int[] { 7600, 7600, 7600, 7600, 7600, 7600 };
-                indexOutEncoderCounts = new int[] { 9000, 9300, 10300, 11400, 13000, 13000 };
+                indexInEncoderCounts = new int[] { 8500, 8500, 8500, 8500, 8500, 8500 };
+                indexOutEncoderCounts = new int[] { 8500, 8500, 8500, 8500, 8500, 8500 };
 
                 armMotorId = 3;
                 armMotorPdpChannel = 3;
