@@ -299,7 +299,7 @@ public class Config {
 
                 driveWheelDiameterInInches = 6.0;
                 driveWheelEncoderCountsPerRevolution = 2048;  // Falcon 500 internal encoder
-                driveSpinTurnEncoderCountsPerDegree = 600;
+                driveSpinTurnEncoderCountsPerDegree = 277;
 
                 driveVelocityP = 0.02;
                 driveVelocityI = 0.00015;
