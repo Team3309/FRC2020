@@ -56,6 +56,7 @@ public class AutoIndexIn extends CommandBase {
                 }
             } else if (currentFlywheelSpeed >=  maxFlywheelSpeed + Config.autoIndexInFlywheelSpeedDropThreshold) {
                 // flywheel speed drop is over detection threshold
+                Indexer.reset();  // force the indexer to be in-position so we get a full index in pulse
                 Indexer.indexIn();
                 maxFlywheelSpeed = currentFlywheelSpeed;
                 isIndexing = true;  // don't index again if we get a second drop over threshold before speeding up again

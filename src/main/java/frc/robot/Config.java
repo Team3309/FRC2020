@@ -147,7 +147,6 @@ public class Config {
     public static final int shooterSpeedTolerance = 200; //Encoder counts per 100ms
 
     // Firing solutions
-    //FiringSolutionManager.getSingleton().addSolution
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
             "Behind Control Panel", 42900, 3000, 16000, 20000);
 
@@ -155,8 +154,7 @@ public class Config {
             "Starting Line", 47700, 2000, 10000, 20000);
 
     public static final FiringSolution shooterShortRangeSolution = new FiringSolution(
-            "Alliance Wall", 67280, 1000, 4000, 4000);
-            //"Alliance Wall", 67280, 4000, 5000, 15000);
+            "Alliance Wall", 67280, 1000, 5000, 15000);
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -344,7 +342,7 @@ public class Config {
                 indexerPositionIntegralZone = 0;
                 indexerTopPositionF = 0.26;
                 indexerBottomPositionF = 0.18;
-                indexerPositioningTolerance = 1000;
+                indexerPositioningTolerance = 1500;
                 indexerVelocityP = 0.1;
                 indexerVelocityI = 0.001;
                 indexerVelocityD = 0.0;
@@ -357,7 +355,7 @@ public class Config {
                 // We need to fight gravity both ways.
                 // There is more slippage at the start of movement as the belts tighten up.
                 // Therefore, longer movements have less encoder loss.
-                indexInEncoderCounts = new int[] { 8500, 8500, 8500, 8500, 8500, 8500 };
+                indexInEncoderCounts = new int[] { 8500, 8500, 8500, 9000, 9000, 9000 };
                 indexOutEncoderCounts = new int[] { 8500, 8500, 8500, 8500, 8500, 8500 };
 
                 armMotorId = 3;
