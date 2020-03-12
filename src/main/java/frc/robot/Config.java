@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.util.FiringSolutionManager;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -145,7 +146,8 @@ public class Config {
 
     public static final int shooterSpeedTolerance = 200; //Encoder counts per 100ms
 
-    // Un-tuned values
+    // Firing solutions
+    //FiringSolutionManager.getSingleton().addSolution
     public static final FiringSolution shooterLongRangeSolution = new FiringSolution(
             "Behind Control Panel", 42900, 3000, 16000, 20000);
 
@@ -265,7 +267,6 @@ public class Config {
     public static final String visionFiringSolutionTag = "Vision";
     public static final String longRangeFiringSolutionTag = "Long Range";
     public static final String midRangeFiringSolutionTag = "Mid Range";
-    public static final String shortRangeFiringSolutionTag = "Short Range";
     public static final String allianceWallFiringSolutionTag = "Alliance Wall Range";
     public static final String autonomousFiringSolution = "Autonomous";
 

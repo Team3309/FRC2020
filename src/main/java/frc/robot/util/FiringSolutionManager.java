@@ -40,7 +40,6 @@ public class FiringSolutionManager {
             for (int i = 1; i < tags.length; i++) {
                 ArrayList<FiringSolution> solutionsToCompare = lookupTable.get(tags[0]);
                 ArrayList<FiringSolution> combinedList = new ArrayList<>();
-                boolean isInList = false;
                 for (int j = 0; j < possibleSolutions.size(); j++) {
                     boolean isInBoth = false;
                     for (int k = 0; k < solutionsToCompare.size(); k++) {
