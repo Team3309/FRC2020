@@ -338,9 +338,9 @@ public class Config {
                 indexerPositionI = 0.0;
                 indexerPositionD = 5.0;
                 indexerPositionIntegralZone = 0;
-                indexerTopPositionF = 0.2;
+                indexerTopPositionF = 0.26;
                 indexerBottomPositionF = 0.18;
-                indexerPositioningTolerance = 900;
+                indexerPositioningTolerance = 1000;
                 indexerVelocityP = 0.1;
                 indexerVelocityI = 0.001;
                 indexerVelocityD = 0.0;
