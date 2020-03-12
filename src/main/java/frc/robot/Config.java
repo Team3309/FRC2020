@@ -255,16 +255,19 @@ public class Config {
     public static Double fieldVisionTargetHeight;
     public static Double fieldVisionDepthOfThreePointHoleFromVisionTarget;
     public static Double fieldVisionHeightOfThreePointHoleFromVisionTarget;
-    public static double[] threePointHoleDistances;
-    public static double[] threePointHoleAngles;
-    public static double[] threePointHoleTopSpeeds;
-    public static double[] threePointHoleBottomSpeeds;
     public static Integer driveLeftSlaveID2019_1;
     public static Integer driveLeftSlaveID2019_2;
     public static Integer driveRightSlaveID2019_1;
     public static Integer driveRightSlaveID2019_2;
     public static final double visionDistanceConstant = Math.sqrt(2);
     public static Boolean isLimelightOn;
+
+    public static final String visionFiringSolutionTag = "Vision";
+    public static final String longRangeFiringSolutionTag = "Long Range";
+    public static final String midRangeFiringSolutionTag = "Mid Range";
+    public static final String shortRangeFiringSolutionTag = "Short Range";
+    public static final String allianceWallFiringSolutionTag = "Alliance Wall Range";
+    public static final String autonomousFiringSolution = "Autonomous";
 
     private static void frameSpecificConfig() {
 
@@ -387,26 +390,6 @@ public class Config {
                 IMUDriftConstant = 0.0045;
                 IMUMountingAngle = 0.0;
 
-                threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
-                threePointHoleAngles = new double[] {
-                        0,
-                        shooterShortRangeSolution.getArmPosition(),
-                        shooterMidRangeSolution.getArmPosition(),
-                        shooterLongRangeSolution.getArmPosition(),
-                        shooterLongRangeSolution.getArmPosition()}; //in encoder positions
-                threePointHoleBottomSpeeds = new double[] {
-                        0.0,
-                        shooterShortRangeSolution.getBottomFlywheelSpeed(),
-                        shooterMidRangeSolution.getBottomFlywheelSpeed(),
-                        shooterLongRangeSolution.getBottomFlywheelSpeed(),
-                        shooterLongRangeSolution.getBottomFlywheelSpeed()};
-                threePointHoleTopSpeeds = new double[] {
-                        0.0,
-                        shooterShortRangeSolution.getTopFlywheelSpeed(),
-                        shooterMidRangeSolution.getTopFlywheelSpeed(),
-                        shooterLongRangeSolution.getTopFlywheelSpeed(),
-                        shooterLongRangeSolution.getTopFlywheelSpeed()};
-
                 break;
 
             case Practice2017:
@@ -503,25 +486,6 @@ public class Config {
                 intakeMotorID = 13;
                 turnerMotorPdpChannel = 7;
 
-                threePointHoleDistances = new double[] {0.0, 120.0, 240.0, 360.0, 12000.0}; //in inches
-                threePointHoleAngles = new double[] {
-                        0,
-                        shooterShortRangeSolution.getArmPosition(),
-                        shooterMidRangeSolution.getArmPosition(),
-                        shooterLongRangeSolution.getArmPosition(),
-                        shooterLongRangeSolution.getArmPosition()}; //in encoder positions
-                threePointHoleBottomSpeeds = new double[] {
-                        0.0,
-                        shooterShortRangeSolution.getBottomFlywheelSpeed(),
-                        shooterMidRangeSolution.getBottomFlywheelSpeed(),
-                        shooterLongRangeSolution.getBottomFlywheelSpeed(),
-                        shooterLongRangeSolution.getBottomFlywheelSpeed()};
-                threePointHoleTopSpeeds = new double[] {
-                        0.0,
-                        shooterShortRangeSolution.getTopFlywheelSpeed(),
-                        shooterMidRangeSolution.getTopFlywheelSpeed(),
-                        shooterLongRangeSolution.getTopFlywheelSpeed(),
-                        shooterLongRangeSolution.getTopFlywheelSpeed()};
 
                 break;
         }
