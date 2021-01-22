@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.util.FiringSolutionManager;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -22,19 +21,20 @@ public class Config {
     //------------------------------------------------------------------------------------------------------------------
     //Hardware Availability//
     //------------------------------------------------------------------------------------------------------------------
-    public static Boolean isArmInstalled;
-    public static Boolean isClimberInstalled;
-    public static Boolean isCtrlPanelInstalled;
-    public static Boolean isDriveInstalled;
-    public static Boolean isIndexerInstalled;
-    public static Boolean isIndexerSensorInstalled;
-    public static Boolean isIntakeInstalled;
-    public static Boolean isShooterInstalled;
-    public static Boolean isVisionInstalled;
-    public static Boolean isPcmInstalled;
-    public static Boolean isCompressorEnabled;
-    public static Boolean isIMUInstalled;
-    public static final boolean isDriveAutoTestModeEnabled = false;
+    public static final Boolean trainingRun = false;
+    public static Boolean armAvailable;
+    public static Boolean climberAvailable;
+    public static Boolean ctrlPanelAvailable;
+    public static Boolean driveAvailable;
+    public static Boolean indexerAvailable;
+    public static Boolean indexerSensorAvailable;
+    public static Boolean intakeAvailable;
+    public static Boolean shooterAvailable;
+    public static Boolean visionAvailable;
+    public static Boolean pcmAvailable;
+    public static Boolean compressorEnabled;
+    public static Boolean IMUAvailable;
+    public static final boolean driveAutoTestModeEnabled = false;
 
     //------------------------------------------------------------------------------------------------------------------
     //Driver Station
@@ -274,19 +274,35 @@ public class Config {
 
         switch (currentRobot) {
             case Alpha2020:
-                isArmInstalled = true;
-                isClimberInstalled = true;
-                isCtrlPanelInstalled = false;
-                isDriveInstalled = true;
-                isIndexerInstalled = true;
-                isIndexerSensorInstalled = false;
-                isIntakeInstalled = true;
-                isShooterInstalled = true;
-                isVisionInstalled = true;
-                isLimelightOn = false;
-                isPcmInstalled = true;
-                isCompressorEnabled = true;
-                isIMUInstalled = true;
+                if (trainingRun) {
+                    armAvailable = false;
+                    climberAvailable = false;
+                    ctrlPanelAvailable = false;
+                    driveAvailable = true;
+                    indexerAvailable = false;
+                    indexerSensorAvailable = false;
+                    intakeAvailable = false;
+                    shooterAvailable = false;
+                    visionAvailable = true;
+                    isLimelightOn = false;
+                    pcmAvailable = true;
+                    compressorEnabled = true;
+                    IMUAvailable = true;
+                } else if (!trainingRun){
+                    armAvailable = true;
+                    climberAvailable = true;
+                    ctrlPanelAvailable = false;
+                    driveAvailable = true;
+                    indexerAvailable = true;
+                    indexerSensorAvailable = false;
+                    intakeAvailable = true;
+                    shooterAvailable = true;
+                    visionAvailable = true;
+                    isLimelightOn = false;
+                    pcmAvailable = true;
+                    compressorEnabled = true;
+                    IMUAvailable = true;
+                }
 
                 driveLeftMasterID = 4;
                 driveLeftSlaveID = 16;
@@ -392,18 +408,18 @@ public class Config {
                 break;
 
             case Practice2017:
-                isArmInstalled = false;
-                isClimberInstalled = false;
-                isCtrlPanelInstalled = false;
-                isDriveInstalled = true;
-                isIndexerInstalled = false;
-                isIntakeInstalled = false;
-                isShooterInstalled = false;
-                isVisionInstalled = false;
+                armAvailable = false;
+                climberAvailable = false;
+                ctrlPanelAvailable = false;
+                driveAvailable = true;
+                indexerAvailable = false;
+                intakeAvailable = false;
+                shooterAvailable = false;
+                visionAvailable = false;
                 isLimelightOn = false;
-                isPcmInstalled = false;
-                isCompressorEnabled = false;
-                isIMUInstalled = true;
+                pcmAvailable = false;
+                compressorEnabled = false;
+                IMUAvailable = true;
 
                 driveLeftMasterID = 6;
                 driveLeftSlaveID = 8;
@@ -429,18 +445,18 @@ public class Config {
                 break;
 
             case Comp2019:
-                isArmInstalled = false;
-                isClimberInstalled = false;
-                isCtrlPanelInstalled = false;
-                isDriveInstalled = true;
-                isIndexerInstalled = false;
-                isIntakeInstalled = true;
-                isShooterInstalled = false;
-                isVisionInstalled = true;
+                armAvailable = false;
+                climberAvailable = false;
+                ctrlPanelAvailable = false;
+                driveAvailable = true;
+                indexerAvailable = false;
+                intakeAvailable = true;
+                shooterAvailable = false;
+                visionAvailable = true;
                 isLimelightOn = true;
-                isPcmInstalled = false;
-                isCompressorEnabled = false;
-                isIMUInstalled = true;
+                pcmAvailable = false;
+                compressorEnabled = false;
+                IMUAvailable = true;
 
                 driveRightMasterID = 1;
                 driveRightSlaveID2019_1 = 2;

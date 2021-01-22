@@ -17,7 +17,7 @@ public class VisionSubsystem extends SubsystemBase {
     public Limelight limelight;
 
     public VisionSubsystem() {
-        if (Config.isVisionInstalled) {
+        if (Config.visionAvailable) {
             limelight = new Limelight("limelight",
                     0, 0, 0);
             if (!Config.isLimelightOn) {
@@ -27,7 +27,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     public double getAngleToTarget() {
-        if (!Config.isVisionInstalled) {
+        if (!Config.visionAvailable) {
             return 0;
         }
         return limelight.getTx();
@@ -35,7 +35,7 @@ public class VisionSubsystem extends SubsystemBase {
 
     public boolean hasTarget() {
 
-        if (!Config.isVisionInstalled) {
+        if (!Config.visionAvailable) {
             return true;
         }
         return limelight.hasTarget();
@@ -45,7 +45,7 @@ public class VisionSubsystem extends SubsystemBase {
         //following the documentation at https://readthedocs.org/projects/limelight/downloads/pdf/latest/
         //in addition with a variant of a spherical coordiantes to obtain 3d cartesian coordinates.
         //requires us to use vision from a static position
-        if (!Config.isVisionInstalled) {
+        if (!Config.visionAvailable) {
             return 0;
         }
         double distanceToVisionTarget =
@@ -93,7 +93,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     public double getHeightAngleToTarget() {
-        if (!Config.isVisionInstalled) {
+        if (!Config.visionAvailable) {
             return 0;
         }
         return limelight.getTy();

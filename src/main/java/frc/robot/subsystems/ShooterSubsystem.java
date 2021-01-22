@@ -25,7 +25,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private WPI_TalonFX bottomMotor;
 
     public ShooterSubsystem() {
-        if (Config.isShooterInstalled) {
+        if (Config.shooterAvailable) {
             topMotor = new WPI_TalonFX(Config.topShooterMotorID);
             bottomMotor = new WPI_TalonFX(Config.bottomShooterMotorID);
             configTalon(topMotor);
@@ -64,7 +64,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public boolean areFlywheelsToSpeed() {
-        if (!Config.isShooterInstalled || flywheelSpeedBottom == null || flywheelSpeedTop == null) return true;
+        if (!Config.shooterAvailable || flywheelSpeedBottom == null || flywheelSpeedTop == null) return true;
         return (
             Math.abs(getTopMotorVelocity() - flywheelSpeedTop) < Config.shooterSpeedTolerance &&
             Math.abs(getBottomMotorVelocity() - flywheelSpeedBottom) < Config.shooterSpeedTolerance);
@@ -74,7 +74,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * Stops the flywheels by having them slow down to a complete stop.
      */
     public void stopFlywheels() {
-        if (Config.isShooterInstalled) {
+        if (Config.shooterAvailable) {
             topMotor.set(ControlMode.PercentOutput, 0);
             bottomMotor.set(ControlMode.PercentOutput, 0);
         }
@@ -88,7 +88,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param bottomSpeed - the desired speed of the bottom motor.
      */
     public void runFlywheels(double topSpeed, double bottomSpeed) {
-        if (Config.isShooterInstalled && flywheelSpeedTop != null && flywheelSpeedBottom != null) {
+        if (Config.shooterAvailable && flywheelSpeedTop != null && flywheelSpeedBottom != null) {
             topMotor.set(ControlMode.Velocity, topSpeed);
             bottomMotor.set(ControlMode.Velocity, bottomSpeed);
         }
@@ -111,7 +111,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * @return The top motor's current speed.
      */
     public double getTopMotorVelocity() {
-        if (Config.isShooterInstalled) {
+        if (Config.shooterAvailable) {
             return topMotor.getSelectedSensorVelocity(0);
         }
         return 0;
@@ -123,7 +123,7 @@ public class ShooterSubsystem extends SubsystemBase {
      * @return The bottom motor's current speed.
      */
     public double getBottomMotorVelocity() {
-        if (Config.isShooterInstalled) {
+        if (Config.shooterAvailable) {
             return bottomMotor.getSelectedSensorVelocity(0);
         }
         return 0;
@@ -137,7 +137,7 @@ public class ShooterSubsystem extends SubsystemBase {
       * @param bottomPower - power of the bottom motor.
       */
      public void setPowerRaw(double topPower, double bottomPower) {
-         if (Config.isShooterInstalled) {
+         if (Config.shooterAvailable) {
              topMotor.set(ControlMode.PercentOutput, topPower);
              bottomMotor.set(ControlMode.PercentOutput, bottomPower);
          }

@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Config;
@@ -18,8 +17,6 @@ import frc.robot.commands.drive.DriveAuto;
 import frc.robot.util.DriveSignal;
 import frc.robot.util.IMU3309;
 import frc.robot.util.Waypoint;
-
-import java.io.ObjectInputFilter;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -39,11 +36,11 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
      public DriveSubsystem() {
-         if (Config.isDriveInstalled) {
+         if (Config.driveAvailable) {
              //non specific robot configuration
              ctrlTimer = new Timer();
              ctrlTimer.start();
-             if (Config.isIMUInstalled) {
+             if (Config.IMUAvailable) {
                  imu = new IMU3309();
              }
              //2019 specific configuration
@@ -75,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
                  configDriveMaster(driveMasterRight);
                  configDriveSlave(driveSlaveRight, driveMasterRight);
              }
-             if (Config.isDriveAutoTestModeEnabled) {
+             if (Config.driveAutoTestModeEnabled) {
                  SmartDashboard.putNumber(driveAutoTestPathKey, 1);
                  SmartDashboard.putNumber(driveAutoTestScaleKey, 45);
              }
@@ -147,7 +144,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param coast true = Coast, false = Break
      */
     public void setCoastMode(boolean coast) {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             NeutralMode mode = coast ? NeutralMode.Coast : NeutralMode.Brake;
             driveMasterLeft.setNeutralMode(mode);
             driveMasterRight.setNeutralMode(mode);
@@ -161,7 +158,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getLeftEncoderPosition() {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return driveMasterLeft2019.getSelectedSensorPosition(0);
             } else {
@@ -178,7 +175,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
     */
     public double getRightEncoderPosition() {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return -driveMasterRight2019.getSelectedSensorPosition(0 );
             } else {
@@ -195,7 +192,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getLeftEncoderVelocity() {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return driveMasterLeft2019.getSelectedSensorVelocity(0);
             } else {
@@ -212,7 +209,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getRightEncoderVelocity() {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 return -driveMasterRight2019.getSelectedSensorVelocity();
             } else {
@@ -226,7 +223,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The closed loop error for the left master motor
      */
     public double GetLeftClosedLoopError() {
-        if ( Config.isDriveInstalled) {
+        if ( Config.driveAvailable) {
             return driveMasterLeft.getClosedLoopError();
         }
         return 0;
@@ -236,7 +233,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The closed loop error for the left master motor
      */
     public double GetRightClosedLoopError() {
-        if ( Config.isDriveInstalled) {
+        if ( Config.driveAvailable) {
             return driveMasterRight.getClosedLoopError();
         }
         return 0;
@@ -249,7 +246,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getAngularPosition() {
-        if (Config.isIMUInstalled) {
+        if (Config.IMUAvailable) {
             return imu.getAngle();
         }
         return 0;
@@ -262,7 +259,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public double getAngularVelocity() {
-        if (Config.isIMUInstalled) {
+        if (Config.IMUAvailable) {
             return imu.getRate();
         }
         return 0;
@@ -273,7 +270,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public void zeroImu() {
-        if (Config.isIMUInstalled) {
+        if (Config.IMUAvailable) {
             imu.reset();
         }
     }
@@ -287,7 +284,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public void setLeftRight(ControlMode mode, double left, double right) {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
 
             if (Config.currentRobot == Config.RobotModel.Comp2019) {
                 driveMasterLeft2019.set(mode, left);
@@ -325,7 +322,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      */
     public void reset() {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             driveMasterRight.clearMotionProfileTrajectories();
             driveMasterLeft.clearMotionProfileTrajectories();
             driveMasterRight.setSelectedSensorPosition(0, 0, 0);

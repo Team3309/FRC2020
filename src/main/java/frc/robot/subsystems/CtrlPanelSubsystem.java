@@ -33,7 +33,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     private PanelColor lastColor = PanelColor.noValue;
 
     public CtrlPanelSubsystem() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.ctrlPanelAvailable) {
             colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
             ctrlPanelMotor = new WPI_VictorSPX(Config.turnerMotorID);
             ctrlPanelMotor.configFactoryDefault();
@@ -61,7 +61,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
     /**-----------------------------------------------------------------------------------------------------------------
      -----------------------------------------------------------------------------------------------------------------*/
     public boolean spin() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.ctrlPanelAvailable) {
             if (hasSensorColor()) {
                 if (isFMSColorAvailable()) {
                     /*
@@ -146,7 +146,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      -----------------------------------------------------------------------------------------------------------------*/
     double confidence = 0;
     private PanelColor getColor() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.ctrlPanelAvailable) {
 
             double r = colorSensor.getRawColor().red;
             double g = colorSensor.getRawColor().green;
@@ -188,7 +188,7 @@ public class CtrlPanelSubsystem extends SubsystemBase {
      * @return PanelColor.[color] - the color to which the robot must turn the control panel.
      -----------------------------------------------------------------------------------------------------------------*/
     public PanelColor getFMSColor() {
-        if (Config.isCtrlPanelInstalled) {
+        if (Config.ctrlPanelAvailable) {
             String gameData;
             gameData = DriverStation.getInstance().getGameSpecificMessage();
             if(gameData.length() > 0)

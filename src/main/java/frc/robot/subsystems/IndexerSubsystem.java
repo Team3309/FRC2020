@@ -31,10 +31,10 @@ public class IndexerSubsystem extends SubsystemBase {
     private int lastCruiseVelocity = 0;
 
     public IndexerSubsystem() {
-        if (Config.isIndexerInstalled) {
+        if (Config.indexerAvailable) {
             upperIndexerMotor = new WPI_TalonSRX(Config.upperIndexerMotorID);
             lowerIndexerMotor = new WPI_TalonSRX(Config.lowerIndexerMotorID);
-            if (Config.isIndexerSensorInstalled) {
+            if (Config.indexerSensorAvailable) {
                 PowerCellSensor = new DigitalInput(Config.indexerSensorID);
             }
             configIndexerTalon(upperIndexerMotor);
@@ -84,7 +84,7 @@ public class IndexerSubsystem extends SubsystemBase {
      * @param cruiseVelocity encoder counts per 100ms
      */
     public void setIndexerSpeed(int cruiseVelocity) {
-        if (Config.isIndexerInstalled && cruiseVelocity != lastCruiseVelocity) {
+        if (Config.indexerAvailable && cruiseVelocity != lastCruiseVelocity) {
             // set motion magic parameters used for intake and position controlled shooting
             // these values are ignored for velocity controlled shooting
             upperIndexerMotor.configMotionCruiseVelocity(cruiseVelocity, Config.motorControllerConfigTimeoutMs);
@@ -103,7 +103,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void indexOut() {
-        if (Config.isIndexerInstalled && isInPosition()) {
+        if (Config.indexerAvailable && isInPosition()) {
             upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0)
                     + Config.indexOutEncoderCounts[powerCells];
             lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0)
@@ -121,7 +121,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void indexIn() {
-        if (Config.isIndexerInstalled && isInPosition()) {
+        if (Config.indexerAvailable && isInPosition()) {
             upperMotorDesiredEncoderPosition = upperIndexerMotor.getSelectedSensorPosition(0) -
                     Config.indexInEncoderCounts[powerCells];
             lowerMotorDesiredEncoderPosition = lowerIndexerMotor.getSelectedSensorPosition(0) -
@@ -135,7 +135,7 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     public void velocityShooting() {
-        if (Config.isIndexerInstalled) {
+        if (Config.indexerAvailable) {
             upperIndexerMotor.selectProfileSlot(1, 0);  // use velocity control PID parameters
             lowerIndexerMotor.selectProfileSlot(1, 0);
             upperIndexerMotor.set(ControlMode.Velocity, lastCruiseVelocity);
@@ -149,7 +149,7 @@ public class IndexerSubsystem extends SubsystemBase {
      * @return Whether the beam-break sensor is blocked.
      */
     public boolean isSensorBlocked() {
-        if (Config.isIndexerSensorInstalled) {
+        if (Config.indexerSensorAvailable) {
             return !PowerCellSensor.get();
         }
         return false;
@@ -202,7 +202,7 @@ public class IndexerSubsystem extends SubsystemBase {
      *
      */
     public void autoIndexIn() {
-        if (Config.isIndexerInstalled && Config.isIndexerSensorInstalled) {
+        if (Config.indexerAvailable && Config.indexerSensorAvailable) {
             if (isSensorBlocked() && RobotContainer.getRobotState() == RobotContainer.RobotState.INTAKE) {
                 indexIn();
             }
@@ -222,7 +222,7 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     public void reset() {
-        if (Config.isIndexerInstalled) {
+        if (Config.indexerAvailable) {
             // stop motors and cancel any pending motion magic movement demand if we are disabled
             upperIndexerMotor.set(ControlMode.PercentOutput, 0);
             lowerIndexerMotor.set(ControlMode.PercentOutput, 0);

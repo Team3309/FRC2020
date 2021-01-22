@@ -23,12 +23,12 @@ public class ClimberSubsystem extends SubsystemBase {
     private Solenoid deployPiston;
 
     public ClimberSubsystem() {
-        if (Config.isClimberInstalled) {
+        if (Config.climberAvailable) {
             winchMotor = new WPI_TalonFX(Config.climbMotorId);
             winchMotor.setNeutralMode(NeutralMode.Brake);
             winchMotor.setInverted(true);
 
-            if (Config.isPcmInstalled) {
+            if (Config.pcmAvailable) {
                 deployPiston = new Solenoid(Config.climberDeploySolenoidId);
             }
         }
@@ -38,7 +38,7 @@ public class ClimberSubsystem extends SubsystemBase {
      *
      */
     public void setCoastMode(boolean coast) {
-        if (Config.isClimberInstalled) {
+        if (Config.climberAvailable) {
             winchMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
         }
     }
@@ -47,7 +47,7 @@ public class ClimberSubsystem extends SubsystemBase {
      * Activates the piston for the climber.
      */
     public void deployClimber() {
-        if (Config.isClimberInstalled && Config.isPcmInstalled) {
+        if (Config.climberAvailable && Config.pcmAvailable) {
             deployPiston.set(true);
         }
     }
@@ -56,7 +56,7 @@ public class ClimberSubsystem extends SubsystemBase {
      * Activates the piston for the climber.
      */
     public void retractClimber() {
-        if (Config.isClimberInstalled && Config.isPcmInstalled) {
+        if (Config.climberAvailable && Config.pcmAvailable) {
             deployPiston.set(false);
         }
     }
@@ -65,7 +65,7 @@ public class ClimberSubsystem extends SubsystemBase {
      * Activates the winch
      */
     public void moveWinch (double power) {
-        if (Config.isClimberInstalled) {
+        if (Config.climberAvailable) {
             winchMotor.set(ControlMode.PercentOutput, power);
         }
     }

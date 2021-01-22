@@ -39,7 +39,7 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public IntakeSubsystem() {
 
-        if (Config.isIntakeInstalled) {
+        if (Config.intakeAvailable) {
             pistonTimer.start();
             pressIntakeTimer.start();
             pressOuttakeTimer.start();
@@ -47,7 +47,7 @@ public class IntakeSubsystem extends SubsystemBase {
             intakeMotor.configFactoryDefault();
             intakeMotor.setNeutralMode(NeutralMode.Coast);
             intakeMotor.configOpenloopRamp(Config.intakeOpenLoopRampRate, Config.motorControllerConfigTimeoutMs);
-            if (Config.isPcmInstalled) {
+            if (Config.pcmAvailable) {
                 solenoid = new DoubleSolenoid(Config.intakeSolenoidChannel1, Config.intakeSolenoidChannel2);
             }
         }
@@ -58,7 +58,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for intaking a power cell.
      */
     public void intake() {
-        if (Config.isIntakeInstalled) {
+        if (Config.intakeAvailable) {
             intakeMotor.set(ControlMode.PercentOutput, Config.intakeInwardPower);
         }
         emergencyOuttakeActive = false;
@@ -68,7 +68,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Spins the intake wheels for outtaking a power cell.
      */
     public void outtake() {
-        if (Config.isIntakeInstalled) {
+        if (Config.intakeAvailable) {
             intakeMotor.set(ControlMode.PercentOutput, -Config.intakeOutwardPower);
         }
         emergencyOuttakeActive = false;
@@ -78,7 +78,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Stops the intake wheels from spinning
      */
     public void stop() {
-        if (Config.isIntakeInstalled) {
+        if (Config.intakeAvailable) {
             intakeMotor.set(ControlMode.PercentOutput, 0);
         }
         emergencyOuttakeActive = false;
@@ -88,7 +88,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Start emergency outtake to release trapped power cell
      */
     public void startEmergencyOuttake() {
-        if (Config.isIntakeInstalled && !isExtended() && isPistonTravelComplete()) {
+        if (Config.intakeAvailable && !isExtended() && isPistonTravelComplete()) {
             intakeMotor.set(ControlMode.PercentOutput, -Config.intakeEmergencyOutwardPower);
         }
         emergencyOuttakeActive = true;
@@ -157,7 +157,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Activates intake piston to extend the intake forward.
      */
     public void extend() {
-        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
+        if (Config.intakeAvailable && Config.pcmAvailable) {
             stopEmergencyOuttake();
             DoubleSolenoid.Value solenoidState = solenoid.get();
             if (solenoidState == DoubleSolenoid.Value.kReverse ||
@@ -169,7 +169,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean isPistonTravelComplete() {
-        if (!Config.isIntakeInstalled || !Config.isPcmInstalled) return true;
+        if (!Config.intakeAvailable || !Config.pcmAvailable) return true;
         double timestamp = pistonTimer.get();
         //if we are off we don't know what state was last so we just check both for safety
         if (solenoid.get() == DoubleSolenoid.Value.kOff) {
@@ -186,7 +186,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * Deactivates the intake piston to retract the intake back.
      */
     public void retract() {
-        if (Config.isIntakeInstalled && Config.isPcmInstalled) {
+        if (Config.intakeAvailable && Config.pcmAvailable) {
             DoubleSolenoid.Value solenoidState = solenoid.get();
             if (solenoidState == DoubleSolenoid.Value.kForward ||
                 solenoidState == DoubleSolenoid.Value.kOff) {
@@ -207,7 +207,7 @@ public class IntakeSubsystem extends SubsystemBase {
      }
 
     public boolean isExtended() {
-        if (!Config.isIntakeInstalled || !Config.isPcmInstalled) return true;
+        if (!Config.intakeAvailable || !Config.pcmAvailable) return true;
         return solenoid.get() == DoubleSolenoid.Value.kForward;
     }
 }

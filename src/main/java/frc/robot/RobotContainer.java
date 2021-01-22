@@ -6,12 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.Auto.ThreeBallAutoDriveForward;
 import frc.robot.commands.arm.ManualArmAdjustment;
-import frc.robot.commands.drive.DriveAuto;
 import frc.robot.commands.drive.DriveManual;
 import frc.robot.commands.groups.MultiShotCmdGroup;
 import frc.robot.commands.groups.SingleShotCmdGroup;
@@ -21,7 +19,6 @@ import frc.robot.commands.groups.ToOuttakeCmdGroup;
 import frc.robot.commands.indexer.LoadIntoArm;
 import frc.robot.commands.indexer.AutoIndexIn;
 import frc.robot.commands.select.*;
-import frc.robot.commands.vision.IlluminationOn;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CtrlPanelSubsystem;
@@ -31,10 +28,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.util.FiringSolutionManager;
-import frc.robot.util.Waypoint;
 import frc.robot.util.XBoxControllerAxisButton;
-
-import java.sql.Driver;
 
 /** --------------------------------------------------------------------------------------------------------------------
 * A class that contains all the subsystems and commands that Robot needs. Based off of the RobotContainer
@@ -150,13 +144,13 @@ public class RobotContainer
      * Set up default commands for any subsystem that needs one
      */
     private void setDefaultCommands() {
-        if (Config.isDriveInstalled) {
+        if (Config.driveAvailable) {
             drive.setDefaultCommand(new DriveManual(OI.DriverLeft, OI.DriverRight, drive));
         }
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             arm.setDefaultCommand(new ManualArmAdjustment(arm, OI.OperatorController));
         }
-        if (Config.isIndexerInstalled) {
+        if (Config.indexerAvailable) {
             indexer.setDefaultCommand(new AutoIndexIn(indexer, shooter));
         }
     }
@@ -177,10 +171,10 @@ public class RobotContainer
         // -------------------------------------------------------------------------------------------------------------
         // Control Panel
         // -------------------------------------------------------------------------------------------------------------
-        if (Config.isCtrlPanelInstalled && Config.isDriveAutoTestModeEnabled) {
+        if (Config.ctrlPanelAvailable && Config.driveAutoTestModeEnabled) {
             DriverStation.reportError("Ctrl panel must be disabled to use drive auto test mode!", false);
         }
-        if (Config.isCtrlPanelInstalled || !Config.isDriveAutoTestModeEnabled) {
+        if (Config.ctrlPanelAvailable || !Config.driveAutoTestModeEnabled) {
             new JoystickButton(OI.OperatorController, XboxController.Button.kB.value)
                     .whenPressed(new SelectPositionTurner(arm, intake));
 
@@ -383,32 +377,32 @@ public class RobotContainer
         // TODO: Jleyshock - delete values when a bool is unchecked
 
         SmartDashboard.putString("PC Handling State", state.name());
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             if (SmartDashboard.getBoolean(armDashboardKey, false)) {
                 arm.outputToDashboard();
             } else {
                 arm.outputArmPositionToDashboard();
             }
         }
-        if (SmartDashboard.getBoolean(climberDashboardKey, false) && Config.isClimberInstalled) {
+        if (SmartDashboard.getBoolean(climberDashboardKey, false) && Config.climberAvailable) {
             climber.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(ctrlPanelDashboardKey, false) && Config.isCtrlPanelInstalled) {
+        if (SmartDashboard.getBoolean(ctrlPanelDashboardKey, false) && Config.ctrlPanelAvailable) {
             ctrlPanel.outputToDashboard();
         }
-        if (getDriveDebug() && Config.isDriveInstalled) {
+        if (getDriveDebug() && Config.driveAvailable) {
             drive.outputToDashboard();
         }
-        if (getIndexerDebug() && Config.isIndexerInstalled) {
+        if (getIndexerDebug() && Config.indexerAvailable) {
             indexer.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(intakeDashboardKey, false) && Config.isIntakeInstalled) {
+        if (SmartDashboard.getBoolean(intakeDashboardKey, false) && Config.intakeAvailable) {
             intake.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(shooterDashboardKey, false) && Config.isShooterInstalled) {
+        if (SmartDashboard.getBoolean(shooterDashboardKey, false) && Config.shooterAvailable) {
             shooter.outputToDashboard();
         }
-        if (SmartDashboard.getBoolean(visionDashboardKey, false) && Config.isVisionInstalled) {
+        if (SmartDashboard.getBoolean(visionDashboardKey, false) && Config.visionAvailable) {
             vision.outputToDashboard();
         }
     }

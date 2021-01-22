@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,7 +27,7 @@ public class ArmSubsystem extends SubsystemBase {
     private WPI_TalonFX armMotor;
 
     public boolean isArmAboveIntakeMinimum() {
-        if (!Config.isArmInstalled) {
+        if (!Config.armAvailable) {
             return true;
         }
         return armMotor.getSelectedSensorPosition(0) >= armPositionToEncoderPosition(Config.armPositionIntakeStowedLimit);
@@ -42,7 +41,7 @@ public class ArmSubsystem extends SubsystemBase {
         // For week one, the requirement is for the robot to start up with the arm at the low hard stop.
         calibrated = true;
 
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             armMotor = new WPI_TalonFX(Config.armMotorId);
             configTalon(armMotor);
         }
@@ -82,7 +81,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void setCoastMode(boolean coast) {
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             armMotor.setNeutralMode(coast ? NeutralMode.Coast : NeutralMode.Brake);
         }
     }
@@ -93,7 +92,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void stopMotor() {
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             armMotor.set(ControlMode.PercentOutput, 0);
         }
     }
@@ -104,7 +103,7 @@ public class ArmSubsystem extends SubsystemBase {
      *                 that is moving the trigger
      */
     public void adjustArm(double axisTilt) {
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             //motion magic / position control doesn't work as well for fine tuning by the operator, who might want
             //to change by as much as just a couple encoder ticks, repeatedly and in quick succession.
             //So we use speed control.
@@ -132,7 +131,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public boolean isInPosition() {
-        if (!Config.isArmInstalled) {
+        if (!Config.armAvailable) {
             return true;
         }
         if (!calibrated) {
@@ -147,7 +146,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void calibrate() {
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             calibrationZeroCount = armMotor.getSelectedSensorPosition(0);
             calibrated = true;
         }
@@ -160,7 +159,7 @@ public class ArmSubsystem extends SubsystemBase {
      *
      */
     public void moveToPosition(int position) {
-        if (Config.isArmInstalled) {
+        if (Config.armAvailable) {
             if (calibrated) {
                 desiredPosition = armPositionToEncoderPosition(position);
                 armMotor.set(ControlMode.MotionMagic, desiredPosition);

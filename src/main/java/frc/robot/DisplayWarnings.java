@@ -19,23 +19,23 @@ public class DisplayWarnings {
     }
 
     private void warnNow() {
-        if (Config.isArmInstalled && Config.armPIDTuningMode) {
+        if (Config.armAvailable && Config.armPIDTuningMode) {
             DriverStation.reportError("DANGER: Arm is in PID tuning mode!!!!", false);
         }
         else {
             StringBuilder warnMsg = new StringBuilder();
-            conditionalMsg(!Config.isCompressorEnabled, warnMsg, "Compressor");
-            conditionalMsg(!Config.isPcmInstalled, warnMsg, "PCM");
-            conditionalMsg(!Config.isArmInstalled, warnMsg, "Arm");
-            conditionalMsg(!Config.isClimberInstalled, warnMsg, "Climber");
-            conditionalMsg(!Config.isCtrlPanelInstalled, warnMsg, "CtrlPanel");
-            conditionalMsg(!Config.isDriveInstalled, warnMsg, "Drive");
-            conditionalMsg(!Config.isIndexerInstalled, warnMsg, "Indexer");
-            conditionalMsg(!Config.isIntakeInstalled, warnMsg, "Intake");
-            conditionalMsg(!Config.isShooterInstalled, warnMsg, "Shooter");
-            conditionalMsg(!Config.isVisionInstalled, warnMsg, "Vision");
+            conditionalMsg(!Config.compressorEnabled, warnMsg, "Compressor");
+            conditionalMsg(!Config.pcmAvailable, warnMsg, "PCM");
+            conditionalMsg(!Config.armAvailable, warnMsg, "Arm");
+            conditionalMsg(!Config.climberAvailable, warnMsg, "Climber");
+            conditionalMsg(!Config.ctrlPanelAvailable, warnMsg, "CtrlPanel");
+            conditionalMsg(!Config.driveAvailable, warnMsg, "Drive");
+            conditionalMsg(!Config.indexerAvailable, warnMsg, "Indexer");
+            conditionalMsg(!Config.intakeAvailable, warnMsg, "Intake");
+            conditionalMsg(!Config.shooterAvailable, warnMsg, "Shooter");
+            conditionalMsg(!Config.visionAvailable, warnMsg, "Vision");
             conditionalMsg(!Config.isLimelightOn, warnMsg, "Limelight LED");
-            conditionalMsg(!Config.isIMUInstalled, warnMsg, "IMU");
+            conditionalMsg(!Config.IMUAvailable, warnMsg, "IMU");
             if (!warnMsg.toString().isEmpty()) {
                 DriverStation.reportWarning("Not installed: " + warnMsg, false);
             }

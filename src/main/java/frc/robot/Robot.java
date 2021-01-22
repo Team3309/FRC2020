@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
 
         // Check if we need to disable the compressor
-        if (Config.isPcmInstalled && (!Config.isCompressorEnabled || Config.armPIDTuningMode)) {
+        if (Config.pcmAvailable && (!Config.compressorEnabled || Config.armPIDTuningMode)) {
             Compressor compressor = new Compressor();
             compressor.stop();
         }
